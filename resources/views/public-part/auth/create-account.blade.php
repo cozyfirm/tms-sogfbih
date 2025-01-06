@@ -6,7 +6,7 @@
 @section('content')
     <div class="auth-form register-form">
         <div class="af-image rf-image">
-            <img src="{{ asset('files/images/logo.png') }}" alt="">
+            <img src="{{ asset('files/images/logo.svg') }}" alt="">
         </div>
 
         <div class="af-form rf-form">

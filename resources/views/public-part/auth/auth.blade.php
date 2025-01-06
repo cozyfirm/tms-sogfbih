@@ -6,12 +6,12 @@
 @section('content')
     <div class="auth-form">
         <div class="af-image">
-            <img src="{{ asset('files/images/logo.png') }}" alt="">
+            <img src="{{ asset('files/images/logo.svg') }}" alt="">
         </div>
         <div class="af-form">
             <div class="aff-container">
                 <div class="aff-header">
-                    <h1 class="tb-color mb-4"> <b>{{ __('Welcome') }}</b> </h1>
+                    <h1 class="tb-color mb-4"> <b>{{ __('SOGFBiH') }}</b> </h1>
                 </div>
 
                 <div class="aff-short">
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="row aff-links">
-                        <div class="col-md-6 mt-3 d-inline-flex">
+                        <div class="col-md-6 mt-3 aff-links-left-links">
                             <div class="stay-logged-in">
                                 <input type="checkbox" name="stay_logged" id="stay_logged">
                                 <label for="stay_logged">{{ __('Ostanite prijavljeni') }}</label>

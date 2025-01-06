@@ -5,9 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('files/images/default/ekipa.png') }}"/>
-    <link href="//fastly-cloud.typenetwork.com/projects/7921/fontface.css?660e9b3f" rel="stylesheet" type="text/css">
-    <script src="https://kit.fontawesome.com/bccf934f7c.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('files/images/favicon.ico') }}"/>
 
     <!-- CSS files + fonts -->
     @vite(['resources/css/app.scss', 'resources/css/admin/admin.scss', 'resources/js/app.js'])

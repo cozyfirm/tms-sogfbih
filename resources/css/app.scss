@@ -6,10 +6,13 @@
 @import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
 
 /* Notify */
+@import "style/colors";
 @import "style/layout/notify";
 
-$primaryColor : #3D1F5F;
-$secondaryColor : #F86624;
+// $primaryColor : #3D1F5F;
+$primaryColor: $blue;
+// $secondaryColor : #F86624;
+$secondaryColor : $yellow;
 
 html{
     body{
