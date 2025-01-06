@@ -13,38 +13,45 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('name');
             $table->string('username');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('api_token')->nullable();
+            /* Remember token for remember me */
             $table->rememberToken();
 
-            /* Role data */
+            /**
+             *  Role information's:
+             *      - admin
+             *      - moderator
+             *      - trainer
+             *      - user
+             */
             $table->string('role', '10')->default('user');
 
             /* User attributes */
-            // $table->string('prefix', '10');
             $table->string('phone', 20);
             $table->date('birth_date');
+            $table->foreignId('gender');
 
             /* Home address data */
             $table->string('address', 100);
-            $table->string('city', 50);
-            $table->integer('country');
+            $table->foreignId('city');
 
-            /* About user - text data */
-            $table->text('about')->nullable();
+            /**
+             *  Work place information's
+             */
+            $table->string('workplace', 100)->nullable();
+            $table->foreignId('institution');
+            /* Comment on something ?? */
+            $table->text('comment')->nullable();
+
             /* Profile image */
-            $table->string('photo_uri')->nullable();
-
-            /* Social networks links */
-            $table->string('instagram', 100)->nullable();
-            $table->string('facebook', 100)->nullable();
-            $table->string('twitter', 100)->nullable();
-            $table->string('linkedin', 100)->nullable();
-            $table->string('web', 100)->nullable();
+            $table->string('image_id')->nullable();
 
             $table->timestamps();
         });

@@ -13,7 +13,7 @@
      */
 
     .rf-image{
-        position: absolute; left:0px; top:0px; width: 30%; height: 100%; background: #000000; margin: 0px; padding: 0px; overflow: hidden;
+        position: absolute; left:0px; top:0px; width: 30%; height: 100%; background: $darkGrey; margin: 0px; padding: 0px; overflow: hidden;
         img{
             position: absolute; left:0px; top:0px; right:0px; bottom: 0px; margin:auto; max-height: 100%;
             rotate: -90deg;
@@ -35,7 +35,7 @@
                     .pl-e-bar{
                         position: absolute; left: 0px; height: 6px; top: 22px; width: 100%; background: #EFEFEF;
                         .pl-e-bar-fill{
-                            position: absolute; left: 0px; top: 0px; height: 100%; background: #EA8BF3; transition: all 0.2s; transition-timing-function: linear;
+                            position: absolute; left: 0px; top: 0px; height: 100%; background: $yellow; transition: all 0.2s; transition-timing-function: linear;
                             width: 16.66%;
                         }
                     }
@@ -43,9 +43,13 @@
                     .pl-element{
                         position: relative; width: 33.33%; height: 50px; display: inline-flex; justify-content: center;
                         .pl-e-icon-w{
-                            position: relative; width: 34px; height: 34px; border-radius: 50%; border: 1px solid #EA8BF3; margin-top: 8px; text-align: center; background: #EA8BF3;
+                            position: relative; width: 34px; height: 34px; border-radius: 50%; border: 1px solid $yellow; margin-top: 8px; text-align: center; background: $yellow;
+                            display: flex; align-items: center; justify-content: center;
                             i{
                                 margin-top: 8px; color:#ffffff;
+                            }
+                            img{
+                                height: 14px; margin: 0px; padding: 0px;
                             }
                         }
                     }

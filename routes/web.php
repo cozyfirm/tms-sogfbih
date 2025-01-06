@@ -21,6 +21,9 @@ Route::prefix('/')->group(function () {
  */
 
 Route::prefix('auth')->group(function () {
+    /* ToDo:: Remove this later */
+    // Route::get ('/',                              [AuthController::class, 'auth'])->name('login');
+
     Route::get ('/',                              [AuthController::class, 'auth'])->name('auth');
     Route::post('/authenticate',                  [AuthController::class, 'authenticate'])->name('auth.authenticate');
     Route::get ('/logout',                        [AuthController::class, 'logout'])->name('auth.logout');

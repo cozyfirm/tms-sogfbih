@@ -25,13 +25,18 @@
                     <div class="progress-line">
                         <div class="pl-e-bar"> <div class="pl-e-bar-fill"></div> </div>
                         <div class="pl-element pl-e-first">
-                            <div class="pl-e-icon-w" title="{{ __('Lični podaci') }}">
+                            <div class="pl-e-icon-w" title="{{ __('Osnovne informacije') }}">
+                                <img src="{{ asset('files/images/icons/user.svg') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="pl-element pl-e-first">
+                            <div class="pl-e-icon-w" title="{{ __('Ostale informacije') }}">
                                 <i class="fas fa-user"></i>
                             </div>
                         </div>
                         <div class="pl-element pl-e-second">
                             <div class="pl-e-icon-w" title="{{ __('Mjesto boravišta') }}">
-                                <i class="fas fa-map-pin"></i>
+                                <img src="{{ asset('files/images/icons/suitcase.svg') }}" alt="">
                             </div>
                         </div>
                         <div class="pl-element pl-e-forth">
@@ -45,11 +50,18 @@
                 <div class="rf-f-body">
                     <div class="rf-body-element rf-body-element-1 ">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ html()->label(__('Ime i prezime'))->for('name')->class('bold') }}
-                                    {{ html()->text('name')->class('form-control form-control-sm mt-2')->maxlength(100)->value('') }}
-                                    <small id="nameHelp" class="form-text text-muted">{{ __('Unesite Vaše ime prezime') }}</small>
+                                    {{ html()->label(__('Ime'))->for('first_name')->class('bold') }}
+                                    {{ html()->text('first_name')->class('form-control form-control-sm mt-2')->maxlength(100)->value('') }}
+                                    <small id="first_nameHelp" class="form-text text-muted">{{ __('Unesite Vaše ime') }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ html()->label(__('Prezime'))->for('last_name')->class('bold') }}
+                                    {{ html()->text('last_name')->class('form-control form-control-sm mt-2')->maxlength(100)->value('') }}
+                                    <small id="last_nameHelp" class="form-text text-muted">{{ __('Unesite Vaše prezime') }}</small>
                                 </div>
                             </div>
                         </div>
@@ -71,22 +83,22 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ html()->label(__('Broj telefona'))->for('phone')->class('bold') }}
-                                    {{ html()->number('phone')->class('form-control form-control-sm mt-2')->maxlength(13)->value('') }}
-                                    <small id="prefixHelp" class="form-text text-muted"> {{ __('Unesite Vaš broj telefona') }} </small>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ html()->label(__('Datum rođenja'))->for('birth_date')->class('bold') }}
-                                    {{ html()->text('birth_date')->class('form-control form-control-sm mt-2 datepicker')->maxlength('10')->value('') }}
-                                    <small id="birth_dateHelp" class="form-text text-muted">{{ __('Unesite Vaš datum rođenja') }}</small>
-                                </div>
-                            </div>
-                        </div>
+{{--                        <div class="row mt-3">--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    {{ html()->label(__('Broj telefona'))->for('phone')->class('bold') }}--}}
+{{--                                    {{ html()->number('phone')->class('form-control form-control-sm mt-2')->maxlength(13)->value('') }}--}}
+{{--                                    <small id="prefixHelp" class="form-text text-muted"> {{ __('Unesite Vaš broj telefona') }} </small>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    {{ html()->label(__('Datum rođenja'))->for('birth_date')->class('bold') }}--}}
+{{--                                    {{ html()->text('birth_date')->class('form-control form-control-sm mt-2 datepicker')->maxlength('10')->value('') }}--}}
+{{--                                    <small id="birth_dateHelp" class="form-text text-muted">{{ __('Unesite Vaš datum rođenja') }}</small>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
 
                     <div class="rf-body-element rf-body-element-2 d-none">
