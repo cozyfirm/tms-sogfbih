@@ -6,7 +6,7 @@ use App\Models\User;
 trait UserBaseTrait{
     protected function usersByUsername($username) : string{
         try{
-            $total = User::where('username', $username)->count();
+            $total = User::where('username', '=', $username)->count();
             if($total == 0) return '';
             else return $total;
         }catch (\Exception $e){ return ''; }

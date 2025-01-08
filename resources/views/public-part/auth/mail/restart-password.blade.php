@@ -10,5 +10,5 @@ Napomena: Ukoliko je neko drugi inicirao oporavak šifre u Vaše ime, molimo da 
 
 Hvala Vam što koristite naš sistem!
 Ugodan ostatak dana,<br>
-<a href="{{ env('APP_DOMAIN') }}"> Helem Nejse Talent akademija </a>
+<a href="{{ env('APP_DOMAIN') }}"> {{ env('APP_NAME') }} </a>
 @endcomponent

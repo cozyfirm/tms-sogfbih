@@ -11,7 +11,7 @@
         <div class="af-form">
             <div class="aff-container">
                 <div class="aff-header">
-                    <h1 class="tb-color mb-4"> <b>{{ __('Talent Akademija') }}</b> </h1>
+                    <h1 class="tb-color mb-4"> <b>{{ __('SOGFBiH') }}</b> </h1>
                 </div>
 
                 <div class="aff-short">

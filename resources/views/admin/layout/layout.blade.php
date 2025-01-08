@@ -1,8 +1,8 @@
 <html>
     <head>
         <title>{{ 'Welcome' }}</title>
-        <script src="https://kit.fontawesome.com/bccf934f7c.js" crossorigin="anonymous"></script>
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('files/images/public-part/logo.svg') }}" />
+        <script src="https://kit.fontawesome.com/e3d0ab8b0c.js" crossorigin="anonymous"></script>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('files/images/favicon.ico') }}"/>
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <meta name="csrf-token" content="{{ csrf_token() }}">

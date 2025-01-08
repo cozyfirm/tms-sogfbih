@@ -68,31 +68,35 @@ $( document ).ready(function() {
         (step === 1) ? $(".create-profile-back-btn").addClass('d-none') : $(".create-profile-back-btn").removeClass('d-none');
 
         if(step === 2){
-            $(".pl-e-bar-fill").css('width', '49.98%');
+            $(".pl-e-bar-fill").css('width', '37.5%');
         }else if(step === 3){
-            $(".pl-e-bar-fill").css('width', '83.3%');
+            $(".pl-e-bar-fill").css('width', '62.5%');
         }else if(step === 4){
-            // $(".pl-e-bar-fill").css('width', '87.5%');
-            // $(".button-wrapper").addClass('d-none');
+            $(".pl-e-bar-fill").css('width', '87.5%');
+            $(".button-wrapper").addClass('d-none');
         }else if(step === 1){
-            $(".pl-e-bar-fill").css('width', '16.66%');
+            $(".pl-e-bar-fill").css('width', '12.5%');
         }
     };
 
     $(".create-profile-next-btn").click(function () {
-        let name   = $("#name").val();
-        let email  = $("#email").val();
-        let password   = $("#password").val();
+        let first_name = $("#first_name").val();
+        let last_name  = $("#last_name").val();
+        let email    = $("#email").val();
+        let password = $("#password").val();
         let prefix = $("#prefix").val();
         let phone  = $("#phone").val();
         let birth_date = $("#birth_date").val();
+        let gender     = $("#gender").val();
 
         let address  = $("#address").val();
         let city     = $("#city").val();
-        let country  = $("#country").val();
+
+        let workplace   = $("#workplace").val();
+        let institution = $("#institution").val();
 
         if(step === 1){
-            if(name === ''){
+            if(first_name === '' || last_name === ''){
                 Notify.Me(["Ime i prezime ne mogu biti prazni", "warn"]);
                 return;
             }
@@ -104,31 +108,33 @@ $( document ).ready(function() {
                 Notify.Me(["Molimo da unesete Vašu šifru", "warn"]);
                 return;
             }
+        }else if(step === 2){
             if(phone === ''){
                 Notify.Me(["Unesite Vaš broj telefona", "warn"]);
                 return;
             }
-            if(!Validator.date($("#birth_date").val())) {
+            if(!Validator.date(birth_date)) {
                 Notify.Me(["Molimo da odaberete datum Vašeg rođenja. Ispravan format je dd.mm.YYYY ", "warn"]);
                 return;
             }
-            // if($("#gender").val() === ''){
-            //     Notify.Me(["Molimo da odaberete Vaš spol", "warn"]);
-            //     return;
-            // }
-        }else if(step === 2){
             if(address === ''){
-                notify.Me(["Molimo da unesete Vašu adresu stanovanja", "warn"]);
+                Notify.Me(["Molimo da unesete Vašu adresu stanovanja", "warn"]);
                 return;
             }
             if(city === ''){
                 Notify.Me(["Molimo unesite grad u kojem živite", "warn"]);
                 return;
             }
-            if(country === ''){
-                Notify.Me(["Molimo da odaberete državu u kojoj trenutno živite", "warn"]);
+        }else if(step === 3){
+            if(workplace === ''){
+                Notify.Me(["Molimo unesite Vaše radno mjesto", "warn"]);
                 return;
             }
+            if(institution === ''){
+                Notify.Me(["Molimo da odaberete instituciju u kojoj radite", "warn"]);
+                return;
+            }
+
             // if($("#citizenship").val() === ''){
             //     Notify.Me(["Molimo da odaberete Vaše državljanstvo", "warn"]);
             //     return;
@@ -144,15 +150,17 @@ $( document ).ready(function() {
                 method: 'POST',
                 dataType: "json",
                 data: {
-                    name: name,
+                    first_name: first_name,
+                    last_name: last_name,
                     email: email,
                     password: password,
-                    prefix: prefix,
                     phone: phone,
                     birth_date: birth_date,
+                    gender: gender,
                     address: address,
                     city: city,
-                    country: country
+                    workplace: workplace,
+                    institution: institution
                 },
                 success: function success(response) {
                     $(".loading-gif").addClass('d-none');

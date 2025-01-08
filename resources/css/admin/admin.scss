@@ -12,12 +12,16 @@ body{
         text-decoration: none; color: #333333;
     }
 }
-
-
+@import "../style/colors";
 
 @import "layout/menu";
 @import "layout/content";
 @import "layout/filters";
+
+/**
+ *  Dashboard
+ */
+@import "app/dashboard";
 
 .text{
     color:red;

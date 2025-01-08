@@ -103,12 +103,14 @@ class AuthController extends Controller{
         try{
             /* Password cannot be empty */
             if(!isset($request->password)) return $this->jsonResponse('1001', __('Unesite Vašu šifru'));
+            if(!isset($request->first_name) || !isset($request->last_name)) return;
 
             /* Check for unique email */
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('email', '=', $request->email)->first();
             if($user) return $this->jsonResponse('1002', __('Odabrani email se već koristi'));
 
             /* Add username to request */
+            $request['name'] = $request->first_name . ' ' . $request->last_name;
             $request['username'] = $this->getSlug($request->name);
 
             /* Hash password and add token */

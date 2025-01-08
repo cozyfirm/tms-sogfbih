@@ -24,6 +24,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'first_name',
+        'last_name',
         'name',
         'username',
         'email',
@@ -31,19 +33,15 @@ class User extends Authenticatable
         'password',
         'api_token',
         'role',
-        'prefix',
         'phone',
         'birth_date',
+        'gender',
         'address',
         'city',
-        'country',
-        'about',
-        'photo_uri',
-        'instagram',
-        'facebook',
-        'twitter',
-        'linkedin',
-        'web'
+        'workplace',
+        'institution',
+        'comment',
+        'image_id'
     ];
 
     /**

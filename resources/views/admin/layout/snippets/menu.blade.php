@@ -1,7 +1,7 @@
 <div class="s-top-menu">
     <div class="app-name">
         <a title="{{__('Naslovna strana')}}">
-            <h1 class="mt-3"> CozyFirm d.o.o </h1>
+            <img src="{{ asset('files/images/logo.svg') }}" alt="">
         </a>
         <i class="fas fa-bars t-3 system-m-i-t" title="{{__('Otvorite / zatvorite MENU')}}"></i>
     </div>
@@ -9,12 +9,12 @@
     <div class="top-menu-links">
         <!-- Left top icons -->
         <div class="left-icons">
-{{--            <div class="single-li">--}}
-{{--                <a href="{{route('public-part.shop.cart.cart-preview')}}" target="_blank" title="{{__($inCart.' artikal/a u košarici')}}">--}}
-{{--                    <i class="fas fa-shopping-cart"></i>--}}
-{{--                    <div class="number-of"><p>{{$inCart}}</p></div>--}}
-{{--                </a>--}}
-{{--            </div>--}}
+            <div class="single-li">
+                <a href="#" target="_blank" title="{{ __('Aktivnih obuka') }}">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <div class="number-of"><p>5</p></div>
+                </a>
+            </div>
 {{--            <div class="single-li" title="Odaberite jezik">--}}
 {{--                <i class="fas fa-globe-americas"></i>--}}
 {{--                <div class="number-of"><p>3</p></div>--}}
@@ -22,13 +22,13 @@
 
             <a href="#" target="_blank">
                 <div class="single-li">
-                    <p> {{__('Blog')}} </p>
+                    <p> {{__('Programi')}} </p>
                 </div>
             </a>
 
             <a href="#">
                 <div class="single-li">
-                    <p> {{__('WebShop')}} </p>
+                    <p> {{__('Korisnici')}} </p>
                 </div>
             </a>
         </div>
@@ -89,7 +89,7 @@
                 <i class="fas fa-chart-area"></i>
             </div>
         </div>
-        <a href="#" class="menu-a-link">
+        <a href="{{ route('system.home') }}" class="menu-a-link">
             <div class="s-lm-wrapper">
                 <div class="s-lm-s-elements">
                     <div class="s-lms-e-img">
@@ -97,7 +97,7 @@
                     </div>
                     <p>{{__('Dashboard')}}</p>
                     <div class="extra-elements">
-                        <div class="ee-t ee-t-b"><p>{{__('Graph')}}</p></div>
+                        <div class="ee-t ee-t-b"><p>{{__('Home')}}</p></div>
                     </div>
                 </div>
             </div>
