@@ -179,7 +179,7 @@
                     }
                     .ee-t-g{background: mediumspringgreen;}
                     .ee-t-grey{background: #636b6f;}
-                    .ee-t-b{background: $secondaryColor;}
+                    .ee-t-b{background: $yellow;}
                     i{
                         font-size:16px; padding-top:1px; transition: 0.3s all; transform-origin: center; margin-left:10px;
                     }
@@ -188,7 +188,7 @@
             .s-lm-s-elements:hover{
                 cursor: pointer;
                 .s-lms-e-img{
-                    i{color:$secondaryColor;}
+                    i{color:$yellow;}
                 }
                 a{color:#333;}
                 .extra-elements{

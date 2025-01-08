@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Core\CitiesController;
 use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
@@ -120,6 +121,25 @@ Route::prefix('system')->middleware('auth')->group(function () {
 
             Route::get ('/edit-image/{id}/{what}',         [AdminBlogController::class, 'editImage'])->name('system.admin.blog.edit-image');
             Route::post('/update-image',                   [AdminBlogController::class, 'updateImage'])->name('system.admin.blog.update-image');
+        });
+
+        /**
+         *  Settings:
+         *      1. Countries
+         *      2. Cities and municipalities
+         *      3. Keywords !?
+         */
+        Route::prefix('settings')->middleware('auth')->group(function () {
+            /** Cities and municipalities */
+            Route::prefix('cities')->group(function () {
+                Route::get ('/',                           [CitiesController::class, 'index'])->name('system.settings.cities');
+                Route::get ('/create',                     [CitiesController::class, 'create'])->name('system.settings.cities.create');
+                Route::post('/save',                       [CitiesController::class, 'save'])->name('system.settings.cities.save');
+                Route::get ('/preview/{id}',               [CitiesController::class, 'preview'])->name('system.settings.cities.preview');
+                Route::get ('/edit/{id}',                  [CitiesController::class, 'edit'])->name('system.settings.cities.edit');
+                Route::post('/update',                     [CitiesController::class, 'update'])->name('system.settings.cities.update');
+                Route::get ('/delete/{id}',                [CitiesController::class, 'delete'])->name('system.settings.cities.delete');
+            });
         });
     });
 });

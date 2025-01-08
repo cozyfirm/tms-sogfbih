@@ -48,38 +48,38 @@
                 <div class="home-row-body">
                     <div class="home-row-items">
                         <div class="home-icon" link="" title="{{__('Podesite vrijeme kada su uređaji aktivni')}}">
-                            <i class="far fa-clock"></i>
-                            <p> {{__('Aktivni sati')}} </p>
+                            <img src="{{ asset('files/images/icons/cloud-binary.svg') }}" alt="">
+                            <p> {{__('Programi obuka')}} </p>
                         </div>
                         <div class="home-icon" link="">
-                            <i class="fas fa-plus"></i>
-                            <p> {{__('Sinhronizujte uređaj')}} </p>
+                            <img src="{{ asset('files/images/icons/training.svg') }}" alt="">
+                            <p> {{__('Instance obuka')}} </p>
                         </div>
                         <div class="home-icon" link="">
-                            <i class="fas fa-laptop-house"></i>
-                            <p> {{__('Pametna kuća')}} </p>
+                            <img src="{{ asset('files/images/icons/trainer.svg') }}" alt="">
+                            <p> {{__('Treneri')}} </p>
                         </div>
                         <div class="home-icon" link="">
-                            <i class="fas fa-wave-square"></i>
-                            <p> {{__('Analitika')}} </p>
+                            <img src="{{ asset('files/images/icons/users.svg') }}" alt="">
+                            <p> {{__('Učesnici obuka')}} </p>
                         </div>
                     </div>
                     <div class="home-row-items">
                         <div class="home-icon" link="" title="{{__('Pregled svih narudžbi')}}">
                             <i class="fas fa-history"></i>
-                            <p>Historija kupovanja</p>
+                            <p>{{ __('Analiza potreba') }}</p>
                         </div>
                         <div class="home-icon" link="">
                             <i class="fas fa-cogs"></i>
-                            <p>Popravka uređaja</p>
+                            <p>{{ __('Interni događaji') }}</p>
                         </div>
                         <div class="home-icon" link="">
                             <i class="fas fa-info-circle"></i>
-                            <p>Uputstva za korištenje</p>
+                            <p>{{ __('Organi i tijela') }}</p>
                         </div>
                         <div class="home-icon" link="">
-                            <i class="far fa-lightbulb"></i>
-                            <p>Novi uređaji</p>
+                            <i class="fas fa-cogs"></i>
+                            <p>{{ __('Postavke') }}</p>
                         </div>
                     </div>
                 </div>

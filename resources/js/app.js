@@ -23,7 +23,7 @@ import './public-part/auth/auth.js';
 
 $(document).ready(function() {
     $(".datepicker").datepicker({
-        format: 'mm.dd.yyyy',
+        format: 'dd.mm.yyyy',
         autoclose: true,
     }); // Initialize the datepicker
 });

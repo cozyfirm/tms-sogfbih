@@ -47,23 +47,28 @@
                         {{ html()->hidden('id')->class('form-control')->value($user->id) }}
                     @endif
 
-                    {{--                    <div class="row">--}}
-                    {{--                        <div class="col-md-12">--}}
-                    {{--                            <div class="form-group">--}}
-                    {{--                                {{ html()->label(__('Ime i prezime'))->for('supplier_id')->class('bold') }}--}}
-                    {{--                                {{ html()->select('supplier_id', [], isset($invoice) ? $user->supplier_id : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}--}}
-                    {{--                                <small id="supplier_idHelp" class="form-text text-muted">{{ __('Odaberite dobavljača robe') }}</small>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ html()->label(__('Ime i prezime'))->for('name')->class('bold') }}
-                                {{ html()->text('name', $user->name ?? '' )->class('form-control form-control-sm')->required()->value((isset($user) ? $user->name : ''))->isReadonly(isset($preview)) }}
+                        @if(isset($preview))
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ html()->label(__('Ime i prezime'))->for('first_name')->class('bold') }}
+                                    {{ html()->text('name', $user->name ?? '' )->class('form-control form-control-sm')->required()->value((isset($user) ? $user->name : ''))->isReadonly(isset($preview)) }}
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ html()->label(__('Ime'))->for('first_name')->class('bold') }}
+                                    {{ html()->text('first_name', $user->first_name ?? '' )->class('form-control form-control-sm')->required()->value((isset($user) ? $user->first_name : '')) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ html()->label(__('Prezime'))->for('last_name')->class('bold') }}
+                                    {{ html()->text('last_name', $user->last_name ?? '' )->class('form-control form-control-sm')->required()->value((isset($user) ? $user->last_name : '')) }}
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="row mt-3">
@@ -77,7 +82,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Uloga'))->for('role')->class('bold') }}
-                                {{ html()->select('role', ['user' => 'User', 'presenter' => 'Presenter', 'admin' => 'Admin' ], isset($user) ? $user->role : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('role', ['user' => 'Korisnik', 'trainer' => 'Trener', 'moderator' => 'Moderator', 'admin' => 'Admin' ], isset($user) ? $user->role : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
                             </div>
                         </div>
                     </div>
@@ -85,19 +90,30 @@
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ html()->label(__('Telefon'))->for('phone')->class('bold') }}
+                                {{ html()->label(__('Broj telefona'))->for('phone')->class('bold') }}
                                 {{ html()->text('phone')->class('form-control form-control-sm mt-1')->required()->maxlength(13)->value((isset($user) ? $user->phone : ''))->isReadonly(isset($preview)) }}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Datum rođenja'))->for('birth_date')->class('bold') }}
-                                {{ html()->text('birth_date')->class('form-control form-control-sm datepicker mt-1')->required()->maxlength(10)->value((isset($user) ? $user->birthDate() : ''))->isReadonly(isset($preview)) }}
+                                {{ html()->text('birth_date')->class(isset($preview) ? 'form-control form-control-sm mt-1' : 'form-control form-control-sm datepicker mt-1')->required()->maxlength(10)->value((isset($user) ? $user->birthDate() : ''))->isReadonly(isset($preview)) }}
                             </div>
                         </div>
                     </div>
 
                     <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ html()->label(__('Spol'))->for('country')->class('bold') }}
+                                {{ html()->select('gender', $gender, isset($user) ? $user->gender : '1')->class('form-control form-control-sm mt-1')->required()->disabled(isset($preview)) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mt-4">
+
+                    <div class="row mt-1">
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Adresa'))->for('address')->class('bold') }}
@@ -107,16 +123,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Grad'))->for('city')->class('bold') }}
-                                {{ html()->text('city')->class('form-control form-control-sm mt-1')->required()->maxlength(50)->value((isset($user) ? $user->city : ''))->isReadonly(isset($preview)) }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ html()->label(__('Država'))->for('country')->class('bold') }}
-                                {{ html()->select('country', $countries, isset($user) ? $user->country : '21')->class('form-control form-control-sm mt-1')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('city', ['1' => 'Sarajevo', '2' => 'Vakuf gornji'], isset($user) ? $user->city : '1')->class('form-control form-control-sm mt-1')->required()->disabled(isset($preview)) }}
                             </div>
                         </div>
                     </div>

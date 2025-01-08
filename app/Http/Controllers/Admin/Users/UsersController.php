@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\Core\Filters;
 use App\Models\Core\Country;
+use App\Models\Core\Keyword;
 use App\Models\User;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
@@ -42,7 +43,8 @@ class UsersController extends Controller{
     public function create (): View{
         return view($this->_path . 'create', [
             'create' => true,
-            'countries' => Country::pluck('name_ba', 'id')
+            'gender' => Keyword::getIt('gender')
+            // 'countries' => Country::pluck('name_ba', 'id')
         ]);
     }
     public function save(Request $request): JsonResponse{
@@ -78,21 +80,22 @@ class UsersController extends Controller{
         return view($this->_path . 'create', [
             'preview' => true,
             'user' => User::where('username', '=', $username)->first(),
-            'countries' => Country::pluck('name_ba', 'id')
+            'gender' => Keyword::getIt('gender')
+            // 'countries' => Country::pluck('name_ba', 'id')
         ]);
     }
     public function edit ($username): View{
         return view($this->_path . 'create', [
             'edit' => true,
             'user' => User::where('username', '=', $username)->first(),
-            'countries' => Country::pluck('name_ba', 'id')
+            'gender' => Keyword::getIt('gender')
+            // 'countries' => Country::pluck('name_ba', 'id')
         ]);
     }
     public function update(Request $request): JsonResponse{
         try{
-            if (!isset($request->birth_date)) {
-                $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
-            }
+            $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
+
             if (isset($request->id)) {
                 $user = User::where('id', '=', $request->id)->first();
 

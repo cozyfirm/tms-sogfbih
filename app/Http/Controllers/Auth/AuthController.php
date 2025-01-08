@@ -88,8 +88,8 @@ class AuthController extends Controller{
      */
     public function createAccount(): View{
         return view($this->_path. 'create-account', [
-            'prefixes' => Country::orderBy('phone_code')->get()->pluck('phone_code', 'id'),
-            'countries' => Country::orderBy('name_ba')->get()->pluck('name_ba', 'id'),
+            // 'prefixes' => Country::orderBy('phone_code')->get()->pluck('phone_code', 'id'),
+            // 'countries' => Country::orderBy('name_ba')->get()->pluck('name_ba', 'id'),
         ]);
     }
 

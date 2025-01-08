@@ -19,10 +19,9 @@ class Keyword extends Model{
 
     protected static $_keywords = [
         /* Questions keywords */
-        'product_category' => 'Kategorija proizvoda',
         'yes_no' => 'Da / Ne',
-        'product_color' => 'Boja proizvoda',
-        'product_size' => 'Veličina proizvoda'
+        'gender' => 'Spol',
+        'city_type' => 'Grad ili općina'
     ];
 
     /* Return all types of keywords */

@@ -222,6 +222,35 @@
                 </div>
             </div>
         </a>
+
+        <a href="#" class="menu-a-link">
+            <div class="s-lm-wrapper">
+                <div class="s-lm-s-elements">
+                    <div class="s-lms-e-img">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <p>{{__('Postavke')}}</p>
+                    <div class="extra-elements">
+                        <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+                <div class="inside-links active-links">
+{{--                    <a href="#">--}}
+{{--                        <div class="inside-lm-link">--}}
+{{--                            <div class="ilm-l"></div><div class="ilm-c"></div>--}}
+{{--                            <p>{{__('Spisak država')}}</p>--}}
+{{--                        </div>--}}
+{{--                    </a>--}}
+                    <a href="{{ route('system.settings.cities') }}">
+                        <div class="inside-lm-link">
+                            <div class="ilm-l"></div><div class="ilm-c"></div>
+                            <p> {{__('Općine i gradovi')}} </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </a>
+
     </div>
 
 {{--    @include('system.template.menu.menu-includes.bottom-icons')--}}
