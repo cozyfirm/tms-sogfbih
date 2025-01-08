@@ -20,6 +20,11 @@
     .content-menu{
         position: relative; left: 0px; top: 30px; width: calc(100% - 0px); height: 110px; display: inline-flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.1);
 
+        &:hover{
+            .page-menu-icon-w{
+                i{color: $yellow;}
+            }
+        }
         .page-menu-icon-w{
             position: relative; left: 30px; top: 0px; width: 80px; height: 80px; background: #ffffff; display: inline-flex;
             justify-content: center; align-items: center;
@@ -27,9 +32,12 @@
 
             //noinspection SassScssResolvedByNameOnly
             i{
-                font-size: 40px; color:$yellow;
+                font-size: 40px; color:$grey; transition: 0.2s all;
             }
         }
+        //.page-menu-icon-w:hover{
+        //    i{color: $yellow;}
+        //}
 
         .page-menu-content{
             position: relative; width: calc(100% - 140px); height: 80px; display: inline-flex; justify-content: space-between;

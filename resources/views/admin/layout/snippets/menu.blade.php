@@ -90,7 +90,7 @@
             </div>
         </div>
         <a href="{{ route('system.home') }}" class="menu-a-link">
-            <div class="s-lm-wrapper">
+            <div class="s-lm-wrapper @if(Route::is('system.home')) active @endif">
                 <div class="s-lm-s-elements">
                     <div class="s-lms-e-img">
                         <i class="fas fa-home"></i>
@@ -224,7 +224,7 @@
         </a>
 
         <a href="#" class="menu-a-link">
-            <div class="s-lm-wrapper">
+            <div class="s-lm-wrapper @if(Route::is('system.admin.settings.*')) active @endif">
                 <div class="s-lm-s-elements">
                     <div class="s-lms-e-img">
                         <i class="fas fa-cogs"></i>
