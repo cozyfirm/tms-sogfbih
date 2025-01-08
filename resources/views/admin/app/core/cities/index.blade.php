@@ -2,13 +2,13 @@
 @section('c-icon') <i class="fas fa-building"></i> @endsection
 @section('c-title') {{ __('Općine i gradovi') }} @endsection
 @section('c-breadcrumbs')
-    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> / <a href="{{ route('system.admin.users') }}">{{ __('Pregled svih općina i gradova') }}</a>
+    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> / <a href="{{ route('system.admin.core.settings.cities') }}">{{ __('Pregled svih općina i gradova') }}</a>
 @endsection
 @section('c-buttons')
-    <a href="{{ route('system.settings.cities') }}">
+    <a href="{{ route('system.admin.core.settings.cities') }}">
         <button class="pm-btn btn btn-dark"> <i class="fas fa-star"></i> </button>
     </a>
-    <a href="{{ route('system.settings.cities.create') }}">
+    <a href="{{ route('system.admin.core.settings.cities.create') }}">
         <button class="pm-btn btn pm-btn-success">
             <i class="fas fa-plus"></i>
             <span>{{ __('Unos') }}</span>
@@ -43,7 +43,7 @@
                     <td> {{ $city->type ?? ''}} </td>
 
                     <td class="text-center">
-                        <a href="{{route('system.settings.cities.preview', ['id' => $city->id] )}}" title="Pregled korisnika">
+                        <a href="{{route('system.admin.core.settings.cities.preview', ['id' => $city->id] )}}" title="Pregled korisnika">
                             <button class="btn btn-dark btn-xs">{{ __('Pregled') }}</button>
                         </a>
                     </td>

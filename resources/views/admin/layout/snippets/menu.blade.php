@@ -152,7 +152,7 @@
         </a>
 
         <a href="{{ route('system.admin.users') }}" class="menu-a-link">
-            <div class="s-lm-wrapper">
+            <div class="s-lm-wrapper @if(Route::is('system.admin.users*')) active @endif">
                 <div class="s-lm-s-elements">
                     <div class="s-lms-e-img">
                         <i class="fas fa-users"></i>
@@ -209,22 +209,22 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('system.admin.core.keywords') }}" class="menu-a-link">
-            <div class="s-lm-wrapper">
-                <div class="s-lm-s-elements">
-                    <div class="s-lms-e-img">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <p>{{__('Keywords')}}</p>
-                    <div class="extra-elements">
-                        <div class="ee-t ee-t-b"><p>{{__('Core')}}</p></div>
-                    </div>
-                </div>
-            </div>
-        </a>
+{{--        <a href="{{ route('system.admin.core.keywords') }}" class="menu-a-link">--}}
+{{--            <div class="s-lm-wrapper">--}}
+{{--                <div class="s-lm-s-elements">--}}
+{{--                    <div class="s-lms-e-img">--}}
+{{--                        <i class="fas fa-key"></i>--}}
+{{--                    </div>--}}
+{{--                    <p>{{__('Keywords')}}</p>--}}
+{{--                    <div class="extra-elements">--}}
+{{--                        <div class="ee-t ee-t-b"><p>{{__('Core')}}</p></div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </a>--}}
 
         <a href="#" class="menu-a-link">
-            <div class="s-lm-wrapper @if(Route::is('system.admin.settings.*')) active @endif">
+            <div class="s-lm-wrapper @if(Route::is('system.admin.core.*')) active @endif">
                 <div class="s-lm-s-elements">
                     <div class="s-lms-e-img">
                         <i class="fas fa-cogs"></i>
@@ -241,10 +241,16 @@
 {{--                            <p>{{__('Spisak država')}}</p>--}}
 {{--                        </div>--}}
 {{--                    </a>--}}
-                    <a href="{{ route('system.settings.cities') }}">
+                    <a href="{{ route('system.admin.core.settings.cities') }}">
                         <div class="inside-lm-link">
                             <div class="ilm-l"></div><div class="ilm-c"></div>
                             <p> {{__('Općine i gradovi')}} </p>
+                        </div>
+                    </a>
+                    <a href="{{ route('system.admin.core.keywords') }}">
+                        <div class="inside-lm-link">
+                            <div class="ilm-l"></div><div class="ilm-c"></div>
+                            <p> {{__('Šifarnici')}} </p>
                         </div>
                     </a>
                 </div>

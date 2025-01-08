@@ -3,7 +3,7 @@
 @section('c-title') {{ __('Općine i gradovi') }} @endsection
 @section('c-breadcrumbs')
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
-    <a href="{{ route('system.admin.users') }}">{{ __('Pregled svih općina i gradova') }}</a> /
+    <a href="{{ route('system.admin.core.settings.cities') }}">{{ __('Pregled svih općina i gradova') }}</a> /
     @isset($create)
         <a href="#">{{ __('Unos') }}</a>
     @else
@@ -12,7 +12,7 @@
 @endsection
 
 @section('c-buttons')
-    <a href="{{ route('system.settings.cities') }}">
+    <a href="{{ route('system.admin.core.settings.cities') }}">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>
@@ -20,7 +20,7 @@
     </a>
 
     @if(isset($preview))
-        <a href="{{ route('system.admin.users.edit', ['username' => $user->username ]) }}">
+        <a href="#">
             <button class="pm-btn btn pm-btn-edit">
                 <i class="fas fa-edit"></i>
             </button>
@@ -32,7 +32,7 @@
     <div class="content-wrapper content-wrapper-p-15">
         <div class="row">
             <div class="col-md-12">
-                <form action="@if(isset($edit)) {{ route('system.settings.cities.update') }} @else {{ route('system.settings.cities.save') }} @endif" method="POST" id="js-form">
+                <form action="@if(isset($edit)) {{ route('system.admin.core.settings.cities.update') }} @else {{ route('system.admin.core.settings.cities.save') }} @endif" method="POST" id="js-form">
                     @if(isset($edit))
                         {{ html()->hidden('id')->class('form-control')->value($city->id) }}
                     @endif
