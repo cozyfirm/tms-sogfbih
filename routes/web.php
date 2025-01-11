@@ -46,14 +46,14 @@ Route::prefix('auth')->group(function () {
  *  Admin routes
  */
 
-Route::prefix('system')->middleware('auth')->group(function () {
+Route::prefix('system')->middleware('isAuthenticated')->group(function () {
     Route::prefix('admin')->middleware('isAdmin')->group(function (){
         Route::get('/dashboard',                 [HomeController::class, 'index'])->name('system.home');
 
         /**
          *  Users routes;
          */
-        Route::prefix('users')->middleware('auth')->group(function () {
+        Route::prefix('users')->middleware('isAuthenticated')->group(function () {
             Route::get ('/',                          [UsersController::class, 'index'])->name('system.admin.users');
             Route::get ('/create',                    [UsersController::class, 'create'])->name('system.admin.users.create');
             Route::post('/save',                      [UsersController::class, 'save'])->name('system.admin.users.save');
@@ -71,7 +71,7 @@ Route::prefix('system')->middleware('auth')->group(function () {
             /**
              *  FAQs section
              */
-            Route::prefix('faq')->middleware('auth')->group(function () {
+            Route::prefix('faq')->middleware('isAuthenticated')->group(function () {
                 Route::get ('/',                               [FAQsController::class, 'faqIndex'])->name('system.admin.other.faq');
                 Route::get ('/create',                         [FAQsController::class, 'faqCreate'])->name('system.admin.other.faq.create');
                 Route::post('/save',                           [FAQsController::class, 'faqSave'])->name('system.admin.other.faq.save');
@@ -106,7 +106,7 @@ Route::prefix('system')->middleware('auth')->group(function () {
              *      2. Cities and municipalities
              *      3. Keywords !?
              */
-            Route::prefix('settings')->middleware('auth')->group(function () {
+            Route::prefix('settings')->middleware('isAuthenticated')->group(function () {
                 /** Cities and municipalities */
                 Route::prefix('cities')->group(function () {
                     Route::get ('/',                           [CitiesController::class, 'index'])->name('system.admin.core.settings.cities');
@@ -123,7 +123,7 @@ Route::prefix('system')->middleware('auth')->group(function () {
         /**
          *  Blog:: ToDo
          */
-        Route::prefix('blog')->middleware('auth')->group(function () {
+        Route::prefix('blog')->middleware('isAuthenticated')->group(function () {
             Route::get ('/',                               [AdminBlogController::class, 'index'])->name('system.admin.blog');
             Route::get ('/create',                         [AdminBlogController::class, 'create'])->name('system.admin.blog.create');
             Route::post('/save',                           [AdminBlogController::class, 'save'])->name('system.admin.blog.save');
