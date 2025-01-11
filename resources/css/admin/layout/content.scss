@@ -64,10 +64,15 @@
                 .pmc-right-content{
                     .pm-btn{
                         box-shadow: 0 0.125rem 0.625rem rgba(52, 58, 64, 0.4), 0 0.0625rem 0.125rem rgba(52, 58, 64, 0.5);
-                        margin-left: 10px; height: 34px; display: inline-flex;
+                        margin-left: 4px; height: 34px; display: inline-flex; transition: 0.2s all;
+
+                        &:hover{
+                            background: $yellow; box-shadow: 0 0.125rem 0.625rem rgba(237, 235, 19, 0.4), 0 0.0625rem 0.125rem rgba(237, 209, 19, 0.5);
+                            i{color: #FFFFFF;}
+                        }
 
                         i{
-                            font-size: 14px; margin-top: 4px;
+                            font-size: 14px; margin-top: 4px; transition: 0.2s all;
                         }
                         span{
                             font-size: 14px; margin: 0px; padding: 0px; display: inline-flex; font-family: 'Nunito', sans-serif; font-weight:bold;
@@ -81,7 +86,13 @@
                         }
                     }
                     .pm-btn-info{
-                        background: #2090DF; color:#ffffff; box-shadow: 0 0.125rem 0.625rem rgba(34, 149, 221, 0.4), 0 0.0625rem 0.125rem rgba(36, 174, 219, 0.5);
+                        background: $blue; color:#ffffff; box-shadow: 0 0.125rem 0.625rem rgba(34, 149, 221, 0.4), 0 0.0625rem 0.125rem rgba(36, 174, 219, 0.5);
+                        span{
+                            margin-left: 10px;
+                        }
+                    }
+                    .pm-btn-edit{
+                        background: #51585e; color:#ffffff; box-shadow: 0 0.125rem 0.625rem rgba(34, 149, 221, 0.4), 0 0.0625rem 0.125rem rgba(36, 174, 219, 0.5);
                         span{
                             margin-left: 10px;
                         }

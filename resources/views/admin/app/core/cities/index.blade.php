@@ -38,9 +38,9 @@
             @foreach($cities as $city)
                 <tr>
                     <td class="text-center">{{ $i++}}</td>
-                    <td> {{ $city->country_id ?? ''}} </td>
                     <td> {{ $city->title ?? ''}} </td>
-                    <td> {{ $city->type ?? ''}} </td>
+                    <td> {{ $city->typeRel->name ?? ''}} </td>
+                    <td> {{ $city->countryRel->name_ba ?? ''}} </td>
 
                     <td class="text-center">
                         <a href="{{route('system.admin.core.settings.cities.preview', ['id' => $city->id] )}}" title="Pregled korisnika">

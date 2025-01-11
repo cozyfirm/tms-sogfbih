@@ -12,7 +12,7 @@
 @endsection
 
 @section('c-buttons')
-    <a href="{{ route('system.admin.core.settings.cities') }}">
+    <a href="{{ route('system.admin.core.settings.cities') }}" title="{{ __('Pregled svih općina i gradova') }}">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>
@@ -20,9 +20,14 @@
     </a>
 
     @if(isset($preview))
-        <a href="#">
+        <a href="{{ route('system.admin.core.settings.cities.edit', ['id' => $city->id ]) }}">
             <button class="pm-btn btn pm-btn-edit">
                 <i class="fas fa-edit"></i>
+            </button>
+        </a>
+        <a href="{{ route('system.admin.core.settings.cities.delete', ['id' => $city->id ]) }}">
+            <button class="pm-btn btn pm-btn-">
+                <i class="fas fa-trash"></i>
             </button>
         </a>
     @endif
