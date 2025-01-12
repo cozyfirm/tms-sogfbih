@@ -165,6 +165,10 @@
                     i{
                         padding-top:10px; font-size:14px; transition: 0.2s all;
                     }
+                    .normal-icon{
+                        height: 14px !important; margin-top:10px;
+                    }
+                    .yellow-icon{display: none; height: 14px !important; margin-top:10px;}
                 }
                 a, p{
                     margin-left:15px; margin-top:0px; padding-top:14px; color:grey; transition: 0.2s all; font-weight: bold; font-family: 'Nunito', sans-serif;
@@ -189,6 +193,8 @@
                 cursor: pointer;
                 .s-lms-e-img{
                     i{color:$yellow;}
+                    .normal-icon{display: none;}
+                    .yellow-icon{display: initial;}
                 }
                 a{color:#333;}
                 .extra-elements{
@@ -237,6 +243,8 @@
             .s-lm-s-elements{
                 .s-lms-e-img{
                     i{color:$yellow;}
+                    .normal-icon{display: none;}
+                    .yellow-icon{display: initial;}
                 }
                 a{color:#333;}
                 .extra-elements{

@@ -8,6 +8,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+
         @vite(['resources/css/app.scss', 'resources/css/admin/admin.scss', 'resources/js/app.js'])
     </head>
     <body>
@@ -45,6 +48,7 @@
             if ( $('.summernote').is('[readonly]') ) {
                 $('.summernote').summernote('disable');
             }
+
 
         </script>
     </body>

@@ -21,7 +21,6 @@
                             </div>
                         </div>
 
-
                         <button type="submit" class="btn btn-primary btn-xs mb-2 filter-btn">
                             <i class="fa fa-list fa-1x"></i>
                             <a class="ml-4 text-white"><b>{{__('Ažurirajte')}}</b></a>
@@ -45,7 +44,7 @@
                                         </select>
                                     </div>
                                     <input type="text" required="required" name="filter_values[]" value="{{ request('filter_values')[$k] ?? ''}}" class="form-control filters-input"/>
-                                    <div class="rf-wrapper remove-filter">
+                                    <div class="rf-wrapper remove-filter mt-1" title="{{ __('Obrišite filter') }}">
                                         <i class="fa fa-times fa-1x disable-popup"></i>
                                     </div>
                                 </div>

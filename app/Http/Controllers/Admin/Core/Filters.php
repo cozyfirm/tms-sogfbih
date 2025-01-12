@@ -28,18 +28,18 @@ class Filters extends Controller{
         if(request()->has('limit')){
             self::$limit = request()->get('limit');
 
-//            if($filter_values[0] == null or $filters[0] == null){
-//                return $query->paginate(self::$limit);
-//            }
+            if(empty($filter_values) || empty($filters)) {
+                return $query->paginate(self::$limit);
+            }
         }
 
         if(empty($filter_values) || empty($filters)) {
             return $query->paginate(self::$limit);
         }
 
-//        if($filter_values[0] == null or $filters[0] == null){
-//            return $query->paginate(self::$limit);
-//        }
+        if($filter_values[0] == null or $filters[0] == null){
+            return $query->paginate(self::$limit);
+        }
 
         foreach ($filters as $key => $value) {
             $temp = $value;

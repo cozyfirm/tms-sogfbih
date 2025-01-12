@@ -1,0 +1,53 @@
+.form-btn{
+    border: none; background: #333333; color: #FFFFFF; padding: 4px 16px; border-radius: 4px;
+    font-size:14px;
+}
+
+
+.yellow-btn {
+    background-color: $yellow;
+    border: 1px $yellow solid;
+    padding: 8px 16px 6px 16px;
+    gap: 6px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #FFFFFF;
+    // font-weight: 400;
+    line-height: 0.8;
+    transition: 0.75s;
+    border-radius: 6px;
+
+
+    &:hover {
+        background-color: $lightGrey;
+        border: 1px #FFFFFF solid;
+        transition: 0.75s;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+        background-color: $lightGrey;
+        border: 1px #FFFFFF solid;
+    }
+
+    span {
+        display: block;
+        padding: 0px 0px 4px 0px;
+        margin: 0 auto;
+
+        img {
+            object-fit: fill;
+            object-position: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    i{
+        font-size: 12px;
+    }
+}

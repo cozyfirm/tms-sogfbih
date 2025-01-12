@@ -14,15 +14,22 @@ body{
 }
 @import "../style/colors";
 
+@import "/node_modules/select2/dist/css/select2.css";
+
 @import "layout/menu";
 @import "layout/content";
 @import "layout/filters";
+@import "layout/default";
 
 /**
  *  Dashboard
  */
 @import "app/dashboard";
 
+/**
+ *  Trainings
+ */
+@import "app/trainings/right-menu";
 .text{
     color:red;
     background:blue;
@@ -32,3 +39,21 @@ body{
         background:red;
     }
 }
+
+.form-control{
+    border:1px solid rgba(0,0,0,0.05); padding: 6px 16px; margin-top: 4px; margin-bottom:4px;
+}
+// Override outline styles for focusable elements
+/* Smooth yellow shadow effect */
+.btn:focus,
+.form-control:focus,
+.nav-link:focus,
+.dropdown-item:focus {
+    outline: 1px solid #FDB833 !important;
+    border:1px solid rgba(0,0,0,0.01);
+    box-shadow: 0 0 8px #FDB833; /* Add a soft yellow shadow */
+    transition: box-shadow 0.2s ease-in-out; /* Smooth transition for focus */
+}
+
+
+

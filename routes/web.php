@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Core\CitiesController;
 use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
+use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\PublicPart\HomeController as PublicHomeController;
 use App\Http\Controllers\Auth\AuthController;
@@ -79,6 +80,25 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::post('/update',                         [FAQsController::class, 'faqUpdate'])->name('system.admin.other.faq.update');
                 Route::get ('/delete/{id}',                    [FAQsController::class, 'faqDelete'])->name('system.admin.other.faq.delete');
             });
+        });
+
+        /**
+         *  Programs and trainings:
+         *      1. Trainings programs
+         *      2. Trainings instances
+         *
+         */
+        Route::prefix('trainings')->middleware('isAuthenticated')->group(function () {
+            /** Preprocessing view */
+            Route::get ('/home',                       [ProgramsAndTrainingsController::class, 'home'])->name('system.admin.trainings.home');
+            /** CRUD Routes */
+            Route::get ('/',                           [ProgramsAndTrainingsController::class, 'index'])->name('system.admin.trainings');
+            Route::get ('/create',                     [ProgramsAndTrainingsController::class, 'create'])->name('system.admin.trainings.create');
+            Route::post('/save',                       [ProgramsAndTrainingsController::class, 'save'])->name('system.admin.trainings.save');
+            Route::get ('/preview/{id}',               [ProgramsAndTrainingsController::class, 'preview'])->name('system.admin.trainings.preview');
+            Route::get ('/edit/{id}',                  [ProgramsAndTrainingsController::class, 'edit'])->name('system.admin.trainings.edit');
+            Route::post('/update',                     [ProgramsAndTrainingsController::class, 'update'])->name('system.admin.trainings.update');
+            Route::get ('/delete/{id}',                [ProgramsAndTrainingsController::class, 'delete'])->name('system.admin.trainings.delete');
         });
 
         /**

@@ -21,7 +21,7 @@
                 <div class="home-row-body">
                     <div class="home-row-items">
                         <div class="home-icon" title="{{__('Ukupan broj programa obuka')}}">
-                            <h1> {{$devices ?? '0'}}</h1>
+                            <h1> {{$trainings ?? '0'}}</h1>
                             <p>{{__('Programa')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Objavljenih obuka')}}">
@@ -33,7 +33,7 @@
                             <p>{{__('Trenera')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih korisnika')}}">
-                            <h1>{{$spentMoney ?? '0'}}</h1>
+                            <h1>{{$users ?? '0'}}</h1>
                             <p>{{__('Korisnika')}}</p>
                         </div>
                     </div>
@@ -47,30 +47,33 @@
 
                 <div class="home-row-body">
                     <div class="home-row-items">
-                        <div class="home-icon" link="" title="{{__('Podesite vrijeme kada su uređaji aktivni')}}">
-                            <img src="{{ asset('files/images/icons/cloud-binary.svg') }}" alt="">
-                            <p> {{__('Programi obuka')}} </p>
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.home') }}" title="{{__('Podesite vrijeme kada su uređaji aktivni')}}">
+                            <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">
+                            <img class="white-icon" src="{{ asset('files/images/icons/training-white.svg') }}" alt="{{ __('Training image') }}">
+                            <p> {{__('Sistem obuka')}} </p>
                         </div>
                         <div class="home-icon" link="">
-                            <img src="{{ asset('files/images/icons/training.svg') }}" alt="">
-                            <p> {{__('Instance obuka')}} </p>
+                            <i class="fas fa-chart-area"></i>
+                            <p> {{__('Izvještaji')}} </p>
                         </div>
                         <div class="home-icon" link="">
-                            <img src="{{ asset('files/images/icons/trainer.svg') }}" alt="">
+                            <img class="normal-icon" src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Training image') }}">
+                            <img class="white-icon" src="{{ asset('files/images/icons/trainer-white.svg') }}" alt="{{ __('Training image') }}">
                             <p> {{__('Treneri')}} </p>
                         </div>
                         <div class="home-icon" link="">
-                            <img src="{{ asset('files/images/icons/users.svg') }}" alt="">
-                            <p> {{__('Učesnici obuka')}} </p>
+                            <img class="normal-icon" src="{{ asset('files/images/icons/users.svg') }}" alt="{{ __('Training image') }}">
+                            <img class="white-icon" src="{{ asset('files/images/icons/users-white.svg') }}" alt="{{ __('Training image') }}">
+                            <p> {{__('Korisnici')}} </p>
                         </div>
                     </div>
                     <div class="home-row-items">
                         <div class="home-icon" link="" title="{{__('Pregled svih narudžbi')}}">
-                            <i class="fas fa-history"></i>
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
                             <p>{{ __('Analiza potreba') }}</p>
                         </div>
                         <div class="home-icon" link="">
-                            <i class="fas fa-cogs"></i>
+                            <i class="fa-solid fa-calendar-days"></i>
                             <p>{{ __('Interni događaji') }}</p>
                         </div>
                         <div class="home-icon" link="">
