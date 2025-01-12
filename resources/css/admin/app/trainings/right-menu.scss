@@ -20,9 +20,10 @@
     }
 }
 .rm-card-icons{
-    position: relative; display: flex; gap: 32px;
+    position: relative; display: flex; gap: 16px;
     a{
         display: flex;
+        &:hover{cursor: pointer; }
         .rm-ci-w{
             position: relative; padding: 16px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border-radius: 4px;
             img{height: 16px;}

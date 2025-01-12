@@ -29,7 +29,12 @@
 </div>
 
 <div class="rm-card-icons">
-    <a href="#" title="{{ __('Šire oblasti kojima pripada program obuke') }}">
+    <a title="{{ __('Autori prorama obuke') }}">
+        <div class="rm-ci-w">
+            <img src="{{ asset('files/images/icons/author.svg') }}" alt="{{ __('Category image') }}">
+        </div>
+    </a>
+    <a href="{{ route('system.admin.core.keywords.preview-instances', ['key' => 'trainings__areas']) }}" title="{{ __('Šifarnik oblasti kojima programi pripadaju') }}">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/category.svg') }}" alt="{{ __('Category image') }}">
         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
 use App\Http\Controllers\Admin\Users\UsersController;
+use App\Http\Controllers\InstancesController;
 use App\Http\Controllers\PublicPart\HomeController as PublicHomeController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -99,6 +100,16 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             Route::get ('/edit/{id}',                  [ProgramsAndTrainingsController::class, 'edit'])->name('system.admin.trainings.edit');
             Route::post('/update',                     [ProgramsAndTrainingsController::class, 'update'])->name('system.admin.trainings.update');
             Route::get ('/delete/{id}',                [ProgramsAndTrainingsController::class, 'delete'])->name('system.admin.trainings.delete');
+
+            Route::prefix('instances')->middleware('isAuthenticated')->group(function () {
+                Route::get ('/',                           [InstancesController::class, 'index'])->name('system.admin.trainings.instances');
+                Route::get ('/create',                     [InstancesController::class, 'create'])->name('system.admin.trainings.instances.create');
+                Route::post('/save',                       [InstancesController::class, 'save'])->name('system.admin.trainings.instances.save');
+                Route::get ('/preview/{id}',               [InstancesController::class, 'preview'])->name('system.admin.trainings.instances.preview');
+                Route::get ('/edit/{id}',                  [InstancesController::class, 'edit'])->name('system.admin.trainings.instances.edit');
+                Route::post('/update',                     [InstancesController::class, 'update'])->name('system.admin.trainings.instances.update');
+                Route::get ('/delete/{id}',                [InstancesController::class, 'delete'])->name('system.admin.trainings.instances.delete');
+            });
         });
 
         /**

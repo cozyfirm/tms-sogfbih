@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('title');
-            $table->string('author', 200);
+            // $table->string('author', 200);
             $table->integer('financed_by');                 // FK to Keywords
             $table->integer('project');                     // FK to Keywords
             $table->year('year')->default('2024');

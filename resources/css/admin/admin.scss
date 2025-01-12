@@ -30,6 +30,8 @@ body{
  *  Trainings
  */
 @import "app/trainings/right-menu";
+@import "app/trainings/modals";
+
 .text{
     color:red;
     background:blue;
@@ -41,7 +43,7 @@ body{
 }
 
 .form-control{
-    border:1px solid rgba(0,0,0,0.05); padding: 6px 16px; margin-top: 4px; margin-bottom:4px;
+    border:1px solid rgba(0,0,0,0.1); padding: 6px 16px; margin-top: 4px; margin-bottom:4px;
 }
 // Override outline styles for focusable elements
 /* Smooth yellow shadow effect */

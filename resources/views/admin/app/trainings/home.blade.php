@@ -28,7 +28,7 @@
                             <img class="white-icon" src="{{ asset('files/images/icons/program-white.svg') }}" alt="{{ __('Training image') }}">
                             <p> {{__('Programi obuka')}} </p>
                         </div>
-                        <div class="home-icon" link="">
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.instances') }}" title="{{ __('Instance obuka') }}">
                             <img class="normal-icon" src="{{ asset('files/images/icons/training-instance.svg') }}" alt="{{ __('Training-instance image') }}">
                             <img class="white-icon" src="{{ asset('files/images/icons/training-instance-white.svg') }}" alt="{{ __('Training instance image') }}">
                             <p> {{__('Instance obuka')}} </p>

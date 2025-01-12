@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Trainings;
 
 use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
+use App\Models\Core\City;
 use App\Models\Core\Keyword;
 use App\Models\Trainigs\Training;
 use App\Traits\Common\CommonTrait;
@@ -26,7 +27,6 @@ class ProgramsAndTrainingsController extends Controller{
 
         $filters = [
             'title' => 'Naziv',
-            'author' => __('Autor'),
             'financedByRel.name' => __('Izradu programa obuke finansirao'),
             'projectRel.name' => __('Program obuke izrađen u okviru projekta'),
             'countryRel.name_ba' => __('Godina')
@@ -72,7 +72,8 @@ class ProgramsAndTrainingsController extends Controller{
             'areas' => Keyword::getIt('trainings__areas'),
             'financiers' => Keyword::getIt('trainings__financed_by'),
             'projects' => Keyword::getIt('trainings__projects'),
-            'training' => isset($id) ? Training::where('id', '=', $id)->first() : null
+            'training' => isset($id) ? Training::where('id', '=', $id)->first() : null,
+            'cities' => City::pluck('title', 'id')
         ]);
     }
 

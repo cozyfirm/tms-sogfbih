@@ -8,7 +8,7 @@
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> / <a href="{{ route('system.admin.trainings') }}">{{ __('Pregled svih programa obuka') }}</a>
 @endsection
 @section('c-buttons')
-    <a href="{{ route('system.admin.trainings') }}">
+    <a href="{{ route('system.admin.trainings.home') }}">
         <button class="pm-btn btn btn-dark"> <i class="fas fa-star"></i> </button>
     </a>
     <a href="{{ route('system.admin.trainings.create') }}">
@@ -42,7 +42,6 @@
                 <tr>
                     <td class="text-center">{{ $i++}}</td>
                     <td> {{ $training->title ?? ''}} </td>
-                    <td> {{ $training->author ?? ''}} </td>
                     <td> {{ $training->financedByRel->name ?? ''}} </td>
                     <td> {{ $training->projectRel->name ?? ''}} </td>
                     <td> {{ $training->year ?? ''}} </td>

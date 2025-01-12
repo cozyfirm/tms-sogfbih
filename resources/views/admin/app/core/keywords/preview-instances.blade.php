@@ -18,8 +18,6 @@
     </a>
 @endsection
 
--------------------------------------------------------------------------------------->
-
 
 @section('content')
     <div class="content-wrapper content-wrapper-bs">

@@ -17,11 +17,11 @@
     // font-weight: 400;
     line-height: 0.8;
     transition: 0.75s;
-    border-radius: 6px;
+    border-radius: 4px;
 
 
     &:hover {
-        background-color: $lightGrey;
+        background-color: $orange;
         border: 1px #FFFFFF solid;
         transition: 0.75s;
     }
@@ -29,7 +29,7 @@
     &:focus {
         outline: none;
         box-shadow: none;
-        background-color: $lightGrey;
+        background-color: $orange;
         border: 1px #FFFFFF solid;
     }
 

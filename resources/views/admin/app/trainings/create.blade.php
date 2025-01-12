@@ -42,21 +42,11 @@
                     @endif
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Naziv'))->for('title')->class('bold') }}
                                 {{ html()->text('title', $training->title ?? '' )->class('form-control form-control-sm')->required()->value((isset($training) ? $training->title : ''))->isReadonly(isset($preview))->maxlength(200) }}
                                 <small id="titleHelp" class="form-text text-muted">{{ __('Naziv programa obuke') }}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ html()->label(__('Autor'))->for('author')->class('bold') }}
-                                {{ html()->text('author', $training->author ?? '' )->class('form-control form-control-sm')->required()->value((isset($training) ? $training->author : ''))->isReadonly(isset($preview))->maxlength(200) }}
-                                <small id="authorHelp" class="form-text text-muted">{{ __('Autor programa obuke') }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">
