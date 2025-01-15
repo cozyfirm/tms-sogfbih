@@ -37,6 +37,10 @@
                             <i class="fa-solid fa-user-pen"></i>
                             <p> {{__('Evaluacije')}} </p>
                         </div>
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.authors') }}">
+                            <i class="fa-solid fa-users"></i>
+                            <p> {{__('Autori obuka')}} </p>
+                        </div>
 {{--                        <div class="home-icon" link="">--}}
 {{--                            <img class="normal-icon" src="{{ asset('files/images/icons/users.svg') }}" alt="{{ __('Training image') }}">--}}
 {{--                            <img class="white-icon" src="{{ asset('files/images/icons/users-white.svg') }}" alt="{{ __('Training image') }}">--}}

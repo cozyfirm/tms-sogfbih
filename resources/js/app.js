@@ -11,6 +11,10 @@ import 'bootstrap-datepicker';
 import './admin/layout/menu.js';
 import './admin/layout/filters.js';
 
+/**
+ *  Trainings scripts
+ */
+import "./admin/app/trainings/add-author.js";
 
 /* Import Submit script */
 import "./style/submit.js";
@@ -37,5 +41,16 @@ $(document).ready(function() {
     $('.select2').select2({
         placeholder: 'Select or add options',
         tags: true // Enable adding new options
+    });
+    $('.single-select2').select2({
+        placeholder: "Odaberite", // Optional placeholder
+        language: {
+            noResults: function () {
+                return "Nema pronađenih rezultata";
+            }
+        },
+        escapeMarkup: function (markup) {
+            return markup; // Allow custom HTML (if needed)
+        }
     });
 });

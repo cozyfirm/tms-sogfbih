@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Core\CitiesController;
 use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
+use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\InstancesController;
@@ -101,6 +102,22 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             Route::post('/update',                     [ProgramsAndTrainingsController::class, 'update'])->name('system.admin.trainings.update');
             Route::get ('/delete/{id}',                [ProgramsAndTrainingsController::class, 'delete'])->name('system.admin.trainings.delete');
 
+            /** Save author */
+            Route::post('/save-author',                [ProgramsAndTrainingsController::class, 'saveAuthor'])->name('system.admin.trainings.save-author');
+
+            /**
+             *  Authors
+             */
+            Route::prefix('authors')->middleware('isAuthenticated')->group(function () {
+                Route::get ('/',                           [AuthorsController::class, 'index'])->name('system.admin.trainings.authors');
+                Route::get ('/preview/{id}',               [AuthorsController::class, 'preview'])->name('system.admin.trainings.authors.preview');
+                Route::get ('/edit/{id}',                  [AuthorsController::class, 'edit'])->name('system.admin.trainings.authors.edit');
+                Route::post('/update',                     [AuthorsController::class, 'update'])->name('system.admin.trainings.authors.update');
+                Route::get ('/delete/{id}',                [AuthorsController::class, 'delete'])->name('system.admin.trainings.authors.delete');
+            });
+            /**
+             *  Training instances
+             */
             Route::prefix('instances')->middleware('isAuthenticated')->group(function () {
                 Route::get ('/',                           [InstancesController::class, 'index'])->name('system.admin.trainings.instances');
                 Route::get ('/create',                     [InstancesController::class, 'create'])->name('system.admin.trainings.instances.create');

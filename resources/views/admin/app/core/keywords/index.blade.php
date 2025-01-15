@@ -34,8 +34,8 @@
                     <td> {{ $val ?? ''}} </td>
 
                     <td class="text-center">
-                        <a href="{{ route('system.admin.core.keywords.preview-instances', ['key' => $key]) }}" title="{{ __('Više informacija') }}">
-                            <button class="btn btn-dark btn-xs">{{ __('Više info') }}</button>
+                        <a class="table-btn-link" href="{{ route('system.admin.core.keywords.preview-instances', ['key' => $key]) }}" title="{{ __('Više informacija') }}">
+                            <button class="table-btn">{{ __('Više info') }}</button>
                         </a>
                     </td>
                 </tr>

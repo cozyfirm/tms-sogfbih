@@ -66,6 +66,24 @@
                     </div>
                 </div>
 
+                <div class="custom-hr"></div>
+
+                <!-- Authors of training programs -->
+                @if($training->authorsRel->count())
+                    <div class="training__authors mb-32">
+                        <h4>{{ __('Autori programa obuke') }}</h4>
+                        <div class="areas">
+                            @foreach($training->authorsRel as $author)
+                                <a href="#">
+                                    <div class="area__w">
+                                        <p>{{ $author->authorRel->title ?? '' }}</p>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
                 <div class="training__areas">
                     <h4>{{ __('Šire oblasti kojima program pripada') }}</h4>
                     <div class="areas">

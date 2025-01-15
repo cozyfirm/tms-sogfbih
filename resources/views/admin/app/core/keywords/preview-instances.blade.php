@@ -21,8 +21,6 @@
 
 @section('content')
     <div class="content-wrapper content-wrapper-bs">
-        @include('admin.layout.snippets.filters.filters', ['var' => $instances])
-
         @if(session()->has('success'))
             <div class="alert alert-success mt-3">
                 {{ session()->get('success') }}
@@ -32,6 +30,8 @@
                 {{ session()->get('error') }}
             </div>
         @endif
+
+        @include('admin.layout.snippets.filters.filter-header', ['var' => $instances])
 
         <table class="table table-bordered" id="filtering">
             <thead>
@@ -52,13 +52,14 @@
                     <td class="text-center" width="180px"> {{ $instance->value ?? ''}} </td>
 
                     <td class="text-center">
-                        <a href="{{ route('system.admin.core.keywords.edit-instance', ['id' => $instance->id ]) }}" title="{{ __('Više informacija') }}">
-                            <button class="btn btn-dark btn-xs">{{ __('Pregled') }}</button>
+                        <a class="table-btn-link" href="{{ route('system.admin.core.keywords.edit-instance', ['id' => $instance->id ]) }}" title="Pregled instance šifarnika">
+                            <button class="table-btn">{{ __('Pregled') }}</button>
                         </a>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+            @include('admin.layout.snippets.filters.pagination', ['var' => $instances])
     </div>
 @endsection

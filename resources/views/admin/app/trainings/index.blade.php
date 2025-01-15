@@ -47,8 +47,8 @@
                     <td> {{ $training->year ?? ''}} </td>
 
                     <td class="text-center">
-                        <a href="{{route('system.admin.trainings.preview', ['id' => $training->id] )}}" title="Pregled korisnika">
-                            <button class="btn btn-dark btn-xs">{{ __('Pregled') }}</button>
+                        <a class="table-btn-link" href="{{route('system.admin.trainings.preview', ['id' => $training->id] )}}" title="{{ __('Pregled programa obuke') }}">
+                            <button class="table-btn">{{ __('Pregled') }}</button>
                         </a>
                     </td>
                 </tr>

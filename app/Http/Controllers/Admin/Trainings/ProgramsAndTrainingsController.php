@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
 use App\Models\Core\City;
 use App\Models\Core\Keyword;
+use App\Models\Trainigs\Author;
+use App\Models\Trainigs\AuthorRel;
 use App\Models\Trainigs\Training;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
@@ -73,7 +75,9 @@ class ProgramsAndTrainingsController extends Controller{
             'financiers' => Keyword::getIt('trainings__financed_by'),
             'projects' => Keyword::getIt('trainings__projects'),
             'training' => isset($id) ? Training::where('id', '=', $id)->first() : null,
-            'cities' => City::pluck('title', 'id')
+            'cities' => City::pluck('title', 'id'),
+            'userTypes' => Keyword::getIt('user_type'),
+            'authors' => Author::get()->pluck('full_name', 'id')
         ]);
     }
 
@@ -92,6 +96,46 @@ class ProgramsAndTrainingsController extends Controller{
             $this->handleAreas($select2, $request->id);
 
             return $this->jsonSuccess(__('Uspješno spašen program obuke!'), route('system.admin.trainings.preview', ['id' => $request->id ]));
+        }catch (\Exception $e){
+            return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
+        }
+    }
+
+    /**
+     * Save author and create relationship to training
+     *
+     * @param Request $request
+     * @return JsonResponse|void
+     */
+    public function saveAuthor(Request $request){
+        try{
+            if($request->switchState == "on"){
+                /* Add new author */
+                $author = Author::create([
+                    'type' => $request->type,
+                    'title' => $request->title,
+                    'address' => $request->address,
+                    'city' => $request->city,
+                    'phone' => $request->phone,
+                    'cellphone' => $request->cellphone,
+                    'email' => $request->email,
+                    'comment' => $request->comment
+                ]);
+            }else{
+                $author = Author::where('id', '=', $request->search_author)->first();
+            }
+
+            $rel = AuthorRel::where('training_id', '=', $request->training_id)->where('author_id', '=', $author->id)->first();
+            if(!$rel){
+                AuthorRel::create([
+                    'training_id' => $request->training_id,
+                    'author_id' => $author->id
+                ]);
+            }else{
+                return $this->jsonError('2001', __('Željeni autor je već povezan sa ovim programom obuke!'));
+            }
+
+            return $this->jsonSuccess(__('Uspješno spašen autor programa obuke'), route('system.admin.trainings.preview', ['id' => $request->training_id ]));
         }catch (\Exception $e){
             dd($e);
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));

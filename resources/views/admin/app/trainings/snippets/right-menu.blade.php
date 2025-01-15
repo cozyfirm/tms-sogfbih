@@ -29,7 +29,7 @@
 </div>
 
 <div class="rm-card-icons">
-    <a title="{{ __('Autori prorama obuke') }}">
+    <a title="{{ __('Autori prorama obuke') }}" class="open-add-author">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/author.svg') }}" alt="{{ __('Category image') }}">
         </div>

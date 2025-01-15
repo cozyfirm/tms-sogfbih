@@ -43,8 +43,8 @@
                     <td> {{ $city->countryRel->name_ba ?? ''}} </td>
 
                     <td class="text-center">
-                        <a href="{{route('system.admin.core.settings.cities.preview', ['id' => $city->id] )}}" title="Pregled korisnika">
-                            <button class="btn btn-dark btn-xs">{{ __('Pregled') }}</button>
+                        <a class="table-btn-link" href="{{route('system.admin.core.settings.cities.preview', ['id' => $city->id] )}}" title="{{ __('Pregled općine ili grada') }}">
+                            <button class="table-btn">{{ __('Pregled') }}</button>
                         </a>
                     </td>
                 </tr>

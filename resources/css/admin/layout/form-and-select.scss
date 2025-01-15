@@ -1,0 +1,142 @@
+.form-control{
+    border:1px solid rgba(0,0,0,0.1); padding: 6px 16px; margin-top: 4px; margin-bottom:4px;
+}
+// Override outline styles for focusable elements
+/* Smooth yellow shadow effect */
+.btn:focus,
+.form-control:focus,
+.nav-link:focus,
+.dropdown-item:focus {
+    outline: 1px solid #FDB833 !important;
+    border:1px solid rgba(0,0,0,0.01);
+    box-shadow: 0 0 8px #FDB833; /* Add a soft yellow shadow */
+    transition: box-shadow 0.2s ease-in-out; /* Smooth transition for focus */
+}
+
+/* Style the Select2 selection box */
+.select2-container .select2-selection {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    height: 36px;
+    padding: 6px 6px; /* Add custom padding */
+    border:1px solid rgba(0,0,0,0.1); /* Set custom border color */
+    border-radius: 4px; /* Optional: Add rounded corners */
+    // background-color: #f2f2f2; /* Optional: Background color */
+    box-shadow: none; /* Remove any shadows */
+    display: flex; /* Ensure alignment */
+    align-items: center; /* Vertically center content */
+    width: 100% !important;
+}
+//.select2-container .select2-selection:focus{
+//    outline: 1px solid #FDB833 !important;
+//    border:1px solid rgba(0,0,0,0.01);
+//    box-shadow: 0 0 8px #FDB833; /* Add a soft yellow shadow */
+//    transition: box-shadow 0.2s ease-in-out; /* Smooth transition for focus */
+//}
+
+/* Style the text inside the Select2 box */
+.select2-container .select2-selection__rendered {
+    font-size: .875rem; /* Font size */
+    line-height: 1.5; /* Match the height for vertical alignment */
+    color: #333; /* Text color */
+}
+
+/* Style the dropdown (when the user clicks the select box) */
+.select2-container .select2-dropdown {
+    border: 2px solid #FDB833; /* Dropdown border */
+    border-radius: 5px; /* Rounded corners for dropdown */
+    background-color: #fff; /* Background color */
+    padding: 5px; /* Padding inside dropdown */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Style the dropdown options */
+.select2-container .select2-results__option {
+    padding: 8px 12px; /* Padding for dropdown items */
+    font-size: 14px; /* Font size */
+    color: #333; /* Text color */
+}
+
+/* Highlighted option in the dropdown */
+.select2-container .select2-results__option--highlighted {
+    background-color: #FDB833; /* Highlight background color */
+    color: #fff; /* Highlight text color */
+}
+
+.select2-results__options{padding: 4px;}
+
+.select2-container .select2-search--dropdown .select2-search__field {
+    height: 36px; /* Adjust the height of the input field */
+    padding: 6px 10px; /* Add padding inside the input */
+    font-size: 14px; /* Set the font size */
+    border: 1px solid #FDB833; /* Add a custom border color */
+    border-radius: 5px; /* Add rounded corners */
+    background-color: #f9f9f9; /* Background color */
+    color: #333; /* Text color */
+    outline: none; /* Remove default focus outline */
+    box-shadow: none; /* Remove additional shadows */
+}
+
+/* Change background and text color of highlighted dropdown option */
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #FDB833; /* Custom background color */
+    color: #fff; /* Custom text color */
+    border-radius: 4px; /* Optional: Add rounded corners */
+}
+
+
+
+
+/* Style the container */
+.select2-container--default .select2-selection--multiple {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; /* Center everything vertically */
+    padding: 4px; /* Add padding to the container */
+    min-height: 40px; /* Ensure a consistent height */
+    box-sizing: border-box; /* Include padding in height calculations */
+}
+
+///* Style the selected items */
+.select2-container--default .select2-selection__choice {
+    padding: 4px 10px;
+    margin-top: 10px; /* Space between selected items */
+    margin-bottom: 0px;
+    background-color: #FDB833;
+    color: #333333;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5; /* Ensure consistent text alignment */
+}
+//
+///* Style the inline search input field */
+//.select2-container--default .select2-search--inline .select2-search__field {
+//    height: calc(100% - 8px); /* Adjust the input height relative to the container */
+//    padding: 5px 10px; /* Add inner padding for the text */
+//    margin: 0; /* Remove margin */
+//    line-height: 1.5; /* Match line-height with selected items */
+//    font-size: 14px; /* Match font size with selected items */
+//    border: none; /* Remove border */
+//    outline: none; /* Remove focus outline */
+//    align-self: center; /* Vertically center within the flexbox */
+//}
+/* Set the background color of the inline search field container */
+.select2-container--default .select2-search--inline {
+
+    height: 40px;
+}
+
+
+/* Set padding and customize the arrow */
+.select2-container--default .select2-selection__arrow {
+    margin-top: 7px; margin-right:6px;
+}
+
+
+/**
+ *  Disabled select2
+ */
+
+.select2-container--default.select2-container--disabled .select2-selection--single {
+    background-color: #FFFFFF; /* White background */
+}

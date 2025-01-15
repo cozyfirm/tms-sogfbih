@@ -24,7 +24,8 @@ class Keyword extends Model{
         'city_type' => 'Grad ili općina',
         'trainings__areas' => 'Šire oblasti programa obuke',
         'trainings__financed_by' => 'Finansijeri programa obuka',
-        'trainings__projects' => 'Projekti u okviru kojih se izrađuju programi'
+        'trainings__projects' => 'Projekti u okviru kojih se izrađuju programi',
+        'user_type' => 'Fizička ili pravna lica'
     ];
 
     /* Return all types of keywords */
