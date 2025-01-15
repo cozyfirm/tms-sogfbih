@@ -139,4 +139,10 @@ $("document").ready(function (){
     $(".open-add-author").click(function (){
         $(".add__author_wrapper").removeClass('d-none');
     });
+
+    $(".add__author_wrapper").click(function (event){
+        if($(event.target).hasClass('add__author_wrapper')){
+            $(".add__author_wrapper").addClass('d-none');
+        }
+    });
 });

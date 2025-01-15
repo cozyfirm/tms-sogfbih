@@ -12,6 +12,12 @@ import './admin/layout/menu.js';
 import './admin/layout/filters.js';
 
 /**
+ *  Core scripts
+ */
+import "./admin/app/core/show-hide-elements.js";
+import "./admin/app/core/notifications.js";
+
+/**
  *  Trainings scripts
  */
 import "./admin/app/trainings/add-author.js";

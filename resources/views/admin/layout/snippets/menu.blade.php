@@ -36,26 +36,26 @@
         <!-- Right top icons -->
         <div class="right-icons">
             <div class="single-li main-search-w" title="">
-                <i class="fas fa-search main-search-t" title="{{__('Pretražite')}}"></i>
+                <i class="fas fa-search main-search-t hover-white" title="{{__('Pretražite')}}"></i>
 {{--                @include('system.template.menu.menu-includes.search')--}}
             </div>
             <div class="single-li m-show-notifications" title="Pregled obavijesti">
-                <i class="fas fa-bell"></i>
+                <i class="fas fa-bell m-show-notifications-icon hover-white"></i>
                 <div class="number-of"><p id="no-unread-notifications">12</p></div>
 
-{{--                @include('system.template.menu.menu-includes.notifications')--}}
-            </div>
-            <div class="single-li main-search-w" title="">
-                <a href="{{ route('auth.logout') }}">
-                    <i class="fas fa-power-off" title="{{__('Odjavite se')}}"></i>
-                </a>
+                @include('admin.layout.snippets.includes.notifications')
             </div>
             <a href="#">
-                <div class="single-li user-name">
+                <div class="single-li single-li-text user-name">
                     <p><b> {{ __('Root Admin') }} </b></p>
 {{--                    {!! Form::hidden('user_id', json_encode($loggedUser), ['class' => 'form-control', 'id' => 'loggedUser']) !!}--}}
                 </div>
             </a>
+            <div class="single-li main-search-w" title="">
+                <a href="{{ route('auth.logout') }}">
+                    <i class="fas fa-power-off hover-white" title="{{__('Odjavite se')}}"></i>
+                </a>
+            </div>
         </div>
     </div>
 </div>
