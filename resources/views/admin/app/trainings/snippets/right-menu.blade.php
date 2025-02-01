@@ -28,6 +28,30 @@
     </div>
 </div>
 
+<div class="rm-card">
+    <div class="rm-card-header">
+        <h5>{{ __('Priloženi dokumenti') }}</h5>
+        <img class="normal-icon" src="{{ asset('files/images/icons/folder-open-regular.svg') }}" alt="{{ __('Training-instance image') }}">
+    </div>
+    <hr>
+    <div class="list__wrapper list__wrapper__flex">
+        @php $counter = 1; @endphp
+        @foreach($training->filesRel as $file)
+            <div class="document__row">
+                <a href="{{ route('system.admin.trainings.download-file', ['id' => $file->id ]) }}" title="{{ __('Preuzmite dokument') }}">
+                    {{ $counter++ }}. {{ $file->fileRel->file ?? '' }}
+                </a>
+
+                <div class="remove__icon" title="{{ __('Obrišite dokument') }}">
+                    <a href="{{ route('system.admin.trainings.remove-file', ['id' => $file->id]) }}">
+                        <img src="{{ asset('files/images/icons/trash-can-solid.svg') }}" alt="{{ __('Trash can') }}">
+                    </a>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
+
 <div class="rm-card-icons">
     <a title="{{ __('Autori prorama obuke') }}" class="open-add-author">
         <div class="rm-ci-w">

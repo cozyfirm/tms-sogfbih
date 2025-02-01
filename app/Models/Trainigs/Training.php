@@ -31,4 +31,7 @@ class Training extends Model{
     public function authorsRel(): HasMany{
         return $this->hasMany(AuthorRel::class, 'training_id', 'id');
     }
+    public function filesRel(): HasMany{
+        return $this->hasMany(TrainingFile::class,'training_id', 'id');
+    }
 }

@@ -3,7 +3,7 @@
         <div class="header">
             <div class="left-btn add-author-note"> {{ __('Dokumenti') }} </div>
             <div class="img_and_btn_wrapper">
-                <img class="close-add-author" src="{{ asset('files/images/icons/cross-small.svg') }}" alt="{{ __('Close icon') }}" title="{{ __('Zatvorite skočni prozor') }}">
+                <img class="close-file-upload" src="{{ asset('files/images/icons/cross-small.svg') }}" alt="{{ __('Close icon') }}" title="{{ __('Zatvorite skočni prozor') }}">
             </div>
         </div>
         <div class="header__info">

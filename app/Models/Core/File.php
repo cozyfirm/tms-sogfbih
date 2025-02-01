@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ext
  * @property string $type
  * @property string $path
+ * @method static where(string $string, string $string1, $file_id)
  */
 class File extends Model{
     use HasFactory;

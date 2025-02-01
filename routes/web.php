@@ -109,6 +109,8 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
 
             /** Save file */
             Route::post('/save-files',                 [ProgramsAndTrainingsController::class, 'saveFiles'])->name('system.admin.trainings.save-files');
+            Route::get ('/download-file/{id}',         [ProgramsAndTrainingsController::class, 'downloadFile'])->name('system.admin.trainings.download-file');
+            Route::get ('/remove-file/{id}',           [ProgramsAndTrainingsController::class, 'removeFile'])->name('system.admin.trainings.remove-file');
 
             /**
              *  Authors

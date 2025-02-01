@@ -179,7 +179,7 @@ $(document).ready(function(){
     /**
      *  On "Cancel btn"
      */
-    $(".fu-remove-files").click(function (){
+    $(".fu-remove-files, .close-file-upload").click(function (){
         /* Reset input */
         $("#files").val('');
         // Clear previous progress bars if any
@@ -188,5 +188,11 @@ $(document).ready(function(){
         filesArray = [];
 
         $(".file__upload__wrapper").addClass('d-none');
+    });
+
+    $(".file__upload__wrapper").click(function (event){
+        if($(event.target).hasClass('file__upload__wrapper')){
+            $(".file__upload__wrapper").addClass('d-none');
+        }
     });
 });

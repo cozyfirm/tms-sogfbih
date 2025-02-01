@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Trainings;
 use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
 use App\Models\Core\City;
+use App\Models\Core\File;
 use App\Models\Core\Keyword;
 use App\Models\Trainigs\Author;
 use App\Models\Trainigs\AuthorRel;
@@ -14,8 +15,10 @@ use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Trainings\TrainingTrait;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ProgramsAndTrainingsController extends Controller{
     use ResponseTrait, CommonTrait, TrainingTrait;
@@ -177,6 +180,12 @@ class ProgramsAndTrainingsController extends Controller{
         }
     }
 
+    /**
+     * Save files as relationship
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function saveFiles(Request $request): JsonResponse{
         try{
             foreach ($request->filesArray as $item){
@@ -189,6 +198,40 @@ class ProgramsAndTrainingsController extends Controller{
             return $this->jsonSuccess(__('Uspješno sačuvano'), route('system.admin.trainings.preview', ['id' => $request->model_id]));
         }catch (\Exception $e){
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
+        }
+    }
+
+    /**
+     * Start file download
+     *
+     * @param $id
+     * @return BinaryFileResponse
+     */
+    public function downloadFile($id): BinaryFileResponse{
+        try{
+            $rel = TrainingFile::where('id', '=', $id)->first();
+            $file = File::where('id', '=', $rel->file_id)->first();
+
+            return response()->download(storage_path('files/trainings/' . $file->name), $file->file);
+        }catch (\Exception $e){}
+    }
+
+    /**
+     * Remove file from training and from files__table
+     *
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function removeFile($id): RedirectResponse{
+        try{
+            $rel = TrainingFile::where('id', '=', $id)->first();
+            $file = File::where('id', '=', $rel->file_id)->delete();
+            $modelID = $rel->training_id;
+            $rel->delete();
+
+            return redirect()->route('system.admin.trainings.preview', ['id' => $modelID]);
+        }catch (\Exception $e){
+            return back();
         }
     }
 }

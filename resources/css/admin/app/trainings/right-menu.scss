@@ -14,8 +14,28 @@
     }
     .list__wrapper{
         position: relative; width: 100%;
+        &.list__wrapper__flex{
+            display: flex; flex-wrap: wrap; gap: 8px;
+        }
         ol{
             padding-left: 24px; margin-bottom: 0px;
+        }
+
+        .document__row{
+            &:hover{
+                cursor: pointer;
+                .remove__icon{opacity: 1;}
+            }
+            position: relative; width: 100%; display: flex; justify-content: space-between; align-items: center;
+            a{
+                margin: 0px; padding: 0px;
+            }
+            .remove__icon{
+                width: 32px; display: flex; justify-content: flex-end; opacity: 0; transition: 0.2s all;
+                img{
+                    height: 14px;
+                }
+            }
         }
     }
 }
