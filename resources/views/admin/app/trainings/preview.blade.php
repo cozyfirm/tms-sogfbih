@@ -72,10 +72,10 @@
                 @if($training->authorsRel->count())
                     <div class="training__authors mb-32">
                         <h4>{{ __('Autori programa obuke') }}</h4>
-                        <div class="areas">
+                        <div class="authors">
                             @foreach($training->authorsRel as $author)
                                 <a href="#">
-                                    <div class="area__w">
+                                    <div class="author__w training-check-author" author-id="{{ $author->author_id ?? 0 }}">
                                         <p>{{ $author->authorRel->title ?? '' }}</p>
                                     </div>
                                 </a>

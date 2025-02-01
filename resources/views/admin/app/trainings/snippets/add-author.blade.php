@@ -8,8 +8,8 @@
             </div>
         </div>
         <div class="header__info">
-            <h3>Autori programa</h3>
-            <p>Unesite ili odaberite autora programa obuke</p>
+            <h3 class="add-author-title">Autori programa</h3>
+            <p class="add-author-desc">Unesite ili odaberite autora programa obuke</p>
         </div>
 
         <div class="body__wrapper">

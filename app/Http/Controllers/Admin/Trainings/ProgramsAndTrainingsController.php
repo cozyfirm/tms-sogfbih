@@ -105,13 +105,14 @@ class ProgramsAndTrainingsController extends Controller{
      * Save author and create relationship to training
      *
      * @param Request $request
-     * @return JsonResponse|void
+     * @return JsonResponse
      */
-    public function saveAuthor(Request $request){
+    public function saveAuthor(Request $request): JsonResponse {
         try{
-            if($request->switchState == "on"){
-                /* Add new author */
-                $author = Author::create([
+            if($request->updateAuthor === "true"){
+                /* Update existing author */
+
+                Author::where('id', '=', $request->authorGlobalID)->update([
                     'type' => $request->type,
                     'title' => $request->title,
                     'address' => $request->address,
@@ -121,23 +122,50 @@ class ProgramsAndTrainingsController extends Controller{
                     'email' => $request->email,
                     'comment' => $request->comment
                 ]);
-            }else{
-                $author = Author::where('id', '=', $request->search_author)->first();
-            }
 
-            $rel = AuthorRel::where('training_id', '=', $request->training_id)->where('author_id', '=', $author->id)->first();
-            if(!$rel){
-                AuthorRel::create([
-                    'training_id' => $request->training_id,
-                    'author_id' => $author->id
-                ]);
+                return $this->jsonSuccess(__('Uspješno ažurirano!! '), route('system.admin.trainings.preview', ['id' => $request->training_id ]));
             }else{
-                return $this->jsonError('2001', __('Željeni autor je već povezan sa ovim programom obuke!'));
-            }
+                /* Add new author */
+                if($request->switchState == "on"){
+                    /* Add new author */
+                    $author = Author::create([
+                        'type' => $request->type,
+                        'title' => $request->title,
+                        'address' => $request->address,
+                        'city' => $request->city,
+                        'phone' => $request->phone,
+                        'cellphone' => $request->cellphone,
+                        'email' => $request->email,
+                        'comment' => $request->comment
+                    ]);
+                }else{
+                    $author = Author::where('id', '=', $request->search_author)->first();
+                }
 
-            return $this->jsonSuccess(__('Uspješno spašen autor programa obuke'), route('system.admin.trainings.preview', ['id' => $request->training_id ]));
+                $rel = AuthorRel::where('training_id', '=', $request->training_id)->where('author_id', '=', $author->id)->first();
+                if(!$rel){
+                    AuthorRel::create([
+                        'training_id' => $request->training_id,
+                        'author_id' => $author->id
+                    ]);
+                }else{
+                    return $this->jsonError('2001', __('Željeni autor je već povezan sa ovim programom obuke!'));
+                }
+
+                return $this->jsonSuccess(__('Uspješno spašen autor programa obuke'), route('system.admin.trainings.preview', ['id' => $request->training_id ]));
+            }
         }catch (\Exception $e){
-            dd($e);
+            return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
+        }
+    }
+
+    public function fetchAuthor(Request $request): JsonResponse{
+        try{
+            $author = Author::where('id', '=', $request->authorID)->first();
+            return $this->apiResponse('0000', __('Success'), [
+                'author' => $author
+            ]);
+        }catch (\Exception $e){
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
         }
     }

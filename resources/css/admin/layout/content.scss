@@ -1,3 +1,15 @@
+/**
+ *  Loading wrapper style
+ */
+.loading{
+    position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; background: #0006; z-index: 10000; display: none;
+    img{
+        position: absolute; left: 0px; top:0px; right: 0px; bottom: 0px; margin: auto;
+    }
+}
+/**
+ *  Main content style
+ */
 .main-content{
     position:relative; left:320px; width:calc(100% - 320px); min-height: calc(100% - 80px); top:80px; background: #F5F5F5;
 
@@ -27,9 +39,9 @@
                 .training__areas, .training__authors{
                     position: relative; width: 100%; display: flex; flex-wrap: wrap; gap: 16px;
                     h4{color: $darkGrey; font-size:20px; margin:0px; }
-                    .areas{
+                    .areas, .authors{
                         position: relative; width: 100%; display: flex; gap: 8px; flex-wrap: wrap;
-                        .area__w{
+                        .area__w, .author__w{
                             padding: 2px 8px; background: $yellow; border-radius:4px;
                             p{
                                 margin: 0px; padding: 0px; color: #FFFFFF; font-size:14px;

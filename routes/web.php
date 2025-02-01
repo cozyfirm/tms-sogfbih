@@ -16,7 +16,7 @@ Route::prefix('/')->group(function () {
     /**
      *  Public part of Web App
      */
-    Route::get ('/',                              [PublicHomeController::class, 'home'])->name('public.home');
+    Route::get ('/',                              [AuthController::class, 'auth'])->name('public.home');
 
 });
 
@@ -104,6 +104,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
 
             /** Save author */
             Route::post('/save-author',                [ProgramsAndTrainingsController::class, 'saveAuthor'])->name('system.admin.trainings.save-author');
+            Route::post('/fetch-author',               [ProgramsAndTrainingsController::class, 'fetchAuthor'])->name('system.admin.trainings.fetch-author');
 
             /**
              *  Authors

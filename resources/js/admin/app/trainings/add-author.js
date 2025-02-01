@@ -3,17 +3,26 @@ import { Validator } from "../../../style/layout/validator.ts";
 
 $("document").ready(function (){
     let saveAuthorUri = '/system/admin/trainings/save-author';
+    let fetchAuthorUri = '/system/admin/trainings/fetch-author';
+
+    /**
+     *  Global vars
+     */
+    let authorGlobalID = 0;
+    let updateAuthor = false;
 
     /**
      * Change switch state
      * @type {string}
      */
     let switchState = "off";
-    $(".add-author-switch").click(function (){
+    function changeSwitchState(){
+        let switchBtn = $(".add-author-switch");
+
         if(switchState === "off"){
             /* Add author */
-            $(this).addClass('switched');
-            $(this).attr('state', 'on');
+            switchBtn.addClass('switched');
+            switchBtn.attr('state', 'on');
 
             $(".ta_search__author").addClass('d-none');
             $(".ta_insert__author").removeClass('d-none');
@@ -22,8 +31,8 @@ $("document").ready(function (){
             $(".add-author-note").text('Dodajte autora');
         }else{
             /* Search for authors */
-            $(this).removeClass('switched');
-            $(this).attr('state', 'off');
+            switchBtn.removeClass('switched');
+            switchBtn.attr('state', 'off');
 
             $(".ta_search__author").removeClass('d-none');
             $(".ta_insert__author").addClass('d-none');
@@ -31,6 +40,10 @@ $("document").ready(function (){
             switchState = "off";
             $(".add-author-note").text('Pretraga autora');
         }
+    }
+
+    $(".add-author-switch").click(function (){
+        changeSwitchState();
     });
 
     /**
@@ -68,6 +81,9 @@ $("document").ready(function (){
                 Notify.Me(["Molimo da odaberete autora", "warn"]);
                 return;
             }
+
+            /* Set Author ID as global variable */
+            authorGlobalID = search_author;
         }else{
             /* New author */
 
@@ -102,6 +118,8 @@ $("document").ready(function (){
                 training_id: training_id,
                 switchState: switchState,
                 search_author: search_author,
+                authorGlobalID: authorGlobalID,
+                updateAuthor: updateAuthor,
                 type: type,
                 title: title,
                 email: email,
@@ -117,6 +135,9 @@ $("document").ready(function (){
                 let code = response['code'];
 
                 if(code === '0000'){
+                    /* Reset update flag */
+                    updateAuthor = false;
+
                     if(typeof response['message'] !== 'undefined') Notify.Me([response['message'], "success"]);
 
                     setTimeout(function (){
@@ -125,7 +146,6 @@ $("document").ready(function (){
                 }else{
                     Notify.Me([response['message'], "warn"]);
                 }
-                console.log(response, typeof response['link']);
             }
         });
     });
@@ -137,6 +157,20 @@ $("document").ready(function (){
         $(".add__author_wrapper").addClass('d-none');
     });
     $(".open-add-author").click(function (){
+        /**
+         *  SET GUI INFO
+         */
+        $(".add-author-note").text('Pretraga autora');
+        $(".add-author-title").text('Autori programa');
+        $(".add-author-desc").text('Unesite ili odaberite autora programa obuke');
+        $(".save-author").text('SAČUVAJTE');
+
+        /* Allow switching */
+        $(".switch").removeClass('d-none');
+
+        /* Set flag to false */
+        updateAuthor = false;
+
         $(".add__author_wrapper").removeClass('d-none');
     });
 
@@ -144,5 +178,74 @@ $("document").ready(function (){
         if($(event.target).hasClass('add__author_wrapper')){
             $(".add__author_wrapper").addClass('d-none');
         }
+    });
+
+    /**
+     *  Preview Author info
+     */
+    $(".training-check-author").click(function (){
+        authorGlobalID = $(this).attr('author-id');
+
+        /* Set switch state */
+        switchState = "off";
+        $(".switch").addClass('d-none');
+
+        /* Set flag to true */
+        updateAuthor = true;
+
+        $(".loading").fadeIn(5);
+
+        $.ajax({
+            url: fetchAuthorUri,
+            method: "post",
+            dataType: "json",
+            data: {
+                authorID: authorGlobalID
+            },
+            success: function success(response) {
+                $(".loading").fadeOut(0);
+
+                $(".add__author_wrapper").removeClass('d-none');
+
+                /* Change switch state */
+                changeSwitchState();
+
+                let code = response['code'];
+
+                if(code === '0000'){
+                    let author = response['data']['author'];
+
+                    $(".author_type").val(author['type']);
+                    $(".author_title").val(author['title']);
+                    $(".author_email").val(author['email']);
+                    $(".author_address").val(author['address']);
+                    $(".author_city").val(author['city']);
+                    $(".author_phone").val(author['phone']);
+                    $(".author_cellphone").val(author['cellphone']);
+                    $(".author_comment").val(author['comment']);
+
+                    /**
+                     *  PopUp GUI content
+                     */
+                    $(".add-author-note").text("Pregled autora");
+                    $(".add-author-title").text(author['title']);
+                    $(".add-author-desc").text('Detaljan pregled autora obuke');
+                    $(".save-author").text('AŽURIRAJTE');
+
+                    if(parseInt(author['type']) === 18){
+                        /* User */
+                        $(".author_title_label").text('Ime i prezime');
+                    }else{
+                        /* Company */
+                        $(".author_title_label").text('Naziv kompanije');
+                    }
+                }else{
+                    Notify.Me([response['message'], "warn"]);
+                }
+            }
+        });
+
+
+        console.log(authorGlobalID);
     });
 });
