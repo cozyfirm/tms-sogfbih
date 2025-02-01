@@ -6,6 +6,7 @@
 @section('c-title') {{ __('Programi obuka') }} @endsection
 @section('c-breadcrumbs')
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a href="#">...</a> /
     <a href="{{ route('system.admin.trainings') }}">{{ __('Pregled svih programa obuka') }}</a> /
     @isset($create)
         <a href="#">{{ __('Unos') }}</a>
