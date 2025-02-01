@@ -33,7 +33,14 @@
 @endsection
 
 @section('content')
+    <!-- Add or edit author -->
     @include('admin.app.trainings.snippets.add-author')
+
+    <!-- Upload files GUI -->
+    {{ html()->hidden('model_id')->class('form-control model_id')->value($training->id) }}
+    {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.trainings.save-files')) }}
+    @include('admin.app.shared.files.file-upload')
+
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
             <div class="form__info__inner">

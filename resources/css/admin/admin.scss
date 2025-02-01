@@ -13,6 +13,7 @@ body{
     }
 }
 @import "../style/colors";
+@import "layout/snippets/width";
 
 @import "/node_modules/select2/dist/css/select2.css";
 
@@ -43,3 +44,6 @@ body{
 }
 
 @import "layout/form-and-select";
+
+/** Shared data */
+@import "app/shared/files/file-upload";

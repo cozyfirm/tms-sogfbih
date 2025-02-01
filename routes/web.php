@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Core\CitiesController;
+use App\Http\Controllers\Admin\Core\FileUploadController;
 use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
@@ -106,6 +107,9 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             Route::post('/save-author',                [ProgramsAndTrainingsController::class, 'saveAuthor'])->name('system.admin.trainings.save-author');
             Route::post('/fetch-author',               [ProgramsAndTrainingsController::class, 'fetchAuthor'])->name('system.admin.trainings.fetch-author');
 
+            /** Save file */
+            Route::post('/save-files',                 [ProgramsAndTrainingsController::class, 'saveFiles'])->name('system.admin.trainings.save-files');
+
             /**
              *  Authors
              */
@@ -116,6 +120,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::post('/update',                     [AuthorsController::class, 'update'])->name('system.admin.trainings.authors.update');
                 Route::get ('/delete/{id}',                [AuthorsController::class, 'delete'])->name('system.admin.trainings.authors.delete');
             });
+
             /**
              *  Training instances
              */
@@ -166,6 +171,13 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                     Route::post('/update',                     [CitiesController::class, 'update'])->name('system.admin.core.settings.cities.update');
                     Route::get ('/delete/{id}',                [CitiesController::class, 'delete'])->name('system.admin.core.settings.cities.delete');
                 });
+            });
+
+            /**
+             *  File uploads
+             */
+            Route::prefix('file-upload')->group(function () {
+                Route::post('/',                               [FileUploadController::class, 'upload'])->name('system.admin.core.file-upload');
             });
         });
 

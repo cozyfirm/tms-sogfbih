@@ -1,0 +1,112 @@
+.file__upload__wrapper{
+    position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; background: #0006; z-index: 1000; display: flex; align-items: center; justify-content: center;
+
+    .file__upload_inner{
+        position: relative; width: 680px; background: #FFFFFF; border-radius: 4px; display: flex; gap: 24px; padding: 24px; flex-direction: column;
+
+        .header{
+            position: relative; width: 100%; display: flex; align-items: center; justify-content: space-between;
+            .left-btn{
+                background: $yellow; color: #FFFFFF; padding: 2px 8px; border-radius:4px; font-size:14px;
+            }
+            .img_and_btn_wrapper{
+                position: relative; display: flex; gap: 16px; align-items: center;
+                img{
+                    &:hover{
+                        cursor: pointer; transform: rotate(90deg);
+                    }
+                    height: 24px; transition: 0.3s all;
+                }
+            }
+        }
+        .header__info{
+            position: relative; width: 100%; text-align: center;
+            h3{margin: 0px; padding: 0px;}
+            p{padding: 0px; margin-bottom: 0px; margin-top: 8px; font-size: 14px; }
+        }
+
+        /**
+         *  Upload form info
+         */
+        .upload__form{
+            position: relative; width: 100%; padding: 32px 0px; border-radius: 8px; border: 2px dashed #0006; display: flex; justify-content: center; align-items: center; transition: 0.2s all;
+            &:hover{
+                border: 2px dashed $yellow; cursor: pointer;
+                .upload__middle{
+                    .svg__wrapper{
+                        svg{
+                            path{ fill: $yellow; }
+                        }
+                    }
+                    h6{color: $yellow;}
+                }
+            }
+            .upload__middle{
+                position: relative; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px;
+                .svg__wrapper{
+                    position: relative; width: 100%; display: flex; justify-content: center;
+                    svg{
+                        height: 48px;
+                        path{
+                            fill: #0006; transition: 0.2s all;
+                        }
+                    }
+                }
+                h6{transition: 0.2s all;}
+            }
+        }
+
+        .uploaded__files__wrapper{
+            position: relative; width: 100%; display: flex; gap: 4px; flex-wrap: wrap; max-height: 120px; overflow: auto;
+
+            &::-webkit-scrollbar {
+                width: 0px;
+                height:0px;
+            }
+
+            .uploaded__file{
+                position: relative; width: 100%; background: #F3F5F7; border-radius: 4px; padding: 16px;
+                .file__header{
+                    position: relative; width: 100%; display: flex; justify-content: space-between; gap: 16px;
+                    .icon__wrapper{
+                        position: relative; width: 36px;
+                        img{
+                            height: 24px;
+                        }
+                    }
+                    .content__wrapper{
+                        position: relative; width: calc(100% - 72px); display: flex; flex-wrap: wrap; gap: 0px;
+                        h6, p{margin: 0px; padding: 0px;}
+                        p{width: 100%; font-size: 12px; color: #0006;}
+                    }
+                    .content__remove{
+                        &:hover{cursor:pointer;}
+                        position: relative; width: 32px; display: flex; justify-content: flex-end;
+                        img{
+                            height: 24px;
+                        }
+                    }
+                }
+                .upload__progress_wrapper{
+                    position: relative; width: 100%; display: flex; justify-content: space-between; gap: 16px; align-items: center;
+                    .upload__line{
+                        position: relative; width: 100%; height: 8px; border-radius: 2px; background: #FFFFFF; overflow: hidden;
+                        .upload__line_fill{
+                            position: relative; left: 0px; top: 0px; height: 100%; background: $yellow;
+                        }
+                    }
+                    p{
+                        margin: 0px; color: $grey; font-size: 14px; margin-top: 2px;
+                    }
+                }
+            }
+        }
+        .upload__buttons_wrapper{
+            position: relative; width: 100%; display: flex; justify-content: flex-end; gap: 16px;
+        }
+
+        form{
+            position: relative; width: 100%; display: flex; flex-wrap: wrap; padding: 0px; margin: 0px; gap: 16px;
+        }
+    }
+}

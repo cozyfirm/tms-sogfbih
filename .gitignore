@@ -19,3 +19,8 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+
+# Ignore everything in storage/files/trainings folder
+/storage/files/trainings/*
+# But track the readme.md file in that folder (adjust the path and case as needed)
+!/storage/files/trainings/readme.md

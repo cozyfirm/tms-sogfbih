@@ -39,4 +39,9 @@
             <img src="{{ asset('files/images/icons/category.svg') }}" alt="{{ __('Category image') }}">
         </div>
     </a>
+    <a title="{{ __('Upload dokumenata') }}" class="upload-files">
+        <div class="rm-ci-w">
+            <img src="{{ asset('files/images/icons/cloud-arrow-up-solid.svg') }}" alt="{{ __('Category image') }}">
+        </div>
+    </a>
 </div>

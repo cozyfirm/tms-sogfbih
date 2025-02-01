@@ -9,6 +9,7 @@ use App\Models\Core\Keyword;
 use App\Models\Trainigs\Author;
 use App\Models\Trainigs\AuthorRel;
 use App\Models\Trainigs\Training;
+use App\Models\Trainigs\TrainingFile;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Trainings\TrainingTrait;
@@ -161,12 +162,31 @@ class ProgramsAndTrainingsController extends Controller{
         }
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function fetchAuthor(Request $request): JsonResponse{
         try{
             $author = Author::where('id', '=', $request->authorID)->first();
             return $this->apiResponse('0000', __('Success'), [
                 'author' => $author
             ]);
+        }catch (\Exception $e){
+            return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
+        }
+    }
+
+    public function saveFiles(Request $request): JsonResponse{
+        try{
+            foreach ($request->filesArray as $item){
+                TrainingFile::create([
+                    'training_id' => $request->model_id,
+                    'file_id' => $item['fileID']
+                ]);
+            }
+
+            return $this->jsonSuccess(__('Uspješno sačuvano'), route('system.admin.trainings.preview', ['id' => $request->model_id]));
         }catch (\Exception $e){
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
         }

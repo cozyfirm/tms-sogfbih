@@ -32,6 +32,11 @@ import "./style/submit.js";
 
 import './public-part/auth/auth.js';
 
+/**
+ *  Import shared scripts
+ */
+import './admin/app/shared/files/file-upload.js';
+
 $(document).ready(function() {
     $(".datepicker").datepicker({
         format: 'dd.mm.yyyy',
