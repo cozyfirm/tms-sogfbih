@@ -45,6 +45,7 @@ class ProgramsAndTrainingsController extends Controller{
             'areas' => Keyword::getIt('trainings__areas'),
             'financiers' => Keyword::getIt('trainings__financed_by'),
             'projects' => Keyword::getIt('trainings__projects'),
+            'participants' => Keyword::getIt('trainings__participants'),
             'training' => isset($id) ? Training::where('id', '=', $id)->first() : null
         ]);
     }
@@ -74,6 +75,7 @@ class ProgramsAndTrainingsController extends Controller{
             'areas' => Keyword::getIt('trainings__areas'),
             'financiers' => Keyword::getIt('trainings__financed_by'),
             'projects' => Keyword::getIt('trainings__projects'),
+            'participants' => Keyword::getIt('trainings__participants'),
             'training' => isset($id) ? Training::where('id', '=', $id)->first() : null,
             'cities' => City::pluck('title', 'id'),
             'userTypes' => Keyword::getIt('user_type'),

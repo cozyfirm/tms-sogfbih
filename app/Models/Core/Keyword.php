@@ -25,6 +25,7 @@ class Keyword extends Model{
         'trainings__areas' => 'Šire oblasti programa obuke',
         'trainings__financed_by' => 'Finansijeri programa obuka',
         'trainings__projects' => 'Projekti u okviru kojih se izrađuju programi',
+        'trainings__participants' => 'Učesnici programa',
         'user_type' => 'Fizička ili pravna lica'
     ];
 

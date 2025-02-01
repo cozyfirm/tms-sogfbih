@@ -38,16 +38,24 @@
         <div class="form__info">
             <div class="form__info__inner">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             {{ html()->label(__('Naziv programa obuke'))->for('title')->class('bold') }}
                             {{ html()->text('title', $training->title ?? '' )->class('form-control form-control-sm')->required()->value((isset($training) ? $training->title : ''))->isReadonly(isset($preview))->maxlength(200) }}
                         </div>
                     </div>
+                </div>
+                <div class="row mt-3">
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ html()->label(__('Izradu programa obuke finansirao'))->for('financed_by')->class('bold') }}
                             {{ html()->select('financed_by', $financiers, isset($training) ? $training->financed_by : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ html()->label(__('Učesnici programa'))->for('participants')->class('bold') }}
+                            {{ html()->select('participants', $participants, isset($training) ? $training->participants : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
                         </div>
                     </div>
                 </div>

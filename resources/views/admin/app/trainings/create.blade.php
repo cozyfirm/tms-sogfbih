@@ -42,18 +42,28 @@
                     @endif
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 {{ html()->label(__('Naziv'))->for('title')->class('bold') }}
                                 {{ html()->text('title', $training->title ?? '' )->class('form-control form-control-sm')->required()->value((isset($training) ? $training->title : ''))->isReadonly(isset($preview))->maxlength(200) }}
                                 <small id="titleHelp" class="form-text text-muted">{{ __('Naziv programa obuke') }}</small>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row mt-3">
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Izradu programa obuke finansirao'))->for('financed_by')->class('bold') }}
                                 {{ html()->select('financed_by', $financiers, isset($training) ? $training->financed_by : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
                                 <small id="financed_byHelp" class="form-text text-muted">{{ __('Odaberite izvor finansiranja programa obuke') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('Učesnici programa'))->for('participants')->class('bold') }}
+                                {{ html()->select('participants', $participants, isset($training) ? $training->participants : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                                <small id="participantsHelp" class="form-text text-muted">{{ __('Za koje učesnike je ovaj program namijenjen?') }}</small>
                             </div>
                         </div>
                     </div>
