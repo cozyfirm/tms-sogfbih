@@ -8,6 +8,7 @@ use App\Models\Core\File;
 use App\Models\Core\Keyword;
 use App\Models\Trainigs\Instances\Instance;
 use App\Models\Trainigs\Instances\InstanceDate;
+use App\Models\Trainigs\Instances\InstanceFile;
 use App\Models\Trainigs\Instances\InstanceLunch;
 use App\Models\Trainigs\Training;
 use App\Models\Trainigs\TrainingFile;
@@ -19,6 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -149,13 +151,14 @@ class InstancesController extends Controller{
     public function saveFiles(Request $request): JsonResponse{
         try{
             foreach ($request->filesArray as $item){
-                TrainingFile::create([
-                    'training_id' => $request->model_id,
-                    'file_id' => $item['fileID']
+                InstanceFile::create([
+                    'instance_id' => $request->model_id,
+                    'file_id' => $item['fileID'],
+                    'user_id' => Auth::user()->id
                 ]);
             }
 
-            return $this->jsonSuccess(__('Uspješno sačuvano'), route('system.admin.trainings.preview', ['id' => $request->model_id]));
+            return $this->jsonSuccess(__('Uspješno sačuvano'), route('system.admin.trainings.instances.preview', ['id' => $request->model_id]));
         }catch (\Exception $e){
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
         }
@@ -169,7 +172,7 @@ class InstancesController extends Controller{
      */
     public function downloadFile($id): BinaryFileResponse{
         try{
-            $rel = TrainingFile::where('id', '=', $id)->first();
+            $rel = InstanceFile::where('id', '=', $id)->first();
             $file = File::where('id', '=', $rel->file_id)->first();
 
             return response()->download(storage_path('files/trainings/' . $file->name), $file->file);
@@ -184,8 +187,8 @@ class InstancesController extends Controller{
      */
     public function removeFile($id): RedirectResponse{
         try{
-            $rel = TrainingFile::where('id', '=', $id)->first();
-            $file = File::where('id', '=', $rel->file_id)->delete();
+            $rel = InstanceFile::where('id', '=', $id)->first();
+            File::where('id', '=', $rel->file_id)->delete();
             $modelID = $rel->training_id;
             $rel->delete();
 
@@ -193,5 +196,15 @@ class InstancesController extends Controller{
         }catch (\Exception $e){
             return back();
         }
+    }
+
+    /**
+     *  Photo Gallery
+     */
+    public function photoGallery($id): View{
+        return view($this->_path . 'submodules.photo-gallery.preview', [
+            "create" => true,
+            'instance' => Instance::where('id', '=', $id)->first()
+        ]);
     }
 }

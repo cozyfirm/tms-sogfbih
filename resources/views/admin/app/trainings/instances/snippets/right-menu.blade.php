@@ -63,7 +63,7 @@
             <img src="{{ asset('files/images/icons/cloud-arrow-up-solid.svg') }}" alt="{{ __('Upload image') }}">
         </div>
     </a>
-    <a title="{{ __('Galerija fotografija') }}" class="instance-gallery">
+    <a href="{{ route('system.admin.trainings.instances.photo-gallery.preview', ['id' => $instance->id ]) }}" title="{{ __('Galerija fotografija') }}" class="instance-gallery">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/camera-retro-solid.svg') }}" alt="{{ __('Gallery image') }}">
         </div>

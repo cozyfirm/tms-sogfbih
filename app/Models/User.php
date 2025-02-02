@@ -76,4 +76,7 @@ class User extends Authenticatable
     public function countryRel(): HasOne{
         return $this->hasOne(Country::class, 'id', 'country');
     }
+    public function getInitials(): string{
+        return substr($this->first_name ?? '', 0, 1) . (isset($this->last_name) ? substr($this->last_name ?? '', 0, 1) : '');
+    }
 }

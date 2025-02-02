@@ -47,4 +47,7 @@ class Instance extends Model{
     public function datesRel(): HasMany{
         return $this->hasMany(InstanceDate::class, 'instance_id', 'id');
     }
+    public function filesRel(): HasMany{
+        return $this->hasMany(InstanceFile::class, 'instance_id', 'id');
+    }
 }

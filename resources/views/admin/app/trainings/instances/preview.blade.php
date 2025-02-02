@@ -35,9 +35,10 @@
 
 @section('content')
     <!-- Upload files GUI -->
-    {{ html()->hidden('image_path')->class('form-control image_path')->value(public_path('files/upload/trainings')) }}
-    {{ html()->hidden('file_path')->class('form-control file_path')->value(storage_path('files/trainings/instances/files')) }}
-    {{ html()->hidden('model_id')->class('form-control model_id')->value($instance->training_id) }}
+    {{ html()->hidden('image_path')->class('form-control image_path')->value('files/upload/trainings') }}
+    {{ html()->hidden('file_path')->class('form-control file_path')->value('files/trainings/instances/files') }}
+    {{ html()->hidden('file_type')->class('form-control file_type')->value('instance__file') }}
+    {{ html()->hidden('model_id')->class('form-control model_id')->value($instance->id) }}
     {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.trainings.instances.save-files')) }}
     @include('admin.app.shared.files.file-upload')
 

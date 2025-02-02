@@ -13,8 +13,8 @@ class FileUploadController extends Controller{
 
     public function upload(Request $request){
         try{
-            $request['path'] = (storage_path('files/trainings'));
-            $file = $this->saveFile($request, 'file', 'trainings_file');
+            // $request['path'] = (storage_path('files/trainings'));
+            $file = $this->saveFile($request, 'file', $request->type);
 
             /* ToDo:: Add extensions check and remove elements .. */
 

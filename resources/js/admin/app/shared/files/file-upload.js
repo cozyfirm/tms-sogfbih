@@ -68,6 +68,7 @@ $(document).ready(function(){
         formData.append('file', file);
         formData.append('file_path', $(".file_path").val());
         formData.append('image_path', $(".image_path").val());
+        formData.append('type', $(".file_type").val());
 
         $.ajax({
             url: '/system/admin/core/file-upload', // Laravel route handling the upload

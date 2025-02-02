@@ -138,6 +138,10 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::get ('/download-file/{id}',         [InstancesController::class, 'downloadFile'])->name('system.admin.trainings.instances.download-file');
                 Route::get ('/remove-file/{id}',           [InstancesController::class, 'removeFile'])->name('system.admin.trainings.instances.remove-file');
 
+                Route::prefix('photo-gallery')->group(function () {
+                    Route::get ('/preview/{id}',                       [InstancesController::class, 'photoGallery'])->name('system.admin.trainings.instances.photo-gallery.preview');
+                });
+
                 /**
                  *  Lunch infos
                  */

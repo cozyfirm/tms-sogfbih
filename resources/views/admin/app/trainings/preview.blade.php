@@ -40,6 +40,7 @@
     <!-- Upload files GUI -->
     {{ html()->hidden('image_path')->class('form-control image_path')->value(public_path('files/upload/trainings')) }}
     {{ html()->hidden('file_path')->class('form-control file_path')->value(storage_path('files/trainings/trainings')) }}
+    {{ html()->hidden('file_type')->class('form-control file_type')->value('training__file') }}
     {{ html()->hidden('model_id')->class('form-control model_id')->value($training->id) }}
     {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.trainings.save-files')) }}
     @include('admin.app.shared.files.file-upload')
