@@ -82,6 +82,7 @@ $(document).ready(function (){
 
             if(!foundN){
                 let element = $("[name = '" + $(this).attr('name') + "']");
+                let checkBox = ($(this).attr('type') === 'checkbox');
 
                 if(element.length > 1){
                     for(let i=0; i<names.length; i++){
@@ -93,7 +94,6 @@ $(document).ready(function (){
 
                     let newData = [];
                     let name = $(this).attr('name').replace('[]', '');
-                    let checkBox = ($(this).attr('type') === 'checkbox');
 
                     element.each(function (){
                         if(checkBox){
@@ -107,7 +107,11 @@ $(document).ready(function (){
 
                     data[name] = newData;
                 }else {
-                    data[$(this).attr('name')] = $(this).val();
+                    if(checkBox){
+                        if($(this).is(":checked")) data[$(this).attr('name')] = $(this).val();
+                    }else{
+                        data[$(this).attr('name')] = $(this).val();
+                    }
                     /*
                      *  Check if data is valid
                      */
@@ -159,7 +163,6 @@ $(document).ready(function (){
                     }else{
                         Notify.Me([response['message'], "warn"]);
                     }
-                    console.log(response, typeof response['link']);
                 }
             });
         }

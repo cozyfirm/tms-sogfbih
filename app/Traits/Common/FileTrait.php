@@ -21,6 +21,13 @@ trait FileTrait{
                 $ext = pathinfo($file->getClientOriginalName(),PATHINFO_EXTENSION);
                 $name = md5($file->getClientOriginalName().time()).'.'.$ext;
 
+                if($ext == 'jpg' or $ext == 'jpeg' or $ext == 'png' or $ext == 'svg'){
+                    /* It is image */
+                    $request['path'] = $request->image_path;
+                }else{
+                    $request['path'] = $request->file_path;
+                }
+
                 $file->move($request->path, $name);
 
                 return File::create([

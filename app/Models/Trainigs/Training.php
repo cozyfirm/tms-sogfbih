@@ -3,6 +3,7 @@
 namespace App\Models\Trainigs;
 
 use App\Models\Core\Keyword;
+use App\Models\Trainigs\Instances\Instance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static count()
  * @method static create(array $except)
  * @method static where(string $string, string $string1, mixed $id)
+ * @method static pluck(string $string, string $string1)
  */
 class Training extends Model{
     use HasFactory;
@@ -33,5 +35,12 @@ class Training extends Model{
     }
     public function filesRel(): HasMany{
         return $this->hasMany(TrainingFile::class,'training_id', 'id');
+    }
+
+    /**
+     *  Instance relationships
+     */
+    public function instancesRel(): HasMany{
+        return $this->hasMany(Instance::class, 'training_id', 'id');
     }
 }

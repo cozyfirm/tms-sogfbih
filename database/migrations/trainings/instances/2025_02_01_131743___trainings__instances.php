@@ -19,22 +19,19 @@ return new class extends Migration
                 ->references('id')
                 ->on('trainings')
                 ->onDelete('cascade');
-            $table->date('date_till');
 
-            /* Total applied to training */
-            $table->unsignedInteger('men');
-            $table->unsignedInteger('women');
+            $table->date('application_date');
+            $table->integer('total_males')->default(0);
+            $table->integer('total_females')->default(0);
+            $table->integer('lunch');                              // FK to Keywords: Yes | No
 
-            $table->integer('lunch');               // FK to Keywords
+            $table->string('youtube', 200)->nullable();
+            $table->string('contract', 10)->default('0.00');
 
-            $table->string('youtube', 150)->nullable();
-            $table->string('cost', 20)->default('0.00');
-            $table->string('trainer_cost', 20)->default('0.00');
-
+            $table->string('trainer_grade', 10)->default(1.0);
             $table->text('trainer_monitoring')->nullable();
 
-            $table->integer('report');              // FK to Keywords
-            $table->integer('report_file_id')->nullable();
+            $table->integer('views')->default(0);
 
             $table->timestamps();
             $table->softDeletes();

@@ -8,7 +8,7 @@ trait CommonTrait{
     protected array $_select2_data = [];
 
     public static function formTimeArr(){
-        for($i=0; $i<= 23; $i++){
+        for($i=7; $i<= 17; $i++){
             for($j=0; $j<60; $j+=15){
                 $time = (($i < 10) ? ('0'.$i) : $i) . ':' . (($j < 10) ? ('0'.$j) : $j);
                 self::$_time_arr[$time] = $time;

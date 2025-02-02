@@ -1,0 +1,14 @@
+.instance__inner_w{
+    position: relative; width: 100%; display: flex; flex-wrap: wrap;
+
+    .iiw__header{
+        position: relative; width: 100%; display: flex; justify-content: space-between; padding: 8px 16px; background: $yellow; border-radius: 4px; align-items: center;
+
+        p{
+            margin: 0px; padding: 0px; color: #FFFFFF;
+        }
+        img{
+            height: 16px;
+        }
+    }
+}

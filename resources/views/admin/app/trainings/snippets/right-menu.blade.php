@@ -21,9 +21,13 @@
     <hr>
     <div class="list__wrapper">
         <ol>
-            @for($i=0; $i<5; $i++)
-                <li> Testni instance obuke koja se održala nekad u toku prošlog mjeseca </li>
-            @endfor
+            @foreach($training->instancesRel as $instance)
+                <li>
+                    <a href="{{ route('system.admin.trainings.instances.preview', ['id' => $instance->id ]) }}">
+                        {{ $instance->startDate() }} - {{ $instance->endDate() }} (12 polaznika)
+                    </a>
+                </li>
+            @endforeach
         </ol>
     </div>
 </div>

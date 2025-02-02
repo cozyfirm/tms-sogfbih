@@ -20,7 +20,16 @@ yarn-error.log
 /.vscode
 /.zed
 
-# Ignore everything in storage/files/trainings folder
-/storage/files/trainings/*
-# But track the readme.md file in that folder (adjust the path and case as needed)
-!/storage/files/trainings/readme.md
+# Ignore everything in storage/files/trainings folder except readme.md
+/storage/files/trainings/trainings/*
+!/storage/files/trainings/trainings/readme.md
+# Ignore everything in storage/files/instances/files folder except readme.md
+/storage/files/trainings/instances/files*
+!/storage/files/trainings/instances/files/readme.md
+# Ignore everything in storage/files/instances/files folder except readme.md
+/storage/files/trainings/instances/invoices*
+!/storage/files/trainings/instances/invoices/readme.md
+
+# Ignore everything in upload folder except readme.md
+/public/files/upload/trainings/*
+!/public/files/upload/trainings/readme.md

@@ -1,0 +1,108 @@
+@extends('admin.layout.layout')
+@section('c-icon')
+    <img class="normal-icon" src="{{ asset('files/images/icons/training-instance.svg') }}" alt="{{ __('Training-instance image') }}">
+    <img class="yellow-icon" src="{{ asset('files/images/icons/training-instance-yellow.svg') }}" alt="{{ __('Training instance image') }}">
+@endsection
+@section('c-title') {{ __('Instance obuka') }} @endsection
+@section('c-breadcrumbs')
+    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a href="#">...</a> /
+    <a href="{{ route('system.admin.trainings') }}">{{ __('Instance obuka') }}</a> /
+    @isset($create)
+        <a href="#">{{ __('Unos') }}</a>
+    @else
+        <a href="#">{{ $training->title ?? '' }}</a>
+    @endisset
+@endsection
+
+@section('c-buttons')
+    @isset($create)
+        <a href="{{ route('system.admin.trainings') }}" title="{{ __('Pregled svih programa obuka') }}">
+            <button class="pm-btn btn pm-btn-info">
+                <i class="fas fa-chevron-left"></i>
+                <span>{{ __('Nazad') }}</span>
+            </button>
+        </a>
+    @else
+        <a href="{{ route('system.admin.trainings.preview', ['id' => $training->id ]) }}" title="{{ __('Nazad na pregled programa obuke') }}">
+            <button class="pm-btn btn pm-btn-info">
+                <i class="fas fa-chevron-left"></i>
+                <span>{{ __('Nazad') }}</span>
+            </button>
+        </a>
+    @endisset
+@endsection
+
+@section('content')
+    <div class="content-wrapper content-wrapper-p-15">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="@if(isset($edit)) {{ route('system.admin.trainings.instances.update') }} @else {{ route('system.admin.trainings.instances.save') }} @endif" method="POST" id="js-form">
+                    @if(isset($edit))
+                        {{ html()->hidden('id')->class('form-control')->value($instance->id) }}
+                    @endif
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ html()->label(__('Program obuka'))->for('training_id')->class('bold') }}
+                                {{ html()->select('training_id', $programs, isset($instance) ? $instance->training_id : '')->class('form-control form-control-sm select2')->required()->disabled(isset($preview)) }}
+                                <small id="financed_byHelp" class="form-text text-muted">{{ __('Odaberite program kojem obuka pripada') }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('Datum'))->for('application_date')->class('bold') }}
+                                {{ html()->text('application_date', $instance->application_date ?? '' )->class('form-control form-control-sm datepicker')->required()->value((isset($instance) ? $instance->application_date : ''))->isReadonly(isset($preview)) }}
+                                <small id="application_dateHelp" class="form-text text-muted">{{ __('Odaberite datum do kad su otvorene prijave') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('Ručak'))->for('lunch')->class('bold') }}
+                                {{ html()->select('lunch', $yesNo, isset($instance) ? $instance->lunch : '0')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                                <small id="lunchHelp" class="form-text text-muted">{{ __('Da li su predviđeni obroci za učesnike?') }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('YouTube link'))->for('youtube')->class('bold') }}
+                                {{ html()->text('youtube', $instance->youtube ?? '' )->class('form-control form-control-sm')->value((isset($instance) ? $instance->youtube : ''))->isReadonly(isset($preview)) }}
+                                <small id="youtubeHelp" class="form-text text-muted">{{ __('Ukolio ima, unesite YouTube link') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('Iznos ugovora'))->for('contract')->class('bold') }}
+                                {{ html()->text('contract', $instance->contract ?? '' )->class('form-control form-control-sm')->required()->value((isset($instance) ? $instance->contract : ''))->placeholder('100.00')->isReadonly(isset($preview)) }}
+                                <small id="contractHelp" class="form-text text-muted">{{ __('Bruto iznos ugovora u KM') }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ html()->label(__('Monitoring trenera'))->for('trainer_monitoring')->class('bold') }}
+                                {{ html()->textarea('trainer_monitoring', $instance->trainer_monitoring ?? '' )->class('form-control form-control-sm')->style('height:120px;')->value((isset($instance) ? $instance->trainer_monitoring : ''))->isReadonly(isset($preview)) }}
+                                <small id="trainer_monitoringHelp" class="form-text text-muted">{{ __('Više informacija o monitoringu trenera') }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="submit" class="yellow-btn">  {{ __('SAČUVAJTE') }} </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

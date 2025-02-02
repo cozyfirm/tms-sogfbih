@@ -6,10 +6,9 @@ use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
+use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
 use App\Http\Controllers\Admin\Users\UsersController;
-use App\Http\Controllers\InstancesController;
-use App\Http\Controllers\PublicPart\HomeController as PublicHomeController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -134,6 +133,32 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::get ('/edit/{id}',                  [InstancesController::class, 'edit'])->name('system.admin.trainings.instances.edit');
                 Route::post('/update',                     [InstancesController::class, 'update'])->name('system.admin.trainings.instances.update');
                 Route::get ('/delete/{id}',                [InstancesController::class, 'delete'])->name('system.admin.trainings.instances.delete');
+
+                Route::post('/save-files',                 [InstancesController::class, 'saveFiles'])->name('system.admin.trainings.instances.save-files');
+                Route::get ('/download-file/{id}',         [InstancesController::class, 'downloadFile'])->name('system.admin.trainings.instances.download-file');
+                Route::get ('/remove-file/{id}',           [InstancesController::class, 'removeFile'])->name('system.admin.trainings.instances.remove-file');
+
+                /**
+                 *  Lunch infos
+                 */
+                Route::prefix('lunch')->middleware('isAuthenticated')->group(function () {
+                    Route::get ('add-lunch/{instance_id}',               [InstancesController::class, 'addLunch'])->name('system.admin.trainings.instances.lunch.add');
+                    Route::post('save-lunch',                            [InstancesController::class, 'saveLunch'])->name('system.admin.trainings.instances.lunch.save');
+                    Route::get ('edit-lunch/{id}',                       [InstancesController::class, 'editLunch'])->name('system.admin.trainings.instances.lunch.edit');
+                    Route::post('update-lunch',                          [InstancesController::class, 'updateLunch'])->name('system.admin.trainings.instances.lunch.update');
+                    Route::get ('delete-lunch/{id}',                     [InstancesController::class, 'deleteLunch'])->name('system.admin.trainings.instances.lunch.delete');
+                });
+
+                /**
+                 *  Date infos
+                 */
+                Route::prefix('date')->middleware('isAuthenticated')->group(function () {
+                    Route::get ('add-date/{instance_id}',                 [InstancesController::class, 'addDate'])->name('system.admin.trainings.instances.date.add');
+                    Route::post('save-date',                              [InstancesController::class, 'saveDate'])->name('system.admin.trainings.instances.date.save');
+                    Route::get ('edit-date/{id}',                         [InstancesController::class, 'editDate'])->name('system.admin.trainings.instances.date.edit');
+                    Route::post('update-date',                            [InstancesController::class, 'updateDate'])->name('system.admin.trainings.instances.date.update');
+                    Route::get ('delete-date/{id}',                       [InstancesController::class, 'deleteDate'])->name('system.admin.trainings.instances.date.delete');
+                });
             });
         });
 
