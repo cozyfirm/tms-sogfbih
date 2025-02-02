@@ -81,8 +81,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ html()->label(__('Uloga'))->for('role')->class('bold') }}
-                                {{ html()->select('role', ['user' => 'Korisnik', 'trainer' => 'Trener', 'moderator' => 'Moderator', 'admin' => 'Admin' ], isset($user) ? $user->role : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                                {{ html()->label(__('Spol'))->for('country')->class('bold') }}
+                                {{ html()->select('gender', $gender, isset($user) ? $user->gender : '1')->class('form-control form-control-sm mt-1')->required()->disabled(isset($preview)) }}
                             </div>
                         </div>
                     </div>
@@ -103,10 +103,16 @@
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                {{ html()->label(__('Spol'))->for('country')->class('bold') }}
-                                {{ html()->select('gender', $gender, isset($user) ? $user->gender : '1')->class('form-control form-control-sm mt-1')->required()->disabled(isset($preview)) }}
+                                {{ html()->label(__('Uloga'))->for('role')->class('bold') }}
+                                {{ html()->select('role', ['user' => 'Korisnik', 'trainer' => 'Trener', 'moderator' => 'Moderator', 'admin' => 'Admin' ], isset($user) ? $user->role : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('Status'))->for('access')->class('bold') }}
+                                {{ html()->select('access', ['access' => 'Dozvoljen pristup', 'no-access' => 'Nije dozvoljen pristup', 'banned' => 'Korisnik je banovan'], isset($user) ? $user->access : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
                             </div>
                         </div>
                     </div>
@@ -127,6 +133,33 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr class="mt-4 mb-4">
+
+                    <div class="row mt-1">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('Radno mjesto'))->for('workplace')->class('bold') }}
+                                {{ html()->text('workplace')->class('form-control form-control-sm mt-1')->required()->maxlength(100)->value((isset($user) ? $user->workplace : ''))->isReadonly(isset($preview)) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('Institucija'))->for('institution')->class('bold') }}
+                                {{ html()->select('institution', ['1' => 'Sarajevo', '2' => 'Vakuf gornji'], isset($user) ? $user->institution : '1')->class('form-control form-control-sm mt-1')->required()->disabled(isset($preview)) }}
+                            </div>
+                        </div>
+                    </div>
+                    @if($user->comment != '')
+                        <div class="row mt-1">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ html()->label(__('Komentar'))->for('comment')->class('bold') }}
+                                    {{ html()->textarea('comment')->class('form-control form-control-sm mt-1')->required()->maxlength(500)->style('height:80px;')->value((isset($user) ? $user->comment : ''))->isReadonly(isset($preview)) }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                     @if(!isset($preview))
                         <div class="row mt-4">

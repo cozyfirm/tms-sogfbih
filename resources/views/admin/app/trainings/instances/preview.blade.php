@@ -42,6 +42,9 @@
     {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.trainings.instances.save-files')) }}
     @include('admin.app.shared.files.file-upload')
 
+    <!-- Add trainer -->
+    @include('admin.app.trainings.instances.snippets.add-trainer')
+
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
             <div class="form__info__inner">

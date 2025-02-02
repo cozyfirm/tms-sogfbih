@@ -26,7 +26,8 @@ class Keyword extends Model{
         'trainings__financed_by' => 'Finansijeri programa obuka',
         'trainings__projects' => 'Projekti u okviru kojih se izrađuju programi',
         'trainings__participants' => 'Učesnici programa',
-        'user_type' => 'Fizička ili pravna lica'
+        'user_type' => 'Fizička ili pravna lica',
+        // 'trainer__grade' => 'Ocjena trenera',
     ];
 
     /* Return all types of keywords */

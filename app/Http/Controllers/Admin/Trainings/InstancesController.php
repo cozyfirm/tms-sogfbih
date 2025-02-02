@@ -12,6 +12,7 @@ use App\Models\Trainigs\Instances\InstanceFile;
 use App\Models\Trainigs\Instances\InstanceLunch;
 use App\Models\Trainigs\Training;
 use App\Models\Trainigs\TrainingFile;
+use App\Models\User;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Common\FileTrait;
 use App\Traits\Http\ResponseTrait;
@@ -82,7 +83,8 @@ class InstancesController extends Controller{
             'preview' => true,
             'programs' => Training::pluck('title', 'id')->prepend('Odaberite program'),
             'yesNo' => Keyword::getItByVal('yes_no'),
-            'instance' => $instance
+            'instance' => $instance,
+            'trainers' => User::where('role', '=', 'trainer')->pluck('name', 'id')->prepend('Odaberite trenera')
         ]);
     }
 

@@ -21,6 +21,7 @@ import "./admin/app/core/notifications.js";
  *  Trainings scripts
  */
 import "./admin/app/trainings/add-author.js";
+import "./admin/app/trainings/instances/add-trainer.js";
 
 /* Import Submit script */
 import "./style/submit.js";

@@ -33,6 +33,7 @@ class User extends Authenticatable
         'password',
         'api_token',
         'role',
+        'access',
         'phone',
         'birth_date',
         'gender',

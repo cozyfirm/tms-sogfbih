@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -120,6 +121,13 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::get ('/edit/{id}',                  [AuthorsController::class, 'edit'])->name('system.admin.trainings.authors.edit');
                 Route::post('/update',                     [AuthorsController::class, 'update'])->name('system.admin.trainings.authors.update');
                 Route::get ('/delete/{id}',                [AuthorsController::class, 'delete'])->name('system.admin.trainings.authors.delete');
+            });
+
+            /**
+             *  Trainer submodules
+             */
+            Route::prefix('trainers')->middleware('isAuthenticated')->group(function () {
+                Route::get ('/',                           [TrainersController::class, 'index'])->name('system.admin.trainings.trainers');
             });
 
             /**

@@ -53,7 +53,7 @@
 </div>
 
 <div class="rm-card-icons">
-    <a href="{{ route('system.admin.core.keywords.preview-instances', ['key' => 'trainings__areas']) }}" title="{{ __('Dodajte trenera na obuku') }}">
+    <a title="{{ __('Dodajte trenera na obuku') }}" class="instances-add-trainer">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Trainer image') }}">
         </div>

@@ -31,7 +31,15 @@ return new class extends Migration
              *      - trainer
              *      - user
              */
-            $table->string('role', '10')->default('user');
+            $table->string('role', '20')->default('user');
+
+            /**
+             *  Access to app
+             *      - access
+             *      - no-access
+             *      - banned
+             */
+            $table->string('access', '20')->default('no-access');
 
             /* User attributes */
             $table->string('phone', 20);
