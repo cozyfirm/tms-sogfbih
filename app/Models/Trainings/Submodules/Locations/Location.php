@@ -2,8 +2,10 @@
 
 namespace App\Models\Trainings\Submodules\Locations;
 
+use App\Models\Core\City;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -16,4 +18,8 @@ class Location extends Model{
 
     protected $table = '__locations';
     protected $guarded = ['id'];
+
+    public function cityRel(): HasOne{
+        return $this->hasOne(City::class, 'id', 'city');
+    }
 }

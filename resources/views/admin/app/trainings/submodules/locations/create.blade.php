@@ -13,21 +13,12 @@
 @endsection
 
 @section('c-buttons')
-    @isset($create)
-        <a href="{{ route('system.admin.trainings.submodules.locations') }}" title="{{ __('Pregled svih lokacija') }}">
-            <button class="pm-btn btn pm-btn-info">
-                <i class="fas fa-chevron-left"></i>
-                <span>{{ __('Nazad') }}</span>
-            </button>
-        </a>
-    @else
-        <a href="{{ route('system.admin.trainings.submodules.locations.preview', ['id' => $location->id ]) }}" title="{{ __('Nazad na pregled lokacije') }}">
-            <button class="pm-btn btn pm-btn-info">
-                <i class="fas fa-chevron-left"></i>
-                <span>{{ __('Nazad') }}</span>
-            </button>
-        </a>
-    @endisset
+    <a href="@isset($edit) {{ route('system.admin.trainings.submodules.locations.preview', ['id' => $location->id ]) }} @else @endif{{ route('system.admin.trainings.submodules.locations') }}" title="{{ __('Nazad') }}">
+        <button class="pm-btn btn pm-btn-info">
+            <i class="fas fa-chevron-left"></i>
+            <span>{{ __('Nazad') }}</span>
+        </button>
+    </a>
 
     @isset($preview)
         <a href="{{ route('system.admin.trainings.submodules.locations.edit', ['id' => $location->id ]) }}" title="{{ __('Uredite lokaciju') }}">
@@ -84,7 +75,7 @@
                             <div class="form-group">
                                 {{ html()->label(__('Broj telefona'))->for('phone')->class('bold') }}
                                 {{ html()->text('phone', $location->phone ?? '' )->class('form-control form-control-sm')->required()->value((isset($location) ? $location->phone : ''))->isReadonly(isset($preview))->maxlength(200) }}
-                                <small id="phoneHelp" class="form-text text-muted">{{ __('Kontakt telefon') }}</small>
+                                <small id="phoneHelp" class="form-text text-muted">{{ __('Broj telefona u formatu +387 XX/XXX-XXX') }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">

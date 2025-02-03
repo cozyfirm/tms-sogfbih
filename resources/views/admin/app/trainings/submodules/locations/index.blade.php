@@ -37,16 +37,18 @@
             </thead>
             <tbody>
             @php $i=1; @endphp
-            @foreach($locations as $training)
+            @foreach($locations as $location)
                 <tr>
                     <td class="text-center">{{ $i++}}</td>
-                    <td> {{ $training->title ?? ''}} </td>
-                    <td> {{ $training->financedByRel->name ?? ''}} </td>
-                    <td> {{ $training->projectRel->name ?? ''}} </td>
-                    <td> {{ $training->year ?? ''}} </td>
+                    <td> {{ $location->title ?? ''}} </td>
+                    <td> {{ $location->address ?? ''}} </td>
+                    <td> {{ $location->cityRel->title ?? ''}} </td>
+                    <td> {{ $location->cityRel->countryRel->name_ba ?? ''}} </td>
+                    <td> {{ $location->phone ?? ''}} </td>
+                    <td> {{ $location->email ?? ''}} </td>
 
                     <td class="text-center">
-                        <a class="table-btn-link" href="{{route('system.admin.trainings.preview', ['id' => $training->id] )}}" title="{{ __('Pregled programa obuke') }}">
+                        <a class="table-btn-link" href="{{route('system.admin.trainings.submodules.locations.preview', ['id' => $location->id] )}}" title="{{ __('Pregled lokacije') }}">
                             <button class="table-btn">{{ __('Pregled') }}</button>
                         </a>
                     </td>

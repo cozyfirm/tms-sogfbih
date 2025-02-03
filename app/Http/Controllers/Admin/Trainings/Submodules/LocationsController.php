@@ -30,6 +30,7 @@ class LocationsController extends Controller{
             'title' => 'Naziv',
             'address' => __('Adresa'),
             'cityRel.title' => __('Grad'),
+            'cityRel.countryRel.name_ba' => __('Država'),
             'phone' => __('Broj telefona'),
             'email' => __('Email adresa')
         ];
