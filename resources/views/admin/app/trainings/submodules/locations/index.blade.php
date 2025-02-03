@@ -1,22 +1,19 @@
 @extends('admin.layout.layout')
-@section('c-icon')
-    <img class="normal-icon" src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Training image') }}">
-    <img class="yellow-icon" src="{{ asset('files/images/icons/trainer-yellow.svg') }}" alt="{{ __('Training image') }}">
-@endsection
-@section('c-title') {{ __('Treneri') }} @endsection
+@section('c-icon') <i class="fa-solid fa-map"></i> @endsection
+@section('c-title') {{ __('Lokacije') }} @endsection
 @section('c-breadcrumbs')
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
     <a href="{{ route('system.admin.trainings.home') }}">{{ __('Sistem obuka') }}</a> /
-    <a href="{{ route('system.admin.trainings.submodules.trainers') }}">{{ __('Pregled svih trenera') }}</a>
+    <a href="{{ route('system.admin.trainings.submodules.locations') }}">{{ __('Pregled svih lokacija') }}</a>
 @endsection
 @section('c-buttons')
-    <a href="{{ route('system.home') }}">
+    <a href="{{ route('system.admin.trainings.home') }}">
         <button class="pm-btn btn btn-dark"> <i class="fas fa-star"></i> </button>
     </a>
-    <a href="{{ route('system.admin.users.create') }}">
+    <a href="{{ route('system.admin.trainings.submodules.locations.create') }}">
         <button class="pm-btn btn pm-btn-success">
             <i class="fas fa-plus"></i>
-            <span>{{ __('Unos novog') }}</span>
+            <span>{{ __('Unos') }}</span>
         </button>
     </a>
 @endsection
@@ -29,7 +26,7 @@
             </div>
         @endif
 
-        @include('admin.layout.snippets.filters.filter-header', ['var' => $users])
+        @include('admin.layout.snippets.filters.filter-header', ['var' => $locations])
         <table class="table table-bordered" id="filtering">
             <thead>
             <tr>
@@ -40,20 +37,16 @@
             </thead>
             <tbody>
             @php $i=1; @endphp
-            @foreach($users as $user)
+            @foreach($locations as $training)
                 <tr>
                     <td class="text-center">{{ $i++}}</td>
-                    <td> {{ $user->name ?? ''}} </td>
-                    <td> {{ $user->email ?? ''}} </td>
-                    <td> {{ ucfirst($user->role ?? '')  }} </td>
-                    <td> {{ $user->phone ?? ''}} </td>
-                    <td> {{ $user->birthDate() ?? ''}} </td>
-                    <td> {{ $user->address ?? ''}} </td>
-                    <td> {{ $user->city ?? ''}} </td>
-                    <td> {{ $user->countryRel->name_ba ?? ''}} </td>
+                    <td> {{ $training->title ?? ''}} </td>
+                    <td> {{ $training->financedByRel->name ?? ''}} </td>
+                    <td> {{ $training->projectRel->name ?? ''}} </td>
+                    <td> {{ $training->year ?? ''}} </td>
 
                     <td class="text-center">
-                        <a class="table-btn-link" href="{{route('system.admin.users.preview', ['username' => $user->username] )}}" title="{{ __('Pregled korisnika') }}">
+                        <a class="table-btn-link" href="{{route('system.admin.trainings.preview', ['id' => $training->id] )}}" title="{{ __('Pregled programa obuke') }}">
                             <button class="table-btn">{{ __('Pregled') }}</button>
                         </a>
                     </td>
@@ -61,6 +54,6 @@
             @endforeach
             </tbody>
         </table>
-        @include('admin.layout.snippets.filters.pagination', ['var' => $users])
+        @include('admin.layout.snippets.filters.pagination', ['var' => $locations])
     </div>
 @endsection

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\LocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
@@ -125,13 +126,6 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             });
 
             /**
-             *  Trainer submodules
-             */
-            Route::prefix('trainers')->middleware('isAuthenticated')->group(function () {
-                Route::get ('/',                           [TrainersController::class, 'index'])->name('system.admin.trainings.trainers');
-            });
-
-            /**
              *  Training instances
              */
             Route::prefix('instances')->middleware('isAuthenticated')->group(function () {
@@ -185,6 +179,31 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                     Route::get ('edit-date/{id}',                         [InstancesController::class, 'editDate'])->name('system.admin.trainings.instances.date.edit');
                     Route::post('update-date',                            [InstancesController::class, 'updateDate'])->name('system.admin.trainings.instances.date.update');
                     Route::get ('delete-date/{id}',                       [InstancesController::class, 'deleteDate'])->name('system.admin.trainings.instances.date.delete');
+                });
+            });
+
+            /**
+             *  All other submodules
+             */
+            Route::prefix('submodules')->group(function () {
+                /**
+                 *  Trainer submodules
+                 */
+                Route::prefix('trainers')->middleware('isAuthenticated')->group(function () {
+                    Route::get ('/',                           [TrainersController::class, 'index'])->name('system.admin.trainings.submodules.trainers');
+                });
+
+                /**
+                 *  Locations
+                 */
+                Route::prefix('submodules')->group(function () {
+                    Route::get ('/',                           [LocationsController::class, 'index'])->name('system.admin.trainings.submodules.locations');
+                    Route::get ('/create',                     [LocationsController::class, 'create'])->name('system.admin.trainings.submodules.locations.create');
+                    Route::post('/save',                       [LocationsController::class, 'save'])->name('system.admin.trainings.submodules.locations.save');
+                    Route::get ('/preview/{id}',               [LocationsController::class, 'preview'])->name('system.admin.trainings.submodules.locations.preview');
+                    Route::get ('/edit/{id}',                  [LocationsController::class, 'edit'])->name('system.admin.trainings.submodules.locations.edit');
+                    Route::post('/update',                     [LocationsController::class, 'update'])->name('system.admin.trainings.submodules.locations.update');
+                    Route::get ('/delete/{id}',                [LocationsController::class, 'delete'])->name('system.admin.trainings.submodules.locations.delete');
                 });
             });
         });

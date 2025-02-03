@@ -47,16 +47,12 @@
 {{--                            <p> {{__('Korisnici')}} </p>--}}
 {{--                        </div>--}}
                     </div>
-{{--                    <div class="home-row-items">--}}
-{{--                        <div class="home-icon" link="" title="{{__('Pregled svih narudžbi')}}">--}}
-{{--                            <i class="fa-solid fa-magnifying-glass-chart"></i>--}}
-{{--                            <p>{{ __('Analiza potreba') }}</p>--}}
-{{--                        </div>--}}
-{{--                        <div class="home-icon" link="">--}}
-{{--                            <i class="fa-solid fa-calendar-days"></i>--}}
-{{--                            <p>{{ __('Interni događaji') }}</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    <div class="home-row-items">
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.locations') }}">
+                            <i class="fa-solid fa-map"></i>
+                            <p> {{__('Lokacije')}} </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

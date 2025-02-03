@@ -56,7 +56,7 @@
                             <i class="fas fa-chart-area"></i>
                             <p> {{__('Izvještaji')}} </p>
                         </div>
-                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.trainers') }}">
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.trainers') }}">
                             <img class="normal-icon" src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Training image') }}">
                             <img class="white-icon" src="{{ asset('files/images/icons/trainer-white.svg') }}" alt="{{ __('Training image') }}">
                             <p> {{__('Treneri')}} </p>
