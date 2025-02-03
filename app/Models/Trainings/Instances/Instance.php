@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Trainigs\Instances;
+namespace App\Models\Trainings\Instances;
 
-use App\Models\Trainigs\Training;
+use App\Models\Trainings\Training;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,5 +49,8 @@ class Instance extends Model{
     }
     public function filesRel(): HasMany{
         return $this->hasMany(InstanceFile::class, 'instance_id', 'id');
+    }
+    public function trainersRel(): HasMany{
+        return $this->hasMany(InstanceTrainer::class, 'instance_id', 'id');
     }
 }

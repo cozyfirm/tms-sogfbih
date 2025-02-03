@@ -2,7 +2,7 @@
 
 namespace App\Traits\Trainings;
 use App\Models\Core\Keyword;
-use App\Models\Trainigs\TrainingArea;
+use App\Models\Trainings\TrainingArea;
 use Illuminate\Http\Request;
 
 trait TrainingTrait{

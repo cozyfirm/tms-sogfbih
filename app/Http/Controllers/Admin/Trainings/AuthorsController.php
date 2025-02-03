@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
 use App\Models\Core\City;
 use App\Models\Core\Keyword;
-use App\Models\Trainigs\Author;
+use App\Models\Trainings\Author;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Trainings\TrainingTrait;

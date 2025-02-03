@@ -6,12 +6,12 @@ use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
 use App\Models\Core\File;
 use App\Models\Core\Keyword;
-use App\Models\Trainigs\Instances\Instance;
-use App\Models\Trainigs\Instances\InstanceDate;
-use App\Models\Trainigs\Instances\InstanceFile;
-use App\Models\Trainigs\Instances\InstanceLunch;
-use App\Models\Trainigs\Training;
-use App\Models\Trainigs\TrainingFile;
+use App\Models\Trainings\Instances\Instance;
+use App\Models\Trainings\Instances\InstanceDate;
+use App\Models\Trainings\Instances\InstanceFile;
+use App\Models\Trainings\Instances\InstanceLunch;
+use App\Models\Trainings\Training;
+use App\Models\Trainings\TrainingFile;
 use App\Models\User;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Common\FileTrait;
@@ -84,7 +84,7 @@ class InstancesController extends Controller{
             'programs' => Training::pluck('title', 'id')->prepend('Odaberite program'),
             'yesNo' => Keyword::getItByVal('yes_no'),
             'instance' => $instance,
-            'trainers' => User::where('role', '=', 'trainer')->pluck('name', 'id')->prepend('Odaberite trenera')
+            'trainers' => User::where('role', '=', 'trainer')->pluck('name', 'id')->prepend('Odaberite trenera', '0')
         ]);
     }
 

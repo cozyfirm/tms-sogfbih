@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Trainigs;
+namespace App\Models\Trainings;
 
 use App\Models\Core\Keyword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

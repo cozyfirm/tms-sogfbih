@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Trainigs\Training;
+use App\Models\Trainings\Training;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

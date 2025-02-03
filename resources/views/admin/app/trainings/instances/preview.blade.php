@@ -43,7 +43,7 @@
     @include('admin.app.shared.files.file-upload')
 
     <!-- Add trainer -->
-    @include('admin.app.trainings.instances.snippets.add-trainer')
+    @include('admin.app.trainings.instances.submodules.trainers.add-trainer')
 
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
@@ -87,15 +87,14 @@
 
                 <br>
 
-                <div class="training__areas">
+                <div class="instance__trainers">
                     <h4>{{ __('Treneri na obuci') }}</h4>
-                    <div class="areas">
-                        <div class="area__w">
-                            <p> Jovan Perišić </p>
-                        </div>
-                        <div class="area__w">
-                            <p> Žan Klod Van Dam </p>
-                        </div>
+                    <div class="trainers">
+                        @foreach($instance->trainersRel as $trainer)
+                            <div class="trainer__w" rel-id="{{ $trainer->trainer_id }}" title="{{ __('Više informacija') }}">
+                                <p> {{ $trainer->trainerRel->name ?? '' }} </p>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

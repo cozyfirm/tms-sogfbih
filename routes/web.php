@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -148,6 +149,20 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
 
                 Route::prefix('photo-gallery')->group(function () {
                     Route::get ('/preview/{id}',                       [InstancesController::class, 'photoGallery'])->name('system.admin.trainings.instances.photo-gallery.preview');
+                });
+
+                /**
+                 *  Additional APIs
+                 */
+                Route::prefix('apis')->group(function () {
+                    /**
+                     *  Trainer APIs
+                     */
+                    Route::prefix('trainers')->group(function () {
+                        Route::post('/save',                            [InstanceTrainersController::class, 'save'])->name('system.admin.trainings.instances.apis.trainers.save');
+                        Route::post('/fetch',                           [InstanceTrainersController::class, 'fetch'])->name('system.admin.trainings.instances.apis.trainers.fetch');
+                        Route::post('/delete',                          [InstanceTrainersController::class, 'delete'])->name('system.admin.trainings.instances.apis.trainers.delete');
+                    });
                 });
 
                 /**

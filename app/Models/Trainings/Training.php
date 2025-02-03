@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Trainigs;
+namespace App\Models\Trainings;
 
 use App\Models\Core\Keyword;
-use App\Models\Trainigs\Instances\Instance;
+use App\Models\Trainings\Instances\Instance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

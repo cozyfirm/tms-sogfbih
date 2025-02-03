@@ -36,18 +36,20 @@
                 .custom-hr{
                     position: relative; width: 100%; height: 1px; background: $lightGrey; margin: 32px 0px;
                 }
-                .training__areas, .training__authors{
+                .training__areas, .training__authors, .instance__trainers{
                     position: relative; width: 100%; display: flex; flex-wrap: wrap; gap: 16px;
                     h4{color: $darkGrey; font-size:20px; margin:0px; }
-                    .areas, .authors{
+                    .areas, .authors, .trainers{
                         position: relative; width: 100%; display: flex; gap: 8px; flex-wrap: wrap;
-                        .area__w, .author__w{
+                        .area__w, .author__w, .trainer__w{
                             padding: 2px 8px; background: $yellow; border-radius:4px;
                             p{
                                 margin: 0px; padding: 0px; color: #FFFFFF; font-size:14px;
                             }
                         }
-
+                        .trainer__w{
+                            &:hover{cursor: pointer; }
+                        }
                     }
                 }
                 .training__authors{

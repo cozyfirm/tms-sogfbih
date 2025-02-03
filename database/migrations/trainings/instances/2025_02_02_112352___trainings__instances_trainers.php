@@ -26,7 +26,7 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->string('grade', 10)->default('1.0');
+            $table->string('grade', 10)->nullable();
             $table->text('monitoring')->nullable();
 
             $table->timestamps();

@@ -37,4 +37,8 @@ trait CommonTrait{
         }
         return $this->_select2_data;
     }
+
+    public function roundNumber($number, $decimal): string{
+        return number_format($number, $decimal, '.', '');
+    }
 }

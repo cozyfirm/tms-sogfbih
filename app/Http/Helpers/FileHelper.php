@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\Core\File;
-use App\Models\Trainigs\Instances\Instance;
-use App\Models\Trainigs\TrainingArea;
+use App\Models\Trainings\Instances\Instance;
+use App\Models\Trainings\TrainingArea;
 
 class FileHelper{
     protected static array $_imageExt = ['jpeg', 'jpg', 'png', 'svg'];

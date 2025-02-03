@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Trainigs\TrainingArea;
+use App\Models\Trainings\TrainingArea;
 
 class TrainingHelper{
     public static function isSelected($trainingID, $areaID){

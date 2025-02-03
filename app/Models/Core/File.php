@@ -2,7 +2,7 @@
 
 namespace App\Models\Core;
 
-use App\Models\Trainigs\Instances\InstanceFile;
+use App\Models\Trainings\Instances\InstanceFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;

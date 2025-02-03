@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Trainigs\Instances;
+namespace App\Models\Trainings\Instances;
 
 use App\Models\Core\File;
 use App\Models\User;
