@@ -12,7 +12,7 @@
         </div>
 
         <div class="body__wrapper">
-            {{ html()->hidden('author_training_id')->class('form-control author_training_id')->value(12) }}
+            {{ html()->hidden('at_instance_id')->class('form-control at_instance_id')->value($instance->id) }}
 
             <div class="row">
                 <div class="col-md-6">
@@ -33,7 +33,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         {{ html()->label(__('Monitoring trenera'))->for('at_monitoring')->class('bold') }}
-                        {{ html()->textarea('at_monitoring', '' )->class('form-control form-control-sm at_monitoring')->style('height:80px;') }}
+                        {{ html()->textarea('at_monitoring', '' )->class('form-control form-control-sm at_monitoring')->style('height:120px;') }}
                         <small id="at_monitoringHelp" class="form-text text-muted">{{ __('Više informacija o monitoringu trenera') }}</small>
                     </div>
                 </div>

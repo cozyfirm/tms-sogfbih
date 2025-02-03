@@ -75,6 +75,11 @@
     color: #333; /* Text color */
     outline: none; /* Remove default focus outline */
     box-shadow: none; /* Remove additional shadows */
+
+    &::-webkit-scrollbar {
+        width: 0px;
+        height:0px;
+    }
 }
 
 /* Change background and text color of highlighted dropdown option */
@@ -139,4 +144,11 @@
 
 .select2-container--default.select2-container--disabled .select2-selection--single {
     background-color: #FFFFFF; /* White background */
+}
+
+/**
+ *  Custom datepicker
+ */
+.c-dp{
+    height: 36px; padding-left: 15px !important;
 }

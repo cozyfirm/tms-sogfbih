@@ -64,7 +64,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Grad'))->for('city')->class('bold') }}
-                                {{ html()->select('city', $cities, isset($location) ? $location->city : '')->class('form-control form-control-sm ' . (!(isset($preview)) ? 'select2' : ''))->required()->disabled(isset($preview)) }}
+                                {{ html()->select('city', $cities, isset($location) ? $location->city : '')->class('form-control form-control-sm ' . (!(isset($preview)) ? 'single-select2' : ''))->required()->disabled(isset($preview)) }}
                                 <small id="cityHelp" class="form-text text-muted">{{ __('Odaberite grad u kojem se nalazi') }}</small>
                             </div>
                         </div>

@@ -68,4 +68,9 @@
             <img src="{{ asset('files/images/icons/camera-retro-solid.svg') }}" alt="{{ __('Gallery image') }}">
         </div>
     </a>
+    <a title="{{ __('Agenda obuke') }}" class="add-event">
+        <div class="rm-ci-w">
+            <img src="{{ asset('files/images/icons/calendar-plus-solid.svg') }}" alt="{{ __('Calendar image') }}">
+        </div>
+    </a>
 </div>

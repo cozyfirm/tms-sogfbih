@@ -27,6 +27,7 @@ class Keyword extends Model{
         'trainings__projects' => 'Projekti u okviru kojih se izrađuju programi',
         'trainings__participants' => 'Učesnici programa',
         'user_type' => 'Fizička ili pravna lica',
+        'event_type' => 'Vrsta događaja',
         // 'trainer__grade' => 'Ocjena trenera',
     ];
 

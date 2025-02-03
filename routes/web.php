@@ -160,26 +160,39 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 });
 
                 /**
-                 *  Lunch infos
+                 *  Other submodules
                  */
-                Route::prefix('lunch')->middleware('isAuthenticated')->group(function () {
-                    Route::get ('add-lunch/{instance_id}',               [InstancesController::class, 'addLunch'])->name('system.admin.trainings.instances.lunch.add');
-                    Route::post('save-lunch',                            [InstancesController::class, 'saveLunch'])->name('system.admin.trainings.instances.lunch.save');
-                    Route::get ('edit-lunch/{id}',                       [InstancesController::class, 'editLunch'])->name('system.admin.trainings.instances.lunch.edit');
-                    Route::post('update-lunch',                          [InstancesController::class, 'updateLunch'])->name('system.admin.trainings.instances.lunch.update');
-                    Route::get ('delete-lunch/{id}',                     [InstancesController::class, 'deleteLunch'])->name('system.admin.trainings.instances.lunch.delete');
+                Route::prefix('submodules')->group(function () {
+                    /**
+                     *  Training schedule
+                     */
+                    Route::prefix('schedule')->group(function () {
+
+                    });
                 });
 
-                /**
-                 *  Date infos
-                 */
-                Route::prefix('date')->middleware('isAuthenticated')->group(function () {
-                    Route::get ('add-date/{instance_id}',                 [InstancesController::class, 'addDate'])->name('system.admin.trainings.instances.date.add');
-                    Route::post('save-date',                              [InstancesController::class, 'saveDate'])->name('system.admin.trainings.instances.date.save');
-                    Route::get ('edit-date/{id}',                         [InstancesController::class, 'editDate'])->name('system.admin.trainings.instances.date.edit');
-                    Route::post('update-date',                            [InstancesController::class, 'updateDate'])->name('system.admin.trainings.instances.date.update');
-                    Route::get ('delete-date/{id}',                       [InstancesController::class, 'deleteDate'])->name('system.admin.trainings.instances.date.delete');
-                });
+                // ToDo - Remove this
+                ///**
+                // *  Lunch infos
+                // */
+                //Route::prefix('lunch')->middleware('isAuthenticated')->group(function () {
+                //    Route::get ('add-lunch/{instance_id}',               [InstancesController::class, 'addLunch'])->name('system.admin.trainings.instances.lunch.add');
+                //    Route::post('save-lunch',                            [InstancesController::class, 'saveLunch'])->name('system.admin.trainings.instances.lunch.save');
+                //    Route::get ('edit-lunch/{id}',                       [InstancesController::class, 'editLunch'])->name('system.admin.trainings.instances.lunch.edit');
+                //    Route::post('update-lunch',                          [InstancesController::class, 'updateLunch'])->name('system.admin.trainings.instances.lunch.update');
+                //    Route::get ('delete-lunch/{id}',                     [InstancesController::class, 'deleteLunch'])->name('system.admin.trainings.instances.lunch.delete');
+                //});
+                //
+                ///**
+                // *  Date infos
+                // */
+                //Route::prefix('date')->middleware('isAuthenticated')->group(function () {
+                //    Route::get ('add-date/{instance_id}',                 [InstancesController::class, 'addDate'])->name('system.admin.trainings.instances.date.add');
+                //    Route::post('save-date',                              [InstancesController::class, 'saveDate'])->name('system.admin.trainings.instances.date.save');
+                //    Route::get ('edit-date/{id}',                         [InstancesController::class, 'editDate'])->name('system.admin.trainings.instances.date.edit');
+                //    Route::post('update-date',                            [InstancesController::class, 'updateDate'])->name('system.admin.trainings.instances.date.update');
+                //    Route::get ('delete-date/{id}',                       [InstancesController::class, 'deleteDate'])->name('system.admin.trainings.instances.date.delete');
+                //});
             });
 
             /**

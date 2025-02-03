@@ -10,6 +10,7 @@ use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceDate;
 use App\Models\Trainings\Instances\InstanceFile;
 use App\Models\Trainings\Instances\InstanceLunch;
+use App\Models\Trainings\Submodules\Locations\Location;
 use App\Models\Trainings\Training;
 use App\Models\Trainings\TrainingFile;
 use App\Models\User;
@@ -84,7 +85,10 @@ class InstancesController extends Controller{
             'programs' => Training::pluck('title', 'id')->prepend('Odaberite program'),
             'yesNo' => Keyword::getItByVal('yes_no'),
             'instance' => $instance,
-            'trainers' => User::where('role', '=', 'trainer')->pluck('name', 'id')->prepend('Odaberite trenera', '0')
+            'trainers' => User::where('role', '=', 'trainer')->pluck('name', 'id')->prepend('Odaberite trenera', '0'),
+            'events' => Keyword::getItByVal('event_type'),
+            'locations' => Location::pluck('title', 'id')->prepend('Odaberite lokaciju', '0'),
+            'time' => $this->formTimeArr()
         ]);
     }
 

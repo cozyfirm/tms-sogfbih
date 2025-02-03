@@ -1,11 +1,15 @@
 @extends('admin.layout.layout')
 @section('c-icon')
     <img class="normal-icon" src="{{ asset('files/images/icons/program.svg') }}" alt="{{ __('Training image') }}">
-    <img class="yellow-icon" src="{{ asset('files/images/icons/program-yellow.svg') }}" alt="{{ __('Training image') }}">
+    <img class="yellow-icon" src="{{ asset('files/images/icons/program-yellow.svg') }}"
+         alt="{{ __('Training image') }}">
 @endsection
-@section('c-title') {{ $instance->trainingRel->title ?? '' }} @endsection
+@section('c-title')
+    {{ $instance->trainingRel->title ?? '' }}
+@endsection
 @section('c-breadcrumbs')
-    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a href="#"> <i class="fas fa-home"></i>
+        <p>{{ __('Dashboard') }}</p></a> /
     <a href="#">...</a> /
     <a href="{{ route('system.admin.trainings.instances') }}">{{ __('Instance obuka') }}</a> /
     <a href="#">{{ $instance->trainingRel->title ?? '' }}</a>
@@ -45,6 +49,9 @@
     <!-- Add trainer -->
     @include('admin.app.trainings.instances.submodules.trainers.add-trainer')
 
+    <!-- Agenda -->
+    @include('admin.app.trainings.instances.submodules.events.event')
+
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
             <div class="form__info__inner">
@@ -61,7 +68,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ html()->label(__('Datum'))->for('application_date')->class('bold') }}
-                            {{ html()->text('application_date', '' )->class('form-control form-control-sm')->required()->value(isset($instance) ? $instance->applicationDate() : '')->isReadonly(isset($preview)) }}
+                            {{ html()->text('application_date', '' )->class('datepicker form-control form-control-sm')->required()->value(isset($instance) ? $instance->applicationDate() : '')->isReadonly(isset($preview)) }}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -71,15 +78,6 @@
                         </div>
                     </div>
                 </div>
-
-{{--                <div class="row mt-3">--}}
-{{--                    <div class="col-md-12">--}}
-{{--                        <div class="form-group">--}}
-{{--                            {{ html()->label(__('Monitoring trenera'))->for('trainer_monitoring')->class('bold') }}--}}
-{{--                            {{ html()->textarea('trainer_monitoring', $instance->trainer_monitoring ?? '' )->class('form-control form-control-sm')->style('height:120px; resize:none;')->value((isset($instance) ? $instance->trainer_monitoring : ''))->isReadonly(isset($preview)) }}--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
 
                 <br>
 
@@ -91,7 +89,8 @@
                     <h4>{{ __('Treneri na obuci') }}</h4>
                     <div class="trainers">
                         @foreach($instance->trainersRel as $trainer)
-                            <div class="trainer__w" rel-id="{{ $trainer->trainer_id }}" title="{{ __('Više informacija') }}">
+                            <div class="trainer__w" rel-id="{{ $trainer->trainer_id }}"
+                                 title="{{ __('Više informacija') }}">
                                 <p> {{ $trainer->trainerRel->name ?? '' }} </p>
                             </div>
                         @endforeach

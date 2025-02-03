@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static orderBy(string $string)
  * @method static create(array $except)
  * @method static where(string $string, string $string1, $id)
+ * @method static pluck(string $string, string $string1)
  */
 class Location extends Model{
     use HasFactory, SoftDeletes;
