@@ -39,13 +39,13 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         {{ html()->label(__('Vrijeme početka'))->for('ag_tf')->class('bold') }}
-                        {{ html()->select('ag_tf', $time, '08:00')->class('form-control form-control-sm select2 ag_tf')->style('width:100%;')->required() }}
+                        {{ html()->select('ag_tf', $time, '08:00')->class('form-control form-control-sm single-select2 ag_tf')->style('width:100%;')->required() }}
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         {{ html()->label(__('Vrijeme završetka'))->for('ag_td')->class('bold') }}
-                        {{ html()->select('ag_td', $time, '08:00')->class('form-control form-control-sm select2 ag_td')->style('width:100%;')->required() }}
+                        {{ html()->select('ag_td', $time, '08:00')->class('form-control form-control-sm single-select2 ag_td')->style('width:100%;')->required() }}
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
 
             <div class="row mt-4">
                 <div class="col-md-12 d-flex justify-content-end gap-3">
-                    <div class="form-check form-check-inline">
+                    <div class="form-check form-check-inline ag_repeat_wrapper">
                         <input class="form-check-input" type="checkbox" id="ag_repeat" name="ag_repeat">
                         <label class="form-check-label" for="ag_repeat">{{ __('Ponovite unos') }}</label>
                     </div>

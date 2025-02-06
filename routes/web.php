@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EventsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\LocationsController as InstanceLocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\LocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
@@ -157,6 +159,22 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                         Route::post('/fetch',                           [InstanceTrainersController::class, 'fetch'])->name('system.admin.trainings.instances.apis.trainers.fetch');
                         Route::post('/delete',                          [InstanceTrainersController::class, 'delete'])->name('system.admin.trainings.instances.apis.trainers.delete');
                     });
+
+                    /**
+                     *  Events APIs
+                     */
+                    Route::prefix('events')->group(function () {
+                        Route::post('/save',                            [EventsController::class, 'save'])->name('system.admin.trainings.instances.apis.events.save');
+                        Route::post('/fetch',                           [EventsController::class, 'fetch'])->name('system.admin.trainings.instances.apis.events.fetch');
+                        Route::post('/delete',                          [EventsController::class, 'delete'])->name('system.admin.trainings.instances.apis.events.delete');
+                    });
+
+                    /**
+                     *  Location APIs
+                     */
+                    Route::prefix('locations')->group(function () {
+                        Route::post('/fetch',                           [InstanceLocationsController::class, 'fetch'])->name('system.admin.trainings.instances.apis.locations.fetch');
+                    });
                 });
 
                 /**
@@ -209,7 +227,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 /**
                  *  Locations
                  */
-                Route::prefix('submodules')->group(function () {
+                Route::prefix('locations')->group(function () {
                     Route::get ('/',                           [LocationsController::class, 'index'])->name('system.admin.trainings.submodules.locations');
                     Route::get ('/create',                     [LocationsController::class, 'create'])->name('system.admin.trainings.submodules.locations.create');
                     Route::post('/save',                       [LocationsController::class, 'save'])->name('system.admin.trainings.submodules.locations.save');

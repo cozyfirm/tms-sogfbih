@@ -51,6 +51,8 @@
 
     <!-- Agenda -->
     @include('admin.app.trainings.instances.submodules.events.event')
+    <!-- Preview location -->
+    @include('admin.app.trainings.instances.submodules.events.preview-location')
 
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
@@ -81,7 +83,7 @@
 
                 <br>
 
-                @include('admin.app.trainings.instances.includes.dates-list')
+                @include('admin.app.trainings.instances.submodules.events.events')
 
                 <br>
 

@@ -53,4 +53,7 @@ class Instance extends Model{
     public function trainersRel(): HasMany{
         return $this->hasMany(InstanceTrainer::class, 'instance_id', 'id');
     }
+    public function eventsRel(): HasMany{
+        return $this->hasMany(InstanceEvent::class, 'instance_id', 'id')->orderBy('tf__dt');
+    }
 }
