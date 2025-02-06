@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Users\RestartPassword;
+use App\Models\Core\City;
 use App\Models\Core\Country;
+use App\Models\Core\Keyword;
+use App\Models\Users\Education;
 use App\Models\Users\RestartToken;
 use App\Models\User;
 use App\Traits\Http\ResponseTrait;
@@ -90,6 +93,8 @@ class AuthController extends Controller{
         return view($this->_path. 'create-account', [
             // 'prefixes' => Country::orderBy('phone_code')->get()->pluck('phone_code', 'id'),
             // 'countries' => Country::orderBy('name_ba')->get()->pluck('name_ba', 'id'),
+            'educationLevels' => Keyword::getIt('users__education_level'),
+            'cities' => City::pluck('title', 'id')
         ]);
     }
 
@@ -122,9 +127,22 @@ class AuthController extends Controller{
             /* Note: Data is logged into laravel.log */
             $user = User::create($request->all());
 
+            /**
+             *  Now, create education
+             */
+            $graduationDate = isset($request->ue_graduation_date) ? Carbon::parse($request->ue_graduation_date)->format('Y-m-d') : null;
+
+            Education::create([
+                'user_id' => $user->id,
+                'level' => $request->ue_level,
+                'title' => $request->ue_title,
+                'school' => $request->ue_school,
+                'university' => $request->ue_university,
+                'graduation_date' => $graduationDate
+            ]);
+
             if($user) return $this->jsonSuccess(__('Uspješno ste se kreirali korisnički račun!'), route('auth'));
         }catch (\Exception $e){
-            dd($e);
             return $this->jsonResponse('1101', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
         }
     }

@@ -61,6 +61,9 @@ return new class extends Migration
             /* Profile image */
             $table->string('image_id')->nullable();
 
+            /** Number of unread notifications */
+            $table->integer('notifications')->default(0);
+
             $table->timestamps();
         });
 

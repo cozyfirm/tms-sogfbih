@@ -2,8 +2,16 @@
 namespace App\Traits\Users;
 
 use App\Models\User;
+use App\Models\Users\Notification;
+use Illuminate\Support\Facades\Log;
 
 trait UserBaseTrait{
+    /**
+     * Check for users with same username
+     *
+     * @param $username
+     * @return string
+     */
     protected function usersByUsername($username) : string{
         try{
             $total = User::where('username', '=', $username)->count();
@@ -11,6 +19,13 @@ trait UserBaseTrait{
             else return $total;
         }catch (\Exception $e){ return ''; }
     }
+
+    /**
+     * Generate slug for username
+     *
+     * @param $slug
+     * @return string
+     */
     public function getSlug($slug): string{
         $slug = str_replace('đ', 'd', $slug);
         $slug = str_replace('Đ', 'D', $slug);
@@ -28,5 +43,41 @@ trait UserBaseTrait{
         $string = strtolower(trim($string, '-'));
 
         return ($string . ($this->usersByUsername($string)));
+    }
+
+    /**
+     * Create notification for specific user with all provided data
+     *
+     * @param $user_id
+     * @param $type
+     * @param $from
+     * @param $text
+     * @param $description
+     * @param $uri
+     * @return void
+     */
+    public function createNotification($user, $type, $from, $text, $description, $uri): void{
+        try{
+            $notification = Notification::create([
+                'user_id' =>  $user->id,
+                'type' => $type,
+                'from' => $from,
+                'text' => $text,
+                'description' => $description,
+                'uri' => $uri
+            ]);
+
+            /**
+             *  Update total number of notifications; Increment for one
+             */
+            $user->update(['notifications' => ($user->notifications + 1)]);
+
+            /**
+             * ToDo:
+             *  Create push notification for user
+             */
+        }catch (\Exception $e){
+            Log::info("Greška prilikom kreiranja obavijesti");
+        }
     }
 }

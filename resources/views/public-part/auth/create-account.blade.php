@@ -40,6 +40,11 @@
                             </div>
                         </div>
                         <div class="pl-element pl-e-forth">
+                            <div class="pl-e-icon-w" title="{{ __('Edukacija') }}">
+                                <img src="{{ asset('files/images/icons/graduation-cap-solid.svg') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="pl-element pl-e-fifth">
                             <div class="pl-e-icon-w" title="{{ __('Zahtjev poslan') }}">
                                 <img src="{{ asset('files/images/icons/success.svg') }}" alt="">
                             </div>
@@ -48,7 +53,7 @@
                 </div>
 
                 <div class="rf-f-body">
-                    <div class="rf-body-element rf-body-element-1 ">
+                    <div class="rf-body-element rf-body-element-1">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -119,7 +124,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ html()->label(__('Grad'))->for('city')->class('bold') }}
-                                    {{ html()->select('city', ['1' => 'Sarajevo', '2' => 'Vakuf gornji'], 1)->class('form-control form-control-sm mt-2')->options([]) }}
+                                    {{ html()->select('city', $cities, 1)->class('form-control form-control-sm mt-2 single-select2')->options([])->style('width:100%;') }}
                                     <small id="living_placeHelp" class="form-text text-muted">{{ __('Grad u kojem trenutno živite') }}</small>
                                 </div>
                             </div>
@@ -154,7 +159,51 @@
                         </div>
                     </div>
 
-                    <div class="rf-body-element rf-body-element-4 pb-4 d-none">
+                    <div class="rf-body-element rf-body-element-4 d-none">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ html()->label(__('Stepen stručne spreme'))->for('ue_level')->class('bold') }}
+                                    {{ html()->select('ue_level', $educationLevels, 1)->class('form-control form-control-sm mt-2 single-select2')->options([])->style('width:100%;') }}
+                                    <small id="ue_levelHelp" class="form-text text-muted"> {{ __('Unesite Vaš stepen stručne spreme') }} </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ html()->label(__('Škola / Fakultet'))->for('ue_school')->class('bold') }}
+                                    {{ html()->text('ue_school')->class('form-control form-control-sm mt-2')->maxlength(100)->value('') }}
+                                    <small id="ue_titleHelp" class="form-text text-muted"> {{ __('Neobavezno polje') }} </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ html()->label(__('Univerzitet'))->for('ue_university')->class('bold') }}
+                                    {{ html()->text('ue_university')->class('form-control form-control-sm mt-2')->maxlength(100)->value('') }}
+                                    <small id="ue_universityHelp" class="form-text text-muted"> {{ __('Neobavezno polje') }} </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ html()->label(__('Stečeno zvanje'))->for('ue_title')->class('bold') }}
+                                    {{ html()->text('ue_title')->class('form-control form-control-sm mt-2')->maxlength(100)->value('') }}
+                                    <small id="ue_titleHelp" class="form-text text-muted"> {{ __('Neobavezno polje') }} </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ html()->label(__('Datum diplomiranja'))->for('ue_graduation_date')->class('bold') }}
+                                    {{ html()->text('ue_graduation_date')->class('form-control form-control-sm mt-2 datepicker')->maxlength(100)->value('') }}
+                                    <small id="ue_graduation_dateHelp" class="form-text text-muted"> {{ __('Neobavezno polje') }} </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rf-body-element rf-body-element-5 pb-4 d-none">
                         <p>
                             {{ __('Vaš korisnički račun na sistemu www.tms.sogfbih.ba je uspješno kreiran. Za verifikaciju Vašeg email-a, molimo slijedite upute poslane putem email-a.') }}
                             <br>

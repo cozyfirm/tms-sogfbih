@@ -68,11 +68,13 @@ $( document ).ready(function() {
         (step === 1) ? $(".create-profile-back-btn").addClass('d-none') : $(".create-profile-back-btn").removeClass('d-none');
 
         if(step === 2){
-            $(".pl-e-bar-fill").css('width', '37.5%');
+            $(".pl-e-bar-fill").css('width', '30%');
         }else if(step === 3){
-            $(".pl-e-bar-fill").css('width', '62.5%');
+            $(".pl-e-bar-fill").css('width', '50%');
         }else if(step === 4){
-            $(".pl-e-bar-fill").css('width', '87.5%');
+            $(".pl-e-bar-fill").css('width', '70%');
+        }else if(step === 5){
+            $(".pl-e-bar-fill").css('width', '90%');
             $(".button-wrapper").addClass('d-none');
         }else if(step === 1){
             $(".pl-e-bar-fill").css('width', '12.5%');
@@ -94,6 +96,15 @@ $( document ).ready(function() {
 
         let workplace   = $("#workplace").val();
         let institution = $("#institution").val();
+
+        /**
+         *  Education info
+         */
+        let ue_level  = $("#ue_level").val();
+        let ue_school = $("#ue_school").val();
+        let ue_university = $("#ue_university").val();
+        let ue_title      = $("#ue_title").val();
+        let ue_graduation_date = $("#ue_graduation_date").val();
 
         if(step === 1){
             if(first_name === '' || last_name === ''){
@@ -134,14 +145,11 @@ $( document ).ready(function() {
                 Notify.Me(["Molimo da odaberete instituciju u kojoj radite", "warn"]);
                 return;
             }
+        }else if(step === 4){
 
-            // if($("#citizenship").val() === ''){
-            //     Notify.Me(["Molimo da odaberete Vaše državljanstvo", "warn"]);
-            //     return;
-            // }
 
             /* Process request */
-            $(".pl-e-bar-fill").css('width', '83.3%');
+            $(".pl-e-bar-fill").css('width', '95%');
             $(".loading-gif").removeClass('d-none');
 
 
@@ -160,7 +168,12 @@ $( document ).ready(function() {
                     address: address,
                     city: city,
                     workplace: workplace,
-                    institution: institution
+                    institution: institution,
+                    ue_level: ue_level,
+                    ue_school: ue_school,
+                    ue_university: ue_university,
+                    ue_title: ue_title,
+                    ue_graduation_date: ue_graduation_date
                 },
                 success: function success(response) {
                     $(".loading-gif").addClass('d-none');
@@ -181,7 +194,7 @@ $( document ).ready(function() {
             });
         }
 
-        if(step < 3) step++;
+        if(step < 4) step++;
         progressElements();
     });
 

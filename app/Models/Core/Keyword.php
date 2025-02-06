@@ -28,6 +28,7 @@ class Keyword extends Model{
         'trainings__participants' => 'Učesnici programa',
         'user_type' => 'Fizička ili pravna lica',
         'event_type' => 'Vrsta događaja',
+        'users__education_level' => 'Stepen stručne spreme'
         // 'trainer__grade' => 'Ocjena trenera',
     ];
 

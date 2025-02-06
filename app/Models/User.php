@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @method static where(string $string, string $string1, int $int)
  * @method static create(array $except)
+ * @method static whereIn(string $string, string[] $array)
  */
 class User extends Authenticatable
 {
@@ -42,7 +43,8 @@ class User extends Authenticatable
         'workplace',
         'institution',
         'comment',
-        'image_id'
+        'image_id',
+        'notifications'
     ];
 
     /**
