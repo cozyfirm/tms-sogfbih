@@ -7,20 +7,28 @@
     <div class="line"></div>
 
     <div class="notifications__body">
-        <div class="not__row_wrapper">
-            <div class="icon__wrapper ps-12">
-                <p>AK</p>
-            </div>
-            <div class="text__wrapper">
-                <div class="text__data">
-                    <p>Aladin Kapić je kreirao profil. Više informacija</p>
-                    <span>15. Jan 2025 08:25</span>
-                </div>
-                <div class="dots__data">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-            </div>
-        </div>
+        @isset(Auth()->user()->notificationsRel)
+            <!-- Check does user have any notifications -->
+            @foreach(Auth()->user()->notificationsRel as $notification)
+                <!-- Check does user that created notification exists -->
+                @isset($notification->fromRel)
+                    <div class="not__row_wrapper">
+                        <div class="icon__wrapper ps-12">
+                            <p>{{ $notification->fromRel->getInitials() }}</p>
+                        </div>
+                        <div class="text__wrapper">
+                            <div class="text__data">
+                                <p>{{ $notification->text ?? '' }}</p>
+                                <span>{{ $notification->createdAt() }}</span>
+                            </div>
+                            <div class="dots__data">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                        </div>
+                    </div>
+                @endisset
+            @endforeach
+        @endisset
 
         <div class="not__row_wrapper">
             <div class="icon__wrapper ps-12">

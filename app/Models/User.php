@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Core\Country;
+use App\Models\Users\Notification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -79,7 +81,23 @@ class User extends Authenticatable
     public function countryRel(): HasOne{
         return $this->hasOne(Country::class, 'id', 'country');
     }
+
+    /**
+     * Get initials of user; First letter of name and first letter of surname
+     *
+     * @return string
+     */
     public function getInitials(): string{
-        return substr($this->first_name ?? '', 0, 1) . (isset($this->last_name) ? substr($this->last_name ?? '', 0, 1) : '');
+        return mb_substr($this->first_name ?? '', 0, 1) . (isset($this->last_name) ? mb_substr($this->last_name ?? '', 0, 1) : '');
+    }
+
+    /** Notifications relationships and methods */
+    /**
+     * Take last 10 notifications using this relationship
+     *
+     * @return HasMany
+     */
+    public function notificationsRel(): HasMany{
+        return $this->hasMany(Notification::class, 'user_id', 'id')->orderBy('id', 'DESC')->take(10);
     }
 }

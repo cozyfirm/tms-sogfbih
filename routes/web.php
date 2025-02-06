@@ -307,4 +307,17 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             Route::post('/update-image',                   [AdminBlogController::class, 'updateImage'])->name('system.admin.blog.update-image');
         });
     });
+
+    /**
+     *  Common routes used by everyone
+     */
+
+    Route::prefix('common-routes')->middleware('isAuthenticated')->group(function () {
+        /**
+         *  Routes for notifications
+         */
+        Route::prefix('notifications')->middleware('isAuthenticated')->group(function () {
+
+        });
+    });
 });
