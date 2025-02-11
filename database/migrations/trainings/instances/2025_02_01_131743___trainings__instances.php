@@ -23,14 +23,19 @@ return new class extends Migration
             $table->date('application_date');
             $table->integer('total_males')->default(0);
             $table->integer('total_females')->default(0);
-            $table->integer('lunch');                              // FK to Keywords: Yes | No
+            // $table->integer('lunch');                              // FK to Keywords: Yes | No
 
             $table->string('youtube', 200)->nullable();
             $table->string('contract', 10)->default('0.00');
 
-            $table->string('trainer_grade', 10)->default(1.0);
-            $table->text('trainer_monitoring')->nullable();
+            // $table->string('trainer_grade', 10)->default(1.0);
+            // $table->text('trainer_monitoring')->nullable();
 
+            /* Reporting part */
+            $table->integer('report')->default(0);      // FK to Keywords: Yes | No
+            $table->integer('report_id')->nullable();         // ID of Uploaded file
+
+            /* Views of training instance */
             $table->integer('views')->default(0);
 
             $table->timestamps();

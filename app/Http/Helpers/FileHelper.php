@@ -13,4 +13,10 @@ class FileHelper{
             $q->where('id', '=', $model_id);
         })->whereIn('ext', self::$_imageExt)->with('instanceRel')->get();
     }
+
+    public static function getInstanceFiles($model_id){
+        return File::whereHas('instanceRel.instanceRel', function ($q) use ($model_id){
+            $q->where('id', '=', $model_id);
+        })->whereIn('ext', self::$_fileExt)->with('instanceRel')->get();
+    }
 }

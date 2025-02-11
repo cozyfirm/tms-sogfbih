@@ -20,6 +20,7 @@ import "./admin/app/core/notifications.js";
 /**
  *  Trainings scripts
  */
+import "./admin/app/trainings/instances/instances.js";
 import "./admin/app/trainings/add-author.js";
 import "./admin/app/trainings/instances/add-trainer.js";
 import "./admin/app/trainings/instances/events.js";

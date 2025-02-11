@@ -2,6 +2,8 @@
 
 namespace App\Models\Trainings\Instances;
 
+use App\Models\Core\File;
+use App\Models\Core\Keyword;
 use App\Models\Trainings\Training;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,13 +42,7 @@ class Instance extends Model{
     public function trainingRel(): HasOne{
         return $this->hasOne(Training::class, 'id', 'training_id');
     }
-    public function lunchesRel(): HasMany{
-        return $this->hasMany(InstanceLunch::class, 'instance_id', 'id');
-    }
 
-    public function datesRel(): HasMany{
-        return $this->hasMany(InstanceDate::class, 'instance_id', 'id');
-    }
     public function filesRel(): HasMany{
         return $this->hasMany(InstanceFile::class, 'instance_id', 'id');
     }
@@ -55,5 +51,11 @@ class Instance extends Model{
     }
     public function eventsRel(): HasMany{
         return $this->hasMany(InstanceEvent::class, 'instance_id', 'id')->orderBy('tf__dt');
+    }
+    public function reportRel(): HasOne{
+        return $this->hasOne(Keyword::class, 'value', 'report')->where('type', 'yes_no');
+    }
+    public function reportFileRel(): HasOne{
+        return $this->hasOne(File::class, 'id', 'report_id');
     }
 }

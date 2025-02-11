@@ -62,23 +62,6 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ html()->label(__('Ručak'))->for('lunch')->class('bold') }}
-                                {{ html()->select('lunch', $yesNo, isset($instance) ? $instance->lunch : '0')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
-                                <small id="lunchHelp" class="form-text text-muted">{{ __('Da li su predviđeni obroci za učesnike?') }}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ html()->label(__('YouTube link'))->for('youtube')->class('bold') }}
-                                {{ html()->text('youtube', $instance->youtube ?? '' )->class('form-control form-control-sm')->value((isset($instance) ? $instance->youtube : ''))->isReadonly(isset($preview)) }}
-                                <small id="youtubeHelp" class="form-text text-muted">{{ __('Ukolio ima, unesite YouTube link') }}</small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
                                 {{ html()->label(__('Iznos ugovora'))->for('contract')->class('bold') }}
                                 {{ html()->text('contract', $instance->contract ?? '' )->class('form-control form-control-sm')->required()->value((isset($instance) ? $instance->contract : ''))->placeholder('100.00')->isReadonly(isset($preview)) }}
                                 <small id="contractHelp" class="form-text text-muted">{{ __('Bruto iznos ugovora u KM') }}</small>
@@ -89,9 +72,9 @@
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <div class="form-group">
-                                {{ html()->label(__('Monitoring trenera'))->for('trainer_monitoring')->class('bold') }}
-                                {{ html()->textarea('trainer_monitoring', $instance->trainer_monitoring ?? '' )->class('form-control form-control-sm')->style('height:120px;')->value((isset($instance) ? $instance->trainer_monitoring : ''))->isReadonly(isset($preview)) }}
-                                <small id="trainer_monitoringHelp" class="form-text text-muted">{{ __('Više informacija o monitoringu trenera') }}</small>
+                                {{ html()->label(__('YouTube link'))->for('youtube')->class('bold') }}
+                                {{ html()->text('youtube', $instance->youtube ?? '' )->class('form-control form-control-sm')->value((isset($instance) ? $instance->youtube : ''))->isReadonly(isset($preview)) }}
+                                <small id="youtubeHelp" class="form-text text-muted">{{ __('Ukolio ima, unesite YouTube link') }}</small>
                             </div>
                         </div>
                     </div>

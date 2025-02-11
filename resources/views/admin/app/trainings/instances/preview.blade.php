@@ -16,7 +16,7 @@
 @endsection
 
 @section('c-buttons')
-    <a href="{{ route('system.admin.trainings') }}" title="{{ __('Pregled svih programa obuka') }}">
+    <a href="{{ route('system.admin.trainings.instances') }}" title="{{ __('Pregled svih obuka') }}">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>
@@ -40,7 +40,7 @@
 @section('content')
     <!-- Upload files GUI -->
     {{ html()->hidden('image_path')->class('form-control image_path')->value('files/upload/trainings') }}
-    {{ html()->hidden('file_path')->class('form-control file_path')->value('files/trainings/instances/files') }}
+    {{ html()->hidden('file_path')->class('form-control file_path')->value(storage_path('files/trainings/instances/files')) }}
     {{ html()->hidden('file_type')->class('form-control file_type')->value('instance__file') }}
     {{ html()->hidden('model_id')->class('form-control model_id')->value($instance->id) }}
     {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.trainings.instances.save-files')) }}

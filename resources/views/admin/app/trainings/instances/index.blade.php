@@ -46,6 +46,12 @@
                     <td> {{ $instance->trainingRel->title ?? ''}} </td>
                     <td> {{ $instance->applicationDate() ?? ''}} </td>
                     <td> {{ $instance->contract ?? ''}} </td>
+                    <td>
+                        {{ $instance->reportRel->name ?? '' }}
+                        @if($instance->report)
+                            (<a class="hover-yellow-text" title="{{ __('Preuzmite izvještaj') }}" href="{{ route('system.admin.trainings.instances.submodules.reports.download-report', ['instance_id' => $instance->id ]) }}">{{ $instance->reportFileRel->file ?? '' }}</a>)
+                        @endif
+                    </td>
 
                     <td class="text-center">
                         <a class="table-btn-link" href="{{route('system.admin.trainings.instances.preview', ['id' => $instance->id] )}}" title="{{ __('Pregled obuke') }}">
