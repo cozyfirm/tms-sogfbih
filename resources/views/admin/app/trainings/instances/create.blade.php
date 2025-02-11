@@ -17,14 +17,14 @@
 
 @section('c-buttons')
     @isset($create)
-        <a href="{{ route('system.admin.trainings') }}" title="{{ __('Pregled svih programa obuka') }}">
+        <a href="{{ route('system.admin.trainings.instances') }}" title="{{ __('Pregled svih obuka') }}">
             <button class="pm-btn btn pm-btn-info">
                 <i class="fas fa-chevron-left"></i>
                 <span>{{ __('Nazad') }}</span>
             </button>
         </a>
     @else
-        <a href="{{ route('system.admin.trainings.preview', ['id' => $training->id ]) }}" title="{{ __('Nazad na pregled programa obuke') }}">
+        <a href="{{ route('system.admin.trainings.instances.preview', ['id' => $instance->id ]) }}" title="{{ __('Nazad na pregled obuke') }}">
             <button class="pm-btn btn pm-btn-info">
                 <i class="fas fa-chevron-left"></i>
                 <span>{{ __('Nazad') }}</span>
@@ -56,7 +56,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Datum'))->for('application_date')->class('bold') }}
-                                {{ html()->text('application_date', $instance->application_date ?? '' )->class('form-control form-control-sm datepicker')->required()->value((isset($instance) ? $instance->application_date : ''))->isReadonly(isset($preview)) }}
+                                {{ html()->text('application_date', '' )->class('form-control form-control-sm datepicker')->required()->value((isset($instance) ? $instance->startDate() : ''))->isReadonly(isset($preview)) }}
                                 <small id="application_dateHelp" class="form-text text-muted">{{ __('Odaberite datum do kad su otvorene prijave') }}</small>
                             </div>
                         </div>

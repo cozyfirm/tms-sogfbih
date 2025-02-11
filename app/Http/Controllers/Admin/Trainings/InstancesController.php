@@ -53,7 +53,8 @@ class InstancesController extends Controller{
         return view($this->_path . 'create', [
             $action => true,
             'programs' => Training::pluck('title', 'id')->prepend('Odaberite program'),
-            'yesNo' => Keyword::getItByVal('yes_no')
+            'yesNo' => Keyword::getItByVal('yes_no'),
+            'instance' => isset($id) ? Instance::where('id', '=', $id)->first() : null
         ]);
     }
     public function create(): View{
@@ -91,6 +92,31 @@ class InstancesController extends Controller{
             'locations' => Location::pluck('title', 'id')->prepend('Odaberite lokaciju', '0'),
             'time' => $this->formTimeArr()
         ]);
+    }
+    public function edit($id): View{
+        return $this->getData('edit', $id, $id);
+    }
+
+    public function update(Request $request): JsonResponse{
+        try{
+            $request['application_date'] = Carbon::parse($request->application_date)->format('Y-m-d');
+
+            // Update instance
+            Instance::where('id', '=', $request->id)->update($request->except(['_token', 'id']));
+
+            return $this->jsonSuccess(__('Uspješno ažurirano!'), route('system.admin.trainings.instances.preview', ['id' => $request->id ]));
+        }catch (\Exception $e){
+            return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
+        }
+    }
+
+    public function delete($id): RedirectResponse{
+        try{
+            // Instance::where('id', '=', $id)->delete();
+            return redirect()->route('system.admin.trainings.instances');
+        }catch (\Exception $e){
+            return back();
+        }
     }
 
     /**

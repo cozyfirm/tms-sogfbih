@@ -24,12 +24,12 @@
     </a>
 
     @if(isset($preview))
-        <a href="#">
+        <a href="{{ route('system.admin.trainings.instances.edit', ['id' => $instance->id ]) }}">
             <button class="pm-btn pm-btn-white btn pm-btn-edit">
                 <i class="fas fa-edit"></i>
             </button>
         </a>
-        <a href="#">
+        <a href="{{ route('system.admin.trainings.instances.delete', ['id' => $instance->id ]) }}">
             <button class="pm-btn pm-btn-white btn pm-btn-trash">
                 <i class="fas fa-trash"></i>
             </button>
@@ -85,19 +85,21 @@
 
                 @include('admin.app.trainings.instances.submodules.events.events')
 
-                <br>
+                @if($instance->trainersRel->count())
+                    <br>
 
-                <div class="instance__trainers">
-                    <h4>{{ __('Treneri na obuci') }}</h4>
-                    <div class="trainers">
-                        @foreach($instance->trainersRel as $trainer)
-                            <div class="trainer__w" rel-id="{{ $trainer->trainer_id }}"
-                                 title="{{ __('Više informacija') }}">
-                                <p> {{ $trainer->trainerRel->name ?? '' }} </p>
-                            </div>
-                        @endforeach
+                    <div class="instance__trainers">
+                        <h4>{{ __('Treneri na obuci') }}</h4>
+                        <div class="trainers">
+                            @foreach($instance->trainersRel as $trainer)
+                                <div class="trainer__w" rel-id="{{ $trainer->trainer_id }}"
+                                     title="{{ __('Više informacija') }}">
+                                    <p> {{ $trainer->trainerRel->name ?? '' }} </p>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
 
