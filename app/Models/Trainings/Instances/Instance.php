@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static orderBy(string $string, string $string1)
  * @method static create(array $except)
  * @method static where(string $string, string $string1, $id)
+ * @method static count()
  */
 class Instance extends Model{
     use HasFactory, SoftDeletes;

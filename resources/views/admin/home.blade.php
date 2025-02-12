@@ -25,11 +25,11 @@
                             <p>{{__('Programa')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Objavljenih obuka')}}">
-                            <h1>{{$inTransit ?? '0'}}</h1>
+                            <h1>{{$instances ?? '0'}}</h1>
                             <p>{{__('Obuka')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih trenera')}}">
-                            <h1>{{$inCart ?? '0'}}</h1>
+                            <h1>{{$trainers ?? '0'}}</h1>
                             <p>{{__('Trenera')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih korisnika')}}">
