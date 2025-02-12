@@ -5,7 +5,7 @@
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Upravljačka tabla admin panela') }}</p> </a>
 @endsection
 @section('c-buttons')
-    <a href="{{ route('system.home') }}">
+    <a href="{{ route('system.user-data.dashboard') }}">
         <button class="pm-btn btn btn-dark"> <i class="fas fa-star"></i> </button>
     </a>
 @endsection
@@ -22,19 +22,19 @@
                     <div class="home-row-items">
                         <div class="home-icon" title="{{__('Ukupan broj programa obuka')}}">
                             <h1> {{$trainings ?? '0'}}</h1>
-                            <p>{{__('Programa')}}</p>
+                            <p>{{__('Aktivnih obuka')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Objavljenih obuka')}}">
                             <h1>{{$instances ?? '0'}}</h1>
-                            <p>{{__('Obuka')}}</p>
+                            <p>{{__('Mojih obuka')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih trenera')}}">
                             <h1>{{$trainers ?? '0'}}</h1>
-                            <p>{{__('Trenera')}}</p>
+                            <p>{{__('Certifikata')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih korisnika')}}">
                             <h1>{{$users ?? '0'}}</h1>
-                            <p>{{__('Korisnika')}}</p>
+                            <p>{{__('Sati predavanja')}}</p>
                         </div>
                     </div>
                 </div>
@@ -47,42 +47,22 @@
 
                 <div class="home-row-body">
                     <div class="home-row-items">
-                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.home') }}" title="{{__('PSistem obuka')}}">
+                        <div class="home-icon go-to" link="#" title="{{__('Sistem obuka')}}">
                             <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">
                             <img class="white-icon" src="{{ asset('files/images/icons/training-white.svg') }}" alt="{{ __('Training image') }}">
                             <p> {{__('Sistem obuka')}} </p>
                         </div>
                         <div class="home-icon" link="">
-                            <i class="fas fa-chart-area"></i>
-                            <p> {{__('Izvještaji')}} </p>
-                        </div>
-                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.trainers') }}">
-                            <img class="normal-icon" src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Training image') }}">
-                            <img class="white-icon" src="{{ asset('files/images/icons/trainer-white.svg') }}" alt="{{ __('Training image') }}">
-                            <p> {{__('Treneri')}} </p>
+                            <i class="fa-solid fa-calendar"></i>
+                            <p> {{__('Kalendar aktivnosti')}} </p>
                         </div>
                         <div class="home-icon" link="">
-                            <img class="normal-icon" src="{{ asset('files/images/icons/users.svg') }}" alt="{{ __('Training image') }}">
-                            <img class="white-icon" src="{{ asset('files/images/icons/users-white.svg') }}" alt="{{ __('Training image') }}">
-                            <p> {{__('Korisnici')}} </p>
+                            <i class="fa-solid fa-user-pen"></i>
+                            <p> {{__('Moje evaluacije')}} </p>
                         </div>
-                    </div>
-                    <div class="home-row-items">
-                        <div class="home-icon" link="" title="{{__('')}}">
-                            <i class="fa-solid fa-magnifying-glass-chart"></i>
-                            <p>{{ __('Analiza potreba') }}</p>
-                        </div>
-                        <div class="home-icon" link="">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <p>{{ __('Interni događaji') }}</p>
-                        </div>
-                        <div class="home-icon" link="">
-                            <i class="fas fa-info-circle"></i>
-                            <p>{{ __('Organi i tijela') }}</p>
-                        </div>
-                        <div class="home-icon" link="">
-                            <i class="fas fa-cogs"></i>
-                            <p>{{ __('Postavke') }}</p>
+                        <div class="home-icon go-to" link="{{ route('system.user-data.my-profile') }}">
+                            <i class="fa-solid fa-user"></i>
+                            <p> {{__('Moj profil')}} </p>
                         </div>
                     </div>
                 </div>

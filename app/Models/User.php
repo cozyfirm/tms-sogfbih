@@ -91,6 +91,16 @@ class User extends Authenticatable
         return mb_substr($this->first_name ?? '', 0, 1) . (isset($this->last_name) ? mb_substr($this->last_name ?? '', 0, 1) : '');
     }
 
+    /**
+     *  Get user role in bosnian language
+     */
+    public function getRole(): string{
+        if($this->role == 'admin') return __('Administrator');
+        else if($this->role == 'moderator') return __('Moderator');
+        else if($this->role == 'trainer') return __('Trener');
+        else if($this->role == 'user') return __('Korisnik');
+    }
+
     /** Notifications relationships and methods */
     /**
      * Take last 10 notifications using this relationship

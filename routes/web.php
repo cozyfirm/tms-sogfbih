@@ -16,7 +16,9 @@ use App\Http\Controllers\Admin\Trainings\Submodules\EvaluationsController as Tra
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
+use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\UserData\MyProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function () {
@@ -306,6 +308,28 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
 
             Route::get ('/edit-image/{id}/{what}',         [AdminBlogController::class, 'editImage'])->name('system.admin.blog.edit-image');
             Route::post('/update-image',                   [AdminBlogController::class, 'updateImage'])->name('system.admin.blog.update-image');
+        });
+    });
+
+    /**
+     *  User routes
+     */
+    Route::prefix('user-data')->middleware('isAuthenticated')->group(function () {
+        Route::get('/dashboard',                 [UserDataHomeController::class, 'dashboard'])->name('system.user-data.dashboard');
+
+        /**
+         *  My profile
+         */
+        Route::prefix('my-profile')->middleware('isAuthenticated')->group(function () {
+            Route::get ('/',                      [MyProfileController::class, 'myProfile'])->name('system.user-data.my-profile');
+            Route::get ('/edit',                  [MyProfileController::class, 'edit'])->name('system.user-data.my-profile.edit');
+            Route::post('/update',                [MyProfileController::class, 'update'])->name('system.user-data.my-profile.update');
+
+            /**
+             *  Education info
+             */
+            Route::get ('/education',             [MyProfileController::class, 'education'])->name('system.user-data.my-profile.education');
+            Route::post('/education-update',      [MyProfileController::class, 'educationUpdate'])->name('system.user-data.my-profile.education.update');
         });
     });
 
