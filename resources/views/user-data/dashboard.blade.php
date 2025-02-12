@@ -47,7 +47,7 @@
 
                 <div class="home-row-body">
                     <div class="home-row-items">
-                        <div class="home-icon go-to" link="#" title="{{__('Sistem obuka')}}">
+                        <div class="home-icon go-to" link="{{ route('system.user-data.trainings') }}" title="{{__('Sistem obuka')}}">
                             <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">
                             <img class="white-icon" src="{{ asset('files/images/icons/training-white.svg') }}" alt="{{ __('Training image') }}">
                             <p> {{__('Sistem obuka')}} </p>

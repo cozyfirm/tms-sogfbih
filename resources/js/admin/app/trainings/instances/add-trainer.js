@@ -87,7 +87,7 @@ $("document").ready(function () {
     /**
      *  Fetch trainers info
      */
-    $(".trainer__w").click(function (){
+    $(".trainer__w_get_info").click(function (){
         let $this = $(this);
 
         $.ajax({

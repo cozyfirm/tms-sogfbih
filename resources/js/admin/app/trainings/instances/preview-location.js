@@ -3,6 +3,7 @@ import { Validator } from "../../../../style/layout/validator.ts";
 
 $("document").ready(function () {
     let fetchLocationUri = '/system/admin/trainings/instances/apis/locations/fetch';
+    let fetchUserLocationUri = '/system/user-data/trainings/apis/locations/fetch';
 
     /**
      *  Open and close form
@@ -16,11 +17,9 @@ $("document").ready(function () {
         }
     });
 
-    $(".location-info").click(function (){
-        let id = $(this).attr('location-id');
-
+    let fetchLocationInfo = function(id, uri){
         $.ajax({
-            url: fetchLocationUri,
+            url: uri,
             method: "post",
             dataType: "json",
             data: {
@@ -49,5 +48,11 @@ $("document").ready(function () {
                 }
             }
         });
+    }
+    $(".location-info").click(function (){
+        fetchLocationInfo($(this).attr('location-id'), fetchLocationUri);
+    })
+    $(".location-user-info").click(function (){
+        fetchLocationInfo($(this).attr('location-id'), fetchUserLocationUri);
     })
 });

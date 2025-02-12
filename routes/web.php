@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
+use App\Http\Controllers\UserData\Trainings\TrainingsController as UserTrainingsController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserData\MyProfileController;
 use Illuminate\Support\Facades\Route;
@@ -330,6 +331,26 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
              */
             Route::get ('/education',             [MyProfileController::class, 'education'])->name('system.user-data.my-profile.education');
             Route::post('/education-update',      [MyProfileController::class, 'educationUpdate'])->name('system.user-data.my-profile.education.update');
+        });
+
+        /**
+         *  Trainings
+         */
+        Route::prefix('trainings')->middleware('isAuthenticated')->group(function () {
+            Route::get ('/',                      [UserTrainingsController::class, 'index'])->name('system.user-data.trainings');
+            Route::get ('/preview/{id}',          [UserTrainingsController::class, 'preview'])->name('system.user-data.trainings.preview');
+
+            /**
+             *  Additional APIs
+             */
+            Route::prefix('apis')->group(function () {
+                /**
+                 *  Locations info
+                 */
+                Route::prefix('locations')->group(function () {
+                    Route::post('/fetch',                           [InstanceLocationsController::class, 'fetch'])->name('system.user-data.trainings.apis.locations.fetch');
+                });
+            });
         });
     });
 

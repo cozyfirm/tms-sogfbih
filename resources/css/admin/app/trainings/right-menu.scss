@@ -3,8 +3,22 @@
     gap: 16px; box-shadow: 0px 6px 24px 0px rgba(53, 55, 81, 0.06);
     &.rm-card-16{padding: 16px; }
     &.rm-card-16-32{padding: 32px 16px; }
+
+    &.rm-sign-up{
+        background: $yellow; transition: 0.5s all; padding: 12px 24px; align-items: center;
+        &:hover{
+            cursor: pointer; background: $grey;
+        }
+        .rm-card-header{
+            h5, i{color: #FFFFFF; transition: 0.5s all;}
+        }
+    }
+
     .rm-card-header{
         position: relative; display: flex; justify-content: space-between; width: 100%; align-items: center;
+        &.jc-start{
+            justify-content: center; gap: 16px;
+        }
         h5,i {margin: 0px; padding: 0px;}
         h5{font-size: 18px;}
         img{height: 18px;}

@@ -21,6 +21,7 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->date('application_date');
+            $table->integer('total_applications')->default(0);
             $table->integer('total_males')->default(0);
             $table->integer('total_females')->default(0);
             // $table->integer('lunch');                              // FK to Keywords: Yes | No

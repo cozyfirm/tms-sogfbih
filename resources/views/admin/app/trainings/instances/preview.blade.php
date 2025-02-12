@@ -48,11 +48,10 @@
 
     <!-- Add trainer -->
     @include('admin.app.trainings.instances.submodules.trainers.add-trainer')
-
     <!-- Agenda -->
     @include('admin.app.trainings.instances.submodules.events.event')
     <!-- Preview location -->
-    @include('admin.app.trainings.instances.submodules.events.preview-location')
+    @include('admin.app.trainings.instances.submodules.locations.preview')
 
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
@@ -92,7 +91,7 @@
                         <h4>{{ __('Treneri na obuci') }}</h4>
                         <div class="trainers">
                             @foreach($instance->trainersRel as $trainer)
-                                <div class="trainer__w" rel-id="{{ $trainer->trainer_id }}"
+                                <div class="trainer__w trainer__w_get_info" rel-id="{{ $trainer->trainer_id }}"
                                      title="{{ __('Više informacija') }}">
                                     <p> {{ $trainer->trainerRel->name ?? '' }} </p>
                                 </div>
