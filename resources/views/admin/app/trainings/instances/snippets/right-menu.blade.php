@@ -100,7 +100,12 @@
     </a>
     <a href="{{ route('system.admin.trainings.instances.submodules.reports.edit-report', ['instance_id' => $instance->id ]) }}" title="{{ __('Izvještaj o provedenoj obuci') }}">
         <div class="rm-ci-w">
-            <img src="{{ asset('files/images/icons/book-bookmark-solid.svg') }}" alt="{{ __('Calendar image') }}">
+            <img src="{{ asset('files/images/icons/book-bookmark-solid.svg') }}" alt="{{ __('Report image') }}">
+        </div>
+    </a>
+    <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.preview', ['instance_id' => $instance->id ]) }}" title="{{ __('Evaluacije na obuci') }}">
+        <div class="rm-ci-w">
+            <i class="fa-solid fa-user-pen"></i>
         </div>
     </a>
 </div>

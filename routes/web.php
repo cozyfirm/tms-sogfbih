@@ -8,9 +8,11 @@ use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EvaluationsController as InstancesEvaluationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EventsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\LocationsController as InstanceLocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\LocationsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\EvaluationsController as TrainingsEvaluationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
@@ -189,6 +191,19 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                         Route::post('/update-report',                       [InstancesController::class, 'updateReport'])->name('system.admin.trainings.instances.submodules.reports.update-report');
                         Route::get ('/download-report/{instance_id}',       [InstancesController::class, 'downloadReport'])->name('system.admin.trainings.instances.submodules.reports.download-report');
                     });
+
+                    /**
+                     *  Evaluations
+                     */
+                    Route::prefix('evaluations')->group(function () {
+                        Route::get ('/preview/{instance_id}',               [InstancesEvaluationsController::class, 'preview'])->name('system.admin.trainings.instances.submodules.evaluations.preview');
+                        Route::get ('/add-option/{instance_id}',            [InstancesEvaluationsController::class, 'addOption'])->name('system.admin.trainings.instances.submodules.evaluations.add-option');
+                        Route::post('/save-option',                         [InstancesEvaluationsController::class, 'saveOption'])->name('system.admin.trainings.instances.submodules.evaluations.save-option');
+                        Route::get ('/preview-option/{id}',                 [InstancesEvaluationsController::class, 'previewOption'])->name('system.admin.trainings.instances.submodules.evaluations.preview-option');
+                        Route::get ('/edit-option/{id}',                    [InstancesEvaluationsController::class, 'editOption'])->name('system.admin.trainings.instances.submodules.evaluations.edit-option');
+                        Route::post('/update-option',                       [InstancesEvaluationsController::class, 'updateOption'])->name('system.admin.trainings.instances.submodules.evaluations.update-option');
+                        Route::get ('/delete-option/{id}',                  [InstancesEvaluationsController::class, 'deleteOption'])->name('system.admin.trainings.instances.submodules.evaluations.delete-option');
+                    });
                 });
             });
 
@@ -214,6 +229,13 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                     Route::get ('/edit/{id}',                  [LocationsController::class, 'edit'])->name('system.admin.trainings.submodules.locations.edit');
                     Route::post('/update',                     [LocationsController::class, 'update'])->name('system.admin.trainings.submodules.locations.update');
                     Route::get ('/delete/{id}',                [LocationsController::class, 'delete'])->name('system.admin.trainings.submodules.locations.delete');
+                });
+
+                /**
+                 *  Evaluations
+                 */
+                Route::prefix('evaluations')->middleware('isAuthenticated')->group(function () {
+                    Route::get ('/',                           [TrainingsEvaluationsController::class, 'index'])->name('system.admin.trainings.submodules.evaluations');
                 });
             });
         });
