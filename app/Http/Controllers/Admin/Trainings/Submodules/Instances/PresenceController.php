@@ -55,6 +55,12 @@ class PresenceController extends Controller{
         }
     }
 
+    /**
+     * Generate docx certificate for training
+     *
+     * @param $application_id
+     * @return mixed
+     */
     public function generateCertificate($application_id): mixed{
         try{
             $templateProcessor = new TemplateProcessor(storage_path('files/trainings/instances/certificates/certificate.docx'));
@@ -121,16 +127,19 @@ class PresenceController extends Controller{
                 ]);
             }
 
+            $application = InstanceApp::where('id', '=', $request->id)->first();
+            $instance = Instance::where('id', '=', $application->instance_id)->first();
+
             /** Check for certificate */
             if($this->checkForPresence($request->id)){
                 if($this->generateCertificate($request->id)){
                     /** ToDo :: Generate notification */
-                    // $this->createNotification($user, 'app__accepted', Auth()->user()->id, 'Vaša prijava na obuku "' . ($instance->trainingRel->title ?? '') . '" je prihvaćena!', 'Obavijest o prijavi na obuku', route('system.user-data.trainings.preview', ['id' => $instance->id ]));
+                    $this->createNotification($application->userRel, 'cert_generated', Auth()->user()->id, 'Vaš certifikat za obuku "' . ($instance->trainingRel->title ?? '') . '" je generisan!', 'Obavijest i generisanju certifikata', "#");
 
                     return $this->apiResponse('0000', __('Uspješno ažurirano. Certifikat generisan!'));
                 }
             }else{
-                InstanceApp::where('id', '=', $request->id)->update([
+                $application->update([
                     'presence' => '0',
                     'certificate_id' => null
                 ]);

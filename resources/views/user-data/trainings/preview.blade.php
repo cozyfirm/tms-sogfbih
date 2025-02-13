@@ -48,7 +48,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ html()->label(__('Broj prijavljenih kandidata'))->for('total_applications')->class('bold') }}
-                            {{ html()->text('total_applications')->class('form-control form-control-sm')->required()->value((isset($instance) ? $instance->total_applications : ''))->isReadonly(isset($preview)) }}
+                            {{ html()->text('total_applications')->class('form-control form-control-sm')->required()->value((isset($instance) ? $instance->applicationsRel->count() : ''))->isReadonly(isset($preview)) }}
                         </div>
                     </div>
                 </div>

@@ -26,9 +26,9 @@ class ApplicationsController extends Controller{
             $admins = User::whereIn('role', ['admin', 'moderator'])->get();
             foreach ($admins as $admin) {
                 if($what == 'sign_up'){
-                    $this->createNotification($admin, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'prijavio' : 'prijavila') . ' na obuku. Više informacija', 'Obavijest o prijavi na obuku: ' . $title . ".", "route");
+                    $this->createNotification($admin, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'prijavio' : 'prijavila') . ' na obuku. Više informacija', 'Obavijest o prijavi na obuku: ' . $title . ".", "#");
                 }else{
-                    $this->createNotification($admin, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'odjavio' : 'odjavila') . ' sa obuke. Više informacija', 'Obavijest o odjavi sa obuke: ' . $title . ".", "route");
+                    $this->createNotification($admin, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'odjavio' : 'odjavila') . ' sa obuke. Više informacija', 'Obavijest o odjavi sa obuke: ' . $title . ".", "#");
                 }
             }
         }catch (\Exception $e){}
