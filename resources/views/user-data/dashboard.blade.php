@@ -21,15 +21,15 @@
                 <div class="home-row-body">
                     <div class="home-row-items">
                         <div class="home-icon" title="{{__('Ukupan broj programa obuka')}}">
-                            <h1> {{$trainings ?? '0'}}</h1>
+                            <h1> {{ $instances ?? '0'}}</h1>
                             <p>{{__('Aktivnih obuka')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Objavljenih obuka')}}">
-                            <h1>{{$instances ?? '0'}}</h1>
+                            <h1>{{ Auth()->user()->totalTrainings() }}</h1>
                             <p>{{__('Mojih obuka')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih trenera')}}">
-                            <h1>{{$trainers ?? '0'}}</h1>
+                            <h1>{{ Auth()->user()->totalCertificates() }}</h1>
                             <p>{{__('Certifikata')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih korisnika')}}">
@@ -63,6 +63,12 @@
                         <div class="home-icon go-to" link="{{ route('system.user-data.my-profile') }}">
                             <i class="fa-solid fa-user"></i>
                             <p> {{__('Moj profil')}} </p>
+                        </div>
+                    </div>
+                    <div class="home-row-items">
+                        <div class="home-icon go-to" link="#">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                            <p> {{__('Korisničko uputstvo')}} </p>
                         </div>
                     </div>
                 </div>

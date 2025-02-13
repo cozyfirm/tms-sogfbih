@@ -1,15 +1,15 @@
 <div class="three__elements">
     <div class="element">
-        <h5>5</h5>
-        <p>Mojih obuka</p>
+        <h5>{{ Auth()->user()->totalTrainings() }}</h5>
+        <p>{{ __('Mojih obuka') }}</p>
     </div>
     <div class="element">
-        <h5>3</h5>
-        <p>Certifikata</p>
+        <h5>{{ Auth()->user()->totalCertificates() }}</h5>
+        <p>{{ __('Certifikata') }}</p>
     </div>
     <div class="element">
         <h5>24</h5>
-        <p>Sati predavanja</p>
+        <p>{{ __('Sati predavanja') }}</p>
     </div>
 </div>
 

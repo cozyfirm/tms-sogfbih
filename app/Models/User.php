@@ -122,4 +122,11 @@ class User extends Authenticatable
     public function myLastTrainings(): HasMany{
         return $this->HasMany(InstanceApp::class, 'user_id', 'id')->take(10)->orderBy('id', 'DESC');
     }
+
+    public function totalTrainings(): int{
+        return InstanceApp::where('user_id', '=', $this->id)->where('status', '=', 2)->count();
+    }
+    public function totalCertificates(): int{
+        return InstanceApp::where('user_id', '=', $this->id)->where('presence', '=', 1)->count();
+    }
 }
