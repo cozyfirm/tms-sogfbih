@@ -40,7 +40,7 @@
             </div>
             <div class="single-li m-show-notifications" title="Pregled obavijesti">
                 <i class="fas fa-bell m-show-notifications-icon hover-white"></i>
-                <div class="number-of"><p id="no-unread-notifications">{{ Auth()->user()->notifications ?? '' }}</p></div>
+                <div class="number-of number-of-not @if(!Auth()->user()->notifications) d-none @endif"><p id="no-unread-notifications">{{ Auth()->user()->notifications ?? '' }}</p></div>
 
                 @include('admin.layout.snippets.includes.notifications')
             </div>

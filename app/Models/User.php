@@ -118,6 +118,7 @@ class User extends Authenticatable
     public function isSigned($instanceID): bool{
         return InstanceApp::where('instance_id', '=', $instanceID)->where('user_id', '=', $this->id)->count() > 0;
     }
+
     public function myLastTrainings(): HasMany{
         return $this->HasMany(InstanceApp::class, 'user_id', 'id')->take(10)->orderBy('id', 'DESC');
     }

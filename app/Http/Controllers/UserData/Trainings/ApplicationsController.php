@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserData\Trainings;
 
 use App\Http\Controllers\Controller;
+use App\Models\Core\File;
 use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\User;
@@ -15,6 +16,14 @@ use Illuminate\Support\Facades\Auth;
 class ApplicationsController extends Controller{
     use ResponseTrait, UserBaseTrait;
 
+    /**
+     * Create notification when user sign-ups
+     *
+     * @param Request $request
+     * @param $instance
+     * @param $what
+     * @return void
+     */
     public function createSignUpNotifications(Request $request, $instance, $what): void{
         try{
             $title = $instance->trainingRel->title ?? 'Unknown';
@@ -33,6 +42,13 @@ class ApplicationsController extends Controller{
             }
         }catch (\Exception $e){}
     }
+
+    /**
+     * Sign up for training
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function signUp(Request $request): JsonResponse{
         try{
             /** Let's first find an instance and check is everything fine */
@@ -70,6 +86,29 @@ class ApplicationsController extends Controller{
             }
         }catch (\Exception $e){
             return $this->jsonError('3050', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
+        }
+    }
+
+    /**
+     * Download certificate by user
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function downloadCertificate($id): mixed{
+        try{
+            $application = InstanceApp::where('id', '=', $id)->first();
+            if($application->user_id != Auth::user()->id){
+                return back();
+            }
+
+            if($application->presence){
+                $file = File::where('id', '=', $application->certificate_id)->first();
+
+                return response()->download(storage_path('files/trainings/instances/certificates/user-certificates/' . $file->name), $file->file);
+            }else return back();
+        }catch (\Exception $e){
+            return back();
         }
     }
 }

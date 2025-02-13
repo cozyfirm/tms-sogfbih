@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\ApplicationsController as InstancesApplicationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\PresenceController as InstancesPresenceController;
 use App\Http\Controllers\Admin\Users\UsersController;
+use App\Http\Controllers\Common\NotificationsController;
 use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
 use App\Http\Controllers\UserData\Trainings\ApplicationsController as UserDataApplicationsController;
 use App\Http\Controllers\UserData\Trainings\TrainingsController as UserTrainingsController;
@@ -376,7 +377,8 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                  *  Trainings applications
                  */
                 Route::prefix('application')->group(function () {
-                    Route::post('/sign-up',                         [UserDataApplicationsController::class, 'signUp'])->name('system.user-data.trainings.apis.applications.sign-up');
+                    Route::post('/sign-up',                                   [UserDataApplicationsController::class, 'signUp'])->name('system.user-data.trainings.apis.applications.sign-up');
+                    Route::get ('/download-certificate/{application_id}',     [UserDataApplicationsController::class, 'downloadCertificate'])->name('system.user-data.trainings.apis.applications.download-certificate');
                 });
             });
         });
@@ -391,7 +393,8 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
          *  Routes for notifications
          */
         Route::prefix('notifications')->middleware('isAuthenticated')->group(function () {
-
+            Route::post('/reset',                           [NotificationsController::class, 'reset'])->name('system.common-routes.notifications.reset');
+            Route::post('/mark-as-read',                    [NotificationsController::class, 'markAsRead'])->name('system.common-routes.notifications.mark-as-read');
         });
     });
 });

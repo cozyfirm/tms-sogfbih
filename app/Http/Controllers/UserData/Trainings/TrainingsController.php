@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
 use App\Models\Core\Keyword;
 use App\Models\Trainings\Instances\Instance;
+use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Trainings\Submodules\Locations\Location;
 use App\Models\Trainings\Training;
 use App\Models\User;
@@ -13,6 +14,7 @@ use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class TrainingsController extends Controller{
@@ -47,7 +49,8 @@ class TrainingsController extends Controller{
             'trainers' => User::where('role', '=', 'trainer')->pluck('name', 'id')->prepend('Odaberite trenera', '0'),
             'events' => Keyword::getItByVal('event_type'),
             'locations' => Location::pluck('title', 'id')->prepend('Odaberite lokaciju', '0'),
-            'time' => $this->formTimeArr()
+            'time' => $this->formTimeArr(),
+            'application' => InstanceApp::where('instance_id', '=', $id)->where('user_id', '=', Auth::user()->id)->first()
         ]);
     }
 }

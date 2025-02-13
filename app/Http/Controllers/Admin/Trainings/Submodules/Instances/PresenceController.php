@@ -134,7 +134,7 @@ class PresenceController extends Controller{
             if($this->checkForPresence($request->id)){
                 if($this->generateCertificate($request->id)){
                     /** ToDo :: Generate notification */
-                    $this->createNotification($application->userRel, 'cert_generated', Auth()->user()->id, 'Vaš certifikat za obuku "' . ($instance->trainingRel->title ?? '') . '" je generisan!', 'Obavijest i generisanju certifikata', "#");
+                    $this->createNotification($application->userRel, 'cert_generated', Auth()->user()->id, 'Vaš certifikat za obuku "' . ($instance->trainingRel->title ?? '') . '" je generisan!', 'Obavijest i generisanju certifikata', route('system.user-data.trainings.apis.applications.download-certificate', ['application_id' => $application->id]));
 
                     return $this->apiResponse('0000', __('Uspješno ažurirano. Certifikat generisan!'));
                 }

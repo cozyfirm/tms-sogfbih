@@ -65,4 +65,13 @@
             <i class="fa-solid fa-user-pen"></i>
         </div>
     </a>
+    @isset($application)
+        @if($application->presence)
+            <a href="{{ route('system.user-data.trainings.apis.applications.download-certificate', ['application_id' => $application->id]) }}" title="{{ __('Preuzmite vaš certifikat') }}">
+                <div class="rm-ci-w">
+                    <i class="fa-solid fa-certificate"></i>
+                </div>
+            </a>
+        @endif
+    @endisset
 </div>

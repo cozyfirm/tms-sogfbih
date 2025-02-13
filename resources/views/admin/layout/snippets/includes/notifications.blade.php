@@ -12,7 +12,7 @@
             @foreach(Auth()->user()->notificationsRel as $notification)
                 <!-- Check does user that created notification exists -->
                 @isset($notification->fromRel)
-                    <div class="not__row_wrapper go-to" link="{{ $notification->uri }}" title="{{ $notification->description ?? '' }}">
+                    <div class="not__row_wrapper go-to mark-as-read" id="{{ $notification->id }}" link="{{ $notification->uri }}" title="{{ $notification->description ?? '' }}">
                         <div class="icon__wrapper ps-12">
                             <p>{{ $notification->fromRel->getInitials() }}</p>
                         </div>
@@ -30,34 +30,34 @@
             @endforeach
         @endisset
 
-        <div class="not__row_wrapper">
-            <div class="icon__wrapper ps-12">
-                <img src="{{ asset('files/images/default/sparrow.webp') }}" alt="">
-            </div>
-            <div class="text__wrapper">
-                <div class="text__data" title="{{ __('Nove tehnologije u moderno doba') }}">
-                    <p>Jovan Perišić se prijavila na obuku "Nove tehnol.."</p>
-                    <span>15. Jan 2025 08:23</span>
-                </div>
-                <div class="dots__data">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-            </div>
-        </div>
+{{--        <div class="not__row_wrapper">--}}
+{{--            <div class="icon__wrapper ps-12">--}}
+{{--                <img src="{{ asset('files/images/default/sparrow.webp') }}" alt="">--}}
+{{--            </div>--}}
+{{--            <div class="text__wrapper">--}}
+{{--                <div class="text__data" title="{{ __('Nove tehnologije u moderno doba') }}">--}}
+{{--                    <p>Jovan Perišić se prijavila na obuku "Nove tehnol.."</p>--}}
+{{--                    <span>15. Jan 2025 08:23</span>--}}
+{{--                </div>--}}
+{{--                <div class="dots__data">--}}
+{{--                    <i class="fa-solid fa-ellipsis-vertical"></i>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-        <div class="not__row_wrapper">
-            <div class="icon__wrapper ps-12">
-                <p>ŠS</p>
-            </div>
-            <div class="text__wrapper">
-                <div class="text__data">
-                    <p>Šemsa Suljaković se prijavila na obuku "Obuka za predst.."</p>
-                    <span>15. Jan 2025 08:14</span>
-                </div>
-                <div class="dots__data">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-            </div>
-        </div>
+{{--        <div class="not__row_wrapper">--}}
+{{--            <div class="icon__wrapper ps-12">--}}
+{{--                <p>ŠS</p>--}}
+{{--            </div>--}}
+{{--            <div class="text__wrapper">--}}
+{{--                <div class="text__data">--}}
+{{--                    <p>Šemsa Suljaković se prijavila na obuku "Obuka za predst.."</p>--}}
+{{--                    <span>15. Jan 2025 08:14</span>--}}
+{{--                </div>--}}
+{{--                <div class="dots__data">--}}
+{{--                    <i class="fa-solid fa-ellipsis-vertical"></i>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 </div>

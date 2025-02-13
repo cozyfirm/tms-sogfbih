@@ -56,7 +56,11 @@ $(document).ready(function() {
 
     /* Global linking */
     $(".go-to").click(function (){
-        window.location = $(this).attr('link');
+        let link = $(this).attr('link');
+
+        setTimeout(function (){
+            window.location = link;
+        }, 100);
     });
 
 
