@@ -25,9 +25,15 @@ import "./admin/app/trainings/add-author.js";
 import "./admin/app/trainings/instances/add-trainer.js";
 import "./admin/app/trainings/instances/events.js";
 import "./admin/app/trainings/instances/preview-location.js";
+import "./admin/app/trainings/instances/applications.js";
 
 /* Import Submit script */
 import "./style/submit.js";
+
+/**
+ *  User data scripts
+ */
+import "./user-data/user-data.js";
 
 /**
  *  Import public scripts such as:

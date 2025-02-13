@@ -32,7 +32,8 @@ class Keyword extends Model{
         // 'trainer__grade' => 'Ocjena trenera',
         'evaluation__question_type' => 'Evaluacije: Vrsta pitanja',
 //        'evaluation__type' => 'Evaluacije: Vrsta evaluacije',
-        'evaluation__groups' => 'Evaluacije'
+        'evaluation__groups' => 'Evaluacije',
+        'application_status' => 'Status prijave'
     ];
 
     /* Return all types of keywords */

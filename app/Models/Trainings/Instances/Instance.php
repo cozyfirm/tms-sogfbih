@@ -59,4 +59,17 @@ class Instance extends Model{
     public function reportFileRel(): HasOne{
         return $this->hasOne(File::class, 'id', 'report_id');
     }
+
+    /**
+     *  Applications functions
+     */
+    public function applicationsRel(): HasMany{
+        return $this->hasMany(InstanceApp::class, 'instance_id', 'id');
+    }
+    public function acceptedApplicationsRel(): HasMany{
+        return $this->hasMany(InstanceApp::class, 'instance_id', 'id')->where('status', '2');
+    }
+    public function totalApplications(){
+
+    }
 }

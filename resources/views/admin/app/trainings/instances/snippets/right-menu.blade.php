@@ -1,15 +1,15 @@
 <div class="three__elements">
-    <div class="element" title="{{ __('Broj prijava na obuci') }}">
-        <h5>65</h5>
-        <p>Prijava</p>
+    <div class="element go-to" link="{{ route('system.admin.trainings.instances.submodules.applications', ['instance_id' => $instance->id ]) }}" title="{{ __('Broj prijava na obuci') }}">
+        <h5>{{ $instance->applicationsRel->count() }}</h5>
+        <p>{{ __('Prijava') }}</p>
     </div>
     <div class="element" title="{{ __('Broj polaznika na obuci') }}">
-        <h5>24</h5>
-        <p>Polaznika</p>
+        <h5>{{ $instance->acceptedApplicationsRel->count() }}</h5>
+        <p>{{ __('Polaznika') }}</p>
     </div>
     <div class="element" title="{{ __('Trajanje obuke') }}">
         <h5>5</h5>
-        <p>Dana</p>
+        <p>{{ __('Dana') }}</p>
     </div>
 </div>
 

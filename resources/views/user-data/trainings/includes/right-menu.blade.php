@@ -13,10 +13,14 @@
     </div>
 </div>
 
-<div class="rm-card rm-sign-up">
-    <div class="rm-card-header jc-start">
-        <h5>{{ __('Prijavite se na obuku') }}</h5>
-        <i class="fa-solid fa-arrow-right-long"></i>
+<div class="rm-card rm-sign-up" instance-id="{{ $instance->id }}">
+    <div class="rm-card-header jc-start rm-sign-up-inner">
+        @if(Auth()->user()->isSigned($instance->id))
+            <h5>{{ __('Odjavite se sa obuke') }}</h5>
+        @else
+            <h5>{{ __('Prijavite se na obuku') }}</h5>
+            <i class="fa-solid fa-arrow-right-long"></i>
+        @endif
     </div>
 </div>
 

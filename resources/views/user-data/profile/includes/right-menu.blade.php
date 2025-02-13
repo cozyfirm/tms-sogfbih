@@ -21,16 +21,13 @@
     <hr>
     <div class="list__wrapper">
         <ol>
-            <li>
-                <a href="#}">
-                    Program za inostrane zaposlenike
-                </a>
-            </li>
-            <li>
-                <a href="#}">
-                    Škola Cpp-a za početnike
-                </a>
-            </li>
+            @foreach(Auth()->user()->myLastTrainings as $training)
+                <li>
+                    <a href="{{ route('system.user-data.trainings.preview', ['id' => $training->instance_id ]) }}">
+                        {{ $training->instanceRel->trainingRel->title ?? '' }}
+                    </a>
+                </li>
+            @endforeach
         </ol>
     </div>
 </div>

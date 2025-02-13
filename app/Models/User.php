@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Core\Country;
+use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Users\Notification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -109,5 +110,15 @@ class User extends Authenticatable
      */
     public function notificationsRel(): HasMany{
         return $this->hasMany(Notification::class, 'user_id', 'id')->orderBy('id', 'DESC')->take(10);
+    }
+
+    /**
+     *  User data relationships
+     */
+    public function isSigned($instanceID): bool{
+        return InstanceApp::where('instance_id', '=', $instanceID)->where('user_id', '=', $this->id)->count() > 0;
+    }
+    public function myLastTrainings(): HasMany{
+        return $this->HasMany(InstanceApp::class, 'user_id', 'id')->take(10)->orderBy('id', 'DESC');
     }
 }

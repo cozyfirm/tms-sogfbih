@@ -15,8 +15,10 @@ use App\Http\Controllers\Admin\Trainings\Submodules\LocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\EvaluationsController as TrainingsEvaluationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\ApplicationsController as InstancesApplicationsController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
+use App\Http\Controllers\UserData\Trainings\ApplicationsController as UserDataApplicationsController;
 use App\Http\Controllers\UserData\Trainings\TrainingsController as UserTrainingsController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserData\MyProfileController;
@@ -207,6 +209,16 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                         Route::post('/update-option',                       [InstancesEvaluationsController::class, 'updateOption'])->name('system.admin.trainings.instances.submodules.evaluations.update-option');
                         Route::get ('/delete-option/{id}',                  [InstancesEvaluationsController::class, 'deleteOption'])->name('system.admin.trainings.instances.submodules.evaluations.delete-option');
                     });
+
+                    /**
+                     *  Applications
+                     */
+                    Route::prefix('applications')->group(function () {
+                        Route::get ('/preview/{instance_id}',                [InstancesApplicationsController::class, 'index'])->name('system.admin.trainings.instances.submodules.applications');
+                        Route::get ('/preview-app/{instance_id}',            [InstancesApplicationsController::class, 'previewApp'])->name('system.admin.trainings.instances.submodules.applications.preview');
+
+                        Route::post('/update-status',                        [InstancesApplicationsController::class, 'updateStatus'])->name('system.admin.trainings.instances.submodules.applications.update-status');
+                    });
                 });
             });
 
@@ -349,6 +361,13 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                  */
                 Route::prefix('locations')->group(function () {
                     Route::post('/fetch',                           [InstanceLocationsController::class, 'fetch'])->name('system.user-data.trainings.apis.locations.fetch');
+                });
+
+                /**
+                 *  Trainings applications
+                 */
+                Route::prefix('application')->group(function () {
+                    Route::post('/sign-up',                         [UserDataApplicationsController::class, 'signUp'])->name('system.user-data.trainings.apis.applications.sign-up');
                 });
             });
         });

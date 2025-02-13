@@ -12,7 +12,7 @@
             @foreach(Auth()->user()->notificationsRel as $notification)
                 <!-- Check does user that created notification exists -->
                 @isset($notification->fromRel)
-                    <div class="not__row_wrapper">
+                    <div class="not__row_wrapper go-to" link="{{ $notification->uri }}" title="{{ $notification->description ?? '' }}">
                         <div class="icon__wrapper ps-12">
                             <p>{{ $notification->fromRel->getInitials() }}</p>
                         </div>
