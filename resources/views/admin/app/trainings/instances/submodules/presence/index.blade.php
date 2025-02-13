@@ -19,12 +19,14 @@
 
 @section('content')
     <div class="content-wrapper content-wrapper-p-15">
-        @include('admin.layout.snippets.filters.filter-header', ['var' => $applications])
-        <table class="table table-bordered" id="filtering">
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th scope="col" style="text-align:center;">#</th>
-                @include('admin.layout.snippets.filters.filters_header')
+                <th scope="col">{{ __('Ime i prezime') }}</th>
+                @foreach($dates as $date)
+                    <th scope="col" style="text-align:center;">{{ $date->date() }}</th>
+                @endforeach
             </tr>
             </thead>
             <tbody>
@@ -37,23 +39,14 @@
                             {{ $application->userRel->name ?? ''}}
                         </a>
                     </td>
-                    <td width="160px"> {{ $application->date() ?? ''}} </td>
-                    <td width="160px">
-                        {{ html()->select('app_status', $statuses, $application->status ?? '1')->class('form-control form-control-sm app_status__change')->id($application->id) }}
-                    </td>
-                    <td>
-                        @if($application->presence)
-                            <a class="hover-yellow-text" href="{{ route('system.admin.trainings.instances.submodules.applications.download-certificate', ['id' => $application->id ]) }}">
-                                {{ __('Preuzmite certifikat') }}
-                            </a>
-                        @else
-                            {{ __('Nije dostupno') }}
-                        @endif
-                    </td>
+                    @foreach($dates as $date)
+                        <th scope="col" style="text-align:center;">
+                            <input type="checkbox" class="presence-check" name="presence[]" id="{{ $application->id }}" date="{{ $date->date }}" @if(ApplicationHelper::isPresent($application->id, $date->date)) checked @endif>
+                        </th>
+                    @endforeach
                 </tr>
             @endforeach
             </tbody>
         </table>
-        @include('admin.layout.snippets.filters.pagination', ['var' => $applications])
     </div>
 @endsection

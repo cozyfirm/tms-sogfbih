@@ -39,6 +39,9 @@ class Instance extends Model{
     public function endDate(): string{
         return Carbon::parse($this->application_date)->addDays(4)->format('d.m.Y');
     }
+    public function totalDays(): int{
+        return InstanceEvent::where('instance_id', '=', $this->id)->get()->unique('date')->count();
+    }
 
     public function trainingRel(): HasOne{
         return $this->hasOne(Training::class, 'id', 'training_id');

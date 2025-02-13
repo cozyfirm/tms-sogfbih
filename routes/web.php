@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Trainings\Submodules\EvaluationsController as Tra
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\ApplicationsController as InstancesApplicationsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\PresenceController as InstancesPresenceController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
 use App\Http\Controllers\UserData\Trainings\ApplicationsController as UserDataApplicationsController;
@@ -216,8 +217,16 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                     Route::prefix('applications')->group(function () {
                         Route::get ('/preview/{instance_id}',                [InstancesApplicationsController::class, 'index'])->name('system.admin.trainings.instances.submodules.applications');
                         Route::get ('/preview-app/{instance_id}',            [InstancesApplicationsController::class, 'previewApp'])->name('system.admin.trainings.instances.submodules.applications.preview');
-
                         Route::post('/update-status',                        [InstancesApplicationsController::class, 'updateStatus'])->name('system.admin.trainings.instances.submodules.applications.update-status');
+                        Route::get ('/download-certificate/{id}',            [InstancesApplicationsController::class, 'downloadCertificate'])->name('system.admin.trainings.instances.submodules.applications.download-certificate');
+                    });
+
+                    /**
+                     *  Presence
+                     */
+                    Route::prefix('presence')->group(function () {
+                        Route::get ('/preview/{instance_id}',                [InstancesPresenceController::class, 'index'])->name('system.admin.trainings.instances.submodules.presence');
+                        Route::post('/update-presence',                      [InstancesPresenceController::class, 'updatePresence'])->name('system.admin.trainings.instances.submodules.presence.update-presence');
                     });
                 });
             });

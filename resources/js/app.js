@@ -26,6 +26,7 @@ import "./admin/app/trainings/instances/add-trainer.js";
 import "./admin/app/trainings/instances/events.js";
 import "./admin/app/trainings/instances/preview-location.js";
 import "./admin/app/trainings/instances/applications.js";
+import "./admin/app/trainings/instances/presence.js";
 
 /* Import Submit script */
 import "./style/submit.js";

@@ -34,7 +34,7 @@ return new class extends Migration
              */
             $table->unsignedBigInteger('status')->default(1);
             $table->unsignedBigInteger('presence')->default(0);
-            $table->unsignedBigInteger('certificate')->nullable();
+            $table->unsignedBigInteger('certificate_id')->nullable();
 
             $table->timestamps();
         });

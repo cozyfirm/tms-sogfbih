@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Trainings\Submodules\Instances;
 
 use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
+use App\Models\Core\File;
 use App\Models\Core\Keyword;
 use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
@@ -66,6 +67,19 @@ class ApplicationsController extends Controller{
             return $this->apiResponse('0000', __('Uspješno ažurirano'));
         }catch (\Exception $e){
             return $this->jsonError('5250', __('Desila se greška. Molimo kontaktirajte administratora'));
+        }
+    }
+
+    public function downloadCertificate($id): mixed{
+        try{
+            $application = InstanceApp::where('id', '=', $id)->first();
+            if($application->presence){
+                $file = File::where('id', '=', $application->certificate_id)->first();
+
+                return response()->download(storage_path('files/trainings/instances/certificates/user-certificates/' . $file->name), $file->file);
+            }else return back();
+        }catch (\Exception $e){
+            return back();
         }
     }
 }

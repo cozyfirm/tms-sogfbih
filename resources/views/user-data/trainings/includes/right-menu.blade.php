@@ -1,14 +1,14 @@
 <div class="three__elements">
     <div class="element" title="{{ __('Broj prijava na obuci') }}">
-        <h5>65</h5>
+        <h5>{{ $instance->applicationsRel->count() }}</h5>
         <p>Prijava</p>
     </div>
     <div class="element" title="{{ __('Broj polaznika na obuci') }}">
-        <h5>2</h5>
+        <h5>{{ $instance->trainersRel->count() }}</h5>
         <p>Trenera</p>
     </div>
     <div class="element" title="{{ __('Trajanje obuke') }}">
-        <h5>5</h5>
+        <h5>{{ $instance->totalDays() }}</h5>
         <p>Dana</p>
     </div>
 </div>

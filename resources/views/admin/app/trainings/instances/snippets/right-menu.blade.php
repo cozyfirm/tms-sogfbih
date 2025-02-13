@@ -7,8 +7,8 @@
         <h5>{{ $instance->acceptedApplicationsRel->count() }}</h5>
         <p>{{ __('Polaznika') }}</p>
     </div>
-    <div class="element" title="{{ __('Trajanje obuke') }}">
-        <h5>5</h5>
+    <div class="element go-to" link="{{ route('system.admin.trainings.instances.submodules.presence', ['instance_id' => $instance->id ]) }}" title="{{ __('Trajanje obuke') }}">
+        <h5>{{ $instance->totalDays() }}</h5>
         <p>{{ __('Dana') }}</p>
     </div>
 </div>

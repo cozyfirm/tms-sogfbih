@@ -8,6 +8,7 @@
         "php": "^8.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "phpoffice/phpword": "^1.3",
         "spatie/laravel-html": "^3.11"
     },
     "require-dev": {
@@ -27,7 +28,8 @@
         },
         "files": [
             "app/Http/Helpers/TrainingHelper.php",
-            "app/Http/Helpers/FileHelper.php"
+            "app/Http/Helpers/FileHelper.php",
+            "app/Http/Helpers/ApplicationHelper.php"
         ]
     },
     "autoload-dev": {
