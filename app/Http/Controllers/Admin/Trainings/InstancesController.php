@@ -39,7 +39,8 @@ class InstancesController extends Controller{
         $filters = [
             'trainingRel.title' => 'Naziv',
             'application_date' => __('Datum za prijave'),
-            'contract' => __('Vrijednost ugovora')
+            'contract' => __('Vrijednost ugovora'),
+            'reportRel.name' => __('Izvještaj o provedenoj obuci')
         ];
 
         return view($this->_path . 'index', [
@@ -52,13 +53,20 @@ class InstancesController extends Controller{
         return view($this->_path . 'create', [
             $action => true,
             'programs' => Training::pluck('title', 'id')->prepend('Odaberite program'),
-            'yesNo' => Keyword::getItByVal('yes_no')
+            'yesNo' => Keyword::getItByVal('yes_no'),
+            'instance' => isset($id) ? Instance::where('id', '=', $id)->first() : null
         ]);
     }
     public function create(): View{
         return $this->getData('create');
     }
 
+    /**
+     * Save instance; Possible file can be included inside request
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function save(Request $request): JsonResponse{
         try{
             $request['application_date'] = Carbon::parse($request->application_date)->format('Y-m-d');
@@ -66,13 +74,7 @@ class InstancesController extends Controller{
             // Create instance
             $instance = Instance::create($request->except(['_token']));
 
-            // Check if lunch is included
-            if($request->lunch == 1){
-                //
-                return $this->jsonSuccess(__('Uspješno unesena obuka. Molimo unesite informacija o ručku!'), route('system.admin.trainings.instances.lunch.add', ['instance_id' => $instance->id ]));
-            }else{
-
-            }
+            return $this->jsonSuccess(__('Uspješno unesena obuka!'), route('system.admin.trainings.instances.preview', ['id' => $instance->id ]));
         }catch (\Exception $e){
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
         }
@@ -91,60 +93,29 @@ class InstancesController extends Controller{
             'time' => $this->formTimeArr()
         ]);
     }
-
-    /**
-     *  Lunch info
-     */
-
-    public function addLunch($id): View{
-        return view($this->_path . 'lunch.create', [
-            "create" => true,
-            'instance' => Instance::where('id', '=', $id)->first()
-        ]);
+    public function edit($id): View{
+        return $this->getData('edit', $id, $id);
     }
-    public function saveLunch(Request $request): RedirectResponse{
+
+    public function update(Request $request): JsonResponse{
         try{
-            $request['path'] = (storage_path($this->_invoice_path));
-            $file = $this->saveFile($request, 'invoice', 'instances__invoices');
+            $request['application_date'] = Carbon::parse($request->application_date)->format('Y-m-d');
 
-            $request['invoice_id'] = $file->id;
+            // Update instance
+            Instance::where('id', '=', $request->id)->update($request->except(['_token', 'id']));
 
-            InstanceLunch::create($request->except(['_token', 'repeat', 'invoice']));
-
-            if(isset($request->repeat)){
-                return back();
-            }else{
-                return redirect()->route('system.admin.trainings.instances.date.add', ['instance_id' => $request->instance_id]);
-            }
-
+            return $this->jsonSuccess(__('Uspješno ažurirano!'), route('system.admin.trainings.instances.preview', ['id' => $request->id ]));
         }catch (\Exception $e){
-            return back()->with('error', __('Desila se greška. Molimo kontaktirajte administratora!'));
+            return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
         }
     }
 
-    /**
-     *  Date info
-     */
-    public function addDate($id): View{
-        return view($this->_path . 'date.create', [
-            "create" => true,
-            'instance' => Instance::where('id', '=', $id)->first(),
-            'time' => $this->formTimeArr()
-        ]);
-    }
-
-    public function saveDate(Request $request): JsonResponse{
+    public function delete($id): RedirectResponse{
         try{
-            $request['date'] = Carbon::parse($request->date)->format('Y-m-d');
-            $date = InstanceDate::create($request->except(['_token']));
-
-            if(isset($request->repeat)){
-                return $this->jsonSuccess(__('Uspješno spašeno!'), route('system.admin.trainings.instances.date.add', ['instance_id' => $request->instance_id ]));
-            }else{
-                return $this->jsonSuccess(__('Uspješno spašeno!'), route('system.admin.trainings.instances.preview', ['id' => $request->instance_id ]));
-            }
+            // Instance::where('id', '=', $id)->delete();
+            return redirect()->route('system.admin.trainings.instances');
         }catch (\Exception $e){
-            return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
+            return back();
         }
     }
 
@@ -178,10 +149,9 @@ class InstancesController extends Controller{
      */
     public function downloadFile($id): BinaryFileResponse{
         try{
-            $rel = InstanceFile::where('id', '=', $id)->first();
-            $file = File::where('id', '=', $rel->file_id)->first();
+            $file = File::where('id', '=', $id)->first();
 
-            return response()->download(storage_path('files/trainings/' . $file->name), $file->file);
+            return response()->download(storage_path('files/trainings/instances/files/' . $file->name), $file->file);
         }catch (\Exception $e){}
     }
 
@@ -193,12 +163,16 @@ class InstancesController extends Controller{
      */
     public function removeFile($id): RedirectResponse{
         try{
-            $rel = InstanceFile::where('id', '=', $id)->first();
-            File::where('id', '=', $rel->file_id)->delete();
-            $modelID = $rel->training_id;
+            /** @var $rel; Find instance_file */
+            $rel = InstanceFile::where('file_id', '=', $id)->first();
+            /** Remove file */
+            File::where('id', '=', $id)->delete();
+            /** @var $modelID; Find instance ID */
+            $modelID = $rel->instance_id;
+            /** Remove instance_file */
             $rel->delete();
 
-            return redirect()->route('system.admin.trainings.preview', ['id' => $modelID]);
+            return redirect()->route('system.admin.trainings.instances.preview', ['id' => $modelID]);
         }catch (\Exception $e){
             return back();
         }
@@ -212,5 +186,55 @@ class InstancesController extends Controller{
             "create" => true,
             'instance' => Instance::where('id', '=', $id)->first()
         ]);
+    }
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    /**
+     *  Submodules:
+     *      1. Reports
+     */
+
+    /**
+     * Update report: Return view for selecting report file
+     * @param $instance_id
+     * @return View
+     */
+    public function editReport($instance_id): View{
+        $instance = Instance::where('id', '=', $instance_id)->first();
+
+        return view($this->_path . 'submodules.reports.report', [
+            "instance" => $instance,
+        ]);
+    }
+
+    /**
+     * Update report info: Rise report flag and add file
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function updateReport(Request $request): RedirectResponse{
+        try{
+            $request['file_path'] = (storage_path('files/trainings/instances/reports'));
+            $file = $this->saveFile($request, 'report', 'instance_report');
+
+            Instance::where('id', '=', $request->instance_id)->update([
+                'report' => 1,
+                'report_id' => $file->id
+            ]);
+
+            return redirect()->route('system.admin.trainings.instances.preview', ['id' => $request->instance_id]);
+        }catch (\Exception $e){
+            return back();
+        }
+    }
+
+    public function downloadReport($instance_id): BinaryFileResponse{
+        try{
+            $instance = Instance::where('id', '=', $instance_id)->first();
+            $file = File::where('id', '=', $instance->report_id)->first();
+
+            return response()->download(storage_path('files/trainings/instances/reports/' . $file->name), $file->file);
+        }catch (\Exception $e){}
     }
 }

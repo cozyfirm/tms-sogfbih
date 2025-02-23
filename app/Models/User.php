@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Core\Country;
+use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Users\Notification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -91,6 +92,16 @@ class User extends Authenticatable
         return mb_substr($this->first_name ?? '', 0, 1) . (isset($this->last_name) ? mb_substr($this->last_name ?? '', 0, 1) : '');
     }
 
+    /**
+     *  Get user role in bosnian language
+     */
+    public function getRole(): string{
+        if($this->role == 'admin') return __('Administrator');
+        else if($this->role == 'moderator') return __('Moderator');
+        else if($this->role == 'trainer') return __('Trener');
+        else if($this->role == 'user') return __('Korisnik');
+    }
+
     /** Notifications relationships and methods */
     /**
      * Take last 10 notifications using this relationship
@@ -99,5 +110,23 @@ class User extends Authenticatable
      */
     public function notificationsRel(): HasMany{
         return $this->hasMany(Notification::class, 'user_id', 'id')->orderBy('id', 'DESC')->take(10);
+    }
+
+    /**
+     *  User data relationships
+     */
+    public function isSigned($instanceID): bool{
+        return InstanceApp::where('instance_id', '=', $instanceID)->where('user_id', '=', $this->id)->count() > 0;
+    }
+
+    public function myLastTrainings(): HasMany{
+        return $this->HasMany(InstanceApp::class, 'user_id', 'id')->take(10)->orderBy('id', 'DESC');
+    }
+
+    public function totalTrainings(): int{
+        return InstanceApp::where('user_id', '=', $this->id)->where('status', '=', 2)->count();
+    }
+    public function totalCertificates(): int{
+        return InstanceApp::where('user_id', '=', $this->id)->where('presence', '=', 1)->count();
     }
 }

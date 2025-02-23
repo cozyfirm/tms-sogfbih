@@ -20,13 +20,21 @@ import "./admin/app/core/notifications.js";
 /**
  *  Trainings scripts
  */
+import "./admin/app/trainings/instances/instances.js";
 import "./admin/app/trainings/add-author.js";
 import "./admin/app/trainings/instances/add-trainer.js";
 import "./admin/app/trainings/instances/events.js";
 import "./admin/app/trainings/instances/preview-location.js";
+import "./admin/app/trainings/instances/applications.js";
+import "./admin/app/trainings/instances/presence.js";
 
 /* Import Submit script */
 import "./style/submit.js";
+
+/**
+ *  User data scripts
+ */
+import "./user-data/user-data.js";
 
 /**
  *  Import public scripts such as:
@@ -48,7 +56,11 @@ $(document).ready(function() {
 
     /* Global linking */
     $(".go-to").click(function (){
-        window.location = $(this).attr('link');
+        let link = $(this).attr('link');
+
+        setTimeout(function (){
+            window.location = link;
+        }, 100);
     });
 
 

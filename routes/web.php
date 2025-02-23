@@ -8,13 +8,22 @@ use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EvaluationsController as InstancesEvaluationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EventsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\LocationsController as InstanceLocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\LocationsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\EvaluationsController as TrainingsEvaluationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\ApplicationsController as InstancesApplicationsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\PresenceController as InstancesPresenceController;
 use App\Http\Controllers\Admin\Users\UsersController;
+use App\Http\Controllers\Common\NotificationsController;
+use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
+use App\Http\Controllers\UserData\Trainings\ApplicationsController as UserDataApplicationsController;
+use App\Http\Controllers\UserData\Trainings\TrainingsController as UserTrainingsController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\UserData\MyProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function () {
@@ -182,35 +191,45 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                  */
                 Route::prefix('submodules')->group(function () {
                     /**
-                     *  Training schedule
+                     *  Reports
                      */
-                    Route::prefix('schedule')->group(function () {
+                    Route::prefix('reports')->group(function () {
+                        Route::get ('/edit-report/{instance_id}',           [InstancesController::class, 'editReport'])->name('system.admin.trainings.instances.submodules.reports.edit-report');
+                        Route::post('/update-report',                       [InstancesController::class, 'updateReport'])->name('system.admin.trainings.instances.submodules.reports.update-report');
+                        Route::get ('/download-report/{instance_id}',       [InstancesController::class, 'downloadReport'])->name('system.admin.trainings.instances.submodules.reports.download-report');
+                    });
 
+                    /**
+                     *  Evaluations
+                     */
+                    Route::prefix('evaluations')->group(function () {
+                        Route::get ('/preview/{instance_id}',               [InstancesEvaluationsController::class, 'preview'])->name('system.admin.trainings.instances.submodules.evaluations.preview');
+                        Route::get ('/add-option/{instance_id}',            [InstancesEvaluationsController::class, 'addOption'])->name('system.admin.trainings.instances.submodules.evaluations.add-option');
+                        Route::post('/save-option',                         [InstancesEvaluationsController::class, 'saveOption'])->name('system.admin.trainings.instances.submodules.evaluations.save-option');
+                        Route::get ('/preview-option/{id}',                 [InstancesEvaluationsController::class, 'previewOption'])->name('system.admin.trainings.instances.submodules.evaluations.preview-option');
+                        Route::get ('/edit-option/{id}',                    [InstancesEvaluationsController::class, 'editOption'])->name('system.admin.trainings.instances.submodules.evaluations.edit-option');
+                        Route::post('/update-option',                       [InstancesEvaluationsController::class, 'updateOption'])->name('system.admin.trainings.instances.submodules.evaluations.update-option');
+                        Route::get ('/delete-option/{id}',                  [InstancesEvaluationsController::class, 'deleteOption'])->name('system.admin.trainings.instances.submodules.evaluations.delete-option');
+                    });
+
+                    /**
+                     *  Applications
+                     */
+                    Route::prefix('applications')->group(function () {
+                        Route::get ('/preview/{instance_id}',                [InstancesApplicationsController::class, 'index'])->name('system.admin.trainings.instances.submodules.applications');
+                        Route::get ('/preview-app/{instance_id}',            [InstancesApplicationsController::class, 'previewApp'])->name('system.admin.trainings.instances.submodules.applications.preview');
+                        Route::post('/update-status',                        [InstancesApplicationsController::class, 'updateStatus'])->name('system.admin.trainings.instances.submodules.applications.update-status');
+                        Route::get ('/download-certificate/{id}',            [InstancesApplicationsController::class, 'downloadCertificate'])->name('system.admin.trainings.instances.submodules.applications.download-certificate');
+                    });
+
+                    /**
+                     *  Presence
+                     */
+                    Route::prefix('presence')->group(function () {
+                        Route::get ('/preview/{instance_id}',                [InstancesPresenceController::class, 'index'])->name('system.admin.trainings.instances.submodules.presence');
+                        Route::post('/update-presence',                      [InstancesPresenceController::class, 'updatePresence'])->name('system.admin.trainings.instances.submodules.presence.update-presence');
                     });
                 });
-
-                // ToDo - Remove this
-                ///**
-                // *  Lunch infos
-                // */
-                //Route::prefix('lunch')->middleware('isAuthenticated')->group(function () {
-                //    Route::get ('add-lunch/{instance_id}',               [InstancesController::class, 'addLunch'])->name('system.admin.trainings.instances.lunch.add');
-                //    Route::post('save-lunch',                            [InstancesController::class, 'saveLunch'])->name('system.admin.trainings.instances.lunch.save');
-                //    Route::get ('edit-lunch/{id}',                       [InstancesController::class, 'editLunch'])->name('system.admin.trainings.instances.lunch.edit');
-                //    Route::post('update-lunch',                          [InstancesController::class, 'updateLunch'])->name('system.admin.trainings.instances.lunch.update');
-                //    Route::get ('delete-lunch/{id}',                     [InstancesController::class, 'deleteLunch'])->name('system.admin.trainings.instances.lunch.delete');
-                //});
-                //
-                ///**
-                // *  Date infos
-                // */
-                //Route::prefix('date')->middleware('isAuthenticated')->group(function () {
-                //    Route::get ('add-date/{instance_id}',                 [InstancesController::class, 'addDate'])->name('system.admin.trainings.instances.date.add');
-                //    Route::post('save-date',                              [InstancesController::class, 'saveDate'])->name('system.admin.trainings.instances.date.save');
-                //    Route::get ('edit-date/{id}',                         [InstancesController::class, 'editDate'])->name('system.admin.trainings.instances.date.edit');
-                //    Route::post('update-date',                            [InstancesController::class, 'updateDate'])->name('system.admin.trainings.instances.date.update');
-                //    Route::get ('delete-date/{id}',                       [InstancesController::class, 'deleteDate'])->name('system.admin.trainings.instances.date.delete');
-                //});
             });
 
             /**
@@ -235,6 +254,13 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                     Route::get ('/edit/{id}',                  [LocationsController::class, 'edit'])->name('system.admin.trainings.submodules.locations.edit');
                     Route::post('/update',                     [LocationsController::class, 'update'])->name('system.admin.trainings.submodules.locations.update');
                     Route::get ('/delete/{id}',                [LocationsController::class, 'delete'])->name('system.admin.trainings.submodules.locations.delete');
+                });
+
+                /**
+                 *  Evaluations
+                 */
+                Route::prefix('evaluations')->middleware('isAuthenticated')->group(function () {
+                    Route::get ('/',                           [TrainingsEvaluationsController::class, 'index'])->name('system.admin.trainings.submodules.evaluations');
                 });
             });
         });
@@ -309,6 +335,56 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
     });
 
     /**
+     *  User routes
+     */
+    Route::prefix('user-data')->middleware('isAuthenticated')->group(function () {
+        Route::get('/dashboard',                 [UserDataHomeController::class, 'dashboard'])->name('system.user-data.dashboard');
+
+        /**
+         *  My profile
+         */
+        Route::prefix('my-profile')->middleware('isAuthenticated')->group(function () {
+            Route::get ('/',                      [MyProfileController::class, 'myProfile'])->name('system.user-data.my-profile');
+            Route::get ('/edit',                  [MyProfileController::class, 'edit'])->name('system.user-data.my-profile.edit');
+            Route::post('/update',                [MyProfileController::class, 'update'])->name('system.user-data.my-profile.update');
+
+            /**
+             *  Education info
+             */
+            Route::get ('/education',             [MyProfileController::class, 'education'])->name('system.user-data.my-profile.education');
+            Route::post('/education-update',      [MyProfileController::class, 'educationUpdate'])->name('system.user-data.my-profile.education.update');
+        });
+
+        /**
+         *  Trainings
+         */
+        Route::prefix('trainings')->middleware('isAuthenticated')->group(function () {
+            Route::get ('/',                      [UserTrainingsController::class, 'index'])->name('system.user-data.trainings');
+            Route::get ('/preview/{id}',          [UserTrainingsController::class, 'preview'])->name('system.user-data.trainings.preview');
+
+            /**
+             *  Additional APIs
+             */
+            Route::prefix('apis')->group(function () {
+                /**
+                 *  Locations info
+                 */
+                Route::prefix('locations')->group(function () {
+                    Route::post('/fetch',                           [InstanceLocationsController::class, 'fetch'])->name('system.user-data.trainings.apis.locations.fetch');
+                });
+
+                /**
+                 *  Trainings applications
+                 */
+                Route::prefix('application')->group(function () {
+                    Route::post('/sign-up',                                   [UserDataApplicationsController::class, 'signUp'])->name('system.user-data.trainings.apis.applications.sign-up');
+                    Route::get ('/download-certificate/{application_id}',     [UserDataApplicationsController::class, 'downloadCertificate'])->name('system.user-data.trainings.apis.applications.download-certificate');
+                });
+            });
+        });
+    });
+
+    /**
      *  Common routes used by everyone
      */
 
@@ -317,7 +393,8 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
          *  Routes for notifications
          */
         Route::prefix('notifications')->middleware('isAuthenticated')->group(function () {
-
+            Route::post('/reset',                           [NotificationsController::class, 'reset'])->name('system.common-routes.notifications.reset');
+            Route::post('/mark-as-read',                    [NotificationsController::class, 'markAsRead'])->name('system.common-routes.notifications.mark-as-read');
         });
     });
 });

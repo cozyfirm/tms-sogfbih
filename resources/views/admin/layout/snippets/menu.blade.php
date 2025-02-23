@@ -15,22 +15,21 @@
                     <div class="number-of"><p>5</p></div>
                 </a>
             </div>
-{{--            <div class="single-li" title="Odaberite jezik">--}}
-{{--                <i class="fas fa-globe-americas"></i>--}}
-{{--                <div class="number-of"><p>3</p></div>--}}
-{{--            </div>--}}
 
-            <a href="#" target="_blank">
-                <div class="single-li">
-                    <p> {{__('Programi')}} </p>
-                </div>
-            </a>
+            @if(Auth()->user()->role == 'admin')
+                <a href="#" target="_blank">
+                    <div class="single-li">
+                        <p> {{__('Programi')}} </p>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="single-li">
+                        <p> {{__('Korisnici')}} </p>
+                    </div>
+                </a>
+            @elseif(Auth()->user()->role == 'user')
 
-            <a href="#">
-                <div class="single-li">
-                    <p> {{__('Korisnici')}} </p>
-                </div>
-            </a>
+            @endif
         </div>
 
         <!-- Right top icons -->
@@ -41,13 +40,13 @@
             </div>
             <div class="single-li m-show-notifications" title="Pregled obavijesti">
                 <i class="fas fa-bell m-show-notifications-icon hover-white"></i>
-                <div class="number-of"><p id="no-unread-notifications">{{ Auth()->user()->notifications ?? '' }}</p></div>
+                <div class="number-of number-of-not @if(!Auth()->user()->notifications) d-none @endif"><p id="no-unread-notifications">{{ Auth()->user()->notifications ?? '' }}</p></div>
 
                 @include('admin.layout.snippets.includes.notifications')
             </div>
             <a href="#">
                 <div class="single-li single-li-text user-name">
-                    <p><b> {{ __('Root Admin') }} </b></p>
+                    <p><b> {{ Auth()->user()->name }} </b></p>
 {{--                    {!! Form::hidden('user_id', json_encode($loggedUser), ['class' => 'form-control', 'id' => 'loggedUser']) !!}--}}
                 </div>
             </a>
@@ -70,8 +69,8 @@
 {{--            <img class="mp-profile-image" title="{{__('Promijenite sliku profila')}}" src="{{ isset($loggedUser->profileImgRel) ? asset( $loggedUser->profileImgRel->getFile()) : asset('images/user.png')}}" alt="">--}}
         </div>
         <div class="user-desc">
-            <h4> {{ __('Root Admin') }} </h4>
-            <p> {{ __('Administrator') }} </p>
+            <h4> {{ Auth()->user()->name }} </h4>
+            <p> {{ Auth()->user()->getRole() }} </p>
             <p>
                 <i class="fas fa-circle"></i>
                 Online
@@ -89,19 +88,35 @@
                 <i class="fas fa-chart-area"></i>
             </div>
         </div>
-        <a href="{{ route('system.home') }}" class="menu-a-link">
-            <div class="s-lm-wrapper @if(Route::is('system.home')) active @endif">
-                <div class="s-lm-s-elements">
-                    <div class="s-lms-e-img">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <p>{{__('Dashboard')}}</p>
-                    <div class="extra-elements">
-                        <div class="ee-t ee-t-b"><p>{{__('Home')}}</p></div>
+        @if(Auth()->user()->role == 'admin' or Auth()->user()->role == 'moderator')
+            <a href="{{ route('system.home') }}" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.home')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <p>{{__('Dashboard')}}</p>
+                        <div class="extra-elements">
+                            <div class="ee-t ee-t-b"><p>{{__('Home')}}</p></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        @else
+            <a href="{{ route('system.user-data.dashboard') }}" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.user-data.dashboard')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <p>{{__('Dashboard')}}</p>
+                        <div class="extra-elements">
+                            <div class="ee-t ee-t-b"><p>{{__('Home')}}</p></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        @endif
 
         <div class="subtitle">
             <h4>{{__('Korisničko sučelje')}}</h4>
@@ -110,11 +125,11 @@
             </div>
         </div>
 
-        <a href="#" class="menu-a-link">
-            <div class="s-lm-wrapper">
+        <a href="{{ route('system.user-data.my-profile') }}" class="menu-a-link">
+            <div class="s-lm-wrapper @if(Route::is('system.user-data.my-profile*')) active @endif">
                 <div class="s-lm-s-elements">
                     <div class="s-lms-e-img">
-                        <i class="fas fa-user-edit"></i>
+                        <i class="fas fa-user"></i>
                     </div>
                     <p>{{__('Moj profil')}}</p>
                     <div class="extra-elements">
@@ -123,48 +138,82 @@
                 </div>
             </div>
         </a>
-        <a href="#" class="menu-a-link">
-            <div class="s-lm-wrapper @if(Route::is('system.admin.trainings*')) active @endif">
-                <div class="s-lm-s-elements">
-                    <div class="s-lms-e-img">
-                        <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">
-                        <img class="yellow-icon" src="{{ asset('files/images/icons/training-yellow.svg') }}" alt="{{ __('Training image') }}">
-                    </div>
-                    <p>{{__('Sistem obuka')}}</p>
-                    <div class="extra-elements">
-                        <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
-                    </div>
-                </div>
-                <div class="inside-links active-links">
-                    <a href="{{ route('system.admin.trainings') }}">
-                        <div class="inside-lm-link">
-                            <div class="ilm-l"></div><div class="ilm-c"></div>
-                            <p>{{__('Programi obuka')}}</p>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="inside-lm-link">
-                            <div class="ilm-l"></div><div class="ilm-c"></div>
-                            <p> {{__('Instance obuka')}} </p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </a>
 
-        <a href="{{ route('system.admin.users') }}" class="menu-a-link">
-            <div class="s-lm-wrapper @if(Route::is('system.admin.users*')) active @endif">
-                <div class="s-lm-s-elements">
-                    <div class="s-lms-e-img">
-                        <i class="fas fa-users"></i>
+        @if(Auth()->user()->role == 'admin' or Auth()->user()->role == 'moderator')
+            <a href="#" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.admin.trainings*')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">
+                            <img class="yellow-icon" src="{{ asset('files/images/icons/training-yellow.svg') }}" alt="{{ __('Training image') }}">
+                        </div>
+                        <p>{{__('Sistem obuka')}}</p>
+                        <div class="extra-elements">
+                            <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
+                        </div>
                     </div>
-                    <p>{{__('Korisnici')}}</p>
-                    <div class="extra-elements">
-                        <div class="ee-t ee-t-b"><p>{{__('All')}}</p></div>
+                    <div class="inside-links active-links">
+                        <a href="{{ route('system.admin.trainings') }}">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p>{{__('Programi obuka')}}</p>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p> {{__('Instance obuka')}} </p>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        @else
+            <a href="#" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.admin.trainings*')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">
+                            <img class="yellow-icon" src="{{ asset('files/images/icons/training-yellow.svg') }}" alt="{{ __('Training image') }}">
+                        </div>
+                        <p>{{__('Sistem obuka')}}</p>
+                        <div class="extra-elements">
+                            <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="inside-links active-links">
+                        <a href="#">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p>{{__('Sve obuke')}}</p>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p> {{__('Moje obuke')}} </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </a>
+        @endif
+
+        @if(Auth()->user()->role == 'admin' or Auth()->user()->role == 'moderator')
+            <a href="{{ route('system.admin.users') }}" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.admin.users*')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <p>{{__('Korisnici')}}</p>
+                        <div class="extra-elements">
+                            <div class="ee-t ee-t-b"><p>{{__('All')}}</p></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        @endif
 
 {{--        <a href="#" class="menu-a-link">--}}
 {{--            <div class="s-lm-wrapper">--}}
@@ -187,29 +236,29 @@
             </div>
         </div>
 
-        <a href="#" class="menu-a-link">
-            <div class="s-lm-wrapper">
-                <div class="s-lm-s-elements">
-                    <div class="s-lms-e-img">
-                        <i class="fas fa-file"></i>
-                    </div>
-                    <p>{{__('Single Pages')}}</p>
-                </div>
-            </div>
-        </a>
-        <a href="{{ route('system.admin.other.faq') }}" class="menu-a-link">
-            <div class="s-lm-wrapper">
-                <div class="s-lm-s-elements">
-                    <div class="s-lms-e-img">
-                        <i class="fas fa-question"></i>
-                    </div>
-                    <p>{{__('FAQs section')}}</p>
-                    <div class="extra-elements">
-                        <div class="ee-t ee-t-b"><p>{{__('Other')}}</p></div>
-                    </div>
-                </div>
-            </div>
-        </a>
+{{--        <a href="#" class="menu-a-link">--}}
+{{--            <div class="s-lm-wrapper">--}}
+{{--                <div class="s-lm-s-elements">--}}
+{{--                    <div class="s-lms-e-img">--}}
+{{--                        <i class="fas fa-file"></i>--}}
+{{--                    </div>--}}
+{{--                    <p>{{__('Single Pages')}}</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </a>--}}
+{{--        <a href="{{ route('system.admin.other.faq') }}" class="menu-a-link">--}}
+{{--            <div class="s-lm-wrapper">--}}
+{{--                <div class="s-lm-s-elements">--}}
+{{--                    <div class="s-lms-e-img">--}}
+{{--                        <i class="fas fa-question"></i>--}}
+{{--                    </div>--}}
+{{--                    <p>{{__('FAQs section')}}</p>--}}
+{{--                    <div class="extra-elements">--}}
+{{--                        <div class="ee-t ee-t-b"><p>{{__('Other')}}</p></div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </a>--}}
 {{--        <a href="{{ route('system.admin.core.keywords') }}" class="menu-a-link">--}}
 {{--            <div class="s-lm-wrapper">--}}
 {{--                <div class="s-lm-s-elements">--}}
@@ -224,40 +273,57 @@
 {{--            </div>--}}
 {{--        </a>--}}
 
-        <a href="#" class="menu-a-link">
-            <div class="s-lm-wrapper @if(Route::is('system.admin.core.*')) active @endif">
-                <div class="s-lm-s-elements">
-                    <div class="s-lms-e-img">
-                        <i class="fas fa-cogs"></i>
+        @if(Auth()->user()->role == 'admin' or Auth()->user()->role == 'moderator')
+            <a href="#" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.admin.core.*')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <p>{{__('Postavke')}}</p>
+                        <div class="extra-elements">
+                            <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
+                        </div>
                     </div>
-                    <p>{{__('Postavke')}}</p>
-                    <div class="extra-elements">
-                        <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
+                    <div class="inside-links active-links">
+                        <a href="{{ route('system.admin.core.settings.cities') }}">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p> {{__('Općine i gradovi')}} </p>
+                            </div>
+                        </a>
+                        <a href="{{ route('system.admin.core.keywords') }}">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p> {{__('Šifarnici')}} </p>
+                            </div>
+                        </a>
                     </div>
                 </div>
-                <div class="inside-links active-links">
-{{--                    <a href="#">--}}
-{{--                        <div class="inside-lm-link">--}}
-{{--                            <div class="ilm-l"></div><div class="ilm-c"></div>--}}
-{{--                            <p>{{__('Spisak država')}}</p>--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-                    <a href="{{ route('system.admin.core.settings.cities') }}">
-                        <div class="inside-lm-link">
-                            <div class="ilm-l"></div><div class="ilm-c"></div>
-                            <p> {{__('Općine i gradovi')}} </p>
+            </a>
+        @else
+            <a href="#" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.admin.core.*')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <i class="fas fa-cogs"></i>
                         </div>
-                    </a>
-                    <a href="{{ route('system.admin.core.keywords') }}">
-                        <div class="inside-lm-link">
-                            <div class="ilm-l"></div><div class="ilm-c"></div>
-                            <p> {{__('Šifarnici')}} </p>
+                        <p>{{__('Postavke')}}</p>
+                        <div class="extra-elements">
+                            <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
                         </div>
-                    </a>
+                    </div>
+                    <div class="inside-links active-links">
+                        <a href="#">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p> {{__('Notifikacije')}} </p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </a>
-
+            </a>
+        @endif
     </div>
 
 {{--    @include('system.template.menu.menu-includes.bottom-icons')--}}

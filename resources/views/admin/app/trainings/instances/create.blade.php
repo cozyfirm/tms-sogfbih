@@ -17,14 +17,14 @@
 
 @section('c-buttons')
     @isset($create)
-        <a href="{{ route('system.admin.trainings') }}" title="{{ __('Pregled svih programa obuka') }}">
+        <a href="{{ route('system.admin.trainings.instances') }}" title="{{ __('Pregled svih obuka') }}">
             <button class="pm-btn btn pm-btn-info">
                 <i class="fas fa-chevron-left"></i>
                 <span>{{ __('Nazad') }}</span>
             </button>
         </a>
     @else
-        <a href="{{ route('system.admin.trainings.preview', ['id' => $training->id ]) }}" title="{{ __('Nazad na pregled programa obuke') }}">
+        <a href="{{ route('system.admin.trainings.instances.preview', ['id' => $instance->id ]) }}" title="{{ __('Nazad na pregled obuke') }}">
             <button class="pm-btn btn pm-btn-info">
                 <i class="fas fa-chevron-left"></i>
                 <span>{{ __('Nazad') }}</span>
@@ -56,25 +56,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Datum'))->for('application_date')->class('bold') }}
-                                {{ html()->text('application_date', $instance->application_date ?? '' )->class('form-control form-control-sm datepicker')->required()->value((isset($instance) ? $instance->application_date : ''))->isReadonly(isset($preview)) }}
+                                {{ html()->text('application_date', '' )->class('form-control form-control-sm datepicker')->required()->value((isset($instance) ? $instance->startDate() : ''))->isReadonly(isset($preview)) }}
                                 <small id="application_dateHelp" class="form-text text-muted">{{ __('Odaberite datum do kad su otvorene prijave') }}</small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ html()->label(__('Ručak'))->for('lunch')->class('bold') }}
-                                {{ html()->select('lunch', $yesNo, isset($instance) ? $instance->lunch : '0')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
-                                <small id="lunchHelp" class="form-text text-muted">{{ __('Da li su predviđeni obroci za učesnike?') }}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ html()->label(__('YouTube link'))->for('youtube')->class('bold') }}
-                                {{ html()->text('youtube', $instance->youtube ?? '' )->class('form-control form-control-sm')->value((isset($instance) ? $instance->youtube : ''))->isReadonly(isset($preview)) }}
-                                <small id="youtubeHelp" class="form-text text-muted">{{ __('Ukolio ima, unesite YouTube link') }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -89,9 +72,9 @@
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <div class="form-group">
-                                {{ html()->label(__('Monitoring trenera'))->for('trainer_monitoring')->class('bold') }}
-                                {{ html()->textarea('trainer_monitoring', $instance->trainer_monitoring ?? '' )->class('form-control form-control-sm')->style('height:120px;')->value((isset($instance) ? $instance->trainer_monitoring : ''))->isReadonly(isset($preview)) }}
-                                <small id="trainer_monitoringHelp" class="form-text text-muted">{{ __('Više informacija o monitoringu trenera') }}</small>
+                                {{ html()->label(__('YouTube link'))->for('youtube')->class('bold') }}
+                                {{ html()->text('youtube', $instance->youtube ?? '' )->class('form-control form-control-sm')->value((isset($instance) ? $instance->youtube : ''))->isReadonly(isset($preview)) }}
+                                <small id="youtubeHelp" class="form-text text-muted">{{ __('Ukolio ima, unesite YouTube link') }}</small>
                             </div>
                         </div>
                     </div>

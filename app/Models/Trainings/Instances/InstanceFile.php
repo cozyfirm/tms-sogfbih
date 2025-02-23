@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @method static create(array $array)
+ * @method static where(string $string, string $string1, $id)
  */
 class InstanceFile extends Model{
     use HasFactory;

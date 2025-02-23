@@ -16,7 +16,7 @@
 @endsection
 
 @section('c-buttons')
-    <a href="{{ route('system.admin.trainings') }}" title="{{ __('Pregled svih programa obuka') }}">
+    <a href="{{ route('system.admin.trainings.instances') }}" title="{{ __('Pregled svih obuka') }}">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>
@@ -24,12 +24,12 @@
     </a>
 
     @if(isset($preview))
-        <a href="#">
+        <a href="{{ route('system.admin.trainings.instances.edit', ['id' => $instance->id ]) }}">
             <button class="pm-btn pm-btn-white btn pm-btn-edit">
                 <i class="fas fa-edit"></i>
             </button>
         </a>
-        <a href="#">
+        <a href="{{ route('system.admin.trainings.instances.delete', ['id' => $instance->id ]) }}">
             <button class="pm-btn pm-btn-white btn pm-btn-trash">
                 <i class="fas fa-trash"></i>
             </button>
@@ -40,7 +40,7 @@
 @section('content')
     <!-- Upload files GUI -->
     {{ html()->hidden('image_path')->class('form-control image_path')->value('files/upload/trainings') }}
-    {{ html()->hidden('file_path')->class('form-control file_path')->value('files/trainings/instances/files') }}
+    {{ html()->hidden('file_path')->class('form-control file_path')->value(storage_path('files/trainings/instances/files')) }}
     {{ html()->hidden('file_type')->class('form-control file_type')->value('instance__file') }}
     {{ html()->hidden('model_id')->class('form-control model_id')->value($instance->id) }}
     {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.trainings.instances.save-files')) }}
@@ -48,11 +48,10 @@
 
     <!-- Add trainer -->
     @include('admin.app.trainings.instances.submodules.trainers.add-trainer')
-
     <!-- Agenda -->
     @include('admin.app.trainings.instances.submodules.events.event')
     <!-- Preview location -->
-    @include('admin.app.trainings.instances.submodules.events.preview-location')
+    @include('admin.app.trainings.instances.submodules.locations.preview')
 
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
@@ -85,19 +84,21 @@
 
                 @include('admin.app.trainings.instances.submodules.events.events')
 
-                <br>
+                @if($instance->trainersRel->count())
+                    <br>
 
-                <div class="instance__trainers">
-                    <h4>{{ __('Treneri na obuci') }}</h4>
-                    <div class="trainers">
-                        @foreach($instance->trainersRel as $trainer)
-                            <div class="trainer__w" rel-id="{{ $trainer->trainer_id }}"
-                                 title="{{ __('Više informacija') }}">
-                                <p> {{ $trainer->trainerRel->name ?? '' }} </p>
-                            </div>
-                        @endforeach
+                    <div class="instance__trainers">
+                        <h4>{{ __('Treneri na obuci') }}</h4>
+                        <div class="trainers">
+                            @foreach($instance->trainersRel as $trainer)
+                                <div class="trainer__w trainer__w_get_info" rel-id="{{ $trainer->trainer_id }}"
+                                     title="{{ __('Više informacija') }}">
+                                    <p> {{ $trainer->trainerRel->name ?? '' }} </p>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
 

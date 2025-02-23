@@ -28,8 +28,12 @@ class Keyword extends Model{
         'trainings__participants' => 'Učesnici programa',
         'user_type' => 'Fizička ili pravna lica',
         'event_type' => 'Vrsta događaja',
-        'users__education_level' => 'Stepen stručne spreme'
+        'users__education_level' => 'Stepen stručne spreme',
         // 'trainer__grade' => 'Ocjena trenera',
+        'evaluation__question_type' => 'Evaluacije: Vrsta pitanja',
+//        'evaluation__type' => 'Evaluacije: Vrsta evaluacije',
+        'evaluation__groups' => 'Evaluacije',
+        'application_status' => 'Status prijave'
     ];
 
     /* Return all types of keywords */

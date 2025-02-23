@@ -33,7 +33,7 @@
                             <img class="white-icon" src="{{ asset('files/images/icons/training-instance-white.svg') }}" alt="{{ __('Training instance image') }}">
                             <p> {{__('Instance obuka')}} </p>
                         </div>
-                        <div class="home-icon" link="">
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.evaluations') }}">
                             <i class="fa-solid fa-user-pen"></i>
                             <p> {{__('Evaluacije')}} </p>
                         </div>

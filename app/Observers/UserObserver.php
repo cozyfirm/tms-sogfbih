@@ -37,7 +37,7 @@ class UserObserver{
          */
         $admins = User::whereIn('role', ['admin', 'moderator'])->get();
         foreach ($admins as $admin) {
-            $this->createNotification($admin, 'new_profile', $user->id, ($user->name ?? 'John Doe') . ' je ' . (($user->gener == 1) ? 'kreirao' : 'kreirala') . ' profil. Više informacija', 'Obavijest o kreiranju novog profila', route('system.admin.users.preview', ['username' => $user->username]));
+            $this->createNotification($admin, 'new_profile', $user->id, ($user->name ?? 'John Doe') . ' je ' . (($user->gender == 1) ? 'kreirao' : 'kreirala') . ' profil. Više informacija', 'Obavijest o kreiranju novog profila', route('system.admin.users.preview', ['username' => $user->username]));
         }
     }
 }

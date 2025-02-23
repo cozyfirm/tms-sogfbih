@@ -25,11 +25,11 @@
                             <p>{{__('Programa')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Objavljenih obuka')}}">
-                            <h1>{{$inTransit ?? '0'}}</h1>
+                            <h1>{{$instances ?? '0'}}</h1>
                             <p>{{__('Obuka')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih trenera')}}">
-                            <h1>{{$inCart ?? '0'}}</h1>
+                            <h1>{{$trainers ?? '0'}}</h1>
                             <p>{{__('Trenera')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih korisnika')}}">
@@ -47,7 +47,7 @@
 
                 <div class="home-row-body">
                     <div class="home-row-items">
-                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.home') }}" title="{{__('Podesite vrijeme kada su uređaji aktivni')}}">
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.home') }}" title="{{__('PSistem obuka')}}">
                             <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">
                             <img class="white-icon" src="{{ asset('files/images/icons/training-white.svg') }}" alt="{{ __('Training image') }}">
                             <p> {{__('Sistem obuka')}} </p>
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="home-row-items">
-                        <div class="home-icon" link="" title="{{__('Pregled svih narudžbi')}}">
+                        <div class="home-icon" link="" title="{{__('')}}">
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                             <p>{{ __('Analiza potreba') }}</p>
                         </div>
