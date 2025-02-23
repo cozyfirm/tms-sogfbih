@@ -48,6 +48,14 @@
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
             <div class="form__info__inner">
+
+                <!-- Info messages -->
+                @if (Session::has('success'))
+                    <div class="success__message"> {{ Session::get('message') }} </div>
+                @elseif (Session::has('error'))
+                    <div class="error__message"> {{ Session::get('error') }} </div>
+                @endif
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -65,22 +73,16 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{ html()->label(__('Učesnici programa'))->for('participants')->class('bold') }}
-                            {{ html()->select('participants', $participants, isset($training) ? $training->participants : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                            {{ html()->label(__('Godina izrade projekta'))->for('year')->class('bold') }}
+                            {{ html()->number('year', '', '2000', (date('Y') + 5) )->class('form-control form-control-sm')->required()->value((isset($training) ? $training->year : date('Y')))->isReadonly(isset($preview)) }}
                         </div>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             {{ html()->label(__('Program obuke izrađen u okviru projekta'))->for('project')->class('bold') }}
                             {{ html()->select('project', $projects, isset($training) ? $training->project : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ html()->label(__('Godina izrade projekta'))->for('year')->class('bold') }}
-                            {{ html()->number('year', '', '2000', (date('Y') + 5) )->class('form-control form-control-sm')->required()->value((isset($training) ? $training->year : date('Y')))->isReadonly(isset($preview)) }}
                         </div>
                     </div>
                 </div>
@@ -103,12 +105,25 @@
                     </div>
                 @endif
 
-                <div class="training__areas">
+                <!-- Areas that program belongs -->
+                <div class="training__areas mb-32">
                     <h4>{{ __('Šire oblasti kojima program pripada') }}</h4>
                     <div class="areas">
                         @foreach($training->areasRel as $area)
                             <div class="area__w">
                                 <p>{{ $area->areaRel->name ?? '' }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Participants that program belongs -->
+                <div class="training__participants">
+                    <h4>{{ __('Učesnici programa obuke') }}</h4>
+                    <div class="participants">
+                        @foreach($training->participantsRel as $participant)
+                            <div class="area__w">
+                                <p>{{ $participant->participantRel->name ?? '' }}</p>
                             </div>
                         @endforeach
                     </div>

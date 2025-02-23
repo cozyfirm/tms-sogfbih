@@ -56,15 +56,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Izradu programa obuke finansirao'))->for('financed_by')->class('bold') }}
-                                {{ html()->select('financed_by', $financiers, isset($training) ? $training->financed_by : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('financed_by', $financiers, isset($training) ? $training->financed_by : '')->class('form-control form-control-sm single-select2')->required()->disabled(isset($preview)) }}
                                 <small id="financed_byHelp" class="form-text text-muted">{{ __('Odaberite izvor finansiranja programa obuke') }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ html()->label(__('Učesnici programa'))->for('participants')->class('bold') }}
-                                {{ html()->select('participants', $participants, isset($training) ? $training->participants : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
-                                <small id="participantsHelp" class="form-text text-muted">{{ __('Za koje učesnike je ovaj program namijenjen?') }}</small>
+                                {{ html()->label(__('Godina'))->for('year')->class('bold') }}
+                                {{ html()->number('year', '', '2000', (date('Y') + 5) )->class('form-control form-control-sm')->required()->value((isset($training) ? $training->year : date('Y')))->isReadonly(isset($preview)) }}
+                                <small id="yearHelp" class="form-text text-muted">{{ __('Godina izrade projekta') }}</small>
                             </div>
                         </div>
                     </div>
@@ -73,15 +73,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Program obuke izrađen u okviru projekta'))->for('project')->class('bold') }}
-                                {{ html()->select('project', $projects, isset($training) ? $training->project : '')->class('form-control form-control-sm')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('project', $projects, isset($training) ? $training->project : '')->class('form-control form-control-sm single-select2')->required()->disabled(isset($preview)) }}
                                 <small id="projectHelp" class="form-text text-muted">{{ __('Odaberite projekt u čijem je okviru izrađen program obuka') }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ html()->label(__('Godina'))->for('year')->class('bold') }}
-                                {{ html()->number('year', '', '2000', (date('Y') + 5) )->class('form-control form-control-sm')->required()->value((isset($training) ? $training->year : date('Y')))->isReadonly(isset($preview)) }}
-                                <small id="yearHelp" class="form-text text-muted">{{ __('Godina izrade projekta') }}</small>
+                                {{ html()->label(__('Učesnici programa'))->for('participants')->class('bold') }}
+                                <select name="participants" class="form-control form-control-sm select2" required multiple>
+                                    @foreach($participants as $key => $val)
+                                        <option value="{{ $key }}" @isset($training) @if(TrainingHelper::isParticipantSelected($training->id, $key)) selected @endif @endisset>{{ $val }}</option>
+                                    @endforeach
+                                </select>
+                                <small id="participantsHelp" class="form-text text-muted">{{ __('Za koje učesnike je ovaj program namijenjen?') }}</small>
                             </div>
                         </div>
                     </div>

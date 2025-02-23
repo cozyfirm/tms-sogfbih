@@ -30,6 +30,9 @@ class Training extends Model{
     public function areasRel(): HasMany{
         return $this->hasMany(TrainingArea::class, 'training_id', 'id');
     }
+    public function participantsRel(): HasMany{
+        return $this->hasMany(TrainingParticipant::class, 'training_id', 'id');
+    }
     public function authorsRel(): HasMany{
         return $this->hasMany(AuthorRel::class, 'training_id', 'id');
     }

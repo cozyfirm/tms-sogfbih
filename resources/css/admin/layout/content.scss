@@ -33,13 +33,18 @@
             .form__info__inner{
                 position: relative; padding: 24px; background: #FFFFFF; width: 100%; border-radius:4px; box-shadow: 0px 6px 24px 0px rgba(53, 55, 81, 0.06);
 
+                .success__message, .error__message{
+                    position: relative; width: 100%; padding: 8px 16px; background: #00EBC1; color: #FFFFFF; border-radius: 4px; margin-bottom: 16px;
+                }
+                .error__message{ background: #C84040 }
+
                 .custom-hr{
                     position: relative; width: 100%; height: 1px; background: $lightGrey; margin: 32px 0px;
                 }
-                .training__areas, .training__authors, .instance__trainers{
+                .training__areas, .training__authors, .instance__trainers, .training__participants{
                     position: relative; width: 100%; display: flex; flex-wrap: wrap; gap: 16px;
                     h4{color: $darkGrey; font-size:20px; margin:0px; }
-                    .areas, .authors, .trainers{
+                    .areas, .authors, .trainers, .participants{
                         position: relative; width: 100%; display: flex; gap: 8px; flex-wrap: wrap;
                         .area__w, .author__w, .trainer__w{
                             padding: 2px 8px; background: $yellow; border-radius:4px;

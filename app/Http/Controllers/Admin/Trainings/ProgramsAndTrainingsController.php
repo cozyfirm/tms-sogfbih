@@ -10,7 +10,9 @@ use App\Models\Core\Keyword;
 use App\Models\Trainings\Author;
 use App\Models\Trainings\AuthorRel;
 use App\Models\Trainings\Training;
+use App\Models\Trainings\TrainingArea;
 use App\Models\Trainings\TrainingFile;
+use App\Models\Trainings\TrainingParticipant;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Trainings\TrainingTrait;
@@ -60,12 +62,16 @@ class ProgramsAndTrainingsController extends Controller{
 
     public function save(Request $request): JsonResponse{
         try{
-            $select2 = $this->extractSelect2($request->areas);
+            $areas        = $this->extractSelect2($request->areas);
+            $participants = $this->extractSelect2($request->participants);
+
             $training = Training::create($request->except(['_token', 'areas', 'undefined']));
+
             /**
-             *  If not defined, insert areas into table and create samples for this training
+             *  If not defined, insert areas and participants into table and create samples for this training
              */
-            $this->handleAreas($select2, $training->id);
+            $this->handleSelect2Items($areas, $training->id, 'trainings__areas', new TrainingArea(), 'area_id');
+            $this->handleSelect2Items($participants, $training->id, 'trainings__participants', new TrainingParticipant(), 'participant_id');
 
             return $this->jsonSuccess(__('Uspješno spašen program obuke!'), route('system.admin.trainings.preview', ['id' => $training->id ]));
         }catch (\Exception $e){
@@ -93,17 +99,31 @@ class ProgramsAndTrainingsController extends Controller{
 
     public function update(Request $request): JsonResponse{
         try{
-            $select2 = $this->extractSelect2($request->areas);
-            Training::where('id', '=', $request->id)->update($request->except(['_token', 'id', 'areas', 'undefined']));
+            $areas        = $this->extractSelect2($request->areas);
+            $participants = $this->extractSelect2($request->participants);
+
+            Training::where('id', '=', $request->id)->update($request->except(['_token', 'id', 'areas', 'undefined', 'participants']));
 
             /**
-             *  If not defined, insert areas into table and create samples for this training
+             *  If not defined, insert areas and participants into table and create samples for this training
              */
-            $this->handleAreas($select2, $request->id);
+            $this->handleSelect2Items($areas, $request->id, 'trainings__areas', new TrainingArea(), 'area_id');
+            $this->handleSelect2Items($participants, $request->id, 'trainings__participants', new TrainingParticipant(), 'participant_id');
 
             return $this->jsonSuccess(__('Uspješno spašen program obuke!'), route('system.admin.trainings.preview', ['id' => $request->id ]));
         }catch (\Exception $e){
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
+        }
+    }
+
+    public function delete($id): RedirectResponse{
+        try{
+            $training = Training::where('id', '=', $id)->first();
+            $training->delete();
+
+            return redirect()->route('system.admin.trainings')->with('success', __('Uspješno obrisan program "' . ($training->title) . '"!'));
+        }catch (\Exception $e){
+            return back()->with('error', __('Desila se greška. Molimo kontaktirajte administratora!!'));
         }
     }
 
@@ -212,7 +232,7 @@ class ProgramsAndTrainingsController extends Controller{
             $rel = TrainingFile::where('id', '=', $id)->first();
             $file = File::where('id', '=', $rel->file_id)->first();
 
-            return response()->download(storage_path('files/trainings/' . $file->name), $file->file);
+            return response()->download(storage_path('files/trainings/trainings/' . $file->name), $file->file);
         }catch (\Exception $e){}
     }
 

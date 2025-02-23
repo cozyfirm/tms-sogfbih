@@ -32,6 +32,9 @@ trait CommonTrait{
      *  Extract select-2 multiple values and form array of data
      */
     public function extractSelect2($values): array{
+        /* Empty array */
+        $this->_select2_data = [];
+
         foreach ($values as $key => $val){
             if(intval($val)){
                 $this->_select2_data[] = [
