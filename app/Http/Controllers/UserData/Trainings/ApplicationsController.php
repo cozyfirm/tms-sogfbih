@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\UserData\Trainings;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Applications\NotifyCreator;
+use App\Mail\Users\ConfirmEmail;
 use App\Models\Core\File;
 use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
@@ -12,6 +14,7 @@ use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicationsController extends Controller{
     use ResponseTrait, UserBaseTrait;
@@ -39,7 +42,9 @@ class ApplicationsController extends Controller{
             }else{
                 $this->createNotification($createdBy, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'odjavio' : 'odjavila') . ' sa obuke. Više informacija', 'Obavijest o odjavi sa obuke: ' . $title . ".", route('system.admin.trainings.instances.submodules.applications', ['instance_id' => $instance->id ]));
             }
-        }catch (\Exception $e){}
+
+            Mail::to($createdBy->email)->send(new NotifyCreator($what, Auth::user()->name, Auth::user()->gender, $instance->id, $instance->trainingRel->title));
+        }catch (\Exception $e){ }
     }
 
     /**

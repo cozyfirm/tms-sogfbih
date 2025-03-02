@@ -28,7 +28,7 @@ class ConfirmEmail extends Mailable{
      */
     public function envelope(): Envelope{
         return new Envelope(
-            from: new Address('no-reply@fondacijaekipa.ba', 'NoReply EKIPA'),
+            from: new Address(env('MAIL_FROM_ADDRESS'), env('APP_NAME')),
             subject: 'Confirm Email',
         );
     }
