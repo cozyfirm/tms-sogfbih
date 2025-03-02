@@ -2,6 +2,7 @@ import { Notify } from './../../../../style/layout/notify.ts';
 
 $(document).ready(function(){
     let filesArray = [];
+    let status = "unknown";
 
     /**
      * Upload file by file
@@ -145,6 +146,15 @@ $(document).ready(function(){
      */
     $(".upload-files").click(function (){
         $(".file__upload__wrapper").removeClass('d-none');
+
+        /* Reset status value to unknown */
+        status = "unknown";
+    });
+    $(".upload-public-files").click(function (){
+        $(".file__upload__wrapper").removeClass('d-none');
+
+        /* Reset status value to unknown */
+        status = "public";
     });
 
     /**
@@ -159,7 +169,8 @@ $(document).ready(function(){
             dataType: "json",
             data: {
                 model_id: $(".model_id").val(),
-                filesArray: filesArray
+                filesArray: filesArray,
+                status: status
             },
             success: function success(response) {
                 $(".loading").fadeOut(0);

@@ -52,7 +52,7 @@ class InstancesController extends Controller{
     public function getData($action, $id = null): View{
         return view($this->_path . 'create', [
             $action => true,
-            'programs' => Training::pluck('title', 'id')->prepend('Odaberite program'),
+            'programs' => Training::pluck('title', 'id')->prepend('Odaberite program', '0'),
             'yesNo' => Keyword::getItByVal('yes_no'),
             'instance' => isset($id) ? Instance::where('id', '=', $id)->first() : null
         ]);
@@ -70,6 +70,7 @@ class InstancesController extends Controller{
     public function save(Request $request): JsonResponse{
         try{
             $request['application_date'] = Carbon::parse($request->application_date)->format('Y-m-d');
+            $request['created_by'] = Auth::user()->id;
 
             // Create instance
             $instance = Instance::create($request->except(['_token']));
@@ -82,9 +83,10 @@ class InstancesController extends Controller{
 
     public function preview($id): View{
         $instance = Instance::where('id', '=', $id)->first();
+
         return view($this->_path . 'preview', [
             'preview' => true,
-            'programs' => Training::pluck('title', 'id')->prepend('Odaberite program'),
+            'programs' => Training::pluck('title', 'id')->prepend('Odaberite program', '0'),
             'yesNo' => Keyword::getItByVal('yes_no'),
             'instance' => $instance,
             'trainers' => User::where('role', '=', 'trainer')->pluck('name', 'id')->prepend('Odaberite trenera', '0'),
@@ -127,11 +129,14 @@ class InstancesController extends Controller{
      */
     public function saveFiles(Request $request): JsonResponse{
         try{
+            if($request->status == 'unknown') $request['status'] = 'private';
+
             foreach ($request->filesArray as $item){
                 InstanceFile::create([
                     'instance_id' => $request->model_id,
                     'file_id' => $item['fileID'],
-                    'user_id' => Auth::user()->id
+                    'user_id' => Auth::user()->id,
+                    'visibility' => $request->status
                 ]);
             }
 

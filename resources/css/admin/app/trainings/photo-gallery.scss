@@ -1,13 +1,19 @@
 .gallery__wrapper{
     position: relative; width: 100%; border-radius: 8px; display: flex; gap: 24px; flex-wrap: wrap; padding: 0px;
 
-    .image__wrapper{
+    .image__out_wrapper{
         position: relative; width: calc(25% - 18px); min-height: 120px; background: #FFFFFF; border-top-left-radius: 4px; border-top-right-radius: 4px;
 
         .image__wrapper{
             position: relative; width: 100%; border-top-left-radius: 4px; border-top-right-radius: 4px; overflow: hidden; height: 260px;
             img{
                 position: relative; min-width: 100%; min-height: 100%; object-fit: cover;
+            }
+            .btn_wrapper{
+                position: absolute; right: 16px; top: 16px; z-index: 50; background: $yellow; padding: 4px 16px; border-radius: 4px;
+                p{
+                    color: #FFFFFF; margin: 0px; padding: 0px; font-size: 12px;
+                }
             }
         }
         .gallery__text__wrapper{

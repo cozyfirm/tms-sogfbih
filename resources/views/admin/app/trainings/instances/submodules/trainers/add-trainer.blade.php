@@ -15,16 +15,25 @@
             {{ html()->hidden('at_instance_id')->class('form-control at_instance_id')->value($instance->id) }}
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
                         {{ html()->label(__('Ime i prezime trenera'))->for('at_trainer_id')->class('bold') }}
                         {{ html()->select('at_trainer_id', $trainers, '')->class('form-control form-control-sm single-select2 at_trainer_id')->style('width:100%;')->required() }}
                     </div>
                 </div>
+            </div>
+
+            <div class="row mt-1">
                 <div class="col-md-6">
                     <div class="form-group">
                         {{ html()->label(__('Postignuta ocjena trenera na obuci'))->for('at_grade')->class('bold') }}
                         {{ html()->number('at_grade', '', '0.0', '10.0', '0.1' )->class('form-control form-control-sm at_grade')->maxlength(200) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ html()->label(__('Vrijednost ugovora'))->for('at_contract')->class('bold') }}
+                        {{ html()->number('at_contract', '', '0.0', '10000.0', '0.01' )->class('form-control form-control-sm at_contract')->maxlength(10) }}
                     </div>
                 </div>
             </div>

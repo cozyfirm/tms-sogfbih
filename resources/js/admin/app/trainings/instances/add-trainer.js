@@ -60,6 +60,7 @@ $("document").ready(function () {
                 /** Data from form */
                 trainer_id: trainerID,
                 grade: $(".at_grade").val(),
+                contract: $(".at_contract").val(),
                 monitoring: $(".at_monitoring").val()
             },
             success: function success(response) {
@@ -106,6 +107,7 @@ $("document").ready(function () {
                     $(".add__trainer_wrapper").removeClass('d-none');
                     $(".at_trainer_id").val(response['data']['rel']['trainer_id']).trigger('change').prop('disabled', true);
                     $(".at_grade").val(response['data']['rel']['grade']);
+                    $(".at_contract").val(response['data']['rel']['contract']);
                     $(".at_monitoring").val(response['data']['rel']['monitoring']);
 
                     activeTrainer = response['data']['rel']['trainer_id'];

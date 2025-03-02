@@ -101,6 +101,9 @@ class User extends Authenticatable
         else if($this->role == 'trainer') return __('Trener');
         else if($this->role == 'user') return __('Korisnik');
     }
+    public function isAdmin(): bool{
+        return ($this->role == 'admin' or $this->role == 'moderator');
+    }
 
     /** Notifications relationships and methods */
     /**

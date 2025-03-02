@@ -24,7 +24,7 @@
     </div>
 </div>
 
-@if(FileHelper::getInstanceFiles($instance->id)->count() or $instance->report)
+@if(FileHelper::getPublicInstanceFiles($instance->id)->count())
     <div class="rm-card">
         <div class="rm-card-header">
             <h5>{{ __('Priloženi dokumenti') }}</h5>
@@ -32,21 +32,15 @@
         </div>
 
         <!-- Uploaded files to training instance -->
-        @if(FileHelper::getInstanceFiles($instance->id)->count())
+        @if(FileHelper::getPublicInstanceFiles($instance->id)->count())
             <hr>
             <div class="list__wrapper list__wrapper__flex">
                 @php $counter = 1; @endphp
-                @foreach(FileHelper::getInstanceFiles($instance->id) as $file)
+                @foreach(FileHelper::getPublicInstanceFiles($instance->id) as $file)
                     <div class="document__row">
-                        <a href="{{ route('system.admin.trainings.instances.download-file', ['id' => $file->id ]) }}" title="{{ __('Preuzmite dokument') }}">
+                        <a href="{{ route('system.user-data.download.download-instance-file', ['id' => $file->id ]) }}" title="{{ __('Preuzmite dokument') }}">
                             {{ $counter++ }}. {{ $file->file ?? '' }}
                         </a>
-
-                        <div class="remove__icon" title="{{ __('Obrišite dokument') }}">
-                            <a href="{{ route('system.admin.trainings.instances.remove-file', ['id' => $file->id]) }}">
-                                <img src="{{ asset('files/images/icons/trash-can-solid.svg') }}" alt="{{ __('Trash can') }}">
-                            </a>
-                        </div>
                     </div>
                 @endforeach
             </div>
@@ -63,6 +57,11 @@
     <a href="#" title="{{ __('Evaluacija obuke') }}">
         <div class="rm-ci-w">
             <i class="fa-solid fa-user-pen"></i>
+        </div>
+    </a>
+    <a href="{{ route('system.user-data.trainings.additional-data.photo-gallery', ['instance_id' => $instance->id ]) }}" title="{{ __('Galerija fotografija') }}" class="instance-gallery">
+        <div class="rm-ci-w">
+            <img src="{{ asset('files/images/icons/camera-retro-solid.svg') }}" alt="{{ __('Gallery image') }}">
         </div>
     </a>
     @isset($application)

@@ -24,24 +24,30 @@ class TrainersController extends Controller{
             if($request->grade < 0 or $request->grade > 10){
                 return $this->jsonError('5101', __('Format ocjene nije validan!'));
             }
+            if($request->contract < 0 or $request->contract > 10000){
+                return $this->jsonError('5102', __('Vrijednost ugovora nije validna'));
+            }
+
             $request['grade'] = $this->roundNumber($request->grade, 1);
+            $request['contract'] = $this->roundNumber($request->contract, 2);
 
             if(isset($request->activeTrainer)){
                 /** Update trainer by ID */
-                InstanceTrainer::where('instance_id', '=', $request->instance_id)->where('trainer_id', '=', $request->trainer_id)->update(['instance_id' => $request->instance_id, 'trainer_id' => $request->trainer_id, 'grade' => $request->grade, 'monitoring' => $request->monitoring]);
+                InstanceTrainer::where('instance_id', '=', $request->instance_id)->where('trainer_id', '=', $request->trainer_id)->update(['instance_id' => $request->instance_id, 'trainer_id' => $request->trainer_id, 'grade' => $request->grade, 'contract' => $request->contract, 'monitoring' => $request->monitoring]);
             }else{
                 /** Add trainer to instance */
                 $rel = InstanceTrainer::where('instance_id', '=', $request->instance_id)->where('trainer_id', '=', $request->trainer_id)->first();
                 if(!$rel){
-                    InstanceTrainer::create(['instance_id' => $request->instance_id, 'trainer_id' => $request->trainer_id, 'grade' => $request->grade, 'monitoring' => $request->monitoring]);
+                    InstanceTrainer::create(['instance_id' => $request->instance_id, 'trainer_id' => $request->trainer_id, 'grade' => $request->grade, 'contract' => $request->contract, 'monitoring' => $request->monitoring]);
                 }else{
-                    return $this->jsonError('5102', __('Trener već dodan na obuku!'));
+                    return $this->jsonError('5103', __('Trener već dodan na obuku!'));
                 }
             }
 
             return $this->jsonSuccess(__('Uspješno ažurirano'), route('system.admin.trainings.instances.preview', ['id' => $request->instance_id]));
 
         }catch (\Exception $e){
+            dd($e);
             return $this->jsonError('5100', __('Desila se greška. Molimo kontaktirajte administratora'));
         }
     }

@@ -22,6 +22,7 @@ use App\Http\Controllers\Common\NotificationsController;
 use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
 use App\Http\Controllers\UserData\Trainings\ApplicationsController as UserDataApplicationsController;
 use App\Http\Controllers\UserData\Trainings\TrainingsController as UserTrainingsController;
+use App\Http\Controllers\UserData\DownloadController as UserDownloadController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserData\MyProfileController;
 use Illuminate\Support\Facades\Route;
@@ -381,6 +382,23 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                     Route::get ('/download-certificate/{application_id}',     [UserDataApplicationsController::class, 'downloadCertificate'])->name('system.user-data.trainings.apis.applications.download-certificate');
                 });
             });
+
+            /**
+             *  Additional training data visible to user
+             */
+            Route::prefix('additional-data')->group(function () {
+                /** Photo Gallery */
+                Route::prefix('photo-gallery')->group(function () {
+                    Route::get ('/preview/{instance_id}',                      [UserTrainingsController::class, 'photoGallery'])->name('system.user-data.trainings.additional-data.photo-gallery');
+                });
+            });
+        });
+
+        /**
+         *  Download files
+         */
+        Route::prefix('download')->group(function () {
+            Route::get ('/download-file/{id}',                                 [UserDownloadController::class, 'downloadInstanceFile'])->name('system.user-data.download.download-instance-file');
         });
     });
 

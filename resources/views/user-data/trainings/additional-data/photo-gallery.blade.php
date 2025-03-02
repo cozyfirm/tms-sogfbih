@@ -6,14 +6,12 @@
 @section('c-title') {{ __('Galerija fotografija') }} @endsection
 @section('c-breadcrumbs')
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
-    <a href="#">...</a> /
-    <a href="{{ route('system.admin.trainings.instances') }}">{{ __('Instance obuka') }}</a> /
-    <a href="{{ route('system.admin.trainings.instances.preview', ['id' => $instance->id ]) }}">{{ __('Obuka') }}</a> /
-    <a href="#">{{ $instance->trainingRel->title ?? '' }}</a>
+    <a href="{{ route('system.user-data.trainings') }}">{{ __('Sistem obuka') }}</a> /
+    <a href="{{ route('system.user-data.trainings.preview', ['id' => $instance->id ]) }}">{{ $instance->trainingRel->title ?? '' }}</a> /
+    <a href="#">{{ __('Galerija fotografija') }}</a>
 @endsection
-
 @section('c-buttons')
-    <a href="{{ route('system.admin.trainings.instances.preview', ['id' => $instance->id ]) }}" title="{{ __('Nazad na pregled obuke') }}">
+    <a href="{{ route('system.user-data.trainings.preview', ['id' => $instance->id ]) }}" title="{{ __('Nazad na pregled obuke') }}">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>
@@ -28,9 +26,6 @@
                 <div class="image__out_wrapper">
                     <div class="image__wrapper">
                         <img src="{{ asset($image->getFile()) }}" alt="">
-                        <div class="btn_wrapper">
-                            <p> {{ $image->instanceRel->visibility() }} </p>
-                        </div>
                     </div>
                     <div class="gallery__text__wrapper">
                         <div class="gtw__left">
@@ -42,15 +37,6 @@
                                 <p>{{ $image->instanceRel->userRel->email ?? '' }}</p>
                             </div>
                         </div>
-                        @if(Auth()->user()->isAdmin())
-                            <div class="right__part">
-                                <div class="views">
-                                    <a href="#" title="{{ __('Obrišite fotografiju') }}">
-                                        <img src="{{ asset('files/images/icons/file-pen-solid.svg') }}" alt="{{ __('Icon') }}">
-                                    </a>
-                                </div>
-                            </div>
-                        @endif
                     </div>
                 </div>
             @endforeach

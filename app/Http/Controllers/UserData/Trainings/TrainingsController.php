@@ -53,4 +53,11 @@ class TrainingsController extends Controller{
             'application' => InstanceApp::where('instance_id', '=', $id)->where('user_id', '=', Auth::user()->id)->first()
         ]);
     }
+
+    public function photoGallery($instance_id): View{
+        return view($this->_path . 'additional-data.photo-gallery', [
+            "create" => true,
+            'instance' => Instance::where('id', '=', $instance_id)->first()
+        ]);
+    }
 }

@@ -3,9 +3,9 @@
         <h5>{{ $instance->applicationsRel->count() }}</h5>
         <p>{{ __('Prijava') }}</p>
     </div>
-    <div class="element" title="{{ __('Broj polaznika na obuci') }}">
-        <h5>{{ $instance->acceptedApplicationsRel->count() }}</h5>
-        <p>{{ __('Polaznika') }}</p>
+    <div class="element" title="{{ __('Broj popunjenih evaluacija od strane polaznika') }}">
+        <h5>0</h5>
+        <p>{{ __('Evaluacija') }}</p>
     </div>
     <div class="element go-to" link="{{ route('system.admin.trainings.instances.submodules.presence', ['instance_id' => $instance->id ]) }}" title="{{ __('Trajanje obuke') }}">
         <h5>{{ $instance->totalDays() }}</h5>
@@ -47,6 +47,12 @@
                         </a>
 
                         <div class="remove__icon" title="{{ __('Obrišite dokument') }}">
+                            @if($file->instanceRel->visibility == 'public')
+                                <img class="visibility" src="{{ asset('files/images/icons/eye-solid.svg') }}" alt="{{ __('Publicly visible') }}" title="{{ __('Dokument je javno dostupan') }}">
+                            @else
+                                <img class="visibility" src="{{ asset('files/images/icons/eye-slash-solid.svg') }}" alt="{{ __('Privately visible') }}" title="{{ __('Dokument je dostupan samo organizatorima obuke') }}">
+                            @endif
+
                             <a href="{{ route('system.admin.trainings.instances.remove-file', ['id' => $file->id]) }}">
                                 <img src="{{ asset('files/images/icons/trash-can-solid.svg') }}" alt="{{ __('Trash can') }}">
                             </a>
@@ -85,7 +91,12 @@
     </a>
     <a title="{{ __('Upload dokumenata') }}" class="upload-files">
         <div class="rm-ci-w">
-            <img src="{{ asset('files/images/icons/cloud-arrow-up-solid.svg') }}" alt="{{ __('Upload image') }}">
+            <img src="{{ asset('files/images/icons/cloud-arrow-up-solid.svg') }}" alt="{{ __('Upload file') }}">
+        </div>
+    </a>
+    <a title="{{ __('Upload javnih dokumenata') }}" class="upload-public-files">
+        <div class="rm-ci-w">
+            <img src="{{ asset('files/images/icons/upload-solid.svg') }}" alt="{{ __('Upload file') }}">
         </div>
     </a>
     <a href="{{ route('system.admin.trainings.instances.photo-gallery.preview', ['id' => $instance->id ]) }}" title="{{ __('Galerija fotografija') }}" class="instance-gallery">

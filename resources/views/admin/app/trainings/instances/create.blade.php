@@ -46,7 +46,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 {{ html()->label(__('Program obuka'))->for('training_id')->class('bold') }}
-                                {{ html()->select('training_id', $programs, isset($instance) ? $instance->training_id : '')->class('form-control form-control-sm select2')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('training_id', $programs, isset($instance) ? $instance->training_id : '')->class('form-control required form-control-sm select2')->required()->disabled(isset($preview)) }}
                                 <small id="financed_byHelp" class="form-text text-muted">{{ __('Odaberite program kojem obuka pripada') }}</small>
                             </div>
                         </div>
@@ -56,15 +56,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Datum'))->for('application_date')->class('bold') }}
-                                {{ html()->text('application_date', '' )->class('form-control form-control-sm datepicker')->required()->value((isset($instance) ? $instance->startDate() : ''))->isReadonly(isset($preview)) }}
+                                {{ html()->text('application_date', '' )->class('form-control required form-control-sm datepicker')->required()->value((isset($instance) ? $instance->startDate() : ''))->isReadonly(isset($preview)) }}
                                 <small id="application_dateHelp" class="form-text text-muted">{{ __('Odaberite datum do kad su otvorene prijave') }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ html()->label(__('Iznos ugovora'))->for('contract')->class('bold') }}
-                                {{ html()->text('contract', $instance->contract ?? '' )->class('form-control form-control-sm')->required()->value((isset($instance) ? $instance->contract : ''))->placeholder('100.00')->isReadonly(isset($preview)) }}
-                                <small id="contractHelp" class="form-text text-muted">{{ __('Bruto iznos ugovora u KM') }}</small>
+                                {{ html()->label(__('YouTube link'))->for('youtube')->class('bold') }}
+                                {{ html()->text('youtube', $instance->youtube ?? '' )->class('form-control form-control-sm')->value((isset($instance) ? $instance->youtube : ''))->isReadonly(isset($preview)) }}
+                                <small id="youtubeHelp" class="form-text text-muted">{{ __('Ukolio ima, unesite YouTube link') }}</small>
                             </div>
                         </div>
                     </div>
@@ -72,9 +72,9 @@
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <div class="form-group">
-                                {{ html()->label(__('YouTube link'))->for('youtube')->class('bold') }}
-                                {{ html()->text('youtube', $instance->youtube ?? '' )->class('form-control form-control-sm')->value((isset($instance) ? $instance->youtube : ''))->isReadonly(isset($preview)) }}
-                                <small id="youtubeHelp" class="form-text text-muted">{{ __('Ukolio ima, unesite YouTube link') }}</small>
+                                {{ html()->label(__('Sadržaj obuke'))->for('description')->class('bold') }}
+                                {{ html()->textarea('description', '' )->class('form-control form-control-sm')->required()->value((isset($instance) ? $instance->description : ''))->isReadonly(isset($preview))->style('height: 240px;') }}
+                                <small id="descriptionHelp" class="form-text text-muted">{{ __('Detaljne informacije o sadržaju obuke') }}</small>
                             </div>
                         </div>
                     </div>

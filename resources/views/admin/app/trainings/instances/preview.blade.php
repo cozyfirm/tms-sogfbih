@@ -56,29 +56,36 @@
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
             <div class="form__info__inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            {{ html()->label(__('Program obuke'))->for('training_id')->class('bold') }}
-                            {{ html()->select('training_id', $programs, isset($instance) ? $instance->training_id : '')->class('form-control form-control-sm select2')->required()->disabled(isset($preview)) }}
-                        </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ html()->label(__('Datum do kad su otvorene prijave'))->for('application_date')->class('bold') }}
+                        {{ html()->text('application_date', '' )->class('form-control form-control-sm')->required()->value(isset($instance) ? $instance->applicationDate() : '')->isReadonly(isset($preview)) }}
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ html()->label(__('Datum'))->for('application_date')->class('bold') }}
-                            {{ html()->text('application_date', '' )->class('datepicker form-control form-control-sm')->required()->value(isset($instance) ? $instance->applicationDate() : '')->isReadonly(isset($preview)) }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {{ html()->label(__('Iznos ugovora (KM)'))->for('contract')->class('bold') }}
-                            {{ html()->text('contract', $instance->contract ?? '' )->class('form-control form-control-sm')->required()->value((isset($instance) ? $instance->contract : ''))->placeholder('100.00')->isReadonly(isset($preview)) }}
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="row">--}}
+                {{--    <div class="col-md-12">--}}
+                {{--        <div class="form-group">--}}
+                {{--            {{ html()->label(__('Program obuke'))->for('training_id')->class('bold') }}--}}
+                {{--            {{ html()->select('training_id', $programs, isset($instance) ? $instance->training_id : '')->class('form-control form-control-sm select2')->required()->disabled(isset($preview)) }}--}}
+                {{--        </div>--}}
+                {{--    </div>--}}
+                {{--</div>--}}
+
+                {{--<div class="row mt-3">--}}
+                {{--    <div class="col-md-6">--}}
+                {{--        <div class="form-group">--}}
+                {{--            {{ html()->label(__('Datum'))->for('application_date')->class('bold') }}--}}
+                {{--            {{ html()->text('application_date', '' )->class('datepicker form-control form-control-sm')->required()->value(isset($instance) ? $instance->applicationDate() : '')->isReadonly(isset($preview)) }}--}}
+                {{--        </div>--}}
+                {{--    </div>--}}
+                {{--    <div class="col-md-6">--}}
+                {{--        <div class="form-group">--}}
+                {{--            {{ html()->label(__('Iznos ugovora (KM)'))->for('contract')->class('bold') }}--}}
+                {{--            {{ html()->text('contract', $instance->contract ?? '' )->class('form-control form-control-sm')->required()->value((isset($instance) ? $instance->contract : ''))->placeholder('100.00')->isReadonly(isset($preview)) }}--}}
+                {{--        </div>--}}
+                {{--    </div>--}}
+                {{--</div>--}}
 
                 <br>
 
@@ -99,6 +106,10 @@
                         </div>
                     </div>
                 @endif
+
+                <div class="training__description mt-32">
+                    {!! nl2br($instance->description) !!}
+                </div>
             </div>
         </div>
 

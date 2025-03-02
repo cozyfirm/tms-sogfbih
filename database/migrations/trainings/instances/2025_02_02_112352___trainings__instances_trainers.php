@@ -26,6 +26,7 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
+            $table->string('contract', 10)->default('0.00');
             $table->string('grade', 10)->nullable();
             $table->text('monitoring')->nullable();
 

@@ -27,8 +27,11 @@ class AuthController extends Controller{
     /**
      *  Return Auth view
      */
-    public function auth(){
-        return view($this->_path. 'auth');
+    public function auth(): View | RedirectResponse{
+        if(Auth::check()){
+            if(Auth::user()->isAdmin()) return redirect()->route('system.home');
+            else return redirect()->route('system.user-data.dashboard');
+        }else return view($this->_path. 'auth');
     }
 
     public function authenticate(Request $request): bool|string{

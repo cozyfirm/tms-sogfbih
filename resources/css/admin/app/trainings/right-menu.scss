@@ -42,12 +42,16 @@
             }
             position: relative; width: 100%; display: flex; justify-content: space-between; align-items: center;
             a{
+                &.grey{ color: $yellow; }
                 margin: 0px; padding: 0px;
             }
             .remove__icon{
                 width: 32px; display: flex; justify-content: flex-end; opacity: 0; transition: 0.2s all;
                 img{
                     height: 14px;
+                }
+                .visibility{
+                    margin-right: 8px;
                 }
             }
         }

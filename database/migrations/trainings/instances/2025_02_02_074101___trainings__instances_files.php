@@ -32,6 +32,7 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->integer('views')->default(0);
+            $table->string('visibility', 10)->default('private');
 
             $table->timestamps();
             $table->softDeletes();

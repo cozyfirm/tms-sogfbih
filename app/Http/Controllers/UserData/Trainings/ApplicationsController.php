@@ -29,16 +29,15 @@ class ApplicationsController extends Controller{
             $title = $instance->trainingRel->title ?? 'Unknown';
 
             /**
-             *  Create notifications for admins and moderators
+             *  Create notifications for user that created training instance
              *  Notify them that user signed for training
              */
-            $admins = User::whereIn('role', ['admin', 'moderator'])->get();
-            foreach ($admins as $admin) {
-                if($what == 'sign_up'){
-                    $this->createNotification($admin, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'prijavio' : 'prijavila') . ' na obuku. Više informacija', 'Obavijest o prijavi na obuku: ' . $title . ".", "#");
-                }else{
-                    $this->createNotification($admin, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'odjavio' : 'odjavila') . ' sa obuke. Više informacija', 'Obavijest o odjavi sa obuke: ' . $title . ".", "#");
-                }
+            $createdBy = User::where('id', '=', $instance->created_by)->first();
+
+            if($what == 'sign_up'){
+                $this->createNotification($createdBy, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'prijavio' : 'prijavila') . ' na obuku. Više informacija', 'Obavijest o prijavi na obuku: ' . $title . ".", route('system.admin.trainings.instances.submodules.applications', ['instance_id' => $instance->id ]));
+            }else{
+                $this->createNotification($createdBy, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'odjavio' : 'odjavila') . ' sa obuke. Više informacija', 'Obavijest o odjavi sa obuke: ' . $title . ".", route('system.admin.trainings.instances.submodules.applications', ['instance_id' => $instance->id ]));
             }
         }catch (\Exception $e){}
     }

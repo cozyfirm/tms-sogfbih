@@ -21,13 +21,17 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->date('application_date');
+
+            /** Description */
+            $table->text('description')->nullable();
+
             $table->integer('total_applications')->default(0);
             $table->integer('total_males')->default(0);
             $table->integer('total_females')->default(0);
             // $table->integer('lunch');                              // FK to Keywords: Yes | No
 
             $table->string('youtube', 200)->nullable();
-            $table->string('contract', 10)->default('0.00');
+            // $table->string('contract', 10)->default('0.00');
 
             // $table->string('trainer_grade', 10)->default(1.0);
             // $table->text('trainer_monitoring')->nullable();
@@ -38,6 +42,8 @@ return new class extends Migration
 
             /* Views of training instance */
             $table->integer('views')->default(0);
+
+            $table->integer('created_by');
 
             $table->timestamps();
             $table->softDeletes();

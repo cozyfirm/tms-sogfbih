@@ -60,10 +60,19 @@
                 .training__authors{
                     h4{color: $darkGrey; }
                 }
+                .training__description{
+                    position: relative; width: 100%; padding: 16px; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px;
+                    font-size: 14px;
+                }
             }
         }
         .right__menu__info{
-            position: relative; width: 460px; gap: 16px; display: flex; flex-wrap: wrap; flex-direction: column;
+            position: sticky; width: 460px; gap: 16px; display: flex; flex-wrap: wrap; // flex-direction: column;
+
+            top: 112px;
+            position: -webkit-sticky; /* for Safari */
+            position: sticky;
+            align-self: flex-start; /* <-- this is the fix */
         }
     }
 

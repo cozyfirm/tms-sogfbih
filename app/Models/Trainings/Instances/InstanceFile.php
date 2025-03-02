@@ -18,6 +18,10 @@ class InstanceFile extends Model{
     protected $table = 'trainings__instances_files';
     protected $guarded = ['id'];
 
+    public function visibility(): string{
+        if(isset($this->visibility)) return ($this->visibility == 'public') ? __('Javno') : __('Privatno');
+        else return __('Nije poznato');
+    }
     public function fileRel(): HasOne{
         return $this->hasOne(File::class, 'id', 'file_id');
     }
