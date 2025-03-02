@@ -121,6 +121,22 @@ class User extends Authenticatable
     public function isSigned($instanceID): bool{
         return InstanceApp::where('instance_id', '=', $instanceID)->where('user_id', '=', $this->id)->count() > 0;
     }
+    public function appAvailable($instanceID): bool{
+        $application = InstanceApp::where('instance_id', '=', $instanceID)->where('user_id', '=', $this->id)->first();
+        if(!$application) return true;
+        else{
+            return ($application->status == 1);
+        }
+    }
+    public function appStatus($instanceID): string{
+        $application = InstanceApp::where('instance_id', '=', $instanceID)->where('user_id', '=', $this->id)->first();
+        if(!$application) return __('Status nepoznat');
+        else{
+            if($application->status == 1) return "Na čekanju";
+            else if($application->status == 2) return "Prijava prihvaćena";
+            else if($application->status == 3) return "Prijava odbijena";
+        }
+    }
 
     public function myLastTrainings(): HasMany{
         return $this->HasMany(InstanceApp::class, 'user_id', 'id')->take(10)->orderBy('id', 'DESC');

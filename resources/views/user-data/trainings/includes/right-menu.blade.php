@@ -13,16 +13,24 @@
     </div>
 </div>
 
-<div class="rm-card rm-sign-up" instance-id="{{ $instance->id }}">
-    <div class="rm-card-header jc-start rm-sign-up-inner">
-        @if(Auth()->user()->isSigned($instance->id))
-            <h5>{{ __('Odjavite se sa obuke') }}</h5>
-        @else
-            <h5>{{ __('Prijavite se na obuku') }}</h5>
-            <i class="fa-solid fa-arrow-right-long"></i>
-        @endif
+@if(Auth()->user()->appAvailable($instance->id))
+    <div class="rm-card rm-sign-up" instance-id="{{ $instance->id }}">
+        <div class="rm-card-header jc-start rm-sign-up-inner">
+            @if(Auth()->user()->isSigned($instance->id))
+                <h5>{{ __('Odjavite se sa obuke') }}</h5>
+            @else
+                <h5>{{ __('Prijavite se na obuku') }}</h5>
+                <i class="fa-solid fa-arrow-right-long"></i>
+            @endif
+        </div>
     </div>
-</div>
+@else
+    <div class="rm-card rm-signed-up" title="{{ __('Daljnje akcije vezane za prijavu nisu moguće') }}">
+        <div class="rm-card-header jc-start rm-sign-up-inner">
+            <h5>{{ __(Auth()->user()->appStatus($instance->id)) }}</h5>
+        </div>
+    </div>
+@endif
 
 @if(FileHelper::getPublicInstanceFiles($instance->id)->count())
     <div class="rm-card">
