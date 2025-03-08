@@ -32,7 +32,6 @@
                     <td class="text-center">{{ $i++}}. </td>
                     <td> {{ $instance->trainingRel->title ?? ''}} </td>
                     <td> {{ $instance->applicationDate() ?? ''}} </td>
-                    <td> {{ $instance->total_applications ?? ''}} </td>
                     <td>
                         <ul class="m-0">
                             @foreach($instance->trainersRel as $trainer)
@@ -40,6 +39,7 @@
                             @endforeach
                         </ul>
                     </td>
+                    <td> {{ $instance->total_applications ?? ''}} </td>
 
                     <td class="text-center">
                         <a class="table-btn-link" href="{{route('system.user-data.trainings.preview', ['id' => $instance->id] )}}" title="{{ __('Pregled obuke') }}">

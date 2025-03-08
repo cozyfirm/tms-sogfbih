@@ -62,11 +62,13 @@
             <img src="{{ asset('files/images/icons/calendar-plus-solid.svg') }}" alt="{{ __('Calendar image') }}">
         </div>
     </a>
-    <a href="#" title="{{ __('Evaluacija obuke') }}">
-        <div class="rm-ci-w">
-            <i class="fa-solid fa-user-pen"></i>
-        </div>
-    </a>
+    @if(isset($evaluation) and $evaluation->locked)
+        <a class="show-evaluation" title="{{ __('Evaluacija obuke') }}">
+            <div class="rm-ci-w">
+                <i class="fa-solid fa-user-pen"></i>
+            </div>
+        </a>
+    @endif
     <a href="{{ route('system.user-data.trainings.additional-data.photo-gallery', ['instance_id' => $instance->id ]) }}" title="{{ __('Galerija fotografija') }}" class="instance-gallery">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/camera-retro-solid.svg') }}" alt="{{ __('Gallery image') }}">

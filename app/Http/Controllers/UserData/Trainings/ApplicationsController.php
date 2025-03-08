@@ -43,6 +43,15 @@ class ApplicationsController extends Controller{
                 $this->createNotification($createdBy, $what, Auth()->user()->id, (Auth()->user()->name ?? 'John Doe') . ' se ' . ((Auth()->user()->gender == 1) ? 'odjavio' : 'odjavila') . ' sa obuke. Više informacija', 'Obavijest o odjavi sa obuke: ' . $title . ".", route('system.admin.trainings.instances.submodules.applications', ['instance_id' => $instance->id ]));
             }
 
+            /**
+             *  Update number of applications
+             */
+
+            $instance->update(['total_applications' => InstanceApp::where('instance_id', '=', $instance->id)->count()]);
+
+            /**
+             *  Send an email notification to user in charge about application status
+             */
             Mail::to($createdBy->email)->send(new NotifyCreator($what, Auth::user()->name, Auth::user()->gender, $instance->id, $instance->trainingRel->title));
         }catch (\Exception $e){ }
     }

@@ -152,3 +152,45 @@
 .c-dp{
     height: 36px; padding-left: 15px !important;
 }
+
+
+/* Remove default appearance */
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: 0.5s all;
+    // transition: background-color 0.2s, border-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+input[type="radio"]:hover {
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+/* Style for the checked state */
+input[type="radio"]:checked {
+    background-color: $yellow;
+    border-color: $orange;
+    //box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+
+    width: 16px;
+    height: 16px;
+}
+
+/* The inner dot for the checked state */
+input[type="radio"]:checked:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    transform: translate(-50%, -50%);
+}

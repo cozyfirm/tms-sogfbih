@@ -8,7 +8,8 @@
     {{ $instance->trainingRel->title ?? '' }}
 @endsection
 @section('c-breadcrumbs')
-    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a href="#"> <i class="fas fa-home"></i>
+        <p>{{ __('Dashboard') }}</p></a> /
     <a href="{{ route('system.user-data.trainings') }}">{{ __('Sistem obuka') }}</a> /
     <a href="{{ route('system.user-data.trainings.preview', ['id' => $instance->id ]) }}">{{ $instance->trainingRel->title ?? '' }}</a>
 @endsection
@@ -25,6 +26,11 @@
 @section('content')
     <!-- Preview location -->
     @include('admin.app.trainings.instances.submodules.locations.preview')
+
+    @if(isset($evaluation) and $evaluation->locked)
+        <!-- User evaluation -->
+        @include('user-data.trainings.additional-data.evaluation')
+    @endif
 
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">

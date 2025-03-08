@@ -30,4 +30,14 @@ class EvaluationOption extends Model{
     public function answersRel(): HasMany{
         return $this->hasMany(EvaluationAnswer::class, 'option_id', 'id');
     }
+
+    /**
+     *  For user evaluations GUI
+     */
+    public function getByGroupWithAnswers($evaluation, $group_id){
+        return EvaluationOption::where('evaluation_id', '=', $evaluation)->where('group_by', '=', $group_id)->where('type', 'with_answers')->get();
+    }
+    public function getByGroupQuestionOnly($evaluation, $group_id){
+        return EvaluationOption::where('evaluation_id', '=', $evaluation)->where('group_by', '=', $group_id)->where('type', 'question_only')->get();
+    }
 }

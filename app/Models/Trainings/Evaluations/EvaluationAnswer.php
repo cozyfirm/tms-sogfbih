@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * @method static where(string $string, string $string1, $evaluation_id)
+ * @method static create(array $array)
+ */
 class EvaluationAnswer extends Model{
     use HasFactory;
 

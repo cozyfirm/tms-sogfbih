@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @method static where(string $string, string $string1, $evaluation_id)
@@ -33,5 +34,9 @@ class Evaluation extends Model{
     }
     public function optionsRel(): HasMany{
         return $this->hasMany(EvaluationOption::class, 'evaluation_id', 'id');
+    }
+
+    public function myEvaluation(): HasOne{
+        return $this->hasOne(EvaluationStatus::class, 'evaluation_id', 'id')->where('user_id', '=', Auth::user()->id);
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluations__answers', function (Blueprint $table) {
+        Schema::create('evaluations__statuses', function (Blueprint $table) {
             $table->id();
 
             /**
@@ -21,14 +21,6 @@ return new class extends Migration
             $table->foreign('evaluation_id')
                 ->references('id')
                 ->on('evaluations')
-                ->onDelete('cascade');
-            /**
-             *  FK to option ID
-             */
-            $table->unsignedBigInteger('option_id');
-            $table->foreign('option_id')
-                ->references('id')
-                ->on('evaluations__options')
                 ->onDelete('cascade');
 
             /**
@@ -49,12 +41,7 @@ return new class extends Migration
                 ->on('trainings__instances_applications')
                 ->onDelete('cascade');
 
-            /**
-             *  Real answer:
-             *      1. Number
-             *      2. Textual answer
-             */
-            $table->string('answer', 250)->nullable();
+            $table->string('status', '20')->default('submitted');
 
             $table->timestamps();
         });
@@ -65,6 +52,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluations__answers');
+        Schema::dropIfExists('evaluations__statuses');
     }
 };

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\UserData\Trainings;
 use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
 use App\Models\Core\Keyword;
+use App\Models\Trainings\Evaluations\Evaluation;
+use App\Models\Trainings\Evaluations\EvaluationOption;
+use App\Models\Trainings\Evaluations\EvaluationStatus;
 use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Trainings\Submodules\Locations\Location;
@@ -16,6 +19,7 @@ use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use PhpParser\PrettyPrinter\Standard;
 
 class TrainingsController extends Controller{
     use UserBaseTrait, ResponseTrait, CommonTrait;
@@ -41,6 +45,13 @@ class TrainingsController extends Controller{
 
     public function preview($id): View{
         $instance = Instance::where('id', '=', $id)->first();
+
+        $evaluation = Evaluation::where('type', '=','__training')->where('model_id', '=', $id)->first();
+        if($evaluation){
+            $groups     = EvaluationOption::where('evaluation_id', '=', $evaluation->id)->orderBy('group_by')->get()->unique('group_by');
+            $status     = EvaluationStatus::where('evaluation_id', '=', $evaluation->id)->where('user_id', '=', Auth::user()->id)->first();
+        }
+
         return view($this->_path . 'preview', [
             'preview' => true,
             'programs' => Training::pluck('title', 'id')->prepend('Odaberite program'),
@@ -50,7 +61,10 @@ class TrainingsController extends Controller{
             'events' => Keyword::getItByVal('event_type'),
             'locations' => Location::pluck('title', 'id')->prepend('Odaberite lokaciju', '0'),
             'time' => $this->formTimeArr(),
-            'application' => InstanceApp::where('instance_id', '=', $id)->where('user_id', '=', Auth::user()->id)->first()
+            'application' => InstanceApp::where('instance_id', '=', $id)->where('user_id', '=', Auth::user()->id)->first(),
+            'evaluation' => $evaluation,
+            'groups' => $groups ?? [],
+            'status' => $status ?? null
         ]);
     }
 

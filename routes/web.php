@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\Common\NotificationsController;
 use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
 use App\Http\Controllers\UserData\Trainings\ApplicationsController as UserDataApplicationsController;
+use App\Http\Controllers\UserData\Trainings\EvaluationsController as UserDataEvaluationsController;
 use App\Http\Controllers\UserData\Trainings\TrainingsController as UserTrainingsController;
 use App\Http\Controllers\UserData\DownloadController as UserDownloadController;
 use App\Http\Controllers\Auth\AuthController;
@@ -380,6 +381,14 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::prefix('application')->group(function () {
                     Route::post('/sign-up',                                   [UserDataApplicationsController::class, 'signUp'])->name('system.user-data.trainings.apis.applications.sign-up');
                     Route::get ('/download-certificate/{application_id}',     [UserDataApplicationsController::class, 'downloadCertificate'])->name('system.user-data.trainings.apis.applications.download-certificate');
+                });
+
+                /**
+                 *  Evaluations submit
+                 */
+                Route::prefix('evaluations')->group(function () {
+                    Route::post('/submit',                                    [UserDataEvaluationsController::class, 'submit'])->name('system.user-data.trainings.apis.evaluations.submit');
+                    Route::post('/save',                                      [UserDataEvaluationsController::class, 'save'])->name('system.user-data.trainings.apis.evaluations.save');
                 });
             });
 

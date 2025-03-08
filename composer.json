@@ -29,7 +29,8 @@
         "files": [
             "app/Http/Helpers/TrainingHelper.php",
             "app/Http/Helpers/FileHelper.php",
-            "app/Http/Helpers/ApplicationHelper.php"
+            "app/Http/Helpers/ApplicationHelper.php",
+            "app/Http/Helpers/EvaluationsHelper.php"
         ]
     },
     "autoload-dev": {
