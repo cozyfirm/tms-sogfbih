@@ -91,6 +91,10 @@ class EvaluationsController extends Controller{
                 'application_id' => $application->id
             ]);
 
+            /** ToDo:: Notify user about submitted evaluation */
+
+            /** ToDo:: Increase number of submissions in evaluations */
+
             return $this->apiResponse('0000', __('Evaluacija uspješno spašena!'));
         }catch (\Exception $e){
             return $this->jsonError('3060', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));

@@ -5,7 +5,7 @@
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
     <a href="#">{{ __('..') }}</a> /
     <a href="{{ route('system.admin.trainings.instances') }}">{{ __('Instance obuka') }}</a> /
-    <a href="#">{{ $instance->trainingRel->title ?? '' }}</a> /
+    <a href="{{ route('system.admin.trainings.instances.preview', ['id' => $instance->id ]) }}">{{ $instance->trainingRel->title ?? '' }}</a> /
     <a href="#">{{ __('Prijave na obuku') }}</a>
 @endsection
 @section('c-buttons')

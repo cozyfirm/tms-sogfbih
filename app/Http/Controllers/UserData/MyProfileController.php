@@ -37,6 +37,7 @@ class MyProfileController extends Controller{
     public function update(Request $request): JsonResponse{
         try{
             $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
+            $request['name'] = $request->first_name . ' ' . $request->last_name;
             Auth::user()->update($request->all());
 
             return $this->jsonSuccess(__('Uspješno ažurirano!'), route('system.user-data.my-profile'));

@@ -17,13 +17,20 @@
             <span>{{ __('Nazad') }}</span>
         </button>
     </a>
-
-    <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.add-option', ['instance_id' => $instance]) }}" title="{{ __('Unos pitanja za evaluaciju') }}">
-        <button class="pm-btn btn pm-btn-success">
-            <i class="fas fa-plus"></i>
-            <span>{{ __('Unos') }}</span>
-        </button>
-    </a>
+    @if(!$evaluation->locked)
+        <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.add-option', ['instance_id' => $instance]) }}" title="{{ __('Unos pitanja za evaluaciju') }}">
+            <button class="pm-btn btn pm-btn-success">
+                <i class="fas fa-plus"></i>
+                <span>{{ __('Unos') }}</span>
+            </button>
+        </a>
+        <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.lock', ['instance_id' => $instance]) }}" title="{{ __('Zaključajte evaluaciju za uređivanje') }}">
+            <button class="pm-btn btn pm-btn-trash">
+                <i class="fas fa-lock"></i>
+                <span>{{ __('Zaključaj') }}</span>
+            </button>
+        </a>
+    @endif
 @endsection
 
 @section('content')

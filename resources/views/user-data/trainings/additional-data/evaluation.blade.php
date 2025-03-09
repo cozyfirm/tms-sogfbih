@@ -1,4 +1,4 @@
-<div class="questionnaire__wrapper d-flex">
+<div class="questionnaire__wrapper">
 
     {{ html()->hidden('evaluation_id')->class('form-control')->value($evaluation->id) }}
 

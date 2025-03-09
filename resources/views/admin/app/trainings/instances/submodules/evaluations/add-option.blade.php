@@ -19,16 +19,18 @@
     </a>
 
     @isset($preview)
-        <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.edit-option', ['id' => $option->id ]) }}">
-            <button class="pm-btn pm-btn-white btn pm-btn-edit">
-                <i class="fas fa-edit"></i>
-            </button>
-        </a>
-        <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.delete-option', ['id' => $option->id ]) }}">
-            <button class="pm-btn pm-btn-white btn pm-btn-trash">
-                <i class="fas fa-trash"></i>
-            </button>
-        </a>
+        @if(!$evaluation->locked)
+            <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.edit-option', ['id' => $option->id ]) }}">
+                <button class="pm-btn pm-btn-white btn pm-btn-edit">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </a>
+            <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.delete-option', ['id' => $option->id ]) }}">
+                <button class="pm-btn pm-btn-white btn pm-btn-trash">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </a>
+        @endif
     @endisset
 @endsection
 

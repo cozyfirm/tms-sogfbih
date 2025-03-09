@@ -4,15 +4,20 @@ namespace App\Http\Controllers\Admin\Trainings\Submodules\Instances;
 
 use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
+use App\Mail\Applications\NotifyCreator;
+use App\Mail\Evaluations\NotifyApplicants;
 use App\Models\Core\Keyword;
 use App\Models\Trainings\Evaluations\Evaluation;
 use App\Models\Trainings\Evaluations\EvaluationOption;
 use App\Models\Trainings\Instances\Instance;
+use App\Models\Trainings\Instances\InstanceApp;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class EvaluationsController extends Controller{
@@ -20,7 +25,31 @@ class EvaluationsController extends Controller{
 
     protected string $_path = 'admin.app.trainings.instances.submodules.evaluations.';
 
+    /**
+     * If there is no evaluation, create one
+     *
+     * @param $instance_id
+     * @return false
+     */
+    public function checkForEvaluation($instance_id): mixed{
+        try{
+            $evaluation = Evaluation::where('type', '=', '__training')->where('model_id', '=', $instance_id)->first();
+            if(!$evaluation){
+                $evaluation = Evaluation::create([
+                    'type' => '__training',
+                    'model_id' => $instance_id
+                ]);
+            }
+
+            return $evaluation;
+        }catch (\Exception $e){
+            return false;
+        }
+    }
+
     public function preview($instance_id): View{
+        $evaluation = $this->checkForEvaluation($instance_id);
+
         $instance = Instance::where('id','=',$instance_id)->first();
         $options  = EvaluationOption::whereHas('evaluationRel', function ($q) use($instance){
             $q->where('model_id','=',$instance->id)->where('type', '=', '__training');
@@ -38,7 +67,8 @@ class EvaluationsController extends Controller{
         return view($this->_path. 'preview',[
             'instance' => $instance,
             'filters' => $filters,
-            'options' => $options
+            'options' => $options,
+            'evaluation' => $evaluation
         ]);
     }
 
@@ -51,22 +81,6 @@ class EvaluationsController extends Controller{
             'groups' => Keyword::getIt('evaluation__groups')->prepend('Odaberite grupu', ''),
             'types' => Keyword::getItByVal('evaluation__question_type')
         ]);
-    }
-
-    public function checkForEvaluation($instance_id){
-        try{
-            $evaluation = Evaluation::where('type', '=', '__training')->where('model_id', '=', $instance_id)->first();
-            if(!$evaluation){
-                $evaluation = Evaluation::create([
-                    'type' => '__training',
-                    'model_id' => $instance_id
-                ]);
-            }
-
-            return $evaluation;
-        }catch (\Exception $e){
-            return false;
-        }
     }
 
     public function saveOption(Request $request): JsonResponse{
@@ -107,7 +121,8 @@ class EvaluationsController extends Controller{
             'option' => $option,
             'instance' => $instance,
             'groups' => Keyword::getIt('evaluation__groups')->prepend('Odaberite grupu', ''),
-            'types' => Keyword::getItByVal('evaluation__question_type')
+            'types' => Keyword::getItByVal('evaluation__question_type'),
+            'evaluation' => $evaluation
         ]);
     }
 
@@ -154,5 +169,35 @@ class EvaluationsController extends Controller{
         }catch (\Exception $e){
             return back()->with('error', __('Desila se greška. Molimo kontaktirajte administratora'));
         }
+    }
+
+    /**
+     * Lock questionnaire (evaluation) and notify all users that are submitted to this training
+     *
+     * @param $instance_id
+     * @return RedirectResponse
+     */
+    public function lock($instance_id): RedirectResponse{
+        try{
+            $evaluation = $this->checkForEvaluation($instance_id);
+
+            /* Get instance information */
+            $instance = Instance::where('id', '=', $instance_id)->first();
+            $applicants = InstanceApp::where('instance_id', '=', $instance_id)->where('status', '=', 2)->get();
+
+            foreach ($applicants as $applicant){
+                try{
+                    if(isset($applicant->userRel)){
+                        Mail::to($applicant->userRel->email)->send(new NotifyApplicants($applicant->userRel->gender, $applicant->userRel->name, $instance_id, $instance->trainingRel->title));
+                    }
+                }catch (\Exception $e){}
+            }
+
+            /**
+             *  Mark evaluation as locked; No further changes can be done
+             */
+            $evaluation->update(['locked' => 1]);
+            return back()->with('success', __('Evaluacija uspješno zaključana!'));
+        }catch (\Exception $e){ return back()->with('error', __('Greška prilikom obrade podataka!')); }
     }
 }

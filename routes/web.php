@@ -212,6 +212,9 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                         Route::get ('/edit-option/{id}',                    [InstancesEvaluationsController::class, 'editOption'])->name('system.admin.trainings.instances.submodules.evaluations.edit-option');
                         Route::post('/update-option',                       [InstancesEvaluationsController::class, 'updateOption'])->name('system.admin.trainings.instances.submodules.evaluations.update-option');
                         Route::get ('/delete-option/{id}',                  [InstancesEvaluationsController::class, 'deleteOption'])->name('system.admin.trainings.instances.submodules.evaluations.delete-option');
+
+                        /** Lock evaluation */
+                        Route::get ('/lock/{instance_id}',                  [InstancesEvaluationsController::class, 'lock'])->name('system.admin.trainings.instances.submodules.evaluations.lock');
                     });
 
                     /**
