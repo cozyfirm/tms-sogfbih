@@ -5,6 +5,7 @@ namespace App\Models\Trainings\Instances;
 use App\Models\Core\File;
 use App\Models\Core\Keyword;
 use App\Models\Trainings\Training;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -61,6 +62,9 @@ class Instance extends Model{
     }
     public function reportFileRel(): HasOne{
         return $this->hasOne(File::class, 'id', 'report_id');
+    }
+    public function createdBy(): HasOne{
+        return $this->hasOne(User::class, 'id', 'created_by');
     }
 
     /**

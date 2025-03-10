@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\UserData\Trainings;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Evaluations\NotifyApplicants;
+use App\Mail\Evaluations\NotifyCreator;
 use App\Models\Trainings\Evaluations\Evaluation;
 use App\Models\Trainings\Evaluations\EvaluationAnswer;
 use App\Models\Trainings\Evaluations\EvaluationOption;
 use App\Models\Trainings\Evaluations\EvaluationStatus;
+use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class EvaluationsController extends Controller{
     use ResponseTrait, UserBaseTrait;
@@ -65,35 +69,48 @@ class EvaluationsController extends Controller{
             $evaluation = Evaluation::where('id', '=', $request->evaluation_id)->first();
             $application = InstanceApp::where('instance_id', '=', $evaluation->model_id)->where('user_id', '=', Auth::user()->id)->first();
 
-            foreach ($options as $option){
-                $answer = EvaluationAnswer::where('evaluation_id', '=', $request->evaluation_id)
-                    ->where('option_id', '=', $option->id)
-                    ->where('user_id', '=', Auth::user()->id)
-                    ->first();
+            $instance = Instance::where('id', '=', $evaluation->model_id)->first();
 
-                if(!$answer){
-                    EvaluationAnswer::create([
-                        'evaluation_id' => $request->evaluation_id,
-                        'option_id' => $option->id,
-                        'user_id' => Auth::user()->id,
-                        'application_id' => $application->id,
-                        'answer' => ($option->type == 'with_answers') ? '0' : ''
-                    ]);
-                }
-            }
+//            foreach ($options as $option){
+//                $answer = EvaluationAnswer::where('evaluation_id', '=', $request->evaluation_id)
+//                    ->where('option_id', '=', $option->id)
+//                    ->where('user_id', '=', Auth::user()->id)
+//                    ->first();
+//
+//                if(!$answer){
+//                    EvaluationAnswer::create([
+//                        'evaluation_id' => $request->evaluation_id,
+//                        'option_id' => $option->id,
+//                        'user_id' => Auth::user()->id,
+//                        'application_id' => $application->id,
+//                        'answer' => ($option->type == 'with_answers') ? '0' : ''
+//                    ]);
+//                }
+//            }
 
             /**
              *  Create submit status
              */
-            EvaluationStatus::create([
-                'evaluation_id' => $request->evaluation_id,
-                'user_id' => Auth::user()->id,
-                'application_id' => $application->id
-            ]);
+//            EvaluationStatus::create([
+//                'evaluation_id' => $request->evaluation_id,
+//                'user_id' => Auth::user()->id,
+//                'application_id' => $application->id
+//            ]);
 
-            /** ToDo:: Notify user about submitted evaluation */
+            try{
+                /**
+                 * Create notification
+                 */
+                $this->createNotification($instance->createdBy, 'evaluation_submitted', Auth()->user()->id,  (Auth::user()->name ) . ' je ' . ((Auth::user()->gender == 1) ? 'završio' : 'završila') . ' evaluaciju za "' . ($instance->trainingRel->title ?? '') . '".', 'Obavijest o evaluaciji obuke', route('system.admin.trainings.instances.preview', ['id' => $instance->id ]));
+
+                /**
+                 *  Send an email
+                 */
+                Mail::to($instance->createdBy->email)->send(new NotifyCreator(Auth::user()->gender, Auth::user()->name, $instance->id, $instance->trainingRel->title));
+            }catch (\Exception $e){}
 
             /** ToDo:: Increase number of submissions in evaluations */
+            $evaluation->update(['submissions' => EvaluationStatus::where('evaluation_id', '=', $request->evaluation_id)->count()]);
 
             return $this->apiResponse('0000', __('Evaluacija uspješno spašena!'));
         }catch (\Exception $e){

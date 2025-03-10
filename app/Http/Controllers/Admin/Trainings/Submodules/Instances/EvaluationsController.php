@@ -13,6 +13,7 @@ use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
+use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class EvaluationsController extends Controller{
-    use ResponseTrait, CommonTrait;
+    use ResponseTrait, CommonTrait, UserBaseTrait;
 
     protected string $_path = 'admin.app.trainings.instances.submodules.evaluations.';
 
@@ -187,6 +188,8 @@ class EvaluationsController extends Controller{
 
             foreach ($applicants as $applicant){
                 try{
+                    $this->createNotification($applicant->userRel, 'evaluation_published', Auth()->user()->id, 'Objavljena je evaluacija za obuku "' . ($instance->trainingRel->title ?? '') . '".', 'Obavijest o evaluaciji obuke', route('system.user-data.trainings.preview', ['id' => $instance->id ]));
+
                     if(isset($applicant->userRel)){
                         Mail::to($applicant->userRel->email)->send(new NotifyApplicants($applicant->userRel->gender, $applicant->userRel->name, $instance_id, $instance->trainingRel->title));
                     }
