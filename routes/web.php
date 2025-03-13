@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Core\FileUploadController;
 use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
+use App\Http\Controllers\Admin\Other\InternalEvents\InternalEventsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
@@ -317,25 +318,23 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
         });
 
         /**
-         *  Blog:: ToDo
+         *  Other:
+         *      1. Analysis
+         *      2. Internal events
+         *      3. Civil bodies
          */
-        Route::prefix('blog')->middleware('isAuthenticated')->group(function () {
-            Route::get ('/',                               [AdminBlogController::class, 'index'])->name('system.admin.blog');
-            Route::get ('/create',                         [AdminBlogController::class, 'create'])->name('system.admin.blog.create');
-            Route::post('/save',                           [AdminBlogController::class, 'save'])->name('system.admin.blog.save');
-            Route::get ('/preview/{id}',                   [AdminBlogController::class, 'preview'])->name('system.admin.blog.preview');
-            Route::get ('/edit/{id}',                      [AdminBlogController::class, 'edit'])->name('system.admin.blog.edit');
-            Route::post('/update',                         [AdminBlogController::class, 'update'])->name('system.admin.blog.update');
-            Route::get ('/delete/{id}',                    [AdminBlogController::class, 'delete'])->name('system.admin.blog.delete');
 
-            /*
-             *  Work with images
-             */
-            Route::post('/add-to-gallery',                 [AdminBlogController::class, 'addToGallery'])->name('system.admin.blog.add-to-gallery');
-            Route::get ('/delete-from-gallery/{id}',       [AdminBlogController::class, 'deleteFromGallery'])->name('system.admin.blog.delete-from-gallery');
-
-            Route::get ('/edit-image/{id}/{what}',         [AdminBlogController::class, 'editImage'])->name('system.admin.blog.edit-image');
-            Route::post('/update-image',                   [AdminBlogController::class, 'updateImage'])->name('system.admin.blog.update-image');
+        Route::prefix('core')->group(function () {
+            /** Internal events */
+            Route::prefix('internal-events')->middleware('isAuthenticated')->group(function () {
+                Route::get('/',                           [InternalEventsController::class, 'index'])->name('system.admin.other.internal-events');
+                Route::get('/create',                     [InternalEventsController::class, 'create'])->name('system.admin.other.internal-events.create');
+                Route::post('/save',                      [InternalEventsController::class, 'save'])->name('system.admin.other.internal-events.save');
+                Route::get('/preview/{id}',               [InternalEventsController::class, 'preview'])->name('system.admin.other.internal-events.preview');
+                Route::get('/edit/{id}',                  [InternalEventsController::class, 'edit'])->name('system.admin.other.internal-events.edit');
+                Route::post('/update',                    [InternalEventsController::class, 'update'])->name('system.admin.other.internal-events.update');
+                Route::get('/delete/{id}',                [InternalEventsController::class, 'delete'])->name('system.admin.other.internal-events.delete');
+            });
         });
     });
 

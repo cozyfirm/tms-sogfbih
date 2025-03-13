@@ -33,7 +33,10 @@ class Keyword extends Model{
         'evaluation__question_type' => 'Evaluacije: Vrsta pitanja',
 //        'evaluation__type' => 'Evaluacije: Vrsta evaluacije',
         'evaluation__groups' => 'Evaluacije',
-        'application_status' => 'Status prijave'
+        'application_status' => 'Status prijave',
+
+        /* Internal events */
+        'ie__projects' => 'Projekti (Interni događaji)'
     ];
 
     /* Return all types of keywords */

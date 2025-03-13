@@ -72,7 +72,7 @@
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                             <p>{{ __('Analiza potreba') }}</p>
                         </div>
-                        <div class="home-icon" link="">
+                        <div class="home-icon go-to" link="{{ route('system.admin.other.internal-events') }}">
                             <i class="fa-solid fa-calendar-days"></i>
                             <p>{{ __('Interni događaji') }}</p>
                         </div>
