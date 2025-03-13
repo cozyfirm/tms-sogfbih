@@ -29,7 +29,12 @@ yarn-error.log
 # Ignore everything in storage/files/instances/files folder except readme.md
 /storage/files/trainings/instances/invoices*
 !/storage/files/trainings/instances/invoices/readme.md
+# Ignore everything in storage/files/other/ie folder except readme.md
+/storage/files/other/ie*
+!/storage/files/other/ie/readme.md
 
 # Ignore everything in upload folder except readme.md
 /public/files/upload/trainings/*
 !/public/files/upload/trainings/readme.md
+/public/files/upload/other/ie*
+!/public/files/upload/other/ie/readme.md
