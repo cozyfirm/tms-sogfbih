@@ -334,6 +334,11 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::get('/edit/{id}',                  [InternalEventsController::class, 'edit'])->name('system.admin.other.internal-events.edit');
                 Route::post('/update',                    [InternalEventsController::class, 'update'])->name('system.admin.other.internal-events.update');
                 Route::get('/delete/{id}',                [InternalEventsController::class, 'delete'])->name('system.admin.other.internal-events.delete');
+
+                /* File routes */
+                Route::post('/save-files',                [InternalEventsController::class, 'saveFiles'])->name('system.admin.other.internal-events.save-files');
+                Route::get ('/download-file/{id}',        [InternalEventsController::class, 'downloadFile'])->name('system.admin.other.internal-events.download-file');
+                Route::get ('/remove-file/{id}',          [InternalEventsController::class, 'removeFile'])->name('system.admin.other.internal-events.remove-file');
             });
         });
     });

@@ -31,11 +31,12 @@
 
 @section('content')
     <!-- Upload files GUI -->
-    {{ html()->hidden('image_path')->class('form-control image_path')->value('files/upload/trainings') }}
-    {{ html()->hidden('file_path')->class('form-control file_path')->value(storage_path('files/trainings/instances/files')) }}
-    {{ html()->hidden('file_type')->class('form-control file_type')->value('instance__file') }}
+    {{ html()->hidden('image_path')->class('form-control image_path')->value('files/upload/other/ie') }}
+    {{ html()->hidden('file_path')->class('form-control file_path')->value(storage_path('files/other/ie')) }}
+    {{ html()->hidden('file_type')->class('form-control file_type')->value('ie__file') }}
     {{ html()->hidden('model_id')->class('form-control model_id')->value($event->id) }}
-    {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.trainings.instances.save-files')) }}
+    {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.other.internal-events.save-files')) }}
+    @include('admin.app.shared.files.file-upload')
 
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
@@ -96,7 +97,7 @@
         </div>
 
         <div class="right__menu__info">
-{{--            @include('admin.app.trainings.instances.snippets.right-menu')--}}
+            @include('admin.app.other.internal-events.snippets.right-menu')
         </div>
     </div>
 @endsection
