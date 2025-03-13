@@ -36,5 +36,6 @@ yarn-error.log
 # Ignore everything in upload folder except readme.md
 /public/files/upload/trainings/*
 !/public/files/upload/trainings/readme.md
+# Ignore everything in upload/other/ie folder except readme.md
 /public/files/upload/other/ie*
 !/public/files/upload/other/ie/readme.md

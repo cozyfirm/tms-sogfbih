@@ -30,7 +30,7 @@ class InternalEventsController extends Controller{
 
 
     public function index(): View{
-        $events = InternalEvent::orderBy('title', 'DESC');
+        $events = InternalEvent::orderBy('id', 'DESC');
         $events = Filters::filter($events);
 
         $filters = [

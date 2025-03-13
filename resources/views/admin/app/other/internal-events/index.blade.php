@@ -39,12 +39,12 @@
             @foreach($events as $event)
                 <tr>
                     <td class="text-center">{{ $i++}}</td>
-                    <td> {{ $training->title ?? ''}} </td>
-                    <td> {{ $training->financedByRel->name ?? ''}} </td>
-                    <td> {{ $training->projectRel->name ?? ''}} </td>
+                    <td> {{ $event->projectRel->name ?? ''}} </td>
+                    <td> {{ $event->date() ?? ''}} </td>
+                    <td> {{ $event->time ?? ''}} </td>
 
                     <td class="text-center">
-                        <a class="table-btn-link" href="{{route('system.admin.trainings.preview', ['id' => $events->id] )}}" title="{{ __('Pregled programa obuke') }}">
+                        <a class="table-btn-link" href="{{route('system.admin.other.internal-events.preview', ['id' => $event->id] )}}" title="{{ __('Pregled događaja') }}">
                             <button class="table-btn">{{ __('Pregled') }}</button>
                         </a>
                     </td>
