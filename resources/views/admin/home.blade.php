@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="home-row-items">
-                        <div class="home-icon" link="" title="{{__('')}}">
+                        <div class="home-icon go-to" link="{{ route('system.admin.other.analysis') }}">
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                             <p>{{ __('Analiza potreba') }}</p>
                         </div>

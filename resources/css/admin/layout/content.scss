@@ -60,7 +60,7 @@
                 .training__authors{
                     h4{color: $darkGrey; }
                 }
-                .training__description{
+                .training__description, .analysis__description{
                     position: relative; width: 100%; padding: 16px; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px;
                     font-size: 14px;
                 }

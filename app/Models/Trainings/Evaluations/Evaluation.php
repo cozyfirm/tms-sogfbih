@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 /**
  * @method static where(string $string, string $string1, $evaluation_id)
  * @method static orderBy(string $string, string $string1)
+ * @method static create(array $array)
  */
 class Evaluation extends Model{
     use HasFactory, SoftDeletes;

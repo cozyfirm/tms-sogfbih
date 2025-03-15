@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Other\InternalEvents;
+namespace App\Http\Controllers\Admin\Other;
 
 use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
@@ -8,8 +8,6 @@ use App\Models\Core\File;
 use App\Models\Core\Keyword;
 use App\Models\Other\Bodies\Bodies;
 use App\Models\Other\Bodies\BodyFiles;
-use App\Models\Other\InternalEvents\IEFiles;
-use App\Models\Other\InternalEvents\InternalEvent;
 use App\Models\Trainings\Submodules\Locations\Location;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;

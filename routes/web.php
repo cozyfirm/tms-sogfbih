@@ -4,30 +4,32 @@ use App\Http\Controllers\Admin\Core\CitiesController;
 use App\Http\Controllers\Admin\Core\FileUploadController;
 use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\Other\Analysis\AnalysisController;
+use App\Http\Controllers\Admin\Other\Analysis\EvaluationsController as AnalysisEvaluationController;
+use App\Http\Controllers\Admin\Other\BodiesController;
 use App\Http\Controllers\Admin\Other\FAQsController;
-use App\Http\Controllers\Admin\Other\InternalEvents\BodiesController;
 use App\Http\Controllers\Admin\Other\InternalEvents\InternalEventsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\EvaluationsController as TrainingsEvaluationsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\ApplicationsController as InstancesApplicationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EvaluationsController as InstancesEvaluationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EventsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\LocationsController as InstanceLocationsController;
-use App\Http\Controllers\Admin\Trainings\Submodules\LocationsController;
-use App\Http\Controllers\Admin\Trainings\Submodules\EvaluationsController as TrainingsEvaluationsController;
-use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
-use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
-use App\Http\Controllers\Admin\Trainings\Submodules\Instances\ApplicationsController as InstancesApplicationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\PresenceController as InstancesPresenceController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
+use App\Http\Controllers\Admin\Trainings\Submodules\LocationsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Common\NotificationsController;
+use App\Http\Controllers\UserData\DownloadController as UserDownloadController;
 use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
+use App\Http\Controllers\UserData\MyProfileController;
 use App\Http\Controllers\UserData\Trainings\ApplicationsController as UserDataApplicationsController;
 use App\Http\Controllers\UserData\Trainings\EvaluationsController as UserDataEvaluationsController;
 use App\Http\Controllers\UserData\Trainings\TrainingsController as UserTrainingsController;
-use App\Http\Controllers\UserData\DownloadController as UserDownloadController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\UserData\MyProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function () {
@@ -326,6 +328,36 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
          */
 
         Route::prefix('core')->group(function () {
+            /** Analysis */
+            Route::prefix('analysis')->middleware('isAuthenticated')->group(function () {
+                Route::get('/',                           [AnalysisController::class, 'index'])->name('system.admin.other.analysis');
+                Route::get('/create',                     [AnalysisController::class, 'create'])->name('system.admin.other.analysis.create');
+                Route::post('/save',                      [AnalysisController::class, 'save'])->name('system.admin.other.analysis.save');
+                Route::get('/preview/{id}',               [AnalysisController::class, 'preview'])->name('system.admin.other.analysis.preview');
+                Route::get('/edit/{id}',                  [AnalysisController::class, 'edit'])->name('system.admin.other.analysis.edit');
+                Route::post('/update',                    [AnalysisController::class, 'update'])->name('system.admin.other.analysis.update');
+                Route::get('/delete/{id}',                [AnalysisController::class, 'delete'])->name('system.admin.other.analysis.delete');
+
+                /**
+                 *  Submodules
+                 */
+                Route::prefix('submodules')->group(function () {
+                    /** Evaluations ~ Submissions */
+                    Route::prefix('evaluations')->group(function () {
+                        Route::get ('/preview/{analysis_id}',               [AnalysisEvaluationController::class, 'preview'])->name('system.admin.other.analysis.submodules.evaluations.preview');
+                        Route::get ('/add-option/{analysis_id}',            [AnalysisEvaluationController::class, 'addOption'])->name('system.admin.other.analysis.submodules.evaluations.add-option');
+                        Route::post('/save-option',                         [AnalysisEvaluationController::class, 'saveOption'])->name('system.admin.other.analysis.submodules.evaluations.save-option');
+                        Route::get ('/preview-option/{id}',                 [AnalysisEvaluationController::class, 'previewOption'])->name('system.admin.other.analysis.submodules.evaluations.preview-option');
+                        Route::get ('/edit-option/{id}',                    [AnalysisEvaluationController::class, 'editOption'])->name('system.admin.other.analysis.submodules.evaluations.edit-option');
+                        Route::post('/update-option',                       [AnalysisEvaluationController::class, 'updateOption'])->name('system.admin.other.analysis.submodules.evaluations.update-option');
+                        Route::get ('/delete-option/{id}',                  [AnalysisEvaluationController::class, 'deleteOption'])->name('system.admin.other.analysis.submodules.evaluations.delete-option');
+
+                        /** Lock evaluation */
+                        Route::get ('/lock/{analysis_id}',                  [AnalysisEvaluationController::class, 'lock'])->name('system.admin.other.analysis.submodules.evaluations.lock');
+                    });
+                });
+            });
+
             /** Internal events */
             Route::prefix('internal-events')->middleware('isAuthenticated')->group(function () {
                 Route::get('/',                           [InternalEventsController::class, 'index'])->name('system.admin.other.internal-events');
