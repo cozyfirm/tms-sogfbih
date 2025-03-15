@@ -48,6 +48,11 @@ import './public-part/auth/auth.js';
  */
 import './admin/app/shared/files/file-upload.js';
 
+/**
+ *  Analysis data
+ */
+import './admin/app/other/analysis/analysis.js';
+
 $(document).ready(function() {
     $(".datepicker").datepicker({
         format: 'dd.mm.yyyy',

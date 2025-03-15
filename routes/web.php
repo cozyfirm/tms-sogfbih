@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\Analysis\AnalysisController;
 use App\Http\Controllers\Admin\Other\Analysis\EvaluationsController as AnalysisEvaluationController;
+use App\Http\Controllers\Admin\Other\Analysis\SubmissionController as PublicAnalysisEvaluationController;
 use App\Http\Controllers\Admin\Other\BodiesController;
 use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Other\InternalEvents\InternalEventsController;
@@ -327,7 +328,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
          *      3. Civil bodies
          */
 
-        Route::prefix('core')->group(function () {
+        Route::prefix('other')->group(function () {
             /** Analysis */
             Route::prefix('analysis')->middleware('isAuthenticated')->group(function () {
                 Route::get('/',                           [AnalysisController::class, 'index'])->name('system.admin.other.analysis');
@@ -479,5 +480,18 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             Route::post('/reset',                           [NotificationsController::class, 'reset'])->name('system.common-routes.notifications.reset');
             Route::post('/mark-as-read',                    [NotificationsController::class, 'markAsRead'])->name('system.common-routes.notifications.mark-as-read');
         });
+    });
+});
+
+/**
+ *  Public routes, available to non-logged users
+ *      1. Analysis
+ */
+Route::prefix('public-data')->group(function () {
+    /**
+     *  Training needs analysis
+     */
+    Route::prefix('analysis')->group(function () {
+        Route::get('/{token}',                                 [PublicAnalysisEvaluationController::class, 'index'])->name('public-data.analysis');
     });
 });

@@ -34,9 +34,14 @@
             <i class="fa-solid fa-user-pen"></i>
         </div>
     </a>
-    <a title="{{ __('Preuzmite izvještaj') }}" class="upload-files">
+    <a title="{{ __('Kopirajte link') }}" class="copy-analysis-uri" uri="{{ route('public-data.analysis', ['token' => $analysis->hash ]) }}">
         <div class="rm-ci-w">
             <i class="fa-solid fa-clipboard"></i>
+        </div>
+    </a>
+    <a title="{{ __('Preuzmite izvještaj') }}">
+        <div class="rm-ci-w">
+            <i class="fa-solid fa-download"></i>
         </div>
     </a>
 </div>
