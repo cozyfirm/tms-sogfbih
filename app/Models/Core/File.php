@@ -2,6 +2,7 @@
 
 namespace App\Models\Core;
 
+use App\Models\Other\Bodies\BodyFiles;
 use App\Models\Other\InternalEvents\IEFiles;
 use App\Models\Trainings\Instances\InstanceFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,5 +36,8 @@ class File extends Model{
     }
     public function ieRel(): HasOne{
         return $this->hasOne(IEFiles::class, 'file_id', 'id');
+    }
+    public function bodyRel(): HasOne{
+        return $this->hasOne(BodyFiles::class, 'file_id', 'id');
     }
 }

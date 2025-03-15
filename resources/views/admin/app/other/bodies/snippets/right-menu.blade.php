@@ -8,7 +8,7 @@
         <p>{{ __('Zaključaka') }}</p>
     </div>
     <div class="element" title="{{ __('Broj priloženih dokumenata') }}">
-        <h5>{{ FileHelper::getIEFiles($event->id)->count() }}</h5>
+        <h5>{{ FileHelper::getBodyFiles($body->id)->count() }}</h5>
         <p>{{ __('Dokumenata') }}</p>
     </div>
 </div>
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-@if(FileHelper::getIEFiles($event->id)->count())
+@if(FileHelper::getBodyFiles($body->id)->count())
     <div class="rm-card">
         <div class="rm-card-header">
             <h5>{{ __('Priloženi dokumenti') }}</h5>
@@ -36,18 +36,18 @@
         </div>
 
         <!-- Uploaded files to training instance -->
-        @if(FileHelper::getIEFiles($event->id)->count())
+        @if(FileHelper::getBodyFiles($body->id)->count())
             <hr>
             <div class="list__wrapper list__wrapper__flex">
                 @php $counter = 1; @endphp
-                @foreach(FileHelper::getIEFiles($event->id) as $file)
+                @foreach(FileHelper::getBodyFiles($body->id) as $file)
                     <div class="document__row">
-                        <a href="{{ route('system.admin.other.internal-events.download-file', ['id' => $file->id ]) }}" title="{{ __('Preuzmite dokument') }}">
+                        <a href="{{ route('system.admin.other.bodies.download-file', ['id' => $file->id ]) }}" title="{{ __('Preuzmite dokument') }}">
                             {{ $counter++ }}. {{ $file->file ?? '' }}
                         </a>
 
                         <div class="remove__icon" title="{{ __('Obrišite dokument') }}">
-                            <a href="{{ route('system.admin.other.internal-events.remove-file', ['id' => $file->id]) }}">
+                            <a href="{{ route('system.admin.other.bodies.remove-file', ['id' => $file->id]) }}">
                                 <img src="{{ asset('files/images/icons/trash-can-solid.svg') }}" alt="{{ __('Trash can') }}">
                             </a>
                         </div>

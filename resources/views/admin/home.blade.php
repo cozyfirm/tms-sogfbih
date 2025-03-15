@@ -76,7 +76,7 @@
                             <i class="fa-solid fa-calendar-days"></i>
                             <p>{{ __('Interni događaji') }}</p>
                         </div>
-                        <div class="home-icon" link="">
+                        <div class="home-icon go-to" link="{{ route('system.admin.other.bodies') }}">
                             <i class="fas fa-info-circle"></i>
                             <p>{{ __('Organi i tijela') }}</p>
                         </div>

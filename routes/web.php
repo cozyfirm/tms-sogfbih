@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Core\FileUploadController;
 use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\FAQsController;
+use App\Http\Controllers\Admin\Other\InternalEvents\BodiesController;
 use App\Http\Controllers\Admin\Other\InternalEvents\InternalEventsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
@@ -339,6 +340,22 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::post('/save-files',                [InternalEventsController::class, 'saveFiles'])->name('system.admin.other.internal-events.save-files');
                 Route::get ('/download-file/{id}',        [InternalEventsController::class, 'downloadFile'])->name('system.admin.other.internal-events.download-file');
                 Route::get ('/remove-file/{id}',          [InternalEventsController::class, 'removeFile'])->name('system.admin.other.internal-events.remove-file');
+            });
+
+            /** Bodies */
+            Route::prefix('bodies')->middleware('isAuthenticated')->group(function () {
+                Route::get('/',                           [BodiesController::class, 'index'])->name('system.admin.other.bodies');
+                Route::get('/create',                     [BodiesController::class, 'create'])->name('system.admin.other.bodies.create');
+                Route::post('/save',                      [BodiesController::class, 'save'])->name('system.admin.other.bodies.save');
+                Route::get('/preview/{id}',               [BodiesController::class, 'preview'])->name('system.admin.other.bodies.preview');
+                Route::get('/edit/{id}',                  [BodiesController::class, 'edit'])->name('system.admin.other.bodies.edit');
+                Route::post('/update',                    [BodiesController::class, 'update'])->name('system.admin.other.bodies.update');
+                Route::get('/delete/{id}',                [BodiesController::class, 'delete'])->name('system.admin.other.bodies.delete');
+
+                /* File routes */
+                Route::post('/save-files',                [BodiesController::class, 'saveFiles'])->name('system.admin.other.bodies.save-files');
+                Route::get ('/download-file/{id}',        [BodiesController::class, 'downloadFile'])->name('system.admin.other.bodies.download-file');
+                Route::get ('/remove-file/{id}',          [BodiesController::class, 'removeFile'])->name('system.admin.other.bodies.remove-file');
             });
         });
     });

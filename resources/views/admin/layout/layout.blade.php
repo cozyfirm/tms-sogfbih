@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>{{ 'Welcome' }}</title>
+        <title>@yield('page-title', 'Savez općina i gradova FBiH')</title>
         <script src="https://kit.fontawesome.com/e3d0ab8b0c.js" crossorigin="anonymous"></script>
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('files/images/favicon.ico') }}"/>
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">

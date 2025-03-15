@@ -66,8 +66,30 @@ class FileHelper{
      * @return mixed
      */
     public static function getIEImages($model_id): mixed{
-        return File::whereHas('instanceRel.instanceRel', function ($q) use ($model_id){
+        return File::whereHas('ieREl.ieREl', function ($q) use ($model_id){
             $q->where('id', '=', $model_id);
-        })->whereIn('ext', self::$_imageExt)->with('instanceRel')->get();
+        })->whereIn('ext', self::$_imageExt)->with('ieREl')->get();
+    }
+
+    /**
+     * Get bodies files
+     * @param $model_id
+     * @return mixed
+     */
+    public static function getBodyFiles($model_id): mixed{
+        return File::whereHas('bodyRel', function ($q) use ($model_id){
+            $q->where('body_id', '=', $model_id);
+        })->whereIn('ext', self::$_fileExt)->with('bodyRel')->get();
+    }
+
+    /**
+     * Get bodies images (for gallery)
+     * @param $model_id
+     * @return mixed
+     */
+    public static function getBodyImages($model_id): mixed{
+        return File::whereHas('bodyRel.bodyRel', function ($q) use ($model_id){
+            $q->where('id', '=', $model_id);
+        })->whereIn('ext', self::$_imageExt)->with('bodyRel')->get();
     }
 }

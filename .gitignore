@@ -32,6 +32,9 @@ yarn-error.log
 # Ignore everything in storage/files/other/ie folder except readme.md
 /storage/files/other/ie*
 !/storage/files/other/ie/readme.md
+# Ignore everything in storage/files/other/bodies folder except readme.md
+/storage/files/other/bodies*
+!/storage/files/other/bodies/readme.md
 
 # Ignore everything in upload folder except readme.md
 /public/files/upload/trainings/*
@@ -39,3 +42,6 @@ yarn-error.log
 # Ignore everything in upload/other/ie folder except readme.md
 /public/files/upload/other/ie*
 !/public/files/upload/other/ie/readme.md
+# Ignore everything in upload/other/bodies folder except readme.md
+/public/files/upload/other/bodies*
+!/public/files/upload/other/bodies/readme.md
