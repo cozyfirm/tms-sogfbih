@@ -3,6 +3,7 @@
 namespace App\Models\Other\Analysis;
 
 use App\Models\Trainings\Evaluations\Evaluation;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,8 @@ class Analysis extends Model{
     }
     public function evaluationRel(): HasOne{
         return $this->hasOne(Evaluation::class, 'model_id', 'id')->where('type', '=', '__analysis');
+    }
+    public function createdByRel(): HasOne{
+        return $this->hasOne(User::class, 'id', 'created_by');
     }
 }

@@ -44,6 +44,7 @@
                     <td> {{ $analysis->dateTo() ?? ''}} </td>
                     <td> {{ $analysis->views ?? ''}} </td>
                     <td> {{ $analysis->submissions ?? ''}} </td>
+                    <td> {{ $analysis->createdByRel->name ?? '' }} </td>
 
                     <td class="text-center">
                         <a class="table-btn-link" href="{{route('system.admin.other.analysis.preview', ['id' => $analysis->id] )}}" title="{{ __('Pregled događaja') }}">

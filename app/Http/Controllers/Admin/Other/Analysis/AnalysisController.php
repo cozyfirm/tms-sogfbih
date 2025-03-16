@@ -28,7 +28,8 @@ class AnalysisController extends Controller{
             'date_from' => __('Datum od'),
             'date_to' => __('Datum do'),
             'views' => __('Posjeta'),
-            'submissions' => __('Popunjenih anketa')
+            'submissions' => __('Popunjenih anketa'),
+            'createdByRel.name' => __('Kreirao/la')
         ];
 
         return view($this->_path . 'index', [

@@ -37,8 +37,10 @@ class SubmissionController extends Controller{
 
         $evaluation = Evaluation::where('type', '=','__analysis')->where('model_id', '=', $analysis->id)->first();
         if(!$evaluation){
-            /** ToDo:: Redirect or abort */
+            abort(404);
         }
+
+        /* ToDo:: Check for expiration */
 
         /**
          *  If there is no created submissions, create one
@@ -52,7 +54,12 @@ class SubmissionController extends Controller{
             ]);
         }
 
-        $groups     = EvaluationOption::where('evaluation_id', '=', $evaluation->id)->orderBy('group_by')->get()->unique('group_by');
+        $groups = EvaluationOption::where('evaluation_id', '=', $evaluation->id)->orderBy('group_by')->get()->unique('group_by');
+
+        /**
+         *  Update number of views
+         */
+        $analysis->update(['views' => EvaluationAnalysis::where('evaluation_id', '=', $evaluation->id)->count()]);
 
         return view($this->_path . 'index', [
             'analysis' => $analysis,
@@ -70,7 +77,6 @@ class SubmissionController extends Controller{
      */
     public function preview($hash, $id): View{
         $analysis = Analysis::where('hash', '=', $hash)->first();
-
         $evaluation = Evaluation::where('type', '=','__analysis')->where('model_id', '=', $analysis->id)->first();
 
         /**
@@ -176,8 +182,11 @@ class SubmissionController extends Controller{
                 // Mail::to($instance->createdBy->email)->send(new NotifyCreator(Auth::user()->gender, Auth::user()->name, $instance->id, $instance->trainingRel->title));
             }catch (\Exception $e){}
 
-            /** ToDo:: Increase number of submissions in evaluations */
-            $evaluation->update(['submissions' => EvaluationStatus::where('evaluation_id', '=', $request->evaluation_id)->count()]);
+            $totalSubmitted = EvaluationAnalysis::where('evaluation_id', '=', $request->evaluation_id)->where('status', '=', 'submitted')->count();
+            /** Increase number of submitted questionnaires in Evaluation */
+            $evaluation->update(['submissions' => $totalSubmitted]);
+            /** Increase number of submitted questionnaires in analysis */
+            $analysis->update(['submissions' => $totalSubmitted]);
 
             return $this->apiResponse('0000', __('Anketa uspješno spašena!'));
         }catch (\Exception $e){
