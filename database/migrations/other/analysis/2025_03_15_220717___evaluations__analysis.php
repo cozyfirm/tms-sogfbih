@@ -26,8 +26,9 @@ return new class extends Migration
             /**
              *  IP Address of user
              */
+            $table->string('session_id');
             $table->string('ip_addr');
-            $table->string('status', '20')->default('submitted');
+            $table->string('status', '20')->default('open');
 
             $table->timestamps();
         });

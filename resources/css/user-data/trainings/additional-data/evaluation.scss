@@ -1,4 +1,4 @@
-.questionnaire__wrapper{
+.questionnaire__wrapper, .questionnaire__public{
     position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; display: none; align-items: flex-start; justify-content: center;
     background: rgba(0,0,0,0.4); z-index: 1000; padding: 64px 0px; overflow: auto;
 
@@ -20,7 +20,7 @@
         .questionnaire__description{
             position: relative; width: 100%; display: flex; flex-wrap: wrap; gap: 8px;
             h2{
-                width: 100%; text-align: center; font-size: 26px; margin-bottom: 16px;
+                width: 100%; text-align: center; font-size: 26px; margin-bottom: 16px; text-transform: uppercase;
             }
             p{
                 margin: 0px; padding: 0px; font-size: 14px;
@@ -101,4 +101,8 @@
             position: relative; width: 100%; display: flex; justify-content: flex-end;
         }
     }
+}
+
+.questionnaire__public{
+    display: flex;
 }

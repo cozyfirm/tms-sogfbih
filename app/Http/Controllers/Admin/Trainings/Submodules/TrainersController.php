@@ -26,6 +26,9 @@ class TrainersController extends Controller{
             'role' => __('Uloga'),
             'phone' => __('Telefon'),
             'birth_date' => __('Datum rođenja'),
+            'trainersRel.instanceRel.trainingRel.title' => __('Program obuke'),
+            'trainersRel.grade' => __('Ocjena'),
+            'trainersRel.contract' => __('Vrijednost ugovora'),
             'address' => __('Adresa'),
             'city' => __('Grad'),
             'countryRel->name_ba' => __('Država')

@@ -20,4 +20,7 @@ class InstanceTrainer extends Model{
     public function trainerRel(): HasOne{
         return $this->hasOne(User::class, 'id', 'trainer_id');
     }
+    public function instanceRel(): HasOne{
+        return $this->hasOne(Instance::class, 'id', 'instance_id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Core\Country;
 use App\Models\Trainings\Instances\InstanceApp;
+use App\Models\Trainings\Instances\InstanceTrainer;
 use App\Models\Users\Notification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -147,5 +148,12 @@ class User extends Authenticatable
     }
     public function totalCertificates(): int{
         return InstanceApp::where('user_id', '=', $this->id)->where('presence', '=', 1)->count();
+    }
+
+    /**
+     *  Trainer relationships
+     */
+    public function trainersRel(): HasMany{
+        return $this->hasMany(InstanceTrainer::class, 'trainer_id', 'id');
     }
 }

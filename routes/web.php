@@ -492,6 +492,11 @@ Route::prefix('public-data')->group(function () {
      *  Training needs analysis
      */
     Route::prefix('analysis')->group(function () {
-        Route::get('/{token}',                                 [PublicAnalysisEvaluationController::class, 'index'])->name('public-data.analysis');
+        Route::get('/{hash}',                                 [PublicAnalysisEvaluationController::class, 'index'])->name('public-data.analysis');
+        Route::get('/{hash}/{id}',                            [PublicAnalysisEvaluationController::class, 'preview'])->name('public-data.analysis.preview');
+
+        /** Submit routes */
+        Route::post('/submit',                                [PublicAnalysisEvaluationController::class, 'submit'])->name('public-data.analysis.submit');
+        Route::post('/save',                                  [PublicAnalysisEvaluationController::class, 'save'])->name('public-data.analysis.save');
     });
 });

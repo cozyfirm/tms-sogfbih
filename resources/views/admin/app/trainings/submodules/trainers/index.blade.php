@@ -48,6 +48,28 @@
                     <td> {{ ucfirst($user->role ?? '')  }} </td>
                     <td> {{ $user->phone ?? ''}} </td>
                     <td> {{ $user->birthDate() ?? ''}} </td>
+                    <td>
+                        <ul class="m-0 pl-2">
+                            @foreach($user->trainersRel as $trainer)
+                                <li> {{ $trainer->instanceRel->trainingRel->title ?? '' }} </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="m-0 pl-2">
+                            @foreach($user->trainersRel as $trainer)
+                                <li> {{ $trainer->grade ?? '' }} </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="m-0 pl-2">
+                            @foreach($user->trainersRel as $trainer)
+                                <li> {{ $trainer->contract ?? '' }} KM </li>
+                            @endforeach
+                        </ul>
+                    </td>
+
                     <td> {{ $user->address ?? ''}} </td>
                     <td> {{ $user->city ?? ''}} </td>
                     <td> {{ $user->countryRel->name_ba ?? ''}} </td>

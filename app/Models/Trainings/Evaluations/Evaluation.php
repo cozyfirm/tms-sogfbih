@@ -3,6 +3,7 @@
 namespace App\Models\Trainings\Evaluations;
 
 use App\Models\Core\Keyword;
+use App\Models\Other\Analysis\EvaluationAnalysis;
 use App\Models\Trainings\Training;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,5 +40,13 @@ class Evaluation extends Model{
 
     public function myEvaluation(): HasOne{
         return $this->hasOne(EvaluationStatus::class, 'evaluation_id', 'id')->where('user_id', '=', Auth::user()->id);
+    }
+
+    /** Public questionnaires */
+    public function publicQuestionnairesRel(): HasMany{
+        return $this->hasMany(EvaluationAnalysis::class, 'evaluation_id', 'id')->where('status', '=', 'submitted');
+    }
+    public function publicQuestionnairesAllRel(): HasMany{
+        return $this->hasMany(EvaluationAnalysis::class, 'evaluation_id', 'id');
     }
 }

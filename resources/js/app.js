@@ -52,6 +52,7 @@ import './admin/app/shared/files/file-upload.js';
  *  Analysis data
  */
 import './admin/app/other/analysis/analysis.js';
+import './public-part/analysis/evaluation.js';
 
 $(document).ready(function() {
     $(".datepicker").datepicker({

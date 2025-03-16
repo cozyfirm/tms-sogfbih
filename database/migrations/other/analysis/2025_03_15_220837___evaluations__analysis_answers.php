@@ -32,9 +32,13 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             /**
-             *  IP Address of user
+             *  Evaluation analytics ID
              */
-            $table->string('ip_addr');
+            $table->unsignedBigInteger('analytics_id');
+            $table->foreign('analytics_id')
+                ->references('id')
+                ->on('evaluations__analysis')
+                ->onDelete('cascade');
 
             /**
              *  Real answer:

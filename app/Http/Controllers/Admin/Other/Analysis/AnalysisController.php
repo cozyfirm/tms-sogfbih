@@ -59,9 +59,11 @@ class AnalysisController extends Controller{
     }
 
     public function preview($id): View{
+        $analysis = Analysis::where('id', '=', $id)->first();
+
         return view($this->_path . 'preview', [
             'preview' => true,
-            'analysis' => Analysis::where('id', '=', $id)->first()
+            'analysis' => $analysis
         ]);
     }
 

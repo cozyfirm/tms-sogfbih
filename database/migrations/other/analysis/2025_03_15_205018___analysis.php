@@ -27,6 +27,8 @@ return new class extends Migration
             $table->integer('submissions')->default(0);
             $table->integer('views')->default(0);
 
+            $table->integer('created_by');
+
             $table->timestamps();
             $table->softDeletes();
         });
