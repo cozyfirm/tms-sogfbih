@@ -40,7 +40,7 @@ class SubmissionController extends Controller{
             abort(404);
         }
 
-        /* ToDo:: Check for expiration */
+        if($analysis->date_from > date('Y-m-d') or $analysis->date_to < date('Y-m-d')) abort(404);
 
         /**
          *  If there is no created submissions, create one

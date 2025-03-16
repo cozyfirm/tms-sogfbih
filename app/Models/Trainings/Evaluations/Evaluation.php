@@ -44,7 +44,7 @@ class Evaluation extends Model{
 
     /** Public questionnaires */
     public function publicQuestionnairesRel(): HasMany{
-        return $this->hasMany(EvaluationAnalysis::class, 'evaluation_id', 'id')->where('status', '=', 'submitted');
+        return $this->hasMany(EvaluationAnalysis::class, 'evaluation_id', 'id')->where('status', '=', 'submitted')->orderBy('id', 'DESC');
     }
     public function publicQuestionnairesAllRel(): HasMany{
         return $this->hasMany(EvaluationAnalysis::class, 'evaluation_id', 'id');
