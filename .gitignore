@@ -36,6 +36,9 @@ yarn-error.log
 /storage/files/other/bodies*
 !/storage/files/other/bodies/readme.md
 
+# Ignore generated reports
+/storage/files/questionnaires/reports/*
+
 # Ignore everything in upload folder except readme.md
 /public/files/upload/trainings/*
 !/public/files/upload/trainings/readme.md
