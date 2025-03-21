@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\Analysis\AnalysisController;
 use App\Http\Controllers\Admin\Other\Analysis\EvaluationsController as AnalysisEvaluationController;
+use App\Http\Controllers\Admin\Other\Analysis\DownloadController as AnalysisDownloadController;
 use App\Http\Controllers\Admin\Other\Analysis\SubmissionController as PublicAnalysisEvaluationController;
 use App\Http\Controllers\Admin\Other\BodiesController;
 use App\Http\Controllers\Admin\Other\FAQsController;
@@ -355,6 +356,11 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
 
                         /** Lock evaluation */
                         Route::get ('/lock/{analysis_id}',                  [AnalysisEvaluationController::class, 'lock'])->name('system.admin.other.analysis.submodules.evaluations.lock');
+                    });
+
+                    /** Downloads */
+                    Route::prefix('downloads')->group(function () {
+                        Route::get ('/lock/{analysis_id}',                  [AnalysisDownloadController::class, 'getReport'])->name('system.admin.other.analysis.submodules.downloads.get-report');
                     });
                 });
             });

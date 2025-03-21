@@ -17,9 +17,11 @@ use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class SubmissionController extends Controller{
@@ -32,7 +34,13 @@ class SubmissionController extends Controller{
      * @param $hash
      * @return View
      */
-    public function index($hash): View{
+    public function index($hash): View | RedirectResponse{
+        if(!Auth::check()){
+            /** User is not logged in; Put link into session */
+            Session::put('getBackToUri', url()->full());
+            /** Redirect to auth */
+            return redirect()->route('auth');
+        }
         $analysis = Analysis::where('hash', '=', $hash)->first();
 
         $evaluation = Evaluation::where('type', '=','__analysis')->where('model_id', '=', $analysis->id)->first();
@@ -49,6 +57,7 @@ class SubmissionController extends Controller{
         if(!$evaluationAnalysis){
             $evaluationAnalysis = EvaluationAnalysis::create([
                 'evaluation_id' => $evaluation->id,
+                'user_id' => Auth::user()->id,
                 'session_id' =>  request()->session()->getId(),
                 'ip_addr' => request()->ip()
             ]);

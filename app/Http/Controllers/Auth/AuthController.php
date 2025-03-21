@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class AuthController extends Controller{
@@ -51,6 +52,11 @@ class AuthController extends Controller{
 
             $uri = route('system.home');
             if($user->role == 'user') $uri = route('system.user-data.dashboard');
+
+            if(Session::get('getBackToUri')){
+                /** We should redirect to special uri */
+                $uri = Session::get('getBackToUri');
+            }
 
             return json_encode([
                 'code' => '0000',

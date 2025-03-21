@@ -25,7 +25,7 @@
             @foreach($analysis->evaluationRel->publicQuestionnairesRel as $questionnaire)
                 <div class="document__row">
                     <a href="{{ route('public-data.analysis.preview', ['hash' => $analysis->hash, 'id' => $questionnaire->id ]) }}" target="_blank" title="{{ __('Pregled ankete') }}">
-                        {{ $counter++ }}. {{ $questionnaire->createdAt() }}
+                        {{ $counter++ }}. {{ $questionnaire->userRel->name ?? '' }}
                     </a>
                 </div>
             @endforeach
@@ -44,7 +44,7 @@
             <i class="fa-solid fa-clipboard"></i>
         </div>
     </a>
-    <a title="{{ __('Preuzmite izvještaj') }}">
+    <a href="{{ route('system.admin.other.analysis.submodules.downloads.get-report', ['analysis_id' => $analysis->id ]) }}" title="{{ __('Preuzmite izvještaj') }}">
         <div class="rm-ci-w">
             <i class="fa-solid fa-download"></i>
         </div>

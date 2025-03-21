@@ -62,10 +62,32 @@ trait CommonTrait{
         return number_format($number, $decimal, '.', '');
     }
 
+    public function generateSlug($string): string{
+        $string = str_replace('đ', 'd', $string);
+        $string = str_replace('Đ', 'D', $string);
+        // $slug = preg_replace("/[^A-Za-z0-9 ]/", '', $slug);
+        $string = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $string);
+        $string = iconv('UTF-8', 'ISO-8859-1//IGNORE', $string);
+        $string = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $string);
+
+        $string = str_replace(array('[\', \']'), '', $string);
+        $string = preg_replace('/\[.*\]/U', '', $string);
+        $string = preg_replace('/&(amp;)?#?[a-z0-9]+;/i', '_', $string);
+        $string = htmlentities($string, ENT_COMPAT, 'utf-8');
+        $string = preg_replace('/&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i', '\\1', $string );
+        $string = preg_replace(array('/[^a-z0-9]/i', '/[-]+/') , '_', $string);
+        return strtolower(trim($string, '_'));
+    }
+
     /* ------------------------------------------ Date time functions ----------------------------------------------- */
     public function date($date): string{
         $this->_date = Carbon::parse($date);
 
         return $this->_date->format('d') . '. ' . $this->_months_short[((int)$this->_date->format('m')) - 1] . ' ' . $this->_date->format('Y H:i') . 'h';
+    }
+    public function onlyDate($date): string{
+        $this->_date = Carbon::parse($date);
+
+        return $this->_date->format('d') . '. ' . $this->_months_short[((int)$this->_date->format('m')) - 1] . ' ' . $this->_date->format('Y');
     }
 }
