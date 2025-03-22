@@ -22,12 +22,12 @@ class DownloadController extends Controller{
         'borders' => array(
             'outline' => array(
                 'borderStyle' => Border::BORDER_THICK,
-                'color' => array('argb' => '00000000'),
+                'color' => array('argb' => 'FDB833'),
             ),
         ),
         'fill' => array(
             'fillType' => Fill::FILL_SOLID,
-            'startColor' => array('argb' => '000000')
+            'startColor' => array('argb' => 'FDB833')
         ),
         'font' => [
             'color' => [
@@ -45,11 +45,15 @@ class DownloadController extends Controller{
 
             $reader             = new Xlsx();
             $spreadsheet        = $reader->load(storage_path('files/questionnaires/report.xlsx'));
-            $sheet              = $spreadsheet->getActiveSheet();
+            $sheet              = $spreadsheet->getSheet(0);
+            $secondSheet        = $spreadsheet->getSheet(1);
 
             /** Set name and date */
             $sheet->setCellValue('A4', $analysis->title);
             $sheet->setCellValue('I4', $this->onlyDate(date('Y-m-d')));
+
+            $secondSheet->setCellValue('A4', $analysis->title);
+            $secondSheet->setCellValue('I4', $this->onlyDate(date('Y-m-d')));
 
             $options = EvaluationOption::where('evaluation_id', '=', $evaluation->id)->where('type', '=', 'with_answers')->orderBy('group_by')->get();
             $row = 9;
@@ -101,11 +105,53 @@ class DownloadController extends Controller{
                 $row += 2;
             }
 
+            /**
+             *  Fill second sheet
+             */
+            $otherOptions = EvaluationOption::where('evaluation_id', '=', $evaluation->id)->where('type', '=', 'question_only')->orderBy('group_by')->get();
+            $row = 9;
+
+            foreach($otherOptions as $option){
+                /** Set style for question */
+                $secondSheet->mergeCells("A".$row.":J".($row+1));
+                $secondSheet->getStyle("A".$row.":J".($row+1))->getAlignment()->setHorizontal('left')->setVertical('center')->setWrapText(true);
+                $secondSheet->getStyle("A".$row.":J".($row+1))->applyFromArray($this->style);
+                /** Set value for question */
+                $secondSheet->setCellValue('A' . $row, $option->question);
+
+                $row += 2;
+                $answers = AEAnswer::whereHas('analysisEvaluationRel', function($query){
+                    $query->where('status', '=', 'submitted');
+                })->where('evaluation_id', '=', $evaluation->id)->where('option_id', '=', $option->id)->get();
+
+                $counter = 1;
+                foreach ($answers as $answer){
+                    if($answer->answer != ''){
+                        $secondSheet->getStyle("A".$row)->getAlignment()->setHorizontal('center')->setVertical('center');
+                        $secondSheet->setCellValue('A' . $row, $counter . '.');
+
+                        /** User info */
+                        $secondSheet->mergeCells("B".$row.":D".$row);
+                        $secondSheet->getStyle("B".$row.":D".$row)->getAlignment()->setHorizontal('left')->setVertical('center');
+                        $secondSheet->setCellValue('B' . $row, $answer->analysisEvaluationRel->userRel->name ?? 'Anonimno');
+
+                        $secondSheet->mergeCells("E".$row.":J".$row);
+                        $secondSheet->getStyle("E".$row.":J".$row)->getAlignment()->setHorizontal('left')->setVertical('center');
+                        $secondSheet->setCellValue('E' . $row, $answer->answer ?? '0');
+
+                        $row ++;
+                        $counter++;
+                    }
+                }
+
+                $row += 2;
+            }
+
             $fileName = ($this->generateSlug($analysis->title . date('d-m-y'))) . '.xlsx';
             $writer = new  \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
             $writer->save(storage_path($this->_path) . $fileName);
 
-            return response()->download(storage_path(storage_path($this->_path) . $fileName));
+            return response()->download(storage_path($this->_path . $fileName));
         }catch (\Exception $e){
             return back()->with('error', $e->getMessage());
         }
