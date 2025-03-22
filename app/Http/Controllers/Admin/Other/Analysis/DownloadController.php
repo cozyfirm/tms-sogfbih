@@ -8,11 +8,13 @@ use App\Models\Other\Analysis\Analysis;
 use App\Models\Trainings\Evaluations\Evaluation;
 use App\Models\Trainings\Evaluations\EvaluationOption;
 use App\Traits\Common\CommonTrait;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DownloadController extends Controller{
     use CommonTrait;
@@ -36,7 +38,13 @@ class DownloadController extends Controller{
         ],
     );
 
-    public function getReport($analysis_id){
+    /**
+     * Generate report and download excel file
+     *
+     * @param $analysis_id
+     * @return RedirectResponse | BinaryFileResponse
+     */
+    public function getReport($analysis_id): RedirectResponse | BinaryFileResponse{
         try{
             /** Get analysis */
             $analysis = Analysis::where('id', '=', $analysis_id)->first();
