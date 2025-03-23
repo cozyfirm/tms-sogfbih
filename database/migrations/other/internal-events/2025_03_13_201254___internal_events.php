@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('internal__events', function (Blueprint $table) {
             $table->id();
 
+            $table->string('title', '200');
+            $table->unsignedBigInteger('category');          // FK to Keywords
             $table->unsignedBigInteger('project');          // FK to Keywords
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')
@@ -25,6 +27,9 @@ return new class extends Migration
 
             // ToDo:: Program !??
             $table->string('youtube')->nullable();
+
+            /** Increment */
+            $table->integer('participants')->default(0);
 
             $table->timestamps();
             $table->softDeletes();

@@ -39,9 +39,12 @@
             @foreach($events as $event)
                 <tr>
                     <td class="text-center">{{ $i++}}</td>
+                    <td> {{ $event->title ?? ''}} </td>
+                    <td> {{ $event->categoryRel->name ?? ''}} </td>
                     <td> {{ $event->projectRel->name ?? ''}} </td>
                     <td> {{ $event->date() ?? ''}} </td>
                     <td> {{ $event->time ?? ''}} </td>
+                    <td> {{ $event->participants ?? ''}} </td>
 
                     <td class="text-center">
                         <a class="table-btn-link" href="{{route('system.admin.other.internal-events.preview', ['id' => $event->id] )}}" title="{{ __('Pregled događaja') }}">

@@ -20,7 +20,7 @@ class KeywordsController extends Controller
         ]);
     }
     public function previewInstances($key): View{
-        $instances = Keyword::where('type', $key);
+        $instances = Keyword::where('type', '=', $key)->orderBy('name');
         $instances = Filters::filter($instances);
         $filters = [
             'name' => __('Vrijednost'),

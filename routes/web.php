@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Other\Analysis\SubmissionController as PublicAnal
 use App\Http\Controllers\Admin\Other\BodiesController;
 use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Other\InternalEvents\InternalEventsController;
+use App\Http\Controllers\Admin\Other\ParticipantsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
@@ -395,6 +396,21 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::post('/save-files',                [BodiesController::class, 'saveFiles'])->name('system.admin.other.bodies.save-files');
                 Route::get ('/download-file/{id}',        [BodiesController::class, 'downloadFile'])->name('system.admin.other.bodies.download-file');
                 Route::get ('/remove-file/{id}',          [BodiesController::class, 'removeFile'])->name('system.admin.other.bodies.remove-file');
+            });
+
+            /**
+             *  Shared routes between internal events and bodies:
+             *      1. Participants
+             */
+
+            Route::prefix('shared')->middleware('isAuthenticated')->group(function () {
+                /** Participants */
+                Route::prefix('participants')->middleware('isAuthenticated')->group(function () {
+                    Route::post('/save',                  [ParticipantsController::class, 'save'])->name('system.admin.other.shared.participants.save');
+                    Route::post('/fetch',                 [ParticipantsController::class, 'fetch'])->name('system.admin.other.shared.participants.fetch');
+                    Route::post('/update',                [ParticipantsController::class, 'update'])->name('system.admin.other.shared.participants.update');
+                    Route::post('/delete',                [ParticipantsController::class, 'delete'])->name('system.admin.other.shared.participants.delete');
+                });
             });
         });
     });

@@ -34,9 +34,12 @@ class InternalEventsController extends Controller{
         $events = Filters::filter($events);
 
         $filters = [
-            'project' => 'Projekat',
+            'title' => __('Naslov'),
+            'categoryRel.name' => __('Kategorija'),
+            'projectRel.name' => 'Projekat',
             'date' => __('Datum'),
-            'time' => __('Vrijeme')
+            'time' => __('Vrijeme'),
+            'participants' => __('Broj polaznika')
         ];
 
         return view($this->_path . 'index', [
@@ -48,6 +51,7 @@ class InternalEventsController extends Controller{
     public function create(): View{
         return view($this->_path . 'create', [
             'create' => true,
+            'categories' => Keyword::getIt('ie__categories'),
             'projects' => Keyword::getIt('ie__projects'),
             'locations' => Location::pluck('title', 'id'),
             'time' => $this->formTimeArr()
@@ -70,6 +74,7 @@ class InternalEventsController extends Controller{
     public function preview($id): View{
         return view($this->_path . 'preview', [
             'preview' => true,
+            'categories' => Keyword::getIt('ie__categories'),
             'projects' => Keyword::getIt('ie__projects'),
             'locations' => Location::pluck('title', 'id'),
             'time' => $this->formTimeArr(),

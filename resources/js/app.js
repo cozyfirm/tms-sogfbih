@@ -54,6 +54,8 @@ import './admin/app/shared/files/file-upload.js';
 import './admin/app/other/analysis/analysis.js';
 import './public-part/analysis/evaluation.js';
 
+import './admin/app/other/participants.js';
+
 $(document).ready(function() {
     $(".datepicker").datepicker({
         format: 'dd.mm.yyyy',

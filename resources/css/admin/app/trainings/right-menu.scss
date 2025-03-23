@@ -62,6 +62,15 @@
             }
         }
     }
+
+    .location__wrapper{
+        position: relative; width: 100%; display: flex; flex-wrap: wrap; gap: 8px;
+        .lw__row{
+            position: relative; width: 100%; display: flex; gap: 8px; align-items: center;
+            i{font-size: 14px;}
+            p{ margin: 0px; padding: 0px; font-size: 14px; }
+        }
+    }
 }
 .rm-card-icons{
     position: relative; display: flex; gap: 16px;

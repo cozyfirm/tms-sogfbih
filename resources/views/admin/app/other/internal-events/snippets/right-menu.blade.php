@@ -1,11 +1,11 @@
 <div class="three__elements">
-    <div class="element" title="{{ __('Broj učesnika') }}">
-        <h5>{{ __('12') }}</h5>
-        <p>{{ __('Učesnika') }}</p>
+    <div class="element" title="{{ __('Datum i vrijeme održavanja') }}">
+        <h5>{{ $event->time ?? '08:00' }}</h5>
+        <p>{{ (isset($event) ? $event->date() : date('d.m.Y')) }}</p>
     </div>
     <div class="element" title="{{ __('Broj unesenih zaključaka sa događaja') }}">
-        <h5>0</h5>
-        <p>{{ __('Zaključaka') }}</p>
+        <h5>{{ __('12') }}</h5>
+        <p>{{ __('Učesnika') }}</p>
     </div>
     <div class="element" title="{{ __('Broj priloženih dokumenata') }}">
         <h5>{{ FileHelper::getIEFiles($event->id)->count() }}</h5>
@@ -13,18 +13,25 @@
     </div>
 </div>
 
-<div class="rm-card">
+<div class="rm-card" title="{{ __('Mjesto održavanja događaja') }}">
     <div class="rm-card-header">
-        <h5>{{ __('Zaključci') }}</h5>
-        <img class="normal-icon" src="{{ asset('files/images/icons/training-instance.svg') }}" alt="{{ __('Training-instance image') }}">
+        <h5>{{ $event->locationRel->title ?? 'Nepoznata lokacija' }}</h5>
+        <i class="fa-solid fa-map"></i>
     </div>
     <hr>
-    <div class="list__wrapper">
-        <ol>
-            @for($i=0; $i<3; $i++)
-                <li> Sve Elham </li>
-            @endfor
-        </ol>
+    <div class="location__wrapper">
+        <div class="lw__row">
+            <i class="fa-solid fa-location-dot"></i>
+            <p>{{ $event->locationRel->address ?? '' }}, {{ $event->locationRel->cityRel->title ?? '' }}</p>
+        </div>
+        <div class="lw__row">
+            <i class="fa-solid fa-envelope"></i>
+            <p>{{ $event->locationRel->email ?? '' }}</p>
+        </div>
+        <div class="lw__row">
+            <i class="fa-solid fa-phone-volume"></i>
+            <p>{{ $event->locationRel->phone ?? '' }}</p>
+        </div>
     </div>
 </div>
 
@@ -59,7 +66,7 @@
 @endif
 
 <div class="rm-card-icons">
-    <a title="{{ __('Dodajte učesnike') }}" class="instances-add-trainer">
+    <a title="{{ __('Dodajte učesnike') }}" class="internal-events-add-participant">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/users.svg') }}" alt="{{ __('Trainer image') }}">
         </div>
@@ -74,4 +81,11 @@
             <img src="{{ asset('files/images/icons/camera-retro-solid.svg') }}" alt="{{ __('Gallery image') }}">
         </div>
     </a>
+    @if($event->youtube != '')
+        <a href="{{ $event->youtube }}" target="_blank" title="{{ __('YouTube link') }}">
+            <div class="rm-ci-w">
+                <img src="{{ asset('files/images/icons/youtube-brands.svg') }}" alt="{{ __('Trainer image') }}">
+            </div>
+        </a>
+    @endif
 </div>

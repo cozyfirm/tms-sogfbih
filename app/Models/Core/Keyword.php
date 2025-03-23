@@ -36,14 +36,15 @@ class Keyword extends Model{
         'application_status' => 'Status prijave',
 
         /* Internal events */
+        'ie__categories' => 'Kategorije (Interni događaji)',
         'ie__projects' => 'Projekti (Interni događaji)'
     ];
 
     /* Return all types of keywords */
     public static function getKeywords(): array { return self::$_keywords; }
     public static function getKeyword($key): string{ return self::$_keywords[$key]; }
-    public static function getIt($key){ return Keyword::where('type', '=', $key)->pluck('name', 'id'); }
-    public static function getItByVal($key){ return Keyword::where('type', '=', $key)->pluck('name', 'value'); }
+    public static function getIt($key){ return Keyword::where('type', '=', $key)->orderBy('name')->pluck('name', 'id'); }
+    public static function getItByVal($key){ return Keyword::where('type', '=', $key)->orderBy('name')->pluck('name', 'value'); }
     public static function getKeywordName($id){
         try{
             return Keyword::where('id', '=', $id)->first()->name;
