@@ -40,8 +40,10 @@
                 <tr>
                     <td class="text-center">{{ $i++}}</td>
                     <td> {{ $body->title ?? ''}} </td>
+                    <td> {{ $body->categoryRel->name ?? ''}} </td>
                     <td> {{ $body->date() ?? ''}} </td>
                     <td> {{ $body->time ?? ''}} </td>
+                    <td> {{ $body->participants ?? ''}} </td>
 
                     <td class="text-center">
                         <a class="table-btn-link" href="{{route('system.admin.other.bodies.preview', ['id' => $body->id] )}}" title="{{ __('Pregled događaja') }}">

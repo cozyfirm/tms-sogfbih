@@ -30,8 +30,10 @@ class BodiesController extends Controller{
 
         $filters = [
             'title' => 'Naslov',
+            'categoryRel.name' => __('Kategorija'),
             'date' => __('Datum'),
-            'time' => __('Vrijeme')
+            'time' => __('Vrijeme'),
+            'participants' => __('Broj učesnika')
         ];
 
         return view($this->_path . 'index', [
@@ -43,7 +45,7 @@ class BodiesController extends Controller{
     public function create(): View{
         return view($this->_path . 'create', [
             'create' => true,
-            'projects' => Keyword::getIt('ie__projects'),
+            'categories' => Keyword::getIt('bodies__category'),
             'locations' => Location::pluck('title', 'id'),
             'time' => $this->formTimeArr()
         ]);
@@ -65,7 +67,7 @@ class BodiesController extends Controller{
     public function preview($id): View{
         return view($this->_path . 'preview', [
             'preview' => true,
-            'projects' => Keyword::getIt('ie__projects'),
+            'categories' => Keyword::getIt('bodies__category'),
             'locations' => Location::pluck('title', 'id'),
             'time' => $this->formTimeArr(),
             'body' => Bodies::where('id', '=', $id)->first()
@@ -75,7 +77,7 @@ class BodiesController extends Controller{
     public function edit($id): View{
         return view($this->_path . 'create', [
             'edit' => true,
-            'projects' => Keyword::getIt('ie__projects'),
+            'categories' => Keyword::getIt('bodies__category'),
             'locations' => Location::pluck('title', 'id'),
             'time' => $this->formTimeArr(),
             'body' => Bodies::where('id', '=', $id)->first()

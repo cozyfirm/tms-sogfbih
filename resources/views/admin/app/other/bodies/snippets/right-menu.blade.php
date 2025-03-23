@@ -13,18 +13,25 @@
     </div>
 </div>
 
-<div class="rm-card">
+<div class="rm-card" title="{{ __('Mjesto održavanja događaja') }}">
     <div class="rm-card-header">
-        <h5>{{ __('Zaključci') }}</h5>
-        <img class="normal-icon" src="{{ asset('files/images/icons/training-instance.svg') }}" alt="{{ __('Training-instance image') }}">
+        <h5>{{ $body->locationRel->title ?? 'Nepoznata lokacija' }}</h5>
+        <i class="fa-solid fa-map"></i>
     </div>
     <hr>
-    <div class="list__wrapper">
-        <ol>
-            @for($i=0; $i<3; $i++)
-                <li> Sve Elham </li>
-            @endfor
-        </ol>
+    <div class="location__wrapper">
+        <div class="lw__row">
+            <i class="fa-solid fa-location-dot"></i>
+            <p>{{ $body->locationRel->address ?? '' }}, {{ $body->locationRel->cityRel->title ?? '' }}</p>
+        </div>
+        <div class="lw__row">
+            <i class="fa-solid fa-envelope"></i>
+            <p>{{ $body->locationRel->email ?? '' }}</p>
+        </div>
+        <div class="lw__row">
+            <i class="fa-solid fa-phone-volume"></i>
+            <p>{{ $body->locationRel->phone ?? '' }}</p>
+        </div>
     </div>
 </div>
 
@@ -59,7 +66,7 @@
 @endif
 
 <div class="rm-card-icons">
-    <a title="{{ __('Dodajte učesnike') }}" class="instances-add-trainer">
+    <a title="{{ __('Dodajte učesnike') }}" class="bodies-add-participant">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/users.svg') }}" alt="{{ __('Trainer image') }}">
         </div>

@@ -38,6 +38,9 @@
     {{ html()->hidden('upload_route')->class('form-control upload_route')->value(route('system.admin.other.bodies.save-files')) }}
     @include('admin.app.shared.files.file-upload')
 
+    <!-- Participants -->
+    @include('admin.app.other.shared.participant')
+
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
             <div class="form__info__inner">
@@ -53,8 +56,8 @@
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            {{ html()->label(__('Lokacija'))->for('location_id')->class('bold') }}
-                            {{ html()->select('location_id', $locations, isset($body) ? $body->location_id : '')->class('form-control form-control-sm')->disabled(isset($preview)) }}
+                            {{ html()->label(__('Kategorija'))->for('category')->class('bold') }}
+                            {{ html()->select('category', $categories, isset($body) ? $body->category : '')->class('form-control form-control-sm')->disabled(isset($preview)) }}
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -73,17 +76,17 @@
 
                 <br>
 
-                <div class="instance__trainers">
+                <div class="shared_participants @if(!$body->participantsRel->count()) d-none @endif">
                     <h4>{{ __('Učesnici događaja') }}</h4>
-                    <div class="trainers">
-                        <div class="trainer__w trainer__w_get_info" rel-id="" title="{{ __('Više informacija') }}">
-                            <p> Šemso Poplava </p>
-                        </div>
-                        <div class="trainer__w trainer__w_get_info" rel-id="" title="{{ __('Više informacija') }}">
-                            <p> Ideš Đurđa </p>
-                        </div>
+                    <div class="sp__wrapper">
+                        @foreach($body->participantsRel as $participant)
+                            <div class="participant_w participant__w_get_info" model-id="{{ $participant->id ?? '0' }}" title="{{ __('Više informacija') }}">
+                                <p> {{ $participant->name ?? '' }} </p>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
+
             </div>
         </div>
 

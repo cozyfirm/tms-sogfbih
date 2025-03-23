@@ -37,7 +37,10 @@ class Keyword extends Model{
 
         /* Internal events */
         'ie__categories' => 'Kategorije (Interni događaji)',
-        'ie__projects' => 'Projekti (Interni događaji)'
+        'ie__projects' => 'Projekti (Interni događaji)',
+
+        /** Bodies */
+        'bodies__category' => 'Kategorija (Organi i tijela)'
     ];
 
     /* Return all types of keywords */

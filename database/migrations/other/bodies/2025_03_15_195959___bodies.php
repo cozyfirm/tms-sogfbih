@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('title', '200');
+            $table->unsignedBigInteger('category');          // FK to Keywords
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')
                 ->references('id')
@@ -23,7 +24,8 @@ return new class extends Migration
             $table->date('date');
             $table->string('time', '10')->default('00:00');
 
-            // $table->string('youtube')->nullable();
+            /** Increment */
+            $table->integer('participants')->default(0);
 
             $table->timestamps();
             $table->softDeletes();

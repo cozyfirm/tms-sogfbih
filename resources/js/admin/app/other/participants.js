@@ -204,12 +204,20 @@ $("document").ready(function (){
 
         /** Reset info */
         $("#participant_name").val("");
+
+        updateParticipant = false;
     };
 
     /** Open participants and set event type to ie */
     $(".internal-events-add-participant").click(function (){
         /** Set type to internal events */
         type = 'ie';
+
+        openForm();
+    });
+    $(".bodies-add-participant").click(function (){
+        /** Set type to internal events */
+        type = 'bodies';
 
         openForm();
     });

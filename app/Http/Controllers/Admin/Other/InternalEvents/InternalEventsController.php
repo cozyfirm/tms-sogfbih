@@ -39,7 +39,7 @@ class InternalEventsController extends Controller{
             'projectRel.name' => 'Projekat',
             'date' => __('Datum'),
             'time' => __('Vrijeme'),
-            'participants' => __('Broj polaznika')
+            'participants' => __('Broj učesnika')
         ];
 
         return view($this->_path . 'index', [
@@ -65,7 +65,7 @@ class InternalEventsController extends Controller{
             // Create instance
             $event = InternalEvent::create($request->except(['_token']));
 
-            return $this->jsonSuccess(__('Uspješno unesena obuka!'), route('system.admin.other.internal-events.preview', ['id' => $event->id ]));
+            return $this->jsonSuccess(__('Uspješno spašeni podaci za događaj!'), route('system.admin.other.internal-events.preview', ['id' => $event->id ]));
         }catch (\Exception $e){
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
         }
@@ -85,6 +85,7 @@ class InternalEventsController extends Controller{
     public function edit($id): View{
         return view($this->_path . 'create', [
             'edit' => true,
+            'categories' => Keyword::getIt('ie__categories'),
             'projects' => Keyword::getIt('ie__projects'),
             'locations' => Location::pluck('title', 'id'),
             'time' => $this->formTimeArr(),
@@ -99,15 +100,27 @@ class InternalEventsController extends Controller{
             // Create instance
             InternalEvent::where('id', '=', $request->id)->update($request->except(['_token']));
 
-            return $this->jsonSuccess(__('Uspješno unesena obuka!'), route('system.admin.other.internal-events.preview', ['id' => $request->id ]));
+            return $this->jsonSuccess(__('Uspješno ažurirani podaci za događaj!'), route('system.admin.other.internal-events.preview', ['id' => $request->id ]));
         }catch (\Exception $e){
             return $this->jsonError('2000', __('Greška prilikom obrade podataka. Molmo kontaktirajte administratora!'));
         }
     }
+
+    /**
+     * Delete event
+     *
+     * @param $id
+     * @return RedirectResponse
+     */
     public function delete($id): RedirectResponse{
         try{
-            InternalEvent::where('id', '=', $id)->delete();
-            return redirect()->route('system.admin.other.internal-events')->with('success', __('Uspješno obrisano!'));
+            $event = InternalEvent::where('id', '=', $id)->first();
+            /** Fetch title of event */
+            $title = $event->title;
+            /** Delete event */
+            $event->delete();
+
+            return redirect()->route('system.admin.other.internal-events')->with('success', __('Uspješno obrisan događaj ' . $title . "!"));
         }catch (\Exception $e){ return back()->with('error', __('Došlo je do greške. Molimo kontaktirajte administratora!')); }
     }
 

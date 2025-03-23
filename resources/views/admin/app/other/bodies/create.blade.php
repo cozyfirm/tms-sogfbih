@@ -30,11 +30,18 @@
                     @endif
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Naslov'))->for('title')->class('bold') }}
                                 {{ html()->text('title')->class('form-control form-control-sm')->value((isset($body) ? $body->title : ''))->isReadonly(isset($preview))->maxlength(200) }}
                                 <small id="titleHelp" class="form-text text-muted">{{ __('Unesite naslov') }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ html()->label(__('Kategorija'))->for('category')->class('bold') }}
+                                {{ html()->select('category', $categories, isset($body) ? $body->category : '')->class('form-control form-control-sm single-select2')->required()->disabled(isset($preview)) }}
+                                <small id="categoryHelp" class="form-text text-muted">{{ __('Odaberite kategoriju događaja') }}</small>
                             </div>
                         </div>
                     </div>
