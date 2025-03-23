@@ -22,41 +22,17 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper preview-content-wrapper">
-        <div class="gallery__wrapper">
-            @foreach(FileHelper::getInstanceImages($instance->id) as $image)
-                <div class="image__out_wrapper">
-                    <div class="image__wrapper">
-                        <img src="{{ asset($image->getFile()) }}" alt="">
-                        <div class="btn_wrapper">
-                            <p> {{ $image->instanceRel->visibility() }} </p>
-                        </div>
-                    </div>
-                    <div class="gallery__text__wrapper">
-                        <div class="gtw__left">
-                            <div class="gtw__image__wrapper">
-                                <p>{{ $image->instanceRel->userRel->getInitials() }}</p>
-                            </div>
-                            <div class="text__">
-                                <h6>{{ $image->instanceRel->userRel->name ?? '' }}</h6>
-                                <p>{{ $image->instanceRel->userRel->email ?? '' }}</p>
-                            </div>
-                        </div>
-                        @if(Auth()->user()->isAdmin())
-                            <div class="right__part">
-                                <div class="views">
-                                    <a href="#" title="{{ __('Obrišite fotografiju') }}">
-                                        <img src="{{ asset('files/images/icons/file-pen-solid.svg') }}" alt="{{ __('Icon') }}">
-                                    </a>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-@endsection
+    <!-- Get images before displaying -->
+    @php $images = FileHelper::getInstanceImages($instance->id); @endphp
+        <!-- Set title of image -->
+    @php $title = __('Instance') @endphp
+        <!-- Set route -->
+    @php $route = 'system.admin.trainings.instances.remove-file' @endphp
 
-{{--{{ dd(FileHelper::getInstanceImages(2)) }}--}}
+        <!-- Preview gallery images -->
+    @include('admin.app.shared.gallery.preview')
+
+    <!-- List of images -->
+    @include('admin.app.shared.gallery.image-list')
+@endsection
 

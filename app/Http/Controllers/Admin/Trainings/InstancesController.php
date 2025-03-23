@@ -177,7 +177,8 @@ class InstancesController extends Controller{
             /** Remove instance_file */
             $rel->delete();
 
-            return redirect()->route('system.admin.trainings.instances.preview', ['id' => $modelID]);
+            return back();
+            // return redirect()->route('system.admin.trainings.instances.preview', ['id' => $modelID]);
         }catch (\Exception $e){
             return back();
         }

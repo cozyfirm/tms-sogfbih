@@ -120,7 +120,7 @@
                 <!-- Participants that program belongs -->
                 <div class="training__participants">
                     <h4>{{ __('Učesnici programa obuke') }}</h4>
-                    <div class="participants">
+                    <div class="tp__participants">
                         @foreach($training->participantsRel as $participant)
                             <div class="area__w">
                                 <p>{{ $participant->participantRel->name ?? '' }}</p>
