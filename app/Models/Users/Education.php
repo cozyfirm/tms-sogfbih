@@ -2,9 +2,11 @@
 
 namespace App\Models\Users;
 
+use App\Models\Core\Keyword;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -19,5 +21,9 @@ class Education extends Model{
 
     public function date(){
         return Carbon::parse($this->graduation_date)->format('d.m.Y');
+    }
+
+    public function levelRel(): HasOne{
+        return $this->hasOne(Keyword::class, 'id', 'level');
     }
 }

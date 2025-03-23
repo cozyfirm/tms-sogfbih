@@ -1,17 +1,14 @@
 @extends('admin.layout.layout')
-@section('c-icon') <i class="fas fa-user"></i> @endsection
-@section('c-title') {{ __('Moj profil') }} @endsection
+@section('c-icon') <i class="fas fa-users"></i> @endsection
+@section('c-title') {{ __('Korisnici') }} @endsection
 @section('c-breadcrumbs')
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
-    <a href="{{ route('system.admin.users') }}">{{ __('Pregled korisnika') }}</a> /
+    <a href="{{ route('system.admin.users') }}">{{ __('Pregled svih korisnika') }}</a> /
     <a href="{{ route('system.admin.users.preview', ['username' => $user->username ]) }}">{{ $user->name }}</a>
-    @if(isset($edit))
-        / <a href="#">{{ __('Uredi moj profil') }}</a>
-    @endif
 @endsection
 
 @section('c-buttons')
-    <a href="@if(isset($preview)) {{ route('system.user-data.dashboard') }} @else {{ route('system.user-data.my-profile') }} @endif">
+    <a href="{{ route('system.admin.users') }}">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>
@@ -19,7 +16,7 @@
     </a>
 
     @if(isset($preview))
-        <a href="{{ route('system.user-data.my-profile.edit') }}" title="{{ __('Uredite lične podatke') }}">
+        <a href="{{ route('system.admin.users.edit', ['username' => $user->username ]) }}">
             <button class="pm-btn btn pm-btn-edit">
                 <i class="fas fa-edit"></i>
             </button>
@@ -29,31 +26,26 @@
 
 @section('content')
     <div class="content-wrapper preview-content-wrapper">
+        @if(session()->has('success'))
+            <div class="alert alert-success mt-3">
+                {{ session()->get('success') }}
+            </div>
+        @elseif(session()->has('error'))
+            <div class="alert alert-danger mt-3">
+                {{ session()->get('error') }}
+            </div>
+        @endif
+
         <div class="form__info">
             <div class="form__info__inner">
-                <form action="@if(isset($edit)) {{ route('system.user-data.my-profile.update') }} @endif" method="POST" id="js-form">
+                <form action="#" method="POST" id="js-form">
                     <div class="row">
-                        @if(isset($preview))
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    {{ html()->label(__('Ime i prezime'))->for('first_name')->class('bold') }}
-                                    {{ html()->text('name', $user->name ?? '' )->class('form-control form-control-sm')->required()->value((isset($user) ? $user->name : ''))->isReadonly(isset($preview)) }}
-                                </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ html()->label(__('Ime i prezime'))->for('first_name')->class('bold') }}
+                                {{ html()->text('name', $user->name ?? '' )->class('form-control form-control-sm')->required()->value((isset($user) ? $user->name : ''))->isReadonly(isset($preview)) }}
                             </div>
-                        @else
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ html()->label(__('Ime'))->for('first_name')->class('bold') }}
-                                    {{ html()->text('first_name', $user->first_name ?? '' )->class('form-control form-control-sm')->required()->value((isset($user) ? $user->first_name : '')) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ html()->label(__('Prezime'))->for('last_name')->class('bold') }}
-                                    {{ html()->text('last_name', $user->last_name ?? '' )->class('form-control form-control-sm')->required()->value((isset($user) ? $user->last_name : '')) }}
-                                </div>
-                            </div>
-                        @endif
+                        </div>
                     </div>
 
                     <div class="row mt-3">
@@ -61,12 +53,11 @@
                             <div class="form-group">
                                 {{ html()->label(__('Email'))->for('email')->class('bold') }}
                                 {{ html()->text('email')->class('form-control form-control-sm')->required()->maxlength(150)->value((isset($user) ? $user->email : ''))->isReadonly(isset($preview)) }}
-                                <small id="emailHelp" class="form-text text-muted">{{ __('Unesite email') }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ html()->label(__('Spol'))->for('country')->class('bold') }}
+                                {{ html()->label(__('Spol'))->for('gender')->class('bold') }}
                                 {{ html()->select('gender', $gender, isset($user) ? $user->gender : '1')->class('form-control form-control-sm mt-1 single-select2')->required()->disabled(isset($preview)) }}
                             </div>
                         </div>
@@ -76,7 +67,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Broj telefona'))->for('phone')->class('bold') }}
-                                {{ html()->text('phone')->class('form-control form-control-sm mt-1')->required()->maxlength(13)->value((isset($user) ? $user->phone : ''))->isReadonly(isset($preview)) }}
+                                {{ html()->text('phone')->class('form-control form-control-sm mt-1')->required()->maxlength(13)->value((isset($user) ? $user->phone : '+387'))->isReadonly(isset($preview)) }}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -97,7 +88,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Grad'))->for('city')->class('bold') }}
-                                {{ html()->select('city', $cities, isset($user) ? $user->city : '1')->class('form-control form-control-sm mt-1')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('city', $cities, isset($user) ? $user->city : '')->class('form-control form-control-sm mt-1 single-select2')->required()->disabled(isset($preview)) }}
                             </div>
                         </div>
                     </div>
@@ -116,21 +107,13 @@
                             </div>
                         </div>
                     </div>
-
-                    @if(!isset($preview))
-                        <div class="row mt-4">
-                            <div class="col-md-12 d-flex justify-content-end">
-                                <button type="submit" class="yellow-btn">  {{ __('AŽURIRAJTE') }} </button>
-                            </div>
-                        </div>
-                    @endif
                 </form>
 
                 @if(isset($preview))
                     <div class="custom-hr"></div>
 
                     <div class="training__authors mb-32">
-                        <h4>{{ __('Moji certifikati') }}</h4>
+                        <h4>{{ __('Pregled certifikata') }}</h4>
                         <div class="authors">
                             <a href="#">
                                 <div class="author__w training-check-author">
@@ -144,7 +127,7 @@
         </div>
 
         <div class="right__menu__info">
-            @include('user-data.profile.includes.right-menu')
+            @include('admin.app.users.snippets.right-menu')
         </div>
     </div>
 @endsection

@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\Core\Filters;
+use App\Models\Core\City;
 use App\Models\Core\Country;
 use App\Models\Core\Keyword;
 use App\Models\User;
+use App\Models\Users\Education;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -31,8 +34,8 @@ class UsersController extends Controller{
             'phone' => __('Telefon'),
             'birth_date' => __('Datum rođenja'),
             'address' => __('Adresa'),
-            'city' => __('Grad'),
-            'countryRel->name_ba' => __('Država')
+            'cityRel.title' => __('Grad'),
+            'cityRel.countryRel.name_ba' => __('Država')
         ];
 
         return view($this->_path . 'index', [
@@ -43,19 +46,21 @@ class UsersController extends Controller{
     public function create (): View{
         return view($this->_path . 'create', [
             'create' => true,
-            'gender' => Keyword::getIt('gender')
-            // 'countries' => Country::pluck('name_ba', 'id')
+            'gender' => Keyword::getIt('gender'),
+            'institutions' => Keyword::getIt('users__institutions')->prepend('Odaberite instituciju', ''),
+            'cities' => City::pluck('title', 'id')->prepend('Odaberite grad', '')
         ]);
     }
     public function save(Request $request): JsonResponse{
         try{
             $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
+            $request['name'] = $request->first_name . ' ' . $request->last_name;
 
             if (isset($request->email)) {
                 $user = User::where('email', '=', $request->email)->first();
 
                 if($user){
-                    return $this->jsonError('1500', __('Odabrani email već postoji :D'));
+                    return $this->jsonError('1500', __('Odabrani email već postoji!! '));
                 }
             }
 
@@ -67,8 +72,13 @@ class UsersController extends Controller{
             $request['api_token'] = hash('sha256', 'root'. '+'. time());
             if (isset($request->birth_date)) $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
 
+            /* Set profile as verified */
+            $request['email_verified_at	'] = Carbon::now();
+
             /* Update user */
             $user = User::create($request->except(['id']));
+
+            /** ToDo:: Send email to user with access data */
 
             return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.users.preview', ['username' => $user->username]));
         }catch (\Exception $e){
@@ -77,24 +87,27 @@ class UsersController extends Controller{
     }
 
     public function preview ($username): View{
-        return view($this->_path . 'create', [
+        return view($this->_path . 'preview', [
             'preview' => true,
             'user' => User::where('username', '=', $username)->first(),
-            'gender' => Keyword::getIt('gender')
-            // 'countries' => Country::pluck('name_ba', 'id')
+            'gender' => Keyword::getIt('gender'),
+            'institutions' => Keyword::getIt('users__institutions')->prepend('Odaberite instituciju', ''),
+            'cities' => City::pluck('title', 'id')->prepend('Odaberite grad', '')
         ]);
     }
     public function edit ($username): View{
         return view($this->_path . 'create', [
             'edit' => true,
             'user' => User::where('username', '=', $username)->first(),
-            'gender' => Keyword::getIt('gender')
-            // 'countries' => Country::pluck('name_ba', 'id')
+            'gender' => Keyword::getIt('gender'),
+            'institutions' => Keyword::getIt('users__institutions')->prepend('Odaberite instituciju', ''),
+            'cities' => City::pluck('title', 'id')->prepend('Odaberite grad', '')
         ]);
     }
     public function update(Request $request): JsonResponse{
         try{
             $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
+            $request['name'] = $request->first_name . ' ' . $request->last_name;
 
             if (isset($request->id)) {
                 $user = User::where('id', '=', $request->id)->first();
@@ -122,5 +135,55 @@ class UsersController extends Controller{
         }catch (\Exception $e){}
 
         return back();
+    }
+
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    /**
+     * Education routes
+     */
+
+
+    public function editEducation ($username): View{
+        $user = User::where('username', '=', $username)->first();
+
+        return view($this->_path . 'education', [
+            'edit' => true,
+            'user' => $user,
+            'educationLevels' => Keyword::getIt('users__education_level'),
+            'education' => Education::where('user_id', '=', $user->id)->first()
+        ]);
+    }
+
+    public function updateEducation(Request $request): JsonResponse{
+        try{
+            $request['graduation_date'] = Carbon::parse($request->graduation_date)->format('Y-m-d');
+
+            $user = User::where('id', '=', $request->id)->first();
+            $education = Education::where('user_id', '=', $request->id)->first();
+
+            if($education){
+                $education->update([
+                    'level' => $request->level,
+                    'school' => $request->school,
+                    'university' => $request->university,
+                    'title' => $request->title,
+                    'graduation_date' => $request->graduation_date
+                ]);
+            }else{
+                Education::create([
+                    'user_id' => $request->id,
+                    'level' => $request->level,
+                    'school' => $request->school,
+                    'university' => $request->university,
+                    'title' => $request->title,
+                    'graduation_date' => $request->graduation_date
+                ]);
+            }
+
+            return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.users.preview', ['username' => $user->username]));
+        }catch (\Exception $e){
+            return $this->jsonError('1500', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
+        }
     }
 }

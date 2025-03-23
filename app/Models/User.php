@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Core\City;
 use App\Models\Core\Country;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Trainings\Instances\InstanceTrainer;
+use App\Models\Users\Education;
 use App\Models\Users\Notification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -148,6 +150,12 @@ class User extends Authenticatable
     }
     public function totalCertificates(): int{
         return InstanceApp::where('user_id', '=', $this->id)->where('presence', '=', 1)->count();
+    }
+    public function educationRel(): HasOne{
+        return $this->hasOne(Education::class, 'user_id', 'id');
+    }
+    public function cityRel(): HasOne{
+        return $this->hasOne(City::class, 'id', 'city');
     }
 
     /**

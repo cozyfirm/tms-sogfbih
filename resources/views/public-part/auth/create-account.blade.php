@@ -143,7 +143,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ html()->label(__('Institucija'))->for('institution')->class('bold') }}
-                                    {{ html()->select('institution', ['1' => 'BH Telecom', '2' => 'EP BiH'], 1)->class('form-control form-control-sm mt-2')->options([]) }}
+                                    {{ html()->select('institution', $institutions, '')->class('form-control form-control-sm mt-2 single-select2')->options([])->style('width:100%;') }}
                                     <small id="institutionHelp" class="form-text text-muted"> {{ __('Institucija iz koje dolazite') }} </small>
                                 </div>
                             </div>

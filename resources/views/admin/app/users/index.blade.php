@@ -44,8 +44,8 @@
                     <td> {{ $user->phone ?? ''}} </td>
                     <td> {{ $user->birthDate() ?? ''}} </td>
                     <td> {{ $user->address ?? ''}} </td>
-                    <td> {{ $user->city ?? ''}} </td>
-                    <td> {{ $user->countryRel->name_ba ?? ''}} </td>
+                    <td> {{ $user->cityRel->title ?? ''}} </td>
+                    <td> {{ $user->cityRel->countryRel->name_ba ?? ''}} </td>
 
                     <td class="text-center">
                         <a class="table-btn-link" href="{{route('system.admin.users.preview', ['username' => $user->username] )}}" title="{{ __('Pregled korisnika') }}">

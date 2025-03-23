@@ -87,6 +87,12 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             Route::get ('/edit/{username}',           [UsersController::class, 'edit'])->name('system.admin.users.edit');
             Route::post('/update',                    [UsersController::class, 'update'])->name('system.admin.users.update');
             Route::post('/update-profile-image',      [UsersController::class, 'updateProfileImage'])->name('system.admin.users.update-profile-image');
+
+            /**
+             *  User education info
+             */
+            Route::get ('/edit-education/{username}',             [UsersController::class, 'editEducation'])->name('system.admin.users.edit-education');
+            Route::post('/update-education',                      [UsersController::class, 'updateEducation'])->name('system.admin.users.update-education');
         });
 
         /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserData;
 
 use App\Http\Controllers\Controller;
+use App\Models\Core\City;
 use App\Models\Core\Keyword;
 use App\Models\User;
 use App\Models\Users\Education;
@@ -23,14 +24,18 @@ class MyProfileController extends Controller{
         return view($this->_path . 'my-profile', [
             'preview' => true,
             'user' => Auth::user(),
-            'gender' => Keyword::getIt('gender')
+            'gender' => Keyword::getIt('gender'),
+            'institutions' => Keyword::getIt('users__institutions')->prepend('Odaberite instituciju', ''),
+            'cities' => City::pluck('title', 'id')
         ]);
     }
     public function edit(): View{
         return view($this->_path . 'my-profile', [
             'edit' => true,
             'user' => Auth::user(),
-            'gender' => Keyword::getIt('gender')
+            'gender' => Keyword::getIt('gender'),
+            'institutions' => Keyword::getIt('users__institutions')->prepend('Odaberite instituciju', ''),
+            'cities' => City::pluck('title', 'id')
         ]);
     }
 

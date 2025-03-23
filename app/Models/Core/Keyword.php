@@ -19,9 +19,10 @@ class Keyword extends Model{
 
     protected static $_keywords = [
         /* Questions keywords */
-        'yes_no' => 'Da / Ne',
-        'gender' => 'Spol',
-        'city_type' => 'Grad ili općina',
+        // 'yes_no' => 'Da / Ne',
+        // 'gender' => 'Spol',
+        // 'city_type' => 'Grad ili općina',
+        'users__institutions' => 'Insitucija iz koje korisnik dolazi',
         'trainings__areas' => 'Šire oblasti programa obuke',
         'trainings__financed_by' => 'Finansijeri programa obuka',
         'trainings__projects' => 'Projekti u okviru kojih se izrađuju programi',
