@@ -3,7 +3,7 @@
 @section('c-title') {{ __('Organi i tijela') }} @endsection
 @section('c-breadcrumbs')
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
-    <a href="{{ route('system.admin.other.bodies') }}">{{ __('Interni događaji') }}</a> /
+    <a href="{{ route('system.admin.other.bodies') }}">{{ __('Organi i tijela') }}</a> /
     <a href="#">{{ $body->title ?? '' }}</a>
 @endsection
 

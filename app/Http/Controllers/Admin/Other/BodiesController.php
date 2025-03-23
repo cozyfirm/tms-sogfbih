@@ -8,6 +8,7 @@ use App\Models\Core\File;
 use App\Models\Core\Keyword;
 use App\Models\Other\Bodies\Bodies;
 use App\Models\Other\Bodies\BodyFiles;
+use App\Models\Other\InternalEvents\InternalEvent;
 use App\Models\Trainings\Submodules\Locations\Location;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
@@ -156,9 +157,19 @@ class BodiesController extends Controller{
             /** Remove instance_file */
             $rel->delete();
 
-            return redirect()->route('system.admin.other.bodies.preview', ['id' => $modelID]);
+            return back();
+            // return redirect()->route('system.admin.other.bodies.preview', ['id' => $modelID]);
         }catch (\Exception $e){
             return back();
         }
+    }
+
+    /**
+     *  Photo Gallery
+     */
+    public function photoGallery($id): View{
+        return view($this->_path . 'gallery', [
+            'body' => Bodies::where('id', '=', $id)->first()
+        ]);
     }
 }

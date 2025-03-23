@@ -399,6 +399,9 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::post('/save-files',                [BodiesController::class, 'saveFiles'])->name('system.admin.other.bodies.save-files');
                 Route::get ('/download-file/{id}',        [BodiesController::class, 'downloadFile'])->name('system.admin.other.bodies.download-file');
                 Route::get ('/remove-file/{id}',          [BodiesController::class, 'removeFile'])->name('system.admin.other.bodies.remove-file');
+
+                /** Gallery route */
+                Route::get('/gallery/{id}',               [BodiesController::class, 'photoGallery'])->name('system.admin.other.bodies.gallery');
             });
 
             /**

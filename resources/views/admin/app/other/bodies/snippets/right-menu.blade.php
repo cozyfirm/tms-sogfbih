@@ -76,7 +76,7 @@
             <img src="{{ asset('files/images/icons/cloud-arrow-up-solid.svg') }}" alt="{{ __('Upload file') }}">
         </div>
     </a>
-    <a href="#" title="{{ __('Galerija fotografija') }}" class="instance-gallery">
+    <a href="{{ route('system.admin.other.bodies.gallery', ['id' => $body->id ]) }}" title="{{ __('Galerija fotografija') }}" class="instance-gallery">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/camera-retro-solid.svg') }}" alt="{{ __('Gallery image') }}">
         </div>
