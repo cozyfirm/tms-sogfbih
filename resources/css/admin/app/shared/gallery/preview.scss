@@ -18,8 +18,11 @@
         .right__side{
             position: relative; display: flex; align-items: center; gap: 16px;
             img{
+                &:hover{cursor: pointer; opacity: 1; }
+                height: 32px; transition: 0.2s all; opacity: 0.6;
+            }
+            .close-preview-gallery{
                 &:hover{cursor: pointer; transform: rotate(90deg); }
-                height: 32px; transition: 0.2s all;
             }
             .download-icon{
                 height: 20px;
@@ -42,10 +45,10 @@
         .left-arrow-wrapper, .right-arrow-wrapper{
             position: relative; height: 100%; display: flex; align-items: center; width: 82px;
             .law_w{
-                &:hover{cursor: pointer; }
+                &:hover{cursor: pointer; img{opacity: 1;} }
                 position: relative; width: 50px; height: 40px; background: #0006; display: flex; justify-content: center; align-items: center;
                 img{
-                    height: 24px;
+                    height: 24px; opacity: 0.6; transition: 0.2s all;
                 }
             }
         }
