@@ -20,6 +20,12 @@ return new class extends Migration
             $table->string('type', 20)->default('img');
             $table->string('path', 200);
 
+            $table->unsignedBigInteger('created_by');
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Traits\Common;
 
 use App\Models\Core\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 trait FileTrait{
     /**
@@ -35,7 +36,8 @@ trait FileTrait{
                     'name' => $name,
                     'ext' => $ext,
                     'type' => $type,
-                    'path' => $request->path
+                    'path' => $request->path,
+                    'created_by' => Auth::user()->id
                 ]);
             }catch (\Exception $e){ return null; }
         }else return null;

@@ -1,11 +1,11 @@
 <div class="three__elements">
-    <div class="element" title="{{ __('Broj učesnika') }}">
-        <h5>{{ __('12') }}</h5>
-        <p>{{ __('Učesnika') }}</p>
+    <div class="element" title="{{ __('Datum i vrijeme održavanja') }}">
+        <h5>{{ $body->time ?? '08:00' }}</h5>
+        <p>{{ (isset($body) ? $body->date() : date('d.m.Y')) }}</p>
     </div>
     <div class="element" title="{{ __('Broj unesenih zaključaka sa događaja') }}">
-        <h5>0</h5>
-        <p>{{ __('Zaključaka') }}</p>
+        <h5 class="total-participants">{{ $body->participantsRel->count() }}</h5>
+        <p>{{ __('Učesnika') }}</p>
     </div>
     <div class="element" title="{{ __('Broj priloženih dokumenata') }}">
         <h5>{{ FileHelper::getBodyFiles($body->id)->count() }}</h5>

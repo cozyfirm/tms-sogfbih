@@ -50,7 +50,8 @@ class ParticipantsController extends Controller{
             $this->totalParticipants($request->type, $request->model_id);
 
             return $this->apiResponse('0000', __('Uspješno spašeno'), [
-                'participant' => $participant->toArray()
+                'participant' => $participant->toArray(),
+                'total' => Participant::where('type', '=', $request->type)->where('model_id', '=', $request->model_id)->count()
             ]);
         }catch (\Exception $e){
             return $this->jsonError('5100', __('Desila se greška. Molimo kontaktirajte administratora'));
@@ -114,7 +115,9 @@ class ParticipantsController extends Controller{
             /** Update statistics */
             $this->totalParticipants($type, $modelID);
 
-            return $this->apiResponse('0000', __('Uspješno obrisan učesnik/ca ' . $name));
+            return $this->apiResponse('0000', __('Uspješno obrisan učesnik/ca ' . $name), [
+                'total' => Participant::where('type', '=', $type)->where('model_id', '=', $modelID)->count()
+            ]);
         }catch (\Exception $e){
             return $this->jsonError('5100', __('Desila se greška. Molimo kontaktirajte administratora'));
         }

@@ -5,6 +5,7 @@ namespace App\Models\Core;
 use App\Models\Other\Bodies\BodyFiles;
 use App\Models\Other\InternalEvents\IEFiles;
 use App\Models\Trainings\Instances\InstanceFile;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -31,6 +32,9 @@ class File extends Model{
     /**
      *  Relationship models
      */
+    public function createdBy(): HasOne{
+        return $this->hasOne(User::class, 'id', 'created_by');
+    }
     public function instanceRel(): HasOne{
         return $this->hasOne(InstanceFile::class, 'file_id', 'id');
     }

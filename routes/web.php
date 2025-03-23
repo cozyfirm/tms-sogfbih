@@ -380,6 +380,9 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::post('/save-files',                [InternalEventsController::class, 'saveFiles'])->name('system.admin.other.internal-events.save-files');
                 Route::get ('/download-file/{id}',        [InternalEventsController::class, 'downloadFile'])->name('system.admin.other.internal-events.download-file');
                 Route::get ('/remove-file/{id}',          [InternalEventsController::class, 'removeFile'])->name('system.admin.other.internal-events.remove-file');
+
+                /** Gallery route */
+                Route::get('/gallery/{id}',               [InternalEventsController::class, 'photoGallery'])->name('system.admin.other.internal-events.gallery');
             });
 
             /** Bodies */

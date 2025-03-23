@@ -10,6 +10,7 @@ import 'bootstrap-datepicker';
 /* Import Admin JavaScript data */
 import './admin/layout/menu.js';
 import './admin/layout/filters.js';
+import "./admin/layout/confirm-delete.js";
 
 /**
  *  Core scripts
@@ -47,6 +48,7 @@ import './public-part/auth/auth.js';
  *  Import shared scripts
  */
 import './admin/app/shared/files/file-upload.js';
+import './admin/app/shared/photo-gallery.js';
 
 /**
  *  Analysis data

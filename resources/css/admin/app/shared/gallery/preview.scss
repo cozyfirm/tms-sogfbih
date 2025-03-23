@@ -1,0 +1,102 @@
+.preview__gallery{
+    position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; z-index: 1000; background: rgba(0,0,0,0.8);
+
+    .gallery__header{
+        position: absolute; left: 0px; top: 0px; width: 100%; height: 60px; background: #0006; display: flex; justify-content: space-between;
+        padding: 0px 32px; align-items: center;
+
+        @media only screen and (max-width: 1000px) {
+            padding: 0px 20px;
+        }
+
+        .left__side{
+            position: relative;
+            p{
+                color: #FFFFFF; margin: 0px; padding: 0px;
+            }
+        }
+        .right__side{
+            position: relative; display: flex; align-items: center; gap: 16px;
+            img{
+                &:hover{cursor: pointer; transform: rotate(90deg); }
+                height: 32px; transition: 0.2s all;
+            }
+            .download-icon{
+                height: 20px;
+            }
+        }
+    }
+
+    .gi__middle__wrapper{
+        position: relative; width: 100%; height: calc(100% - 200px); display: flex; gap: 32px; align-items: center; justify-content: space-between;
+        margin-top: 60px;
+
+        .gi__preview{
+            position: relative; width: calc(100% - 240px); height: calc(100% - 0px); left: 0px; margin-top: 0px; display: flex; align-items: center; justify-content: center;
+            img{
+                &.active{display: initial;}
+                position: relative; max-width: 100%; max-height: calc(100% - 64px); display: none;
+            }
+        }
+
+        .left-arrow-wrapper, .right-arrow-wrapper{
+            position: relative; height: 100%; display: flex; align-items: center; width: 82px;
+            .law_w{
+                &:hover{cursor: pointer; }
+                position: relative; width: 50px; height: 40px; background: #0006; display: flex; justify-content: center; align-items: center;
+                img{
+                    height: 24px;
+                }
+            }
+        }
+        .left-arrow-wrapper{ @media only screen and (max-width: 1000px) { padding-left: 20px; } padding-left: 32px; }
+        .right-arrow-wrapper{ @media only screen and (max-width: 1000px) { padding-left: 16px; } }
+    }
+
+    .gallery__footer{
+        position: absolute; left: 0px; bottom: 0px; width: 100%; height: 140px; background: #0006; display: flex; align-items: center; justify-content: center;
+
+        .inner__wrapper{
+            width: 60%;   // display: flex; gap: 4px; align-items: center;
+            overflow-x: auto !important;
+            overflow-y: hidden;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            text-align: center;
+
+            @media only screen and (max-width: 1000px){
+                width: calc(100% - 40px); height: 80px; margin-top:0px;
+            }
+
+            .image__wrapper{
+                &.active{
+                    border: 2px solid $yellow;
+                }
+                &:hover{cursor: pointer; }
+                display: inline-block; width: 100px; border: 2px solid #FFFFFF; height: 80px; border-radius: 4px;
+                float: none; overflow: hidden;
+
+                img{
+                    object-fit: contain; max-width: 150%; max-height: 150%;
+                }
+            }
+        }
+
+        .inner__wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .inner__wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .inner__wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        .inner__wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+    }
+}

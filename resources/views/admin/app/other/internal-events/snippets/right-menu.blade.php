@@ -4,7 +4,7 @@
         <p>{{ (isset($event) ? $event->date() : date('d.m.Y')) }}</p>
     </div>
     <div class="element" title="{{ __('Broj unesenih zaključaka sa događaja') }}">
-        <h5>{{ __('12') }}</h5>
+        <h5 class="total-participants">{{ $event->participantsRel->count() }}</h5>
         <p>{{ __('Učesnika') }}</p>
     </div>
     <div class="element" title="{{ __('Broj priloženih dokumenata') }}">
@@ -76,7 +76,7 @@
             <img src="{{ asset('files/images/icons/cloud-arrow-up-solid.svg') }}" alt="{{ __('Upload file') }}">
         </div>
     </a>
-    <a href="#" title="{{ __('Galerija fotografija') }}" class="instance-gallery">
+    <a href="{{ route('system.admin.other.internal-events.gallery', ['id' => $event->id ]) }}" title="{{ __('Galerija fotografija') }}" class="instance-gallery">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/camera-retro-solid.svg') }}" alt="{{ __('Gallery image') }}">
         </div>

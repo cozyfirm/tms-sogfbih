@@ -95,6 +95,8 @@ $("document").ready(function (){
                             /** Close wrapper */
                             $(".participants").addClass('d-none');
                         }
+
+                        $(".total-participants").text(response['data']['total']);
                     }else{
                         Notify.Me([response['message'], "warn"]);
                     }
@@ -173,6 +175,8 @@ $("document").ready(function (){
                     if($(".participant_w").length === 0){
                         $(".shared_participants").addClass('d-none');
                     }
+
+                    $(".total-participants").text(response['data']['total']);
 
                     Notify.Me([response['message'], "success"]);
                 }else{

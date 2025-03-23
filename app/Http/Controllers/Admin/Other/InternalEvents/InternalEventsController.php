@@ -176,9 +176,19 @@ class InternalEventsController extends Controller{
             /** Remove instance_file */
             $rel->delete();
 
-            return redirect()->route('system.admin.other.internal-events.preview', ['id' => $modelID]);
+            return back();
+            // return redirect()->route('system.admin.other.internal-events.preview', ['id' => $modelID]);
         }catch (\Exception $e){
             return back();
         }
+    }
+
+    /**
+     *  Photo Gallery
+     */
+    public function photoGallery($id): View{
+        return view($this->_path . 'gallery', [
+            'event' => InternalEvent::where('id', '=', $id)->first()
+        ]);
     }
 }

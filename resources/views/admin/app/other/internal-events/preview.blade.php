@@ -21,7 +21,8 @@
                 <i class="fas fa-edit"></i>
             </button>
         </a>
-        <a href="{{ route('system.admin.other.internal-events.delete', ['id' => $event->id ]) }}">
+
+        <a href="{{ route('system.admin.other.internal-events.delete', ['id' => $event->id ]) }}" class="prevent-delete" text="{{ __('Jeste li sigurni da želite obrisati ovaj događaj?') }}" title="{{ __('Obrišite događaj') }}">
             <button class="pm-btn pm-btn-white btn pm-btn-trash">
                 <i class="fas fa-trash"></i>
             </button>
