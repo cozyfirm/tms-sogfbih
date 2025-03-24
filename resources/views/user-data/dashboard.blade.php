@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="home-row-items">
-                        <div class="home-icon go-to" link="#">
+                        <div class="home-icon go-to new-window" link="/files/instructions/users-manual.pdf" title="{{ __('Instrukcije za korištenje sistema') }}">
                             <i class="fa-solid fa-book-open-reader"></i>
                             <p> {{__('Korisničko uputstvo')}} </p>
                         </div>

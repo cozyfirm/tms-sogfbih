@@ -29,6 +29,10 @@
                             <i class="fa-solid fa-unlock-keyhole"></i>
                             <p> {{__('Šifarnici')}} </p>
                         </div>
+                        <div class="home-icon go-to new-window" link="/files/instructions/admins-manual.pdf" title="{{ __('Uputstvo za administratore sistema') }}">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                            <p> {{__('Korisničko uputstvo')}} </p>
+                        </div>
                     </div>
                 </div>
             </div>

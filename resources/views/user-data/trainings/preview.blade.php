@@ -8,8 +8,7 @@
     {{ $instance->trainingRel->title ?? '' }}
 @endsection
 @section('c-breadcrumbs')
-    <a href="#"> <i class="fas fa-home"></i>
-        <p>{{ __('Dashboard') }}</p></a> /
+    <a href="{{ route('system.user-data.dashboard') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p></a> /
     <a href="{{ route('system.user-data.trainings') }}">{{ __('Sistem obuka') }}</a> /
     <a href="{{ route('system.user-data.trainings.preview', ['id' => $instance->id ]) }}">{{ $instance->trainingRel->title ?? '' }}</a>
 @endsection

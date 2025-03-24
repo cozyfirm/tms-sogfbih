@@ -67,9 +67,11 @@ $(document).ready(function() {
     /* Global linking */
     $("body").on('click', '.go-to', function (){
         let link = $(this).attr('link');
+        let hasClass = $(this).hasClass('new-window');
 
         setTimeout(function (){
-            window.location = link;
+            if(hasClass) window.open(link, '_blank');
+            else window.location = link;
         }, 100);
     });
 

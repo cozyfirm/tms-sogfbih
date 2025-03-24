@@ -2,7 +2,7 @@
 @section('c-icon') <i class="fa-solid fa-building-columns"></i> @endsection
 @section('c-title') {{ __('Stručna sprema') }} @endsection
 @section('c-breadcrumbs')
-    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a href="{{ route('system.user-data.dashboard') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
     <a href="{{ route('system.admin.users') }}">{{ __('Pregled korisnika') }}</a> /
     <a href="{{ route('system.admin.users.preview', ['username' => $user->username ]) }}">{{ $user->name }}</a> /
     <a href="#">{{ __('Stručna sprema') }}</a>
