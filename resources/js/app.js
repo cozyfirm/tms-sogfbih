@@ -65,7 +65,7 @@ $(document).ready(function() {
     }); // Initialize the datepicker
 
     /* Global linking */
-    $(".go-to").click(function (){
+    $("body").on('click', '.go-to', function (){
         let link = $(this).attr('link');
 
         setTimeout(function (){

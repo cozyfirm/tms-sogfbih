@@ -111,7 +111,11 @@ trait UserBaseTrait{
                     $this->publishMessage('system-access', $admin->api_token, '0000', [
                         'action' => $action,
                         'description' => $description,
-                        'date' => $access->dateTime()
+                        'date' => $access->dateTime(),
+                        'username' => $user->username,
+                        'initials' => $user->getInitials(),
+                        'name' => $user->name,
+                        'classname' => ($access->action == 'sign-in') ? 'fa-right-to-bracket' : 'fa-power-off'
                     ]);
                 }
             }catch (\Exception $e){
