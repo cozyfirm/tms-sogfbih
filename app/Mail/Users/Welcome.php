@@ -10,17 +10,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmEmail extends Mailable{
+class Welcome extends Mailable{
     use Queueable, SerializesModels;
-    public $_email, $_name, $_token;
+    public string $_email, $_name, $_password, $_gender;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($email, $name, $token){
+    public function __construct($email, $name, $password, $gender){
         $this->_email = $email;
         $this->_name = $name;
-        $this->_token = $token;
+        $this->_password = $password;
+        $this->_gender = $gender;
     }
 
     /**
@@ -29,7 +30,7 @@ class ConfirmEmail extends Mailable{
     public function envelope(): Envelope{
         return new Envelope(
             from: new Address(env('MAIL_FROM_ADDRESS'), env('APP_NAME')),
-            subject: 'Potvrda e-Pošte',
+            subject: 'TMS SOGFBiH',
         );
     }
 
@@ -38,7 +39,7 @@ class ConfirmEmail extends Mailable{
      */
     public function content(): Content{
         return new Content(
-            markdown: 'public-part.auth.mail.confirm-email',
+            markdown: 'admin.app.users.mail.welcome',
         );
     }
 
@@ -47,7 +48,8 @@ class ConfirmEmail extends Mailable{
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
-    public function attachments(): array{
+    public function attachments(): array
+    {
         return [];
     }
 }

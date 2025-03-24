@@ -27,13 +27,13 @@
                         <p> {{__('Korisnici')}} </p>
                     </div>
                 </a>
-                <a href="#">
+                <a href="/files/instructions/admins-manual.pdf" target="_blank">
                     <div class="single-li">
                         <p> {{__('Korisničko uputstvo')}} </p>
                     </div>
                 </a>
             @elseif(Auth()->user()->role == 'user')
-                <a href="#">
+                <a href="/files/instructions/users-manual.pdf" target="_blank">
                     <div class="single-li">
                         <p> {{__('Korisničko uputstvo')}} </p>
                     </div>

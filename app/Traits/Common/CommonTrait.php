@@ -29,6 +29,19 @@ trait CommonTrait{
     }
 
     /**
+     * Generate random string of length
+     * @param $length
+     * @return string
+     */
+    public function randomString($length): string{
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        $result = '';
+        for ($i = 0; $i < $length; $i++)  $result .= $characters[mt_rand(0, 61)];
+
+        return $result;
+    }
+
+    /**
      *  Extract select-2 multiple values and form array of data
      */
     public function extractSelect2($values): array{

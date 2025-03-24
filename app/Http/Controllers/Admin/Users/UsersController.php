@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\Core\Filters;
+use App\Mail\Users\Welcome;
 use App\Models\Core\City;
 use App\Models\Core\Country;
 use App\Models\Core\Keyword;
 use App\Models\User;
 use App\Models\Users\Education;
+use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
 use Carbon\Carbon;
@@ -17,10 +19,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class UsersController extends Controller{
-    use UserBaseTrait, ResponseTrait;
+    use UserBaseTrait, ResponseTrait, CommonTrait;
     protected string $_path = 'admin.app.users.';
 
     public function index(): View{
@@ -68,17 +72,28 @@ class UsersController extends Controller{
             $request['username'] = $this->getSlug($request->name);
 
             /* Hash password and add token */
-            $request['password'] = Hash::make(md5(time()));
+            $request['password'] = $this->randomString(8);
             $request['api_token'] = hash('sha256', 'root'. '+'. time());
             if (isset($request->birth_date)) $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
 
             /* Set profile as verified */
-            $request['email_verified_at	'] = Carbon::now();
+            $request['email_verified_at'] = Carbon::now();
+            $request['role'] = 'user';
 
             /* Update user */
             $user = User::create($request->except(['id']));
 
             /** ToDo:: Send email to user with access data */
+
+            $message = "Welcome email to " . ($user->name);
+            try{
+                Mail::to($user->email)->send(new Welcome($user->email, $user->name, $request->password, $user->gender));
+
+                $message .= " is successfully sent!";
+            }catch (\Exception $e){
+                $message .= " was not sent! Error: " . $e->getMessage();
+            }
+            Log::info($message);
 
             return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.users.preview', ['username' => $user->username]));
         }catch (\Exception $e){
