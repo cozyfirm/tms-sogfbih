@@ -159,10 +159,43 @@
                                 <p>{{__('Programi obuka')}}</p>
                             </div>
                         </a>
-                        <a href="#">
+                        <a href="{{ route('system.admin.trainings.instances') }}">
                             <div class="inside-lm-link">
                                 <div class="ilm-l"></div><div class="ilm-c"></div>
                                 <p> {{__('Instance obuka')}} </p>
+                            </div>
+                        </a>
+                        <a href="{{ route('system.admin.trainings.authors') }}">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p> {{__('Autori obuke')}} </p>
+                            </div>
+                        </a>
+                        <a href="{{ route('system.admin.trainings.submodules.trainers') }}">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p> {{__('Treneri')}} </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.admin.shared*')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
+                        <p>{{__('Zajednički moduli')}}</p>
+                        <div class="extra-elements">
+                            <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="inside-links active-links">
+                        <a href="{{ route('system.admin.shared.locations') }}">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p>{{__('Lokacije')}}</p>
                             </div>
                         </a>
                     </div>

@@ -20,19 +20,19 @@
 
                 <div class="home-row-body">
                     <div class="home-row-items">
-                        <div class="home-icon" title="{{__('Ukupan broj programa obuka')}}">
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings') }}" title="{{__('Ukupan broj programa obuka')}}">
                             <h1> {{$trainings ?? '0'}}</h1>
                             <p>{{__('Programa')}}</p>
                         </div>
-                        <div class="home-icon" title="{{__('Objavljenih obuka')}}">
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.instances') }}" title="{{__('Objavljenih obuka')}}">
                             <h1>{{$instances ?? '0'}}</h1>
                             <p>{{__('Obuka')}}</p>
                         </div>
-                        <div class="home-icon" title="{{__('Registrovanih trenera')}}">
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.trainers') }}" title="{{__('Registrovanih trenera')}}">
                             <h1>{{$trainers ?? '0'}}</h1>
                             <p>{{__('Trenera')}}</p>
                         </div>
-                        <div class="home-icon" title="{{__('Registrovanih korisnika')}}">
+                        <div class="home-icon go-to" link="{{ route('system.admin.users') }}" title="{{__('Registrovanih korisnika')}}">
                             <h1>{{$users ?? '0'}}</h1>
                             <p>{{__('Korisnika')}}</p>
                         </div>
@@ -56,12 +56,11 @@
                             <i class="fas fa-chart-area"></i>
                             <p> {{__('Izvještaji')}} </p>
                         </div>
-                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.trainers') }}">
-                            <img class="normal-icon" src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Training image') }}">
-                            <img class="white-icon" src="{{ asset('files/images/icons/trainer-white.svg') }}" alt="{{ __('Training image') }}">
-                            <p> {{__('Treneri')}} </p>
+                        <div class="home-icon go-to" link="{{ route('system.admin.shared.locations') }}">
+                            <i class="fa-solid fa-map"></i>
+                            <p> {{__('Lokacije')}} </p>
                         </div>
-                        <div class="home-icon" link="">
+                        <div class="home-icon go-to" link="{{ route('system.admin.users') }}">
                             <img class="normal-icon" src="{{ asset('files/images/icons/users.svg') }}" alt="{{ __('Training image') }}">
                             <img class="white-icon" src="{{ asset('files/images/icons/users-white.svg') }}" alt="{{ __('Training image') }}">
                             <p> {{__('Korisnici')}} </p>
@@ -80,7 +79,7 @@
                             <i class="fas fa-info-circle"></i>
                             <p>{{ __('Organi i tijela') }}</p>
                         </div>
-                        <div class="home-icon" link="">
+                        <div class="home-icon go-to" link="{{ route('system.admin.core') }}">
                             <i class="fas fa-cogs"></i>
                             <p>{{ __('Postavke') }}</p>
                         </div>
@@ -90,29 +89,7 @@
         </div>
 
         <div class="homepage-side">
-            <div class="reminders home-right-wrapper">
-                <div class="home-right-header">
-                    <p>Napomene</p>
-                </div>
-                <div class="home-right-element">
-                    Danas, 11. Januar 2021 - Ponedjeljak, potrebno je da završim ovaj desni dio aplikacije !
-                </div>
-                <div class="home-right-element">
-                    Ovdje upisujemo drugu napomenu !
-                </div>
-            </div>
-
-            <div class="reminders home-right-wrapper">
-                <div class="home-right-header">
-                    <p> {{__('Brzi linkovi')}} </p>
-                </div>
-                <div class="home-right-element">
-                    {{__('Podrška')}}
-                </div>
-                <div class="home-right-element">
-                    {{__('Homepage')}}
-                </div>
-            </div>
+            @include('admin.app.shared.snippets.home-menu')
         </div>
     </div>
 @endsection

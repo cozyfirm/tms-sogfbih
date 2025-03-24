@@ -2,9 +2,8 @@
 @section('c-icon') <i class="fa-solid fa-map"></i> @endsection
 @section('c-title') {{ __('Lokacije') }} @endsection
 @section('c-breadcrumbs')
-    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
-    <a href="#">...</a> /
-    <a href="{{ route('system.admin.trainings.submodules.locations') }}">{{ __('Pregled svih lokacija') }}</a> /
+    <a href="{{ route('system.home') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a href="{{ route('system.admin.shared.locations') }}">{{ __('Pregled svih lokacija') }}</a> /
     @isset($create)
         <a href="#">{{ __('Unos') }}</a>
     @else
@@ -13,7 +12,7 @@
 @endsection
 
 @section('c-buttons')
-    <a href="@isset($edit) {{ route('system.admin.trainings.submodules.locations.preview', ['id' => $location->id ]) }} @else @endif{{ route('system.admin.trainings.submodules.locations') }}" title="{{ __('Nazad') }}">
+    <a href="@isset($edit) {{ route('system.admin.shared.locations.preview', ['id' => $location->id ]) }} @else @endif{{ route('system.admin.shared.locations') }}" title="{{ __('Nazad') }}">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>
@@ -21,12 +20,12 @@
     </a>
 
     @isset($preview)
-        <a href="{{ route('system.admin.trainings.submodules.locations.edit', ['id' => $location->id ]) }}" title="{{ __('Uredite lokaciju') }}">
+        <a href="{{ route('system.admin.shared.locations.edit', ['id' => $location->id ]) }}" title="{{ __('Uredite lokaciju') }}">
             <button class="pm-btn pm-btn-white btn pm-btn-edit">
                 <i class="fas fa-edit"></i>
             </button>
         </a>
-        <a href="{{ route('system.admin.trainings.submodules.locations.delete', ['id' => $location->id ]) }}" title="{{ __('Obrišite lokaciju') }}">
+        <a href="{{ route('system.admin.shared.locations.delete', ['id' => $location->id ]) }}" title="{{ __('Obrišite lokaciju') }}">
             <button class="pm-btn pm-btn-white btn pm-btn-trash">
                 <i class="fas fa-trash"></i>
             </button>
@@ -38,7 +37,7 @@
     <div class="content-wrapper content-wrapper-p-15">
         <div class="row">
             <div class="col-md-12">
-                <form action="@if(isset($edit)) {{ route('system.admin.trainings.submodules.locations.update') }} @else {{ route('system.admin.trainings.submodules.locations.save') }} @endif" method="POST" id="js-form">
+                <form action="@if(isset($edit)) {{ route('system.admin.shared.locations.update') }} @else {{ route('system.admin.shared.locations.save') }} @endif" method="POST" id="js-form">
                     @if(isset($edit))
                         {{ html()->hidden('id')->class('form-control')->value($location->id) }}
                     @endif

@@ -1,5 +1,5 @@
 @extends('admin.layout.layout')
-@section('c-icon') <i class="fas fa-key"></i> @endsection
+@section('c-icon') <i class="fa-solid fa-unlock-keyhole"></i> @endsection
 @section('c-title') {{ __('Pregled svih šifarnika') }} @endsection
 @section('c-breadcrumbs')
     <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> / <a href="{{ route('system.admin.core.keywords') }}">{{ __('Šifarnici') }}</a>

@@ -33,13 +33,14 @@
                             <img class="white-icon" src="{{ asset('files/images/icons/training-instance-white.svg') }}" alt="{{ __('Training instance image') }}">
                             <p> {{__('Instance obuka')}} </p>
                         </div>
-                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.evaluations') }}">
-                            <i class="fa-solid fa-user-pen"></i>
-                            <p> {{__('Evaluacije')}} </p>
-                        </div>
                         <div class="home-icon go-to" link="{{ route('system.admin.trainings.authors') }}">
                             <i class="fa-solid fa-users"></i>
                             <p> {{__('Autori obuka')}} </p>
+                        </div>
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.trainers') }}">
+                            <img class="normal-icon" src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Training image') }}">
+                            <img class="white-icon" src="{{ asset('files/images/icons/trainer-white.svg') }}" alt="{{ __('Training image') }}">
+                            <p> {{__('Treneri')}} </p>
                         </div>
 {{--                        <div class="home-icon" link="">--}}
 {{--                            <img class="normal-icon" src="{{ asset('files/images/icons/users.svg') }}" alt="{{ __('Training image') }}">--}}
@@ -48,9 +49,9 @@
 {{--                        </div>--}}
                     </div>
                     <div class="home-row-items">
-                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.locations') }}">
-                            <i class="fa-solid fa-map"></i>
-                            <p> {{__('Lokacije')}} </p>
+                        <div class="home-icon go-to" link="{{ route('system.admin.trainings.submodules.evaluations') }}">
+                            <i class="fa-solid fa-user-pen"></i>
+                            <p> {{__('Evaluacije')}} </p>
                         </div>
                     </div>
                 </div>
@@ -58,29 +59,7 @@
         </div>
 
         <div class="homepage-side">
-            <div class="reminders home-right-wrapper">
-                <div class="home-right-header">
-                    <p>Napomene</p>
-                </div>
-                <div class="home-right-element">
-                    Danas, 11. Januar 2021 - Ponedjeljak, potrebno je da završim ovaj desni dio aplikacije !
-                </div>
-                <div class="home-right-element">
-                    Ovdje upisujemo drugu napomenu !
-                </div>
-            </div>
-
-            <div class="reminders home-right-wrapper">
-                <div class="home-right-header">
-                    <p> {{__('Brzi linkovi')}} </p>
-                </div>
-                <div class="home-right-element">
-                    {{__('Podrška')}}
-                </div>
-                <div class="home-right-element">
-                    {{__('Homepage')}}
-                </div>
-            </div>
+            @include('admin.app.shared.snippets.home-menu')
         </div>
     </div>
 @endsection

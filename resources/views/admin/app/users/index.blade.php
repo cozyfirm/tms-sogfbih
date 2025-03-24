@@ -2,10 +2,10 @@
 @section('c-icon') <i class="fas fa-users"></i> @endsection
 @section('c-title') {{ __('Korisnici') }} @endsection
 @section('c-breadcrumbs')
-    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> / <a href="{{ route('system.admin.users') }}">{{ __('Pregled svih korisnika') }}</a>
+    <a href="{{ route('system.home') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> / <a href="{{ route('system.admin.users') }}">{{ __('Pregled svih korisnika') }}</a>
 @endsection
 @section('c-buttons')
-    <a href="{{ route('system.admin.users') }}">
+    <a href="{{ route('system.home') }}">
         <button class="pm-btn btn btn-dark"> <i class="fas fa-star"></i> </button>
     </a>
     <a href="{{ route('system.admin.users.create') }}">

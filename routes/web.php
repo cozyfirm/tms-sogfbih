@@ -1,17 +1,19 @@
 <?php
 
 use App\Http\Controllers\Admin\Core\CitiesController;
+use App\Http\Controllers\Admin\Core\CoreController;
 use App\Http\Controllers\Admin\Core\FileUploadController;
 use App\Http\Controllers\Admin\Core\KeywordsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Other\Analysis\AnalysisController;
-use App\Http\Controllers\Admin\Other\Analysis\EvaluationsController as AnalysisEvaluationController;
 use App\Http\Controllers\Admin\Other\Analysis\DownloadController as AnalysisDownloadController;
+use App\Http\Controllers\Admin\Other\Analysis\EvaluationsController as AnalysisEvaluationController;
 use App\Http\Controllers\Admin\Other\Analysis\SubmissionController as PublicAnalysisEvaluationController;
 use App\Http\Controllers\Admin\Other\BodiesController;
 use App\Http\Controllers\Admin\Other\FAQsController;
 use App\Http\Controllers\Admin\Other\InternalEvents\InternalEventsController;
 use App\Http\Controllers\Admin\Other\ParticipantsController;
+use App\Http\Controllers\Admin\Shared\LocationsController;
 use App\Http\Controllers\Admin\Trainings\AuthorsController;
 use App\Http\Controllers\Admin\Trainings\InstancesController;
 use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
@@ -22,7 +24,6 @@ use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EventsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\LocationsController as InstanceLocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\PresenceController as InstancesPresenceController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\TrainersController as InstanceTrainersController;
-use App\Http\Controllers\Admin\Trainings\Submodules\LocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\Auth\AuthController;
@@ -262,19 +263,6 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 });
 
                 /**
-                 *  Locations
-                 */
-                Route::prefix('locations')->group(function () {
-                    Route::get ('/',                           [LocationsController::class, 'index'])->name('system.admin.trainings.submodules.locations');
-                    Route::get ('/create',                     [LocationsController::class, 'create'])->name('system.admin.trainings.submodules.locations.create');
-                    Route::post('/save',                       [LocationsController::class, 'save'])->name('system.admin.trainings.submodules.locations.save');
-                    Route::get ('/preview/{id}',               [LocationsController::class, 'preview'])->name('system.admin.trainings.submodules.locations.preview');
-                    Route::get ('/edit/{id}',                  [LocationsController::class, 'edit'])->name('system.admin.trainings.submodules.locations.edit');
-                    Route::post('/update',                     [LocationsController::class, 'update'])->name('system.admin.trainings.submodules.locations.update');
-                    Route::get ('/delete/{id}',                [LocationsController::class, 'delete'])->name('system.admin.trainings.submodules.locations.delete');
-                });
-
-                /**
                  *  Evaluations
                  */
                 Route::prefix('evaluations')->middleware('isAuthenticated')->group(function () {
@@ -288,8 +276,10 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
          *  1. Keywords
          */
         Route::prefix('core')->group(function () {
+            Route::get ('/',                                        [CoreController::class, 'index'])->name('system.admin.core');
+
             /**
-             *  FAQs section
+             *  Keywords section
              */
             Route::prefix('keywords')->group(function () {
                 Route::get ('/',                                    [KeywordsController::class, 'index'])->name('system.admin.core.keywords');
@@ -328,6 +318,27 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                 Route::post('/',                               [FileUploadController::class, 'upload'])->name('system.admin.core.file-upload');
             });
         });
+
+        /**
+         *  Shared modules:
+         *      1. Locations
+         */
+
+        Route::prefix('shared')->middleware('isAdmin')->group(function () {
+            /**
+             *  Locations
+             */
+            Route::prefix('locations')->middleware('isAdmin')->group(function () {
+                Route::get ('/',                           [LocationsController::class, 'index'])->name('system.admin.shared.locations');
+                Route::get ('/create',                     [LocationsController::class, 'create'])->name('system.admin.shared.locations.create');
+                Route::post('/save',                       [LocationsController::class, 'save'])->name('system.admin.shared.locations.save');
+                Route::get ('/preview/{id}',               [LocationsController::class, 'preview'])->name('system.admin.shared.locations.preview');
+                Route::get ('/edit/{id}',                  [LocationsController::class, 'edit'])->name('system.admin.shared.locations.edit');
+                Route::post('/update',                     [LocationsController::class, 'update'])->name('system.admin.shared.locations.update');
+                Route::get ('/delete/{id}',                [LocationsController::class, 'delete'])->name('system.admin.shared.locations.delete');
+            });
+        });
+
 
         /**
          *  Other:

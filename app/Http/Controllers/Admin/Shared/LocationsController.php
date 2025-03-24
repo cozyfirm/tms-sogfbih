@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Trainings\Submodules;
+namespace App\Http\Controllers\Admin\Shared;
 
 use App\Http\Controllers\Admin\Core\Filters;
 use App\Http\Controllers\Controller;
 use App\Models\Core\City;
-use App\Models\Core\Country;
-use App\Models\Core\Keyword;
 use App\Models\Trainings\Submodules\Locations\Location;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Common\FileTrait;
@@ -20,7 +18,7 @@ use Illuminate\View\View;
 class LocationsController extends Controller{
     use ResponseTrait, CommonTrait, TrainingTrait, FileTrait;
 
-    protected string $_path = 'admin.app.trainings.submodules.locations.';
+    protected string $_path = 'admin.app.shared.locations.';
 
     public function index(): View{
         $locations = Location::orderBy('title');
@@ -50,7 +48,7 @@ class LocationsController extends Controller{
         try{
             $location = Location::create($request->except(['_token']));
 
-            return $this->jsonSuccess(__('Uspješno spašeno'), route('system.admin.trainings.submodules.locations.preview', ['id' => $location->id ]));
+            return $this->jsonSuccess(__('Uspješno spašeno'), route('system.admin.shared.locations.preview', ['id' => $location->id ]));
         }catch (\Exception $e){
             return $this->jsonError('5200', __('Greška prilikom obrade podataka. Molimo kontaktirajte administratora!'));
         }
@@ -73,7 +71,7 @@ class LocationsController extends Controller{
         try{
             Location::where('id', '=', $request->id)->update($request->except(['_token', 'id']));
 
-            return $this->jsonSuccess(__('Uspješno spašeno'), route('system.admin.trainings.submodules.locations.preview', ['id' => $request->id ]));
+            return $this->jsonSuccess(__('Uspješno spašeno'), route('system.admin.shared.locations.preview', ['id' => $request->id ]));
         }catch (\Exception $e){
             return $this->jsonError('5200', __('Greška prilikom obrade podataka. Molimo kontaktirajte administratora!'));
         }
@@ -82,8 +80,8 @@ class LocationsController extends Controller{
         try{
             Location::where('id', '=', $id)->delete();
         }catch (\Exception $e){
-            return redirect()->route('system.admin.trainings.submodules.locations.preview', ['id' => $id ]);
+            return redirect()->route('system.admin.shared.locations.preview', ['id' => $id ]);
         }
-        return redirect()->route('system.admin.trainings.submodules.locations');
+        return redirect()->route('system.admin.shared.locations');
     }
 }
