@@ -4,9 +4,12 @@ namespace App\Traits\Users;
 use App\Models\User;
 use App\Models\Users\Notification;
 use App\Models\Users\SystemAccess;
+use App\Traits\Mqtt\MqttTrait;
 use Illuminate\Support\Facades\Log;
 
 trait UserBaseTrait{
+    use MqttTrait;
+
     /**
      * Check for users with same username
      *
@@ -19,6 +22,15 @@ trait UserBaseTrait{
             if($total == 0) return '';
             else return $total;
         }catch (\Exception $e){ return ''; }
+    }
+
+    /**
+     * Get all admins from system
+     * @return mixed
+     */
+    public function getAdmins(): mixed{
+        /* ToDO :: Check for moderators */
+        return User::where('role', '=', 'admin')->get();
     }
 
     /**
@@ -82,16 +94,31 @@ trait UserBaseTrait{
         }
     }
 
-    public function logAction($user_id, $action, $description): void{
+    public function logAction($user, $action, $description): void{
         try{
-            SystemAccess::create([
-                'user_id' => $user_id,
+            $access = SystemAccess::create([
+                'user_id' => $user->id,
                 'action' => $action,
                 'description' => $description,
                 'ip_address' => $_SERVER['REMOTE_ADDR']
             ]);
+
+            /**
+             *  Broadcast over MQTT
+             */
+            try{
+                foreach ($this->getAdmins() as $admin) {
+                    $this->publishMessage('system-access', $admin->api_token, '0000', [
+                        'action' => $action,
+                        'description' => $description,
+                        'date' => $access->dateTime()
+                    ]);
+                }
+            }catch (\Exception $e){
+                Log::info("UserBaseTrait::logAction() Error while broadcasting action");
+            }
         }catch (\Exception $e){
-            Log::info("Greška prilikom kreiranja informacija o pristupu sistema");
+            Log::info("UserBaseTrait::logAction() Error while logging action");
         }
     }
 }

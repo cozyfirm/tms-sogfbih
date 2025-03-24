@@ -90,3 +90,9 @@ $(document).ready(function() {
         }
     });
 });
+
+
+/**
+ *  MQTT Scripts
+ */
+import './mqtt/mqtt.js';

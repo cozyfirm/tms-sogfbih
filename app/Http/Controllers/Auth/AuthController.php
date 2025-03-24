@@ -43,7 +43,7 @@ class AuthController extends Controller{
             $user = Auth::user();
 
             if($user->email_verified_at == null){
-                $this->logAction($user->id, 'sign-in', __('Pokušaj prijave na sistem. Račun nije verifikovan'));
+                $this->logAction($user, 'sign-in', __('Pokušaj prijave na sistem. Račun nije verifikovan'));
 
                 Auth::logout();
                 return json_encode([
@@ -60,7 +60,7 @@ class AuthController extends Controller{
                 $uri = Session::get('getBackToUri');
             }
 
-            $this->logAction($user->id, 'sign-in', __('Prijava na sistem'));
+            $this->logAction($user, 'sign-in', __('Prijava na sistem'));
 
             return json_encode([
                 'code' => '0000',
@@ -80,7 +80,7 @@ class AuthController extends Controller{
         }else {
             $failUser = User::where('email', '=', $request->email)->first();
             if($failUser){
-                $this->logAction($failUser->id, 'sign-in', __('Pokušaj prijave na sistem. Neispravni pristupni podaci'));
+                $this->logAction($failUser, 'sign-in', __('Pokušaj prijave na sistem. Neispravni pristupni podaci'));
             }
 
             return json_encode([
@@ -95,7 +95,7 @@ class AuthController extends Controller{
      * Destroy sessions and log user out
      */
     public function logout(): \Illuminate\Http\RedirectResponse{
-        $this->logAction(Auth::user()->id, 'sign-out', __('Odjava sa sistema'));
+        $this->logAction(Auth::user(), 'sign-out', __('Odjava sa sistema'));
 
         Auth::logout();
         return redirect()->route('auth');

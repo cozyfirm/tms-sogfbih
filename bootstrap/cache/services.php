@@ -30,8 +30,9 @@
     26 => 'Carbon\\Laravel\\ServiceProvider',
     27 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     28 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    29 => 'Spatie\\Html\\HtmlServiceProvider',
-    30 => 'App\\Providers\\AppServiceProvider',
+    29 => 'PhpMqtt\\Client\\MqttClientServiceProvider',
+    30 => 'Spatie\\Html\\HtmlServiceProvider',
+    31 => 'App\\Providers\\AppServiceProvider',
   ),
   'eager' => 
   array (
@@ -49,8 +50,9 @@
     11 => 'Carbon\\Laravel\\ServiceProvider',
     12 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     13 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    14 => 'Spatie\\Html\\HtmlServiceProvider',
-    15 => 'App\\Providers\\AppServiceProvider',
+    14 => 'PhpMqtt\\Client\\MqttClientServiceProvider',
+    15 => 'Spatie\\Html\\HtmlServiceProvider',
+    16 => 'App\\Providers\\AppServiceProvider',
   ),
   'deferred' => 
   array (

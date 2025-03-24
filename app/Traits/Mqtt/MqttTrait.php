@@ -13,16 +13,17 @@ trait MqttTrait{
      * @return void
      * Get an IP ADDR from HTTP Request
      */
-    public function publishMessage($topic, $code, $data, $uri = null): void{
+    public function publishMessage($type, $topic, $code, $data, $uri = null): void{
         try{
             $message = [
+                'type' => $type,
                 'code' => $code,
                 'data' => $data,
                 'uri' => $uri
             ];
 
             MQTT::publish($topic, json_encode($message, JSON_UNESCAPED_UNICODE ));
-        }catch (\Exception $e){ throw $e; }
+        }catch (\Exception $e){ dd($e); throw $e; }
     }
 
     /**

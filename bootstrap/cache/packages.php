@@ -41,6 +41,17 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
+  'php-mqtt/laravel-client' => 
+  array (
+    'aliases' => 
+    array (
+      'MQTT' => 'PhpMqtt\\Client\\Facades\\MQTT',
+    ),
+    'providers' => 
+    array (
+      0 => 'PhpMqtt\\Client\\MqttClientServiceProvider',
+    ),
+  ),
   'spatie/laravel-html' => 
   array (
     'providers' => 
