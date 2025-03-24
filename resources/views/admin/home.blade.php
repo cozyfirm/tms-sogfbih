@@ -90,6 +90,34 @@
 
         <div class="homepage-side">
             @include('admin.app.shared.snippets.home-menu')
+
+            <div class="reminders home-right-wrapper">
+                <div class="home-right-header">
+                    <p> {{__('Historija pristupa')}} </p>
+                </div>
+                <div class="home-right-system-access">
+                    @foreach($systemAccess as $access)
+                        <div class="sa__row_wrapper go-to" link="{{ route('system.admin.users.preview', ['username' => $access->userRel->username ?? 'unknown']) }}" title="{{ $access->userRel->name ?? 'Nepoznat korisnik' }}">
+                            <div class="icon__wrapper ps-12">
+                                <p> {{ $access->userRel->getInitials() }} </p>
+                            </div>
+                            <div class="text__wrapper">
+                                <div class="text__data">
+                                    <p>{{ $access->description ?? '' }}</p>
+                                    <span>{{ $access->dateTime() }}</span>
+                                </div>
+                                <div class="icons__data">
+                                    @if($access->action == 'sign-in')
+                                        <i class="fa-solid fa-right-to-bracket"></i>
+                                    @else
+                                        <i class="fa-solid fa-power-off"></i>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 @endsection

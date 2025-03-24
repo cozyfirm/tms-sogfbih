@@ -27,8 +27,17 @@
                         <p> {{__('Korisnici')}} </p>
                     </div>
                 </a>
+                <a href="#">
+                    <div class="single-li">
+                        <p> {{__('Korisničko uputstvo')}} </p>
+                    </div>
+                </a>
             @elseif(Auth()->user()->role == 'user')
-
+                <a href="#">
+                    <div class="single-li">
+                        <p> {{__('Korisničko uputstvo')}} </p>
+                    </div>
+                </a>
             @endif
         </div>
 

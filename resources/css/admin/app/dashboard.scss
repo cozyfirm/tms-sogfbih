@@ -113,11 +113,9 @@
             left:0px;
             top:0px;
             width:100%;
-            min-height:120px;
             border-radius:3px;
             border:1px solid rgba(0,0,0,0.1);
             margin-bottom:20px;
-            padding-bottom:15px;
 
             .home-right-header{
                 position:relative;
@@ -153,6 +151,55 @@
 
                 a{
                     transition: 0.2s all;
+                }
+                &:last-child{
+                    margin-bottom: 15px;
+                }
+            }
+
+            .home-right-system-access{
+                position: relative; width: 100%; display: flex; gap: 0px; flex-wrap: wrap; min-height: 40px; padding: 15px; gap: 8px;
+                .sa__row_wrapper{
+                    position: relative; width: 100%; min-height: 32px; display: flex; justify-content: space-between; gap: 8px; transition: 0.2s all; // padding: 12px 12px;
+                    &:hover{
+                        cursor: pointer; // background:rgba(0,0,0,0.05);
+                        .text__wrapper{
+                            .text__data{
+                                p{color: #000000; }
+                            }
+                        }
+                        .icon__wrapper{
+                            background: $yellow;
+                        }
+                    }
+                    .icon__wrapper{
+                        position: relative; width: 30px; height: 30px; background: $grey; display: flex; justify-content: center; align-items: center; border-radius: 3px; overflow: hidden; transition: 0.2s all;
+                        p{
+                            color: #FFFFFF; padding: 0px; font-size: 12px; margin: 0px 8px;
+                        }
+                        img{
+                            position: relative; min-width: 100%; min-height: 100%; object-fit: cover;
+                        }
+                    }
+                    .text__wrapper{
+                        position: relative; width: 100%; display: flex; justify-content: space-between;
+
+                        .text__data{
+                            position: relative; width: calc(100% - 16px); display: flex; flex-wrap: wrap; gap: 0px;
+                            p{
+                                font-size: 14px; margin:0px; padding: 0px; margin-top: -3px; width: 100%;
+                            }
+                            span{
+                                color: $lightGrey; font-size: 12px;
+                            }
+                        }
+                        .icons__data{
+                            width: 16px; display: flex; justify-content: flex-end;
+                            i{
+                                font-size: 14px;
+                            }
+                        }
+                    }
                 }
             }
         }
