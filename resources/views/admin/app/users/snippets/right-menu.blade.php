@@ -69,3 +69,28 @@
         </div>
     </a>
 </div>
+
+<!-- System access -->
+@if($user->systemAccessRel->count())
+    <div class="rm-card" title="{{ __('Korisnički podaci') }}">
+        <div class="rm-card-header">
+            <div class="text__part">
+                <h5>{{ __('Pristup sistemu') }}</h5>
+            </div>
+            <i class="fa-solid fa-laptop-file"></i>
+        </div>
+        <hr>
+        <div class="system__access">
+            @foreach($user->systemAccessRel as $access)
+                <div class="sa__row">
+                    <p> {{ $access->dateTime() }} {{ $access->description ?? '' }}</p>
+                    @if($access->action == 'sign-in')
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    @else
+                        <i class="fa-solid fa-power-off"></i>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endif

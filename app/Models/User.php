@@ -9,6 +9,7 @@ use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Trainings\Instances\InstanceTrainer;
 use App\Models\Users\Education;
 use App\Models\Users\Notification;
+use App\Models\Users\SystemAccess;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -156,6 +157,9 @@ class User extends Authenticatable
     }
     public function cityRel(): HasOne{
         return $this->hasOne(City::class, 'id', 'city');
+    }
+    public function systemAccessRel(): HasMany{
+        return $this->hasMany(SystemAccess::class, 'user_id', 'id')->take(5)->orderBy('id', 'DESC');
     }
 
     /**

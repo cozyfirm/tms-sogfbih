@@ -79,6 +79,14 @@
             p{ margin: 0px; padding: 0px; font-size: 14px; }
         }
     }
+    .system__access{
+        position: relative; width: 100%; display: flex; gap: 8px; flex-wrap: wrap;
+        .sa__row{
+            position: relative; width: 100%; display: flex; justify-content: space-between; gap: 16px;
+            i{font-size: 14px;}
+            p{ margin: 0px; padding: 0px; font-size: 14px; }
+        }
+    }
 }
 .rm-card-icons{
     position: relative; display: flex; gap: 16px;

@@ -3,6 +3,7 @@ namespace App\Traits\Users;
 
 use App\Models\User;
 use App\Models\Users\Notification;
+use App\Models\Users\SystemAccess;
 use Illuminate\Support\Facades\Log;
 
 trait UserBaseTrait{
@@ -78,6 +79,19 @@ trait UserBaseTrait{
              */
         }catch (\Exception $e){
             Log::info("Greška prilikom kreiranja obavijesti");
+        }
+    }
+
+    public function logAction($user_id, $action, $description): void{
+        try{
+            SystemAccess::create([
+                'user_id' => $user_id,
+                'action' => $action,
+                'description' => $description,
+                'ip_address' => $_SERVER['REMOTE_ADDR']
+            ]);
+        }catch (\Exception $e){
+            Log::info("Greška prilikom kreiranja informacija o pristupu sistema");
         }
     }
 }

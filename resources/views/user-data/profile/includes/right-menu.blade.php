@@ -13,6 +13,29 @@
     </div>
 </div>
 
+@isset(Auth()->user()->educationRel)
+    <div class="rm-card" title="{{ __('Informacije o edukaciji') }}">
+        <div class="rm-card-header">
+            <div class="text__part" title="{{ __('Fakultet i univerzitet') }}">
+                <h5>{{ Auth()->user()->educationRel->school ?? '' }}</h5>
+                <p>{{ Auth()->user()->educationRel->university ?? '' }}</p>
+            </div>
+            <i class="fa-solid fa-building-columns"></i>
+        </div>
+        <hr>
+        <div class="location__wrapper">
+            <div class="lw__row" title="{{ __('Stečeno zvanje') }}">
+                <i class="fa-solid fa-user-graduate"></i>
+                <p>{{ Auth()->user()->educationRel->title ?? '' }}, {{ Auth()->user()->educationRel->levelRel->name ?? '' }}</p>
+            </div>
+            <div class="lw__row" title="{{ __('Datum diplomiranja') }}">
+                <i class="fa-solid fa-calendar-day"></i>
+                <p>{{ Auth()->user()->educationRel->date() ?? '' }}</p>
+            </div>
+        </div>
+    </div>
+@endisset
+
 @if(Auth()->user()->myLastTrainings->count())
     <div class="rm-card">
         <div class="rm-card-header" title="{{ __('Moje posljednje obuke') }}">
@@ -46,3 +69,28 @@
         </div>
     </a>
 </div>
+
+<!-- System access -->
+@if(Auth()->user()->systemAccessRel->count())
+    <div class="rm-card" title="{{ __('Korisnički podaci') }}">
+        <div class="rm-card-header">
+            <div class="text__part">
+                <h5>{{ __('Pristup sistemu') }}</h5>
+            </div>
+            <i class="fa-solid fa-laptop-file"></i>
+        </div>
+        <hr>
+        <div class="system__access">
+            @foreach(Auth()->user()->systemAccessRel as $access)
+                <div class="sa__row">
+                    <p> {{ $access->dateTime() }} {{ $access->description ?? '' }}</p>
+                    @if($access->action == 'sign-in')
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    @else
+                        <i class="fa-solid fa-power-off"></i>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endif
