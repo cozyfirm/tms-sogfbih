@@ -17,9 +17,9 @@ trait CommonTrait{
      *
      * @return array
      */
-    public static function formTimeArr(): array{
+    public static function formTimeArr($step = 15): array{
         for($i=7; $i<= 17; $i++){
-            for($j=0; $j<60; $j+=15){
+            for($j=0; $j<60; $j+=$step){
                 $time = (($i < 10) ? ('0'.$i) : $i) . ':' . (($j < 10) ? ('0'.$j) : $j);
                 self::$_time_arr[$time] = $time;
             }

@@ -92,7 +92,7 @@ class InstancesController extends Controller{
             'trainers' => User::where('role', '=', 'trainer')->pluck('name', 'id')->prepend('Odaberite trenera', '0'),
             'events' => Keyword::getItByVal('event_type'),
             'locations' => Location::pluck('title', 'id')->prepend('Odaberite lokaciju', '0'),
-            'time' => $this->formTimeArr()
+            'time' => $this->formTimeArr(5)
         ]);
     }
     public function edit($id): View{
