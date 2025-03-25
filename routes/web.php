@@ -260,6 +260,8 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                  */
                 Route::prefix('trainers')->middleware('isAuthenticated')->group(function () {
                     Route::get ('/',                           [TrainersController::class, 'index'])->name('system.admin.trainings.submodules.trainers');
+                    Route::get ('/preview/{username}',         [TrainersController::class, 'preview'])->name('system.admin.trainings.submodules.trainers.preview');
+                    Route::post('/fetch',                      [TrainersController::class, 'fetch'])->name('system.admin.trainings.submodules.trainers.fetch');
                 });
 
                 /**

@@ -5,11 +5,13 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Core\City;
 use App\Models\Core\Country;
+use App\Models\Core\Keyword;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Trainings\Instances\InstanceTrainer;
 use App\Models\Users\Education;
 use App\Models\Users\Notification;
 use App\Models\Users\SystemAccess;
+use App\Traits\Common\CommonTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,7 +26,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, CommonTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -152,11 +154,17 @@ class User extends Authenticatable
     public function totalCertificates(): int{
         return InstanceApp::where('user_id', '=', $this->id)->where('presence', '=', 1)->count();
     }
+    public function genderRel(): HasOne{
+        return $this->hasOne(Keyword::class, 'id', 'gender');
+    }
     public function educationRel(): HasOne{
         return $this->hasOne(Education::class, 'user_id', 'id');
     }
     public function cityRel(): HasOne{
         return $this->hasOne(City::class, 'id', 'city');
+    }
+    public function institutionRel(): HasOne{
+        return $this->hasOne(Keyword::class, 'id', 'institution');
     }
     public function systemAccessRel(): HasMany{
         return $this->hasMany(SystemAccess::class, 'user_id', 'id')->take(5)->orderBy('id', 'DESC');
@@ -167,5 +175,11 @@ class User extends Authenticatable
      */
     public function trainersRel(): HasMany{
         return $this->hasMany(InstanceTrainer::class, 'trainer_id', 'id');
+    }
+    public function averageGrade(): string{
+        return $this->roundNumber(InstanceTrainer::where('trainer_id', '=', $this->id)->where('grade', '!=', '0.0')->avg('grade'), 2);
+    }
+    public function contractValue(): string{
+        return $this->roundNumber(InstanceTrainer::where('trainer_id', '=', $this->id)->where('grade', '!=', '0.0')->sum('contract'), 2);
     }
 }

@@ -23,6 +23,7 @@ import "./admin/app/core/notifications.js";
  */
 import "./admin/app/trainings/instances/instances.js";
 import "./admin/app/trainings/add-author.js";
+import "./admin/app/trainings/fetch-trainer.js";
 import "./admin/app/trainings/instances/add-trainer.js";
 import "./admin/app/trainings/instances/events.js";
 import "./admin/app/trainings/instances/preview-location.js";

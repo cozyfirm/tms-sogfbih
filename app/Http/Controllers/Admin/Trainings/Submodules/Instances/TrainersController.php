@@ -47,7 +47,6 @@ class TrainersController extends Controller{
             return $this->jsonSuccess(__('Uspješno ažurirano'), route('system.admin.trainings.instances.preview', ['id' => $request->instance_id]));
 
         }catch (\Exception $e){
-            dd($e);
             return $this->jsonError('5100', __('Desila se greška. Molimo kontaktirajte administratora'));
         }
     }

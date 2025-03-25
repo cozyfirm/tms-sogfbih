@@ -5,7 +5,7 @@
 @endsection
 @section('c-title') {{ __('Treneri') }} @endsection
 @section('c-breadcrumbs')
-    <a href="#"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a href="{{ route('system.home') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
     <a href="{{ route('system.admin.trainings.home') }}">{{ __('Sistem obuka') }}</a> /
     <a href="{{ route('system.admin.trainings.submodules.trainers') }}">{{ __('Pregled svih trenera') }}</a>
 @endsection
@@ -71,11 +71,11 @@
                     </td>
 
                     <td> {{ $user->address ?? ''}} </td>
-                    <td> {{ $user->city ?? ''}} </td>
-                    <td> {{ $user->countryRel->name_ba ?? ''}} </td>
+                    <td> {{ $user->cityRel->title ?? ''}} </td>
+                    <td> {{ $user->cityRel->countryRel->name_ba ?? ''}} </td>
 
                     <td class="text-center">
-                        <a class="table-btn-link" href="{{route('system.admin.users.preview', ['username' => $user->username] )}}" title="{{ __('Pregled korisnika') }}">
+                        <a class="table-btn-link" href="{{route('system.admin.trainings.submodules.trainers.preview', ['username' => $user->username] )}}" title="{{ __('Pregled trenera') }}">
                             <button class="table-btn">{{ __('Pregled') }}</button>
                         </a>
                     </td>
