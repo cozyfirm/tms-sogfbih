@@ -80,15 +80,30 @@ trait UserBaseTrait{
                 'uri' => $uri
             ]);
 
+            $totalUnread = ($user->notifications + 1);
+
             /**
              *  Update total number of notifications; Increment for one
              */
-            $user->update(['notifications' => ($user->notifications + 1)]);
+            $user->update(['notifications' => $totalUnread]);
 
             /**
-             * ToDo:
-             *  Create push notification for user
+             *  Broadcast notification to user over WSS;
              */
+
+            $from = User::where('id', '=', $from)->first();
+            $from->initials = $from->getInitials();
+
+            $this->publishMessage('training-application', $user->api_token, '0000', [
+                'id' => $notification->id,
+                'type' => $type,
+                'from' => $from,
+                'text' => $text,
+                'description' => $description,
+                'uri' => $uri,
+                'unreadNotifications' => $totalUnread,
+                'createdAt' => $notification->createdAt()
+            ]);
         }catch (\Exception $e){
             Log::info("Greška prilikom kreiranja obavijesti");
         }

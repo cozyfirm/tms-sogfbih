@@ -21,9 +21,11 @@
     <hr>
     <div class="list__wrapper">
         <ol>
-            @for($i=0; $i<5; $i++)
-                <li> Šemso Poplava </li>
-            @endfor
+            @foreach($instance->applicationsRel as $app)
+                <a href="{{ route('system.admin.users.preview', ['username' => $app->userRel->username ?? 'john-doe']) }}" class="hover-yellow-text" target="_blank" title="{{ __('Više informacija') }}">
+                    <li> {{ $app->userRel->name ?? '' }} </li>
+                </a>
+            @endforeach
         </ol>
     </div>
 </div>

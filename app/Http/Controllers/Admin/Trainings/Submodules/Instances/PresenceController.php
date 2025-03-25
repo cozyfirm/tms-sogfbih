@@ -22,7 +22,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 class PresenceController extends Controller{
     use ResponseTrait, CommonTrait, UserBaseTrait;
 
-    protected int $_success = 70;
+    protected int $_success = 50;
     protected string $_path = 'admin.app.trainings.instances.submodules.presence.';
 
     public function index($instance_id): View{
@@ -49,7 +49,7 @@ class PresenceController extends Controller{
 
             $present = InstancePresence::where('application_id', '=', $application_id)->count();
 
-            return ((($present / $totalDays) * 100) > $this->_success);
+            return ((($present / $totalDays) * 100) >= $this->_success);
         }catch (\Exception $e){
             return false;
         }

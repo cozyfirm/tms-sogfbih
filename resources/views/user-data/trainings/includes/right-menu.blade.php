@@ -1,6 +1,6 @@
 <div class="three__elements">
     <div class="element" title="{{ __('Broj prijava na obuci') }}">
-        <h5>{{ $instance->applicationsRel->count() }}</h5>
+        <h5 class="ud-t-no-of-apps">{{ $instance->applicationsRel->count() }}</h5>
         <p>Prijava</p>
     </div>
     <div class="element" title="{{ __('Broj polaznika na obuci') }}">

@@ -43,4 +43,7 @@ $(document).ready(function (){
             }
         }
     });
+
+    /* Close notifications */
+    $(".close-notifications").click(function (){ notificationOpen = false; $(".notifications__wrapper").addClass('d-none');  })
 });

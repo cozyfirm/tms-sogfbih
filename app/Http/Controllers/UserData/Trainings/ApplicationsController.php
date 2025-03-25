@@ -85,7 +85,8 @@ class ApplicationsController extends Controller{
 
                 return $this->apiResponse('0000', __('Uspješno ste se prijavili na obuku'), [
                     'subcode' => '0000-1',
-                    'application' => $application
+                    'application' => $application,
+                    'total' => InstanceApp::where('instance_id', '=', $request->instanceID)->count()
                 ]);
             }else{
                 InstanceApp::where('instance_id', '=', $request->instanceID)->where('user_id', '=', Auth::user()->id)->delete();
@@ -94,7 +95,8 @@ class ApplicationsController extends Controller{
                 $this->createSignUpNotifications($request, $instance, 'sign_out');
 
                 return $this->apiResponse('0000', __('Uspješno ste se odjavili sa obuke'), [
-                    'subcode' => '0000-2'
+                    'subcode' => '0000-2',
+                    'total' => InstanceApp::where('instance_id', '=', $request->instanceID)->count()
                 ]);
             }
         }catch (\Exception $e){

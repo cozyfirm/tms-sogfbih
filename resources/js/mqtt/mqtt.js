@@ -1,4 +1,5 @@
 import { SystemAccess } from './system-access.ts';
+import { TrainingApp } from './training-app.ts';
 
 /**
  *  Import MQTT Scripts
@@ -60,12 +61,14 @@ client.on('message', (topic, message, packet) => {
         /** Success message */
         if(message['type'] === 'system-access'){
             SystemAccess.parseMessage(message);
+        }else if(message['type'] === 'training-application'){
+            TrainingApp.parseMessage(message['data']);
         }
     }else{
         /** Invalid message; Skip al actions */
         console.log("Unknown or invalid message.");
     }
-    // console.log(message)
+    console.log(message)
 });
 
 /**

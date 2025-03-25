@@ -1,13 +1,12 @@
 import { Notify } from './../../style/layout/notify.ts';
 import { Validator } from "./../../style/layout/validator.ts";
 
-
 $(document).ready(function (){
     let signUpUri = '/system/user-data/trainings/apis/application/sign-up';
 
     $(".rm-sign-up").click(function (){
         let instanceID = $(this).attr('instance-id');
-        $(".loading").fadeOut(1);
+        $(".loading").fadeIn(1);
 
         $.ajax({
             url: signUpUri,
@@ -38,6 +37,9 @@ $(document).ready(function (){
                                 return $("<i>").attr('class', 'fa-solid fa-arrow-right-long')
                             })
                     }
+
+                    /* Change number of applications */
+                    $(".ud-t-no-of-apps").text(data['total']);
                 }else{
                     Notify.Me([response['message'], "warn"]);
                 }
