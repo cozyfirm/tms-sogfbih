@@ -53,7 +53,7 @@
 
                 @include('admin.layout.snippets.includes.notifications')
             </div>
-            <a href="#">
+            <a href="{{ route('system.user-data.my-profile') }}">
                 <div class="single-li single-li-text user-name">
                     <p><b> {{ Auth()->user()->name }} </b></p>
 {{--                    {!! Form::hidden('user_id', json_encode($loggedUser), ['class' => 'form-control', 'id' => 'loggedUser']) !!}--}}

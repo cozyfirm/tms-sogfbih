@@ -109,7 +109,7 @@
                     </div>
                 </form>
 
-                @if(isset($preview))
+                @if(isset($preview) and $user->role == 'user')
                     <div class="custom-hr"></div>
 
                     <div class="training__authors mb-32">
