@@ -76,12 +76,16 @@ class EvaluationsController extends Controller{
 
     public function addOption($instance_id): View{
         $instance = Instance::where('id','=',$instance_id)->first();
+        $evaluation = $this->checkForEvaluation($instance_id);
+
+        $lastOption = EvaluationOption::where('evaluation_id','=',$evaluation->id)->orderBy('id', 'DESC')->first();
 
         return view($this->_path. 'add-option', [
             'create' => true,
             'instance' => $instance,
             'groups' => Keyword::getIt('evaluation__groups')->prepend('Odaberite grupu', ''),
-            'types' => Keyword::getItByVal('evaluation__question_type')
+            'types' => Keyword::getItByVal('evaluation__question_type'),
+            'lastOption' => $lastOption
         ]);
     }
 

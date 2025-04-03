@@ -50,14 +50,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Grupa pitanja'))->for('group_by')->class('bold') }}
-                                {{ html()->select('group_by', $groups, $option->group_by ?? '')->class('form-control form-control-sm single-select2')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('group_by', $groups, $option->group_by ?? ($lastOption->group_by ?? ''))->class('form-control form-control-sm single-select2')->required()->disabled(isset($preview)) }}
                                 <small id="group_byHelp" class="form-text text-muted">{{ __('Grupa pitanja na evaluaciji') }}</small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ html()->label(__('Vrsta pitanja'))->for('type')->class('bold') }}
-                                {{ html()->select('type', $types, $option->type ?? 'with_answers')->class('form-control form-control-sm single-select2')->required()->disabled(isset($preview)) }}
+                                {{ html()->select('type', $types, $option->type ?? ($lastOption->group_by ?? 'with_answers'))->class('form-control form-control-sm single-select2')->required()->disabled(isset($preview)) }}
                                 <small id="typeHelp" class="form-text text-muted">{{ __('Odaberite vrstu pitanja') }}</small>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                             <div class="col-md-12 d-flex justify-content-end">
                                 @isset($create)
                                     <div class="form-check form-check-inline ag_repeat_wrapper">
-                                        <input class="form-check-input" type="checkbox" id="repeat" name="repeat">
+                                        <input class="form-check-input" type="checkbox" id="repeat" name="repeat" @isset($create) checked @endisset>
                                         <label class="form-check-label" for="repeat">{{ __('Ponovite unos') }}</label>
                                     </div>
                                     <button type="submit" class="yellow-btn">  {{ __('SAČUVAJTE') }} </button>
