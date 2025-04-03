@@ -86,7 +86,8 @@ class UsersController extends Controller{
 
             $message = "Welcome email to " . ($user->name);
             try{
-                Mail::to($user->email)->send(new Welcome($user->email, $user->name, $request->password, $user->gender));
+                // ToDo:: Uncomment this one
+                // Mail::to($user->email)->send(new Welcome($user->email, $user->name, $request->password, $user->gender));
 
                 $message .= " is successfully sent!";
             }catch (\Exception $e){
