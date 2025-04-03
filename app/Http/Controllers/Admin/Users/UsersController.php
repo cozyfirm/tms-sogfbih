@@ -78,7 +78,6 @@ class UsersController extends Controller{
 
             /* Set profile as verified */
             $request['email_verified_at'] = Carbon::now();
-            $request['role'] = 'user';
 
             /* Update user */
             $user = User::create($request->except(['id']));
