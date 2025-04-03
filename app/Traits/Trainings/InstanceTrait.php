@@ -8,6 +8,7 @@ use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Trainings\Instances\InstanceEvent;
 use App\Models\Trainings\Instances\InstancePresence;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 trait InstanceTrait{
@@ -106,7 +107,8 @@ trait InstanceTrait{
                 'name' => $fileName,
                 'ext' => 'docx',
                 'type' => 'certificate',
-                'path' => 'files/trainings/instances/certificates/user-certificates/'
+                'path' => 'files/trainings/instances/certificates/user-certificates/',
+                'created_by' => Auth::user()->id
             ]);
 
             $application->update([ 'certificate_id' => $file->id ]);
