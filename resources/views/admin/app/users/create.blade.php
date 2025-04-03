@@ -133,11 +133,21 @@
                         </div>
                     </div>
 
-                        <div class="row mt-4">
-                            <div class="col-md-12 d-flex justify-content-end">
-                                <button type="submit" class="yellow-btn">  {{ __('AŽURIRAJTE') }} </button>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ html()->label(__('Nivo pristupa'))->for('role')->class('bold') }}
+                                {{ html()->select('role', ['admin' => 'Admin', 'moderator' => 'Moderator', 'trainer' => 'Trener', 'user' => 'Korisnik'], isset($user) ? $user->role : '1')->class('form-control form-control-sm mt-1 single-select2')->required()->disabled(isset($preview)) }}
+                                @if(!isset($preview)) <small id="roleHelp" class="form-text text-muted">{{ __('Nivo pristupa koji korisnik ima na sistemu') }}</small> @endif
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="submit" class="yellow-btn">  {{ __('AŽURIRAJTE') }} </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
