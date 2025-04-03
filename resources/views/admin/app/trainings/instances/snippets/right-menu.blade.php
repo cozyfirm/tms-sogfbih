@@ -3,8 +3,8 @@
         <h5>{{ $instance->applicationsRel->count() }}</h5>
         <p>{{ __('Prijava') }}</p>
     </div>
-    <div class="element" title="{{ __('Broj popunjenih evaluacija od strane polaznika') }}">
-        <h5>0</h5>
+    <div class="element go-to" link="{{ route('system.admin.trainings.instances.submodules.evaluations.preview-evaluations', ['instance_id' => $instance->id ]) }}" title="{{ __('Popunjene evaluacije od strane polaznika') }}">
+        <h5>{{ isset($instance->evaluationRel->statusesRel) ? $instance->evaluationRel->statusesRel->count() : '0' }}</h5>
         <p>{{ __('Evaluacija') }}</p>
     </div>
     <div class="element go-to" link="{{ route('system.admin.trainings.instances.submodules.presence', ['instance_id' => $instance->id ]) }}" title="{{ __('Trajanje obuke') }}">
@@ -29,7 +29,7 @@
             <img src="{{ asset('files/images/icons/book-bookmark-solid.svg') }}" alt="{{ __('Report image') }}">
         </div>
     </a>
-    <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.preview', ['instance_id' => $instance->id ]) }}" title="{{ __('Evaluacije na obuci') }}">
+    <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.preview', ['instance_id' => $instance->id ]) }}" title="{{ __('Pitanja za evaluaciju') }}">
         <div class="rm-ci-w">
             <i class="fa-solid fa-user-pen"></i>
         </div>

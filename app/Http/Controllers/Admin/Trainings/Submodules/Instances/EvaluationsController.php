@@ -9,6 +9,7 @@ use App\Mail\Evaluations\NotifyApplicants;
 use App\Models\Core\Keyword;
 use App\Models\Trainings\Evaluations\Evaluation;
 use App\Models\Trainings\Evaluations\EvaluationOption;
+use App\Models\Trainings\Evaluations\EvaluationStatus;
 use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Traits\Common\CommonTrait;
@@ -202,5 +203,37 @@ class EvaluationsController extends Controller{
             $evaluation->update(['locked' => 1]);
             return back()->with('success', __('Evaluacija uspješno zaključana!'));
         }catch (\Exception $e){ return back()->with('error', __('Greška prilikom obrade podataka!')); }
+    }
+
+    public function previewEvaluations($instance_id): View{
+        $evaluations = EvaluationStatus::whereHas('evaluationRel', function($query) use ($instance_id){
+            $query->where('model_id', '=', $instance_id)->where('type', '=', '__training');
+        });
+
+        $evaluations = Filters::filter($evaluations);
+
+        $filters = [
+            'userRel.name' => 'Ime i prezime',
+            'created_at' => __('Datum i vrijeme')
+        ];
+
+        return view($this->_path. 'preview-evaluations',[
+            'evaluations' => $evaluations,
+            'filters' => $filters,
+            'instance' => Instance::where('id', '=', $instance_id)->first()
+        ]);
+    }
+    public function previewEvaluation($evaluation_id, $user_id): View{
+        $evaluation = Evaluation::where('id', '=', $evaluation_id)->first();
+
+        $groups     = EvaluationOption::where('evaluation_id', '=', $evaluation->id)->orderBy('group_by')->get()->unique('group_by');
+        $status     = EvaluationStatus::where('evaluation_id', '=', $evaluation->id)->where('user_id', '=', $user_id)->first();
+
+        return view($this->_path. 'preview-evaluation',[
+            'instance' => Instance::where('id', '=', $evaluation->model_id)->first(),
+            'evaluation' => $evaluation,
+            'groups' => $groups,
+            'status' => $status
+        ]);
     }
 }

@@ -5,7 +5,9 @@ namespace App\Traits\Trainings;
 use App\Models\Core\File;
 use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
+use App\Models\Trainings\Instances\InstanceEvent;
 use App\Models\Trainings\Instances\InstancePresence;
+use Carbon\Carbon;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 trait InstanceTrait{
@@ -30,6 +32,40 @@ trait InstanceTrait{
     }
 
     /**
+     * Get start and end of training dates (for certificate)
+     *
+     * @param $instance
+     * @return string
+     */
+    public function startEndDate($instance): string{
+        try{
+            $start = InstanceEvent::where('instance_id', '=', $instance->id)->orderBy('date')->first();
+            $end   = InstanceEvent::where('instance_id', '=', $instance->id)->orderBy('date', 'DESC')->first();
+
+            $startDate = $start->date;
+            $endDate   = $end->date;
+
+            if($startDate != $endDate){
+                return "u periodu " . Carbon::parse($startDate)->format('d.m.Y') . " - " . Carbon::parse($endDate)->format('d.m.Y');
+            }else return Carbon::parse($startDate)->format('d.m.Y');
+        }catch (\Exception $e){
+            return Carbon::now()->format('d.m.Y');
+        }
+    }
+
+    public function instancePlace($instance): string{
+        try{
+            $start = InstanceEvent::where('instance_id', '=', $instance->id)
+                ->where('type', '=', 1)
+                ->orderBy('date')->first();
+
+            return $start->locationRel->cityRel->title ?? 'Nije poznato';
+        }catch (\Exception $e){
+            return __('"Nije poznato"');
+        }
+    }
+
+    /**
      * Generate docx certificate for training
      *
      * @param $application_id
@@ -47,14 +83,16 @@ trait InstanceTrait{
 
             $templateProcessor->setValue('name', $application->userRel->name ?? '');
             $templateProcessor->setValue('training', $instance->trainingRel->title ?? '');
-            $templateProcessor->setValue('training_date', $instance->startDate() ?? '');
-            $templateProcessor->setValue('place', "Mjesto održavanja obuke");
+
+            $templateProcessor->setValue('training_date', $this->startEndDate($instance));
 
             if($application->userRel->gender == 1){
                 $templateProcessor->setValue('present', "prisustvovao");
             }else{
                 $templateProcessor->setValue('present', "prisustvovala");
             }
+
+            $templateProcessor->setValue('place', $this->instancePlace($instance));
 
             /** @var $userName; Extract for username */
             $userName = str_replace('-', '_', strtolower($application->userRel->username ?? ''));

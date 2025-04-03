@@ -235,6 +235,12 @@ class InstancesController extends Controller{
         }
     }
 
+    /**
+     * Download report as file download
+     *
+     * @param $instance_id
+     * @return BinaryFileResponse
+     */
     public function downloadReport($instance_id): BinaryFileResponse{
         try{
             $instance = Instance::where('id', '=', $instance_id)->first();

@@ -229,6 +229,10 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
 
                         /** Lock evaluation */
                         Route::get ('/lock/{instance_id}',                  [InstancesEvaluationsController::class, 'lock'])->name('system.admin.trainings.instances.submodules.evaluations.lock');
+
+                        /** Preview answered evaluations */
+                        Route::get ('/preview-evaluations/{instance_id}',                        [InstancesEvaluationsController::class, 'previewEvaluations'])->name('system.admin.trainings.instances.submodules.evaluations.preview-evaluations');
+                        Route::get ('/preview-evaluation/{evaluation_id}/{user_id}',             [InstancesEvaluationsController::class, 'previewEvaluation'])->name('system.admin.trainings.instances.submodules.evaluations.preview-evaluation');
                     });
 
                     /**

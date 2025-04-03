@@ -41,7 +41,10 @@ class Evaluation extends Model{
     public function myEvaluation(): HasOne{
         return $this->hasOne(EvaluationStatus::class, 'evaluation_id', 'id')->where('user_id', '=', Auth::user()->id);
     }
-
+    /** Evaluations */
+    public function statusesRel(): HasMany{
+        return $this->hasMany(EvaluationStatus::class, 'evaluation_id', 'id');
+    }
     /** Public questionnaires */
     public function publicQuestionnairesRel(): HasMany{
         return $this->hasMany(EvaluationAnalysis::class, 'evaluation_id', 'id')->where('status', '=', 'submitted')->orderBy('id', 'DESC');

@@ -1,12 +1,20 @@
-<div class="questionnaire__wrapper">
+<html>
+<head>
+    <title>{{ $status->userRel->name ?? '' }}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('files/images/favicon.ico') }}"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{ html()->hidden('evaluation_id')->class('form-control')->value($evaluation->id) }}
-    {{ html()->hidden('evaluation_status')->class('form-control')->value($status->status ?? 'unknown') }}
+    @vite(['resources/css/app.scss', 'resources/css/admin/admin.scss', 'resources/js/app.js'])
+</head>
+<body>
 
+<div class="questionnaire__public d-flex">
     <div class="questionnaire__inner">
         <div class="questionnaire__description">
-            <h2>{{ __('OBRAZAC ZA EVALUACIU OBUKE') }}</h2>
-            <p><i>{{ __('Pažljivo pročitajte sljedeće izjave i naznačite vaš nivo saglasnosti označavajući odgovarajuću kockicu. Imate šest mogućih odgovora u rasponu od "totalno se ne slažem" do "potpuno se slažem". Ako ne možete odgovoriti ili ne želite, označite polje "bez odgovora“.') }}</i></p>
+            <h2>{{ $instance->trainingRel->title ?? '' }} </h2>
+            <p class="center">{{ $status->userRel->name ?? '' }}</p>
         </div>
 
         <div class="question__wrapper">
@@ -35,7 +43,7 @@
                                         </div>
                                         @for($i=1; $i<=6; $i++)
                                             <div class="st__row_radio__wrapper" title="@if($i<6) {{ __('Ekvivalent ocjene ') . $i }} @else {{ __('Ne želim se izjasniti') }} @endif">
-                                                <input type="radio" class="question__radio" value="{{ ($i == 6) ? 0 : $i }}" name="question_id_{{ $question->id }}" id="{{ $question->id }}" @if($i==$answer) checked @endif @if($status->status ?? 'unknown' == 'submitted') disabled @endif>
+                                                <input type="radio" class="" value="{{ ($i == 6) ? 0 : $i }}" name="question_id_{{ $question->id }}" id="{{ $question->id }}" @if($i==$answer) checked @endif disabled>
                                             </div>
                                         @endfor
                                     </div>
@@ -53,7 +61,7 @@
                                             <p>{{ $question->question ?? '' }}</p>
                                         </div>
                                         <div class="sq__body">
-                                            {{ html()->textarea('answer')->class('form-control form-control-sm question__answer')->id($question->id)->value($answer)->isReadonly($status->status ?? 'unknown' == 'submitted') }}
+                                            {{ html()->textarea('answer')->class('form-control form-control-sm')->id($question->id)->value($answer)->isReadonly(true) }}
                                         </div>
                                     </div>
                                 @endforeach
@@ -63,11 +71,11 @@
                 </div>
             @endforeach
         </div>
-
-        @if(!isset($status))
-            <div class="submit__wrapper">
-                <button type="submit" class="yellow-btn" id="save-evaluation"> {{ __('SAČUVAJ EVALUACIJU') }} </button>
-            </div>
-        @endif
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"> </script>
+</body>
+</html>

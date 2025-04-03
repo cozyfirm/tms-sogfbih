@@ -23,6 +23,9 @@ $(document).ready(function (){
         let id    = $(this).attr('id');
         let evaluation_id = $("#evaluation_id").val();
 
+        /** If submitted, do nothing */
+        if($("#evaluation_status").val() === 'submitted') return;
+
         $.ajax({
             url: submitUri,
             method: "post",
@@ -49,6 +52,9 @@ $(document).ready(function (){
         let value = $(this).val();
         let id    = $(this).attr('id');
         let evaluation_id = $("#evaluation_id").val();
+
+        /** If submitted, do nothing */
+        if($("#evaluation_status").val() === 'submitted') return;
 
         $.ajax({
             url: submitUri,

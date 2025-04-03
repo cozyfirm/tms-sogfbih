@@ -4,6 +4,8 @@ namespace App\Models\Trainings\Instances;
 
 use App\Models\Core\File;
 use App\Models\Core\Keyword;
+use App\Models\Trainings\Evaluations\Evaluation;
+use App\Models\Trainings\Evaluations\EvaluationStatus;
 use App\Models\Trainings\Training;
 use App\Models\User;
 use Carbon\Carbon;
@@ -43,7 +45,9 @@ class Instance extends Model{
     public function totalDays(): int{
         return InstanceEvent::where('instance_id', '=', $this->id)->get()->unique('date')->count();
     }
-
+    public function evaluationRel(): HasOne{
+        return $this->hasOne(Evaluation::class, 'model_id', 'id')->where('type', '=', '__training');
+    }
     public function trainingRel(): HasOne{
         return $this->hasOne(Training::class, 'id', 'training_id');
     }
