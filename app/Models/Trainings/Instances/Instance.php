@@ -37,7 +37,8 @@ class Instance extends Model{
      *      2. End date of training
      */
     public function startDate(): string{
-        return Carbon::parse($this->application_date)->format('d.m.Y');
+        $event = InstanceEvent::where('instance_id', '=', $this->id)->orderBy('date')->first();
+        return isset($event) ? Carbon::parse($event->date)->format('d.m.Y') : date('d.m.Y');
     }
     public function endDate(): string{
         return Carbon::parse($this->application_date)->addDays(4)->format('d.m.Y');

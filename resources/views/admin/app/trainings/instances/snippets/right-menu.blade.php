@@ -34,6 +34,17 @@
             <i class="fa-solid fa-user-pen"></i>
         </div>
     </a>
+
+    <!-- If there are submitted evaluations, Enable report download -->
+    @if(isset($instance->evaluationRel->statusesRel))
+        @if($instance->evaluationRel->statusesRel->count())
+            <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.download-report', ['instance_id' => $instance->id ]) }}" title="{{ __('Preuzmite izvještaj o evaluacijama') }}">
+                <div class="rm-ci-w">
+                    <i class="fa-solid fa-download"></i>
+                </div>
+            </a>
+        @endif
+    @endif
 </div>
 
 @if($instance->applicationsRel->count())

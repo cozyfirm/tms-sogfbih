@@ -26,4 +26,7 @@ class EvaluationAnswer extends Model{
     public function userRel(): HasOne{
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    public function statusRel(): HasOne{
+        return $this->hasOne(EvaluationStatus::class, 'application_id', 'application_id');
+    }
 }

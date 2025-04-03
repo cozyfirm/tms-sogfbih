@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Trainings\ProgramsAndTrainingsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\EvaluationsController as TrainingsEvaluationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\ApplicationsController as InstancesApplicationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EvaluationsController as InstancesEvaluationsController;
+use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EvaluationsDownloadController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\EventsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\LocationsController as InstanceLocationsController;
 use App\Http\Controllers\Admin\Trainings\Submodules\Instances\PresenceController as InstancesPresenceController;
@@ -233,6 +234,9 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                         /** Preview answered evaluations */
                         Route::get ('/preview-evaluations/{instance_id}',                        [InstancesEvaluationsController::class, 'previewEvaluations'])->name('system.admin.trainings.instances.submodules.evaluations.preview-evaluations');
                         Route::get ('/preview-evaluation/{evaluation_id}/{user_id}',             [InstancesEvaluationsController::class, 'previewEvaluation'])->name('system.admin.trainings.instances.submodules.evaluations.preview-evaluation');
+
+                        /** Download report */
+                        Route::get ('/download-report/{instance_id}',                            [EvaluationsDownloadController::class, 'downloadReport'])->name('system.admin.trainings.instances.submodules.evaluations.download-report');
                     });
 
                     /**

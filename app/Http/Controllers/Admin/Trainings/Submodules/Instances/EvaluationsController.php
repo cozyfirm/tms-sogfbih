@@ -205,6 +205,12 @@ class EvaluationsController extends Controller{
         }catch (\Exception $e){ return back()->with('error', __('Greška prilikom obrade podataka!')); }
     }
 
+    /**
+     * Preview all submitted evaluations by users
+     *
+     * @param $instance_id
+     * @return View
+     */
     public function previewEvaluations($instance_id): View{
         $evaluations = EvaluationStatus::whereHas('evaluationRel', function($query) use ($instance_id){
             $query->where('model_id', '=', $instance_id)->where('type', '=', '__training');
@@ -223,6 +229,14 @@ class EvaluationsController extends Controller{
             'instance' => Instance::where('id', '=', $instance_id)->first()
         ]);
     }
+
+    /**
+     * Preview single evaluation, given by user
+     *
+     * @param $evaluation_id
+     * @param $user_id
+     * @return View
+     */
     public function previewEvaluation($evaluation_id, $user_id): View{
         $evaluation = Evaluation::where('id', '=', $evaluation_id)->first();
 
@@ -235,5 +249,9 @@ class EvaluationsController extends Controller{
             'groups' => $groups,
             'status' => $status
         ]);
+    }
+
+    public function downloadReport($instance_id){
+
     }
 }

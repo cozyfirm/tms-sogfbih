@@ -81,6 +81,8 @@ $(document).ready(function (){
     $("#save-evaluation").click(function (){
         let evaluation_id = $("#evaluation_id").val();
 
+        $(".loading").fadeIn(1);
+
         $.ajax({
             url: saveUri,
             method: "post",
@@ -89,6 +91,8 @@ $(document).ready(function (){
                 evaluation_id: evaluation_id,
             },
             success: function success(response) {
+                $(".loading").fadeOut(0);
+
                 if(response['code'] === '0000'){
                     Notify.Me([response['message'], "success"]);
 
