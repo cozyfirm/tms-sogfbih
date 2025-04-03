@@ -12,6 +12,7 @@ use App\Models\Trainings\Evaluations\EvaluationStatus;
 use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Traits\Http\ResponseTrait;
+use App\Traits\Trainings\InstanceTrait;
 use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class EvaluationsController extends Controller{
-    use ResponseTrait, UserBaseTrait;
+    use ResponseTrait, UserBaseTrait, InstanceTrait;
 
     /**
      * Submit answer to evaluation question
@@ -71,35 +72,49 @@ class EvaluationsController extends Controller{
 
             $instance = Instance::where('id', '=', $evaluation->model_id)->first();
 
-//            foreach ($options as $option){
-//                $answer = EvaluationAnswer::where('evaluation_id', '=', $request->evaluation_id)
-//                    ->where('option_id', '=', $option->id)
-//                    ->where('user_id', '=', Auth::user()->id)
-//                    ->first();
-//
-//                if(!$answer){
-//                    EvaluationAnswer::create([
-//                        'evaluation_id' => $request->evaluation_id,
-//                        'option_id' => $option->id,
-//                        'user_id' => Auth::user()->id,
-//                        'application_id' => $application->id,
-//                        'answer' => ($option->type == 'with_answers') ? '0' : ''
-//                    ]);
-//                }
-//            }
+            foreach ($options as $option){
+                $answer = EvaluationAnswer::where('evaluation_id', '=', $request->evaluation_id)
+                    ->where('option_id', '=', $option->id)
+                    ->where('user_id', '=', Auth::user()->id)
+                    ->first();
+
+                if(!$answer){
+                    EvaluationAnswer::create([
+                        'evaluation_id' => $request->evaluation_id,
+                        'option_id' => $option->id,
+                        'user_id' => Auth::user()->id,
+                        'application_id' => $application->id,
+                        'answer' => ($option->type == 'with_answers') ? '0' : ''
+                    ]);
+                }
+            }
 
             /**
              *  Create submit status
              */
-//            EvaluationStatus::create([
-//                'evaluation_id' => $request->evaluation_id,
-//                'user_id' => Auth::user()->id,
-//                'application_id' => $application->id
-//            ]);
+            EvaluationStatus::create([
+                'evaluation_id' => $request->evaluation_id,
+                'user_id' => Auth::user()->id,
+                'application_id' => $application->id
+            ]);
+
+            /** Check if was present */
+            if($this->checkForPresence($application->id)){
+                /** Generate certificate */
+                if($this->generateCertificate($application->id)){
+                    /** Create notification to user that certificate is generated */
+                    $this->createNotification($application->userRel, 'cert_generated', Auth()->user()->id, 'Vaš certifikat za obuku "' . ($instance->trainingRel->title ?? '') . '" je generisan!', 'Obavijest o generisanju certifikata', route('system.user-data.trainings.apis.applications.download-certificate', ['application_id' => $application->id]));
+                }
+            }else{
+                $application->update([
+                    'presence' => '0',
+                    'certificate_id' => null
+                ]);
+            }
 
             try{
                 /**
-                 * Create notification
+                 * Create notification to instance creator
                  */
                 $this->createNotification($instance->createdBy, 'evaluation_submitted', Auth()->user()->id,  (Auth::user()->name ) . ' je ' . ((Auth::user()->gender == 1) ? 'završio' : 'završila') . ' evaluaciju za "' . ($instance->trainingRel->title ?? '') . '".', 'Obavijest o evaluaciji obuke', route('system.admin.trainings.instances.preview', ['id' => $instance->id ]));
 

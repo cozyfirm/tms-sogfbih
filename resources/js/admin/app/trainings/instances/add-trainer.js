@@ -40,13 +40,13 @@ $("document").ready(function () {
      *  Save trainer or update trainer
      */
     $(".save-trainer").click(function (){
-        $(".loading").fadeIn(5);
-
         let trainerID = $(".at_trainer_id").val();
         if(parseInt(trainerID) === 0){
             Notify.Me(["Molimo da odaberete trenera!", "warn"]);
             return;
         }
+
+        $(".loading").fadeIn(5);
 
         $.ajax({
             url: saveTrainerUri,
@@ -90,6 +90,7 @@ $("document").ready(function () {
      */
     $(".trainer__w_get_info").click(function (){
         let $this = $(this);
+        $(".loading").fadeIn(5);
 
         $.ajax({
             url: fetchTrainerUri,

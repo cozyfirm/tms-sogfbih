@@ -52,8 +52,6 @@ $("document").ready(function () {
      *  Save trainer or update trainer
      */
     $(".save-event").click(function (){
-        $(".loading").fadeIn(5);
-
         let type = $(".ag_type").val();
         let location = $(".ag_location_id");
         let date = $(".ag_date").val();
@@ -68,6 +66,8 @@ $("document").ready(function () {
             Notify.Me(["Format datuma nije validan!", "warn"]);
             return;
         }
+
+        $(".loading").fadeIn(5);
 
         $.ajax({
             url: saveEventUri,
@@ -89,11 +89,9 @@ $("document").ready(function () {
             success: function success(response) {
                 $(".loading").fadeOut(0);
 
-                console.log(response);
-
                 if(response['code'] === '0000'){
                     if(repeat.is(":checked")){
-                        location.val(0).trigger('change');
+                        // location.val(0).trigger('change');
 
                         $(".ag_tf").val($(".ag_td").val()).trigger('change');
                         $(".ag_note").val('');

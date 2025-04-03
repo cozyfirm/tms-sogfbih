@@ -13,22 +13,47 @@
     </div>
 </div>
 
-<div class="rm-card">
-    <div class="rm-card-header">
-        <h5>{{ __('Posljednje prijave') }}</h5>
-        <img class="normal-icon" src="{{ asset('files/images/icons/training-instance.svg') }}" alt="{{ __('Training-instance image') }}">
-    </div>
-    <hr>
-    <div class="list__wrapper">
-        <ol>
-            @foreach($instance->applicationsRel as $app)
-                <a href="{{ route('system.admin.users.preview', ['username' => $app->userRel->username ?? 'john-doe']) }}" class="hover-yellow-text" target="_blank" title="{{ __('Više informacija') }}">
-                    <li> {{ $app->userRel->name ?? '' }} </li>
-                </a>
-            @endforeach
-        </ol>
-    </div>
+<div class="rm-card-icons">
+    <a title="{{ __('Dodajte trenera na obuku') }}" class="instances-add-trainer">
+        <div class="rm-ci-w">
+            <img src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Trainer image') }}">
+        </div>
+    </a>
+    <a title="{{ __('Agenda obuke') }}" class="add-event">
+        <div class="rm-ci-w">
+            <img src="{{ asset('files/images/icons/calendar-plus-solid.svg') }}" alt="{{ __('Calendar image') }}">
+        </div>
+    </a>
+    <a href="{{ route('system.admin.trainings.instances.submodules.reports.edit-report', ['instance_id' => $instance->id ]) }}" title="{{ __('Izvještaj o provedenoj obuci') }}">
+        <div class="rm-ci-w">
+            <img src="{{ asset('files/images/icons/book-bookmark-solid.svg') }}" alt="{{ __('Report image') }}">
+        </div>
+    </a>
+    <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.preview', ['instance_id' => $instance->id ]) }}" title="{{ __('Evaluacije na obuci') }}">
+        <div class="rm-ci-w">
+            <i class="fa-solid fa-user-pen"></i>
+        </div>
+    </a>
 </div>
+
+@if($instance->applicationsRel->count())
+    <div class="rm-card">
+        <div class="rm-card-header">
+            <h5>{{ __('Posljednje prijave') }}</h5>
+            <img class="normal-icon" src="{{ asset('files/images/icons/training-instance.svg') }}" alt="{{ __('Training-instance image') }}">
+        </div>
+        <hr>
+        <div class="list__wrapper">
+            <ol>
+                @foreach($instance->applicationsRel as $app)
+                    <a href="{{ route('system.admin.users.preview', ['username' => $app->userRel->username ?? 'john-doe']) }}" class="hover-yellow-text" target="_blank" title="{{ __('Više informacija') }}">
+                        <li> {{ $app->userRel->name ?? '' }} </li>
+                    </a>
+                @endforeach
+            </ol>
+        </div>
+    </div>
+@endif
 
 @if(FileHelper::getInstanceFiles($instance->id)->count() or $instance->report)
     <div class="rm-card">
@@ -86,11 +111,6 @@
 @endif
 
 <div class="rm-card-icons">
-    <a title="{{ __('Dodajte trenera na obuku') }}" class="instances-add-trainer">
-        <div class="rm-ci-w">
-            <img src="{{ asset('files/images/icons/trainer.svg') }}" alt="{{ __('Trainer image') }}">
-        </div>
-    </a>
     <a title="{{ __('Upload dokumenata') }}" class="upload-files">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/cloud-arrow-up-solid.svg') }}" alt="{{ __('Upload file') }}">
@@ -104,21 +124,6 @@
     <a href="{{ route('system.admin.trainings.instances.photo-gallery.preview', ['id' => $instance->id ]) }}" title="{{ __('Galerija fotografija') }}" class="instance-gallery">
         <div class="rm-ci-w">
             <img src="{{ asset('files/images/icons/camera-retro-solid.svg') }}" alt="{{ __('Gallery image') }}">
-        </div>
-    </a>
-    <a title="{{ __('Agenda obuke') }}" class="add-event">
-        <div class="rm-ci-w">
-            <img src="{{ asset('files/images/icons/calendar-plus-solid.svg') }}" alt="{{ __('Calendar image') }}">
-        </div>
-    </a>
-    <a href="{{ route('system.admin.trainings.instances.submodules.reports.edit-report', ['instance_id' => $instance->id ]) }}" title="{{ __('Izvještaj o provedenoj obuci') }}">
-        <div class="rm-ci-w">
-            <img src="{{ asset('files/images/icons/book-bookmark-solid.svg') }}" alt="{{ __('Report image') }}">
-        </div>
-    </a>
-    <a href="{{ route('system.admin.trainings.instances.submodules.evaluations.preview', ['instance_id' => $instance->id ]) }}" title="{{ __('Evaluacije na obuci') }}">
-        <div class="rm-ci-w">
-            <i class="fa-solid fa-user-pen"></i>
         </div>
     </a>
 </div>

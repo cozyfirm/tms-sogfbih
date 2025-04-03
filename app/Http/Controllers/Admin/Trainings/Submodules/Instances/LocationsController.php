@@ -23,7 +23,7 @@ class LocationsController extends Controller{
         try{
             return $this->apiResponse('0000', __('Success'), [
                 'location' => Location::where('id', '=', $request->id)->with('cityRel')->first(),
-                'uri' => route('system.admin.trainings.submodules.locations.preview', ['id' => $request->id ])
+                'uri' => route('system.admin.shared.locations.preview', ['id' => $request->id ])
             ]);
         }catch (\Exception $e){
             return $this->jsonError('5200', __('Desila se greška. Molimo kontaktirajte administratora'));

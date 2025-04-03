@@ -89,7 +89,7 @@
     }
 }
 .rm-card-icons{
-    position: relative; display: flex; gap: 16px;
+    position: relative; display: flex; gap: 16px; width: 100%;
     a{
         display: flex;
         &:hover{cursor: pointer; }
