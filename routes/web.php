@@ -247,6 +247,10 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                         Route::get ('/preview-app/{instance_id}',            [InstancesApplicationsController::class, 'previewApp'])->name('system.admin.trainings.instances.submodules.applications.preview');
                         Route::post('/update-status',                        [InstancesApplicationsController::class, 'updateStatus'])->name('system.admin.trainings.instances.submodules.applications.update-status');
                         Route::get ('/download-certificate/{id}',            [InstancesApplicationsController::class, 'downloadCertificate'])->name('system.admin.trainings.instances.submodules.applications.download-certificate');
+
+                        /** Create application by admin; Add manually */
+                        Route::get ('/add-application/{instance_id}',        [InstancesApplicationsController::class, 'addApplication'])->name('system.admin.trainings.instances.submodules.applications.add-application');
+                        Route::post('/save-application',                     [InstancesApplicationsController::class, 'saveApplication'])->name('system.admin.trainings.instances.submodules.applications.save-application');
                     });
 
                     /**
@@ -474,6 +478,7 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
          */
         Route::prefix('trainings')->middleware('isAuthenticated')->group(function () {
             Route::get ('/',                      [UserTrainingsController::class, 'index'])->name('system.user-data.trainings');
+            Route::get ('/my-trainings',          [UserTrainingsController::class, 'myTrainings'])->name('system.user-data.trainings.my-trainings');
             Route::get ('/preview/{id}',          [UserTrainingsController::class, 'preview'])->name('system.user-data.trainings.preview');
 
             /**

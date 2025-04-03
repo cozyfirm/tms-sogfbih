@@ -224,13 +224,13 @@
                         </div>
                     </div>
                     <div class="inside-links active-links">
-                        <a href="#">
+                        <a href="{{ route('system.user-data.trainings') }}">
                             <div class="inside-lm-link">
                                 <div class="ilm-l"></div><div class="ilm-c"></div>
                                 <p>{{__('Sve obuke')}}</p>
                             </div>
                         </a>
-                        <a href="#">
+                        <a href="{{ route('system.user-data.trainings.my-trainings') }}">
                             <div class="inside-lm-link">
                                 <div class="ilm-l"></div><div class="ilm-c"></div>
                                 <p> {{__('Moje obuke')}} </p>
@@ -356,10 +356,10 @@
                         </div>
                     </div>
                     <div class="inside-links active-links">
-                        <a href="#">
+                        <a href="/files/instructions/users-manual.pdf" target="_blank">
                             <div class="inside-lm-link">
                                 <div class="ilm-l"></div><div class="ilm-c"></div>
-                                <p> {{__('Notifikacije')}} </p>
+                                <p> {{__('Korisničko uputstvo')}} </p>
                             </div>
                         </a>
                     </div>

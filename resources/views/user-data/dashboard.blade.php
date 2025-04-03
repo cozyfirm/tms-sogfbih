@@ -52,10 +52,10 @@
                             <img class="white-icon" src="{{ asset('files/images/icons/training-white.svg') }}" alt="{{ __('Training image') }}">
                             <p> {{__('Sistem obuka')}} </p>
                         </div>
-                        <div class="home-icon" link="">
-                            <i class="fa-solid fa-calendar"></i>
-                            <p> {{__('Kalendar aktivnosti')}} </p>
-                        </div>
+{{--                        <div class="home-icon" link="">--}}
+{{--                            <i class="fa-solid fa-calendar"></i>--}}
+{{--                            <p> {{__('Kalendar aktivnosti')}} </p>--}}
+{{--                        </div>--}}
                         <div class="home-icon" link="">
                             <i class="fa-solid fa-user-pen"></i>
                             <p> {{__('Moje evaluacije')}} </p>
@@ -64,13 +64,17 @@
                             <i class="fa-solid fa-user"></i>
                             <p> {{__('Moj profil')}} </p>
                         </div>
-                    </div>
-                    <div class="home-row-items">
                         <div class="home-icon go-to new-window" link="/files/instructions/users-manual.pdf" title="{{ __('Instrukcije za korištenje sistema') }}">
                             <i class="fa-solid fa-book-open-reader"></i>
                             <p> {{__('Korisničko uputstvo')}} </p>
                         </div>
                     </div>
+{{--                    <div class="home-row-items">--}}
+{{--                        <div class="home-icon go-to new-window" link="/files/instructions/users-manual.pdf" title="{{ __('Instrukcije za korištenje sistema') }}">--}}
+{{--                            <i class="fa-solid fa-book-open-reader"></i>--}}
+{{--                            <p> {{__('Korisničko uputstvo')}} </p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>
@@ -92,9 +96,7 @@
                 <div class="home-right-header">
                     <p> {{__('Brzi linkovi')}} </p>
                 </div>
-                <div class="home-right-element">
-                    {{__('Podrška')}}
-                </div>
+
                 <div class="home-right-element">
                     {{__('Homepage')}}
                 </div>

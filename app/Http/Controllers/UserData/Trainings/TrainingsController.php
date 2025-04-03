@@ -26,8 +26,7 @@ class TrainingsController extends Controller{
 
     protected string $_path = 'user-data.trainings.';
 
-    public function index(): View{
-        $instances = Instance::where('application_date','>=', date('Y-m-d'))->orderBy('application_date', 'DESC');
+    public function getTrainings($instances, $header): View{
         $instances = Filters::filter($instances);
 
         $filters = [
@@ -39,8 +38,19 @@ class TrainingsController extends Controller{
 
         return view($this->_path . 'index', [
             'filters' => $filters,
-            'instances' => $instances
+            'instances' => $instances,
+            'header' => $header
         ]);
+    }
+    public function index(): View{
+        $instances = Instance::where('application_date','>=', date('Y-m-d'))->orderBy('application_date', 'DESC');
+        return $this->getTrainings($instances, "Sistem obuka");
+    }
+    public function myTrainings(): View{
+        $instances = Instance::whereHas('acceptedApplicationsRel', function ($query){
+            $query->where('status', '=', 2);
+        })->orderBy('application_date', 'DESC');
+        return $this->getTrainings($instances, "Moje obuke");
     }
 
     public function preview($id): View{

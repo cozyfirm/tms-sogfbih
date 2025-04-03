@@ -41,13 +41,13 @@
                 .custom-hr{
                     position: relative; width: 100%; height: 1px; background: $lightGrey; margin: 32px 0px;
                 }
-                .training__areas, .training__authors, .instance__trainers, .training__participants, .shared_participants, .tp__participants{
+                .training__areas, .training__authors, .instance__trainers, .training__participants, .shared_participants, .tp__participants, .mp__certificates{
                     position: relative; width: 100%; display: flex; flex-wrap: wrap; gap: 16px;
                     h4{color: $darkGrey; font-size:20px; margin:0px; }
-                    .areas, .authors, .trainers, .sp__wrapper, .tp__participants{
+                    .areas, .authors, .trainers, .sp__wrapper, .tp__participants, .mp__cer__inner{
                         &:hover{cursor: pointer; }
                         position: relative; width: 100%; display: flex; gap: 8px; flex-wrap: wrap;
-                        .area__w, .author__w, .trainer__w, .participant_w{
+                        .area__w, .author__w, .trainer__w, .participant_w, .certificate{
                             padding: 2px 8px; background: $yellow; border-radius:4px;
                             p{
                                 margin: 0px; padding: 0px; color: #FFFFFF; font-size:14px;

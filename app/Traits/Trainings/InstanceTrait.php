@@ -109,10 +109,7 @@ trait InstanceTrait{
                 'path' => 'files/trainings/instances/certificates/user-certificates/'
             ]);
 
-            $application->update([
-                'presence' => 1,
-                'certificate_id' => $file->id
-            ]);
+            $application->update([ 'certificate_id' => $file->id ]);
 
             return true;
         }catch (\Exception $e){

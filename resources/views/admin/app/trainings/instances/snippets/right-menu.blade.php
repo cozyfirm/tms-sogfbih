@@ -34,6 +34,11 @@
             <i class="fa-solid fa-user-pen"></i>
         </div>
     </a>
+    <a href="{{ route('system.admin.trainings.instances.submodules.applications.add-application', ['instance_id' => $instance->id ]) }}" title="{{ __('Dodajte ručno korisnika na obuku') }}">
+        <div class="rm-ci-w">
+            <i class="fa-solid fa-user"></i>
+        </div>
+    </a>
 
     <!-- If there are submitted evaluations, Enable report download -->
     @if(isset($instance->evaluationRel->statusesRel))

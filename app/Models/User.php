@@ -23,6 +23,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static where(string $string, string $string1, int $int)
  * @method static create(array $except)
  * @method static whereIn(string $string, string[] $array)
+ * @method static pluck(string $string, string $string1)
  */
 class User extends Authenticatable
 {
@@ -134,6 +135,12 @@ class User extends Authenticatable
             return ($application->status == 1);
         }
     }
+    public function totalCertificates(){
+        return InstanceApp::where('user_id', '=', $this->id)->whereNotNull('certificate_id')->count();
+    }
+    public function myCertificates(): HasMany{
+        return $this->HasMany(InstanceApp::class, 'user_id', 'id')->whereNotNull('certificate_id')->orderBy('id', 'DESC');
+    }
     public function appStatus($instanceID): string{
         $application = InstanceApp::where('instance_id', '=', $instanceID)->where('user_id', '=', $this->id)->first();
         if(!$application) return __('Status nepoznat');
@@ -147,12 +154,8 @@ class User extends Authenticatable
     public function myLastTrainings(): HasMany{
         return $this->HasMany(InstanceApp::class, 'user_id', 'id')->take(10)->orderBy('id', 'DESC');
     }
-
     public function totalTrainings(): int{
         return InstanceApp::where('user_id', '=', $this->id)->where('status', '=', 2)->count();
-    }
-    public function totalCertificates(): int{
-        return InstanceApp::where('user_id', '=', $this->id)->where('presence', '=', 1)->count();
     }
     public function genderRel(): HasOne{
         return $this->hasOne(Keyword::class, 'id', 'gender');

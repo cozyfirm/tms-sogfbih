@@ -126,17 +126,19 @@
                     @endif
                 </form>
 
-                @if(isset($preview) and Auth()->user()->role == 'user')
+                @if(isset($preview) and Auth()->user()->role == 'user' and Auth()->user()->myCertificates->count())
                     <div class="custom-hr"></div>
 
-                    <div class="training__authors mb-32">
+                    <div class="mp__certificates mb-32">
                         <h4>{{ __('Moji certifikati') }}</h4>
-                        <div class="authors">
-                            <a href="#">
-                                <div class="author__w training-check-author">
-                                    <p>Program za inostrane zaposlenike</p>
-                                </div>
-                            </a>
+                        <div class="mp__cer__inner">
+                            @foreach(Auth()->user()->myCertificates as $certifiate)
+                                <a href="{{ route('system.user-data.trainings.apis.applications.download-certificate', ['application_id' => $certifiate->id]) }}">
+                                    <div class="certificate">
+                                        <p>{{ $certifiate->instanceRel->trainingRel->title ?? '' }}</p>
+                                    </div>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 @endif

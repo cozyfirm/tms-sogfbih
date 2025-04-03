@@ -11,6 +11,7 @@ use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\User;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
+use App\Traits\Trainings\InstanceTrait;
 use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ApplicationsController extends Controller{
-    use ResponseTrait, CommonTrait, UserBaseTrait;
+    use ResponseTrait, CommonTrait, UserBaseTrait, InstanceTrait;
 
     protected string $_path = 'admin.app.trainings.instances.submodules.applications.';
 
@@ -80,6 +81,52 @@ class ApplicationsController extends Controller{
             }else return back();
         }catch (\Exception $e){
             return back();
+        }
+    }
+
+    /**
+     * Add application by admin
+     *
+     * @param $instance_id
+     * @return View
+     */
+    public function addApplication($instance_id): View{
+        return view($this->_path . 'add-application', [
+            'instance' => Instance::where('id', '=', $instance_id)->first(),
+            'users' => User::pluck('name', 'id')->prepend('Odaberite korisnika', '')
+        ]);
+    }
+
+    public function saveApplication(Request $request): JsonResponse{
+        try{
+            $application = InstanceApp::where('instance_id', '=', $request->instance_id)
+                ->where('user_id', '=', $request->user_id)
+                ->first();
+
+            if(!$application){
+                $application = InstanceApp::create([
+                    'instance_id' => $request->instance_id,
+                    'user_id' => $request->user_id,
+                    'date' => date('Y-m-d'),
+                    'presence' => $request->presence,
+                    'status' => 2
+                ]);
+            }else{
+                $user = User::where('id', '=', $request->user_id)->first();
+
+                return $this->jsonError('5250', $user->name . ' je već ' . (($user->gender == "1") ? 'prijavljen' : 'prijavljena') . ' na ovu obuku!');
+            }
+            if($request->certificate == "1"){
+                $this->generateCertificate($application->id);
+            }
+
+            if(isset($request->repeat)){
+                return $this->apiResponse('0000', __('Uspješno ažurirano'));
+            }else{
+                return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.trainings.instances.preview', ['id' => $request->instance_id ]));
+            }
+        }catch (\Exception $e){
+            return $this->jsonError('5250', __('Desila se greška. Molimo kontaktirajte administratora'));
         }
     }
 }

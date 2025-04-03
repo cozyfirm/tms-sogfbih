@@ -59,19 +59,11 @@ class PresenceController extends Controller{
             $instance = Instance::where('id', '=', $application->instance_id)->first();
 
             /** Check for certificate */
-            /* Moved to evaluations part ...
-            if($this->checkForPresence($request->id)){
-                if($this->generateCertificate($request->id)){
-                    $this->createNotification($application->userRel, 'cert_generated', Auth()->user()->id, 'Vaš certifikat za obuku "' . ($instance->trainingRel->title ?? '') . '" je generisan!', 'Obavijest i generisanju certifikata', route('system.user-data.trainings.apis.applications.download-certificate', ['application_id' => $application->id]));
-                    return $this->apiResponse('0000', __('Uspješno ažurirano. Certifikat generisan!'));
-                }
+            if($this->checkForPresence($application->id)){
+                $application->update([ 'presence' => '1' ]);
             }else{
-                $application->update([
-                    'presence' => '0',
-                    'certificate_id' => null
-                ]);
+                $application->update([ 'presence' => '0' ]);
             }
-            */
 
             return $this->apiResponse('0000', __('Uspješno ažurirano'));
         }catch (\Exception $e){

@@ -3,10 +3,10 @@
     <img class="normal-icon" src="{{ asset('files/images/icons/training-instance.svg') }}" alt="{{ __('Training-instance image') }}">
     <img class="yellow-icon" src="{{ asset('files/images/icons/training-instance-yellow.svg') }}" alt="{{ __('Training instance image') }}">
 @endsection
-@section('c-title') {{ __('Sistem obuka') }} @endsection
+@section('c-title') {{ $header }} @endsection
 @section('c-breadcrumbs')
     <a href="{{ route('system.user-data.dashboard') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
-    <a href="{{ route('system.user-data.trainings') }}">{{ __('Sistem obuka') }}</a>
+    <a href="#">{{ $header }}</a>
 @endsection
 @section('c-buttons')
     <a href="{{ route('system.user-data.dashboard') }}">
