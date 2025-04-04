@@ -1,17 +1,34 @@
-<div class="three__elements">
-    <div class="element">
-        <h5>{{ Auth()->user()->totalTrainings() }}</h5>
-        <p>{{ __('Mojih obuka') }}</p>
+@if(Auth()->user()->role == 'trainer')
+    <div class="three__elements">
+        <div class="element">
+            <h5>{{ $user->trainersRel->count() }}</h5>
+            <p>{{ __('Ukupno obuka') }}</p>
+        </div>
+        <div class="element" title="{{ __('Prosječna ocjena') }}">
+            <h5>{{ $user->averageGrade() }}</h5>
+            <p>{{ __('Ocjena') }}</p>
+        </div>
+        <div class="element">
+            <h5> {{ $user->contractValue() }} </h5>
+            <p>{{ __('Ukupno KM') }}</p>
+        </div>
     </div>
-    <div class="element">
-        <h5>{{ Auth()->user()->totalCertificates() }}</h5>
-        <p>{{ __('Certifikata') }}</p>
+@else
+    <div class="three__elements">
+        <div class="element">
+            <h5>{{ Auth()->user()->totalTrainings() }}</h5>
+            <p>{{ __('Mojih obuka') }}</p>
+        </div>
+        <div class="element">
+            <h5>{{ Auth()->user()->totalCertificates() }}</h5>
+            <p>{{ __('Certifikata') }}</p>
+        </div>
+        <div class="element">
+            <h5>{{ Auth()->user()->userDaysOfTraining() ?? '0'}}</h5>
+            <p>{{ __('Dana predavanja') }}</p>
+        </div>
     </div>
-    <div class="element">
-        <h5>{{ Auth()->user()->userDaysOfTraining() ?? '0'}}</h5>
-        <p>{{ __('Dana predavanja') }}</p>
-    </div>
-</div>
+@endif
 
 @isset(Auth()->user()->educationRel)
     <div class="rm-card" title="{{ __('Informacije o edukaciji') }}">

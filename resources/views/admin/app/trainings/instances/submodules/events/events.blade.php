@@ -27,7 +27,7 @@
                     <tr>
                         <th scope="row" class="text-center">{{ $counter++ }}.</th>
                         <td>{{ $event->typeRel->name ?? '' }}</td>
-                        <td class="@if(Auth()->user()->role == 'admin' or Auth()->user()->role == 'moderator') location-info @else location-user-info @endif hover-yellow-text" location-id="{{ $event->location_id ?? 0 }}" title="{{ __('Više informacija o mjestu događaja') }}">
+                        <td class="@if(Auth()->user()->role == 'admin' or Auth()->user()->role == 'moderator') location-info @elseif(Auth()->user()->role == 'trainer') location-trainer-info @else location-user-info @endif hover-yellow-text" location-id="{{ $event->location_id ?? 0 }}" title="{{ __('Više informacija o mjestu događaja') }}">
                             {{ $event->locationRel->title ?? '' }}
                         </td>
                         <td>{{ $event->date() }}</td>

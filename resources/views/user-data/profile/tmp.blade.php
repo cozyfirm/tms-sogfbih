@@ -2,7 +2,7 @@
 @section('c-icon') <i class="fas fa-user"></i> @endsection
 @section('c-title') {{ __('Moj profil') }} @endsection
 @section('c-breadcrumbs')
-    <a href="{{ route('system.user-data.dashboard') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
     <a href="{{ route('system.admin.users') }}">{{ __('Pregled korisnika') }}</a> /
     <a href="{{ route('system.admin.users.preview', ['username' => $user->username ]) }}">{{ $user->name }}</a>
     @if(isset($edit))

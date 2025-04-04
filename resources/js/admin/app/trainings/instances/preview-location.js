@@ -4,6 +4,7 @@ import { Validator } from "../../../../style/layout/validator.ts";
 $("document").ready(function () {
     let fetchLocationUri = '/system/admin/trainings/instances/apis/locations/fetch';
     let fetchUserLocationUri = '/system/user-data/trainings/apis/locations/fetch';
+    let fetchTrainerLocationUri = '/system/trainer-data/trainings/apis/locations/fetch';
 
     /**
      *  Open and close form
@@ -54,5 +55,8 @@ $("document").ready(function () {
     })
     $(".location-user-info").click(function (){
         fetchLocationInfo($(this).attr('location-id'), fetchUserLocationUri);
+    })
+    $(".location-trainer-info").click(function (){
+        fetchLocationInfo($(this).attr('location-id'), fetchTrainerLocationUri);
     })
 });

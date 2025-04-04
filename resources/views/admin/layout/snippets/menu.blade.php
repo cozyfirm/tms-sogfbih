@@ -43,6 +43,18 @@
                         <p> {{__('Korisničko uputstvo')}} </p>
                     </div>
                 </a>
+            @elseif(Auth()->user()->role == 'trainer')
+                <div class="single-li">
+                    <a href="{{ route('system.user-data.trainings') }}" title="{{ __('Aktivnih obuka') }}">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        <div class="number-of"><p>{{ $availableTrainings }}</p></div>
+                    </a>
+                </div>
+                <a href="/files/instructions/trainer-manual.pdf" target="_blank">
+                    <div class="single-li">
+                        <p> {{__('Korisničko uputstvo')}} </p>
+                    </div>
+                </a>
             @endif
         </div>
 
@@ -105,6 +117,20 @@
         @if(Auth()->user()->role == 'admin' or Auth()->user()->role == 'moderator')
             <a href="{{ route('system.home') }}" class="menu-a-link">
                 <div class="s-lm-wrapper @if(Route::is('system.home')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <p>{{__('Dashboard')}}</p>
+                        <div class="extra-elements">
+                            <div class="ee-t ee-t-b"><p>{{__('Home')}}</p></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        @elseif(Auth()->user()->role == 'trainer')
+            <a href="{{ route('system.trainer-data.dashboard') }}" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.trainer-data.dashboard')) active @endif">
                     <div class="s-lm-s-elements">
                         <div class="s-lms-e-img">
                             <i class="fas fa-home"></i>
@@ -210,6 +236,35 @@
                             <div class="inside-lm-link">
                                 <div class="ilm-l"></div><div class="ilm-c"></div>
                                 <p>{{__('Lokacije')}}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </a>
+        @elseif(Auth()->user()->role == 'trainer')
+            <a href="#" class="menu-a-link">
+                <div class="s-lm-wrapper @if(Route::is('system.trainer-data.trainings*')) active @endif">
+                    <div class="s-lm-s-elements">
+                        <div class="s-lms-e-img">
+                            <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">
+                            <img class="yellow-icon" src="{{ asset('files/images/icons/training-yellow.svg') }}" alt="{{ __('Training image') }}">
+                        </div>
+                        <p>{{__('Sistem obuka')}}</p>
+                        <div class="extra-elements">
+                            <div class="rotate-element"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="inside-links active-links">
+                        <a href="{{ route('system.trainer-data.trainings') }}">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p>{{__('Sve obuke')}}</p>
+                            </div>
+                        </a>
+                        <a href="{{ route('system.trainer-data.trainings.my-trainings') }}">
+                            <div class="inside-lm-link">
+                                <div class="ilm-l"></div><div class="ilm-c"></div>
+                                <p> {{__('Moje obuke')}} </p>
                             </div>
                         </a>
                     </div>
@@ -350,7 +405,7 @@
             </a>
         @else
             <a href="#" class="menu-a-link">
-                <div class="s-lm-wrapper @if(Route::is('system.admin.core.*')) active @endif">
+                <div class="s-lm-wrapper">
                     <div class="s-lm-s-elements">
                         <div class="s-lms-e-img">
                             <i class="fas fa-cogs"></i>
@@ -361,7 +416,7 @@
                         </div>
                     </div>
                     <div class="inside-links active-links">
-                        <a href="/files/instructions/users-manual.pdf" target="_blank">
+                        <a href="@if(Auth()->user()->role == 'trainer') /files/instructions/trainer-manual.pdf @else /files/instructions/users-manual.pdf @endif" target="_blank">
                             <div class="inside-lm-link">
                                 <div class="ilm-l"></div><div class="ilm-c"></div>
                                 <p> {{__('Korisničko uputstvo')}} </p>

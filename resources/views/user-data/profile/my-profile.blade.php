@@ -3,7 +3,7 @@
 @section('c-icon') <i class="fas fa-user"></i> @endsection
 @section('c-title') {{ $user->name ?? '' }} @endsection
 @section('c-breadcrumbs')
-    <a href="{{ route('system.user-data.dashboard') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
+    <a> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
     <a href="{{ route('system.admin.users') }}">{{ __('Pregled korisnika') }}</a> /
     <a href="{{ route('system.admin.users.preview', ['username' => $user->username ]) }}">{{ $user->name }}</a>
     @if(isset($edit))
@@ -12,7 +12,7 @@
 @endsection
 
 @section('c-buttons')
-    <a href="@if(isset($preview)) {{ route('system.user-data.dashboard') }} @else {{ route('system.user-data.my-profile') }} @endif">
+    <a href="@if(Auth()->user()->role == 'trainer') {{ route('system.trainer-data.dashboard') }} @elseif(Auth()->user()->role == 'admin' or Auth()->user()->role == 'moderator') {{ route('system.home') }} @else @if(isset($preview)) {{ route('system.user-data.dashboard') }} @else {{ route('system.user-data.my-profile') }} @endif @endif">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>

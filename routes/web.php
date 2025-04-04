@@ -29,6 +29,9 @@ use App\Http\Controllers\Admin\Trainings\Submodules\TrainersController;
 use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Common\NotificationsController;
+use App\Http\Controllers\TrainerData\HomeController as TrainerDataHomeController;
+use App\Http\Controllers\TrainerData\DownloadController as TrainerDownloadController;
+use App\Http\Controllers\TrainerData\Trainings\TrainingsController as TrainersTrainingsController;
 use App\Http\Controllers\UserData\DownloadController as UserDownloadController;
 use App\Http\Controllers\UserData\HomeController as UserDataHomeController;
 use App\Http\Controllers\UserData\MyProfileController;
@@ -525,6 +528,45 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
          */
         Route::prefix('download')->group(function () {
             Route::get ('/download-file/{id}',                                 [UserDownloadController::class, 'downloadInstanceFile'])->name('system.user-data.download.download-instance-file');
+        });
+    });
+
+    Route::prefix('trainer-data')->middleware('isAuthenticated')->group(function () {
+        Route::get('/dashboard',                 [TrainerDataHomeController::class, 'dashboard'])->name('system.trainer-data.dashboard');
+
+        Route::prefix('trainings')->middleware('isAuthenticated')->group(function () {
+            Route::get ('/',                      [TrainersTrainingsController::class, 'index'])->name('system.trainer-data.trainings');
+            Route::get ('/my-trainings',          [TrainersTrainingsController::class, 'myTrainings'])->name('system.trainer-data.trainings.my-trainings');
+            Route::get ('/preview/{id}',          [TrainersTrainingsController::class, 'preview'])->name('system.trainer-data.trainings.preview');
+
+            /**
+             *  Additional APIs
+             */
+            Route::prefix('apis')->group(function () {
+                /**
+                 *  Locations info
+                 */
+                Route::prefix('locations')->group(function () {
+                    Route::post('/fetch',                           [InstanceLocationsController::class, 'fetch'])->name('system.trainer-data.trainings.apis.locations.fetch');
+                });
+            });
+
+            /**
+             *  Additional training data visible to user
+             */
+            Route::prefix('additional-data')->group(function () {
+                /** Photo Gallery */
+                Route::prefix('photo-gallery')->group(function () {
+                    Route::get ('/preview/{instance_id}',                      [TrainersTrainingsController::class, 'photoGallery'])->name('system.trainer-data.trainings.additional-data.photo-gallery');
+                });
+            });
+        });
+
+        /**
+         *  Download files
+         */
+        Route::prefix('download')->group(function () {
+            Route::get ('/download-file/{id}',                                 [TrainerDownloadController::class, 'downloadInstanceFile'])->name('system.trainer-data.download.download-instance-file');
         });
     });
 
