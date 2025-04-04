@@ -9,6 +9,7 @@ use App\Models\Core\File;
 use App\Models\Core\Keyword;
 use App\Models\Trainings\Author;
 use App\Models\Trainings\AuthorRel;
+use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Trainings\Training;
 use App\Models\Trainings\TrainingArea;
 use App\Models\Trainings\TrainingFile;
@@ -27,7 +28,9 @@ class ProgramsAndTrainingsController extends Controller{
     protected string $_path = 'admin.app.trainings.';
 
     public function home(): View{
-        return view($this->_path . 'home');
+        return view($this->_path . 'home', [
+            'lastApplications' => InstanceApp::orderBy('id', 'DESC')->take(3)->get()
+        ]);
     }
     public function index(): View{
         $trainings = Training::orderBy('year', 'DESC');

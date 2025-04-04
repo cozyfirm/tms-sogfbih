@@ -1,13 +1,12 @@
 <div class="reminders home-right-wrapper">
     <div class="home-right-header">
-        <p>Napomene</p>
+        <p>{{ __('Posljednje prijave') }}</p>
     </div>
-    <div class="home-right-element">
-        Danas, 11. Januar 2021 - Ponedjeljak, potrebno je da završim ovaj desni dio aplikacije !
-    </div>
-    <div class="home-right-element">
-        Ovdje upisujemo drugu napomenu !
-    </div>
+    @foreach($lastApplications as $app)
+        <div class="home-right-element go-to" link="{{ route('system.admin.trainings.instances.submodules.applications', ['instance_id' => $app->instance_id ]) }}">
+            <b>{{ $app->userRel->name ?? '' }}</b> {{ __('se ') . ((($app->userRel->gender ?? "0") == "1") ? __('prijavio') : __('prijavila')) . __(' na obuku') }} <i>"{{ $app->instanceRel->trainingRel->title ?? '' }}"</i>
+        </div>
+    @endforeach
 </div>
 
 <div class="reminders home-right-wrapper">

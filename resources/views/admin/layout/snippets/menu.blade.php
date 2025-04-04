@@ -9,20 +9,19 @@
     <div class="top-menu-links">
         <!-- Left top icons -->
         <div class="left-icons">
-            <div class="single-li">
-                <a href="#" target="_blank" title="{{ __('Aktivnih obuka') }}">
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                    <div class="number-of"><p>5</p></div>
-                </a>
-            </div>
-
             @if(Auth()->user()->role == 'admin')
-                <a href="#" target="_blank">
+                <div class="single-li">
+                    <a href="{{ route('system.admin.trainings.instances') }}" title="{{ __('Aktivnih obuka') }}">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        <div class="number-of"><p>{{ $availableTrainings }}</p></div>
+                    </a>
+                </div>
+                <a href="{{ route('system.admin.trainings') }}">
                     <div class="single-li">
                         <p> {{__('Programi')}} </p>
                     </div>
                 </a>
-                <a href="#">
+                <a href="{{ route('system.admin.users') }}">
                     <div class="single-li">
                         <p> {{__('Korisnici')}} </p>
                     </div>
@@ -33,6 +32,12 @@
                     </div>
                 </a>
             @elseif(Auth()->user()->role == 'user')
+                <div class="single-li">
+                    <a href="{{ route('system.user-data.trainings') }}" title="{{ __('Aktivnih obuka') }}">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        <div class="number-of"><p>{{ $availableTrainings }}</p></div>
+                    </a>
+                </div>
                 <a href="/files/instructions/users-manual.pdf" target="_blank">
                     <div class="single-li">
                         <p> {{__('Korisničko uputstvo')}} </p>
@@ -43,10 +48,10 @@
 
         <!-- Right top icons -->
         <div class="right-icons">
-            <div class="single-li main-search-w" title="">
-                <i class="fas fa-search main-search-t hover-white" title="{{__('Pretražite')}}"></i>
+{{--            <div class="single-li main-search-w" title="">--}}
+{{--                <i class="fas fa-search main-search-t hover-white" title="{{__('Pretražite')}}"></i>--}}
 {{--                @include('system.template.menu.menu-includes.search')--}}
-            </div>
+{{--            </div>--}}
             <div class="single-li m-show-notifications" title="Pregled obavijesti">
                 <i class="fas fa-bell m-show-notifications-icon hover-white"></i>
                 <div class="number-of number-of-not @if(!Auth()->user()->notifications) d-none @endif"><p id="no-unread-notifications">{{ Auth()->user()->notifications ?? '' }}</p></div>

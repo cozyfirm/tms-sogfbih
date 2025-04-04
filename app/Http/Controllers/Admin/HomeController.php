@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Trainings\Instances\Instance;
+use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\Trainings\Training;
 use App\Models\User;
 use App\Models\Users\SystemAccess;
@@ -24,7 +25,8 @@ class HomeController extends Controller{
             'users' => User::where('role', '!=', 'admin')->count(),
             'trainers' => User::where('role', '=', 'trainer')->count(),
             'instances' => Instance::count(),
-            'systemAccess' => SystemAccess::orderBy('id', 'DESC')->take(5)->get()
+            'systemAccess' => SystemAccess::orderBy('id', 'DESC')->take(5)->get(),
+            'lastApplications' => InstanceApp::orderBy('id', 'DESC')->take(3)->get()
         ]);
     }
 }
