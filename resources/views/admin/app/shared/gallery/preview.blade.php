@@ -4,7 +4,7 @@
             <p> <span class="current-index no-select">1</span> / <span class="total-images no-select">{{ $images->count() }}</span> </p>
         </div>
         <div class="right__side">
-            <img class="download-icon no-select" src="{{ asset('files/images/icons/cloud-arrow-down-solid.svg') }}" alt="{{ __('Close icon') }}" title="{{ __('Preuzmite fotografiju') }}">
+{{--            <img class="download-icon no-select" src="{{ asset('files/images/icons/cloud-arrow-down-solid.svg') }}" alt="{{ __('Close icon') }}" title="{{ __('Preuzmite fotografiju') }}">--}}
 
             <img class="close-preview-gallery no-select" src="{{ asset('files/images/icons/cross-small-white.svg') }}" alt="{{ __('Close icon') }}" title="{{ __('Zatvorite skočni prozor') }}">
         </div>

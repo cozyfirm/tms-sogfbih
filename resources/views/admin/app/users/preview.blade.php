@@ -1,6 +1,7 @@
 @extends('admin.layout.layout')
+@section('page-title') {{ $user->name ?? '' }} @endsection
 @section('c-icon') <i class="fas fa-users"></i> @endsection
-@section('c-title') {{ __('Korisnici') }} @endsection
+@section('c-title') {{ $user->name ?? '' }} @endsection
 @section('c-breadcrumbs')
     <a href="{{ route('system.home') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
     <a href="{{ route('system.admin.users') }}">{{ __('Pregled svih korisnika') }}</a> /

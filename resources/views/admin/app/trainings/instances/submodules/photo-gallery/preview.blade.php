@@ -25,7 +25,7 @@
     <!-- Get images before displaying -->
     @php $images = FileHelper::getInstanceImages($instance->id); @endphp
         <!-- Set title of image -->
-    @php $title = __('Instance') @endphp
+    @php $title = __('Obuka') @endphp
         <!-- Set route -->
     @php $route = 'system.admin.trainings.instances.remove-file' @endphp
 

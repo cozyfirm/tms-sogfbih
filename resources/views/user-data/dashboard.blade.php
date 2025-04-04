@@ -33,8 +33,8 @@
                             <p>{{__('Certifikata')}}</p>
                         </div>
                         <div class="home-icon" title="{{__('Registrovanih korisnika')}}">
-                            <h1>{{$users ?? '0'}}</h1>
-                            <p>{{__('Sati predavanja')}}</p>
+                            <h1>{{ Auth()->user()->userDaysOfTraining() ?? '0'}}</h1>
+                            <p>{{__('Dana predavanja')}}</p>
                         </div>
                     </div>
                 </div>
@@ -56,9 +56,9 @@
 {{--                            <i class="fa-solid fa-calendar"></i>--}}
 {{--                            <p> {{__('Kalendar aktivnosti')}} </p>--}}
 {{--                        </div>--}}
-                        <div class="home-icon" link="">
-                            <i class="fa-solid fa-user-pen"></i>
-                            <p> {{__('Moje evaluacije')}} </p>
+                        <div class="home-icon go-to" link="{{ route('system.user-data.trainings.my-trainings') }}">
+                            <i class="fa-solid fa-users-line"></i>
+                            <p> {{__('Moje obuke')}} </p>
                         </div>
                         <div class="home-icon go-to" link="{{ route('system.user-data.my-profile') }}">
                             <i class="fa-solid fa-user"></i>
@@ -82,14 +82,13 @@
         <div class="homepage-side">
             <div class="reminders home-right-wrapper">
                 <div class="home-right-header">
-                    <p>Napomene</p>
+                    <p>{{ __('Posljednje prijave') }}</p>
                 </div>
-                <div class="home-right-element">
-                    Danas, 11. Januar 2021 - Ponedjeljak, potrebno je da završim ovaj desni dio aplikacije !
-                </div>
-                <div class="home-right-element">
-                    Ovdje upisujemo drugu napomenu !
-                </div>
+                @foreach($lastApplications as $app)
+                    <div class="home-right-element go-to" link="{{ route('system.user-data.trainings.preview', ['id' => $app->instance_id ]) }}">
+                        {{ $app->createdAt() }} - <b><i>"{{ $app->instanceRel->trainingRel->title ?? '' }}"</i></b>
+                    </div>
+                @endforeach
             </div>
 
             <div class="reminders home-right-wrapper">
@@ -97,8 +96,8 @@
                     <p> {{__('Brzi linkovi')}} </p>
                 </div>
 
-                <div class="home-right-element">
-                    {{__('Homepage')}}
+                <div class="home-right-element go-to new-window" link="https://sogfbih.ba">
+                    {{__('SOG FBiH')}}
                 </div>
             </div>
         </div>

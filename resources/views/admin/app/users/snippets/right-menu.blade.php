@@ -8,8 +8,8 @@
         <p>{{ __('Certifikata') }}</p>
     </div>
     <div class="element">
-        <h5>24</h5>
-        <p>{{ __('Sati predavanja') }}</p>
+        <h5>{{ $user->userDaysOfTraining() ?? '0'}}</h5>
+        <p>{{ __('Dana predavanja') }}</p>
     </div>
 </div>
 

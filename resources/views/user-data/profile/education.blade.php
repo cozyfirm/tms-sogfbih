@@ -1,4 +1,5 @@
 @extends('admin.layout.layout')
+@section('page-title') {{ (Auth()->user()->name ?? '') . __(' - stručna sprema') }} @endsection
 @section('c-icon') <i class="fa-solid fa-building-columns"></i> @endsection
 @section('c-title') {{ __('Stručna sprema') }} @endsection
 @section('c-breadcrumbs')

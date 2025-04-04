@@ -174,6 +174,21 @@ class User extends Authenticatable
     }
 
     /**
+     *  User functions
+     */
+    public function userDaysOfTraining(): string{
+        $applications = InstanceApp::where('user_id', '=', $this->id)->get();
+        $totalDays = 0;
+        foreach($applications as $application){
+            try{
+                $totalDays += $application->instanceRel->totalDays();
+            }catch (\Exception $exception){}
+        }
+
+        return $totalDays;
+    }
+
+    /**
      *  Trainer relationships
      */
     public function trainersRel(): HasMany{

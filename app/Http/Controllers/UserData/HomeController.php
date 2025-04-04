@@ -4,7 +4,9 @@ namespace App\Http\Controllers\UserData;
 
 use App\Http\Controllers\Controller;
 use App\Models\Trainings\Instances\Instance;
+use App\Models\Trainings\Instances\InstanceApp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class HomeController extends Controller{
@@ -12,7 +14,8 @@ class HomeController extends Controller{
 
     public function dashboard(): View{
         return view($this->_path . 'dashboard', [
-            'instances' => Instance::where('application_date','>=', date('Y-m-d'))->count()
+            'instances' => Instance::where('application_date','>=', date('Y-m-d'))->count(),
+            'lastApplications' => InstanceApp::where('user_id', '=', Auth::user()->id)->orderBy('id', 'DESC')->take(3)->get()
         ]);
     }
 }

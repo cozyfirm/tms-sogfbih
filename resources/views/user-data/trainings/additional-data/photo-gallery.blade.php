@@ -20,28 +20,39 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper preview-content-wrapper">
-        <div class="gallery__wrapper">
-            @foreach(FileHelper::getInstanceImages($instance->id) as $image)
-                <div class="image__out_wrapper">
-                    <div class="image__wrapper">
-                        <img src="{{ asset($image->getFile()) }}" alt="">
-                    </div>
-                    <div class="gallery__text__wrapper">
-                        <div class="gtw__left">
-                            <div class="gtw__image__wrapper">
-                                <p>{{ $image->instanceRel->userRel->getInitials() }}</p>
-                            </div>
-                            <div class="text__">
-                                <h6>{{ $image->instanceRel->userRel->name ?? '' }}</h6>
-                                <p>{{ $image->instanceRel->userRel->email ?? '' }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
+    <!-- Get images before displaying -->
+    @php $images = FileHelper::getInstanceImages($instance->id); @endphp
+        <!-- Set title of image -->
+    @php $title = __('Obuka') @endphp
+
+        <!-- Preview gallery images -->
+    @include('admin.app.shared.gallery.preview')
+
+    <!-- List of images -->
+    @include('admin.app.shared.gallery.image-list')
+{{--    --}}
+{{--    <div class="content-wrapper preview-content-wrapper">--}}
+{{--        <div class="gallery__wrapper">--}}
+{{--            @foreach(FileHelper::getInstanceImages($instance->id) as $image)--}}
+{{--                <div class="image__out_wrapper">--}}
+{{--                    <div class="image__wrapper">--}}
+{{--                        <img src="{{ asset($image->getFile()) }}" alt="">--}}
+{{--                    </div>--}}
+{{--                    <div class="gallery__text__wrapper">--}}
+{{--                        <div class="gtw__left">--}}
+{{--                            <div class="gtw__image__wrapper">--}}
+{{--                                <p>{{ $image->instanceRel->userRel->getInitials() }}</p>--}}
+{{--                            </div>--}}
+{{--                            <div class="text__">--}}
+{{--                                <h6>{{ $image->instanceRel->userRel->name ?? '' }}</h6>--}}
+{{--                                <p>{{ $image->instanceRel->userRel->email ?? '' }}</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endforeach--}}
+{{--        </div>--}}
+{{--    </div>--}}
 @endsection
 
 {{--{{ dd(FileHelper::getInstanceImages(2)) }}--}}
