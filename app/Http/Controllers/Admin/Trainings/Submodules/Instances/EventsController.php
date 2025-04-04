@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Trainings\Instances\InstanceEvent;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
+use App\Traits\Trainings\InstanceTrait;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class EventsController extends Controller{
-    use ResponseTrait, CommonTrait;
+    use ResponseTrait, CommonTrait, InstanceTrait;
 
     public function save(Request $request): JsonResponse{
         try{
@@ -26,6 +27,9 @@ class EventsController extends Controller{
                 /* ToDo:: Add additional check */
                 InstanceEvent::create($request->except(['_token', 'activeEvent']));
             }
+
+            /** Update start, end date and duration */
+            $this->updateDuration($request->instance_id);
 
             return $this->jsonSuccess(__('Uspješno ažurirano'), route('system.admin.trainings.instances.preview', ['id' => $request->instance_id]));
         }catch (\Exception $e){
@@ -60,7 +64,12 @@ class EventsController extends Controller{
      */
     public function delete(Request $request): JsonResponse{
         try{
-            InstanceEvent::where('id', '=', $request->id)->delete();
+            $event = InstanceEvent::where('id', '=', $request->id)->first();
+            $instance_id = $event->instance_id;
+            $event->delete();
+
+            /** Update start, end date and duration */
+            $this->updateDuration($instance_id);
 
             return $this->jsonSuccess(__('Uspješno obrisano'), route('system.admin.trainings.instances.preview', ['id' => $request->instance_id]));
         }catch (\Exception $e){

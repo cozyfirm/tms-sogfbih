@@ -45,13 +45,41 @@
                     <td class="text-center">{{ $i++}}</td>
                     <td> {{ $instance->trainingRel->title ?? ''}} </td>
                     <td> {{ $instance->applicationDate() ?? ''}} </td>
-                    <td> {{ $instance->contract ?? ''}} </td>
+                    <td> {{ $instance->startDate() ?? ''}} </td>
+                    <td> {{ $instance->endDate() ?? ''}} </td>
+                    <td> {{ $instance->duration ?? ''}} </td>
+                    <td> {{ $instance->total_males ?? ''}} </td>
+                    <td> {{ $instance->total_females ?? ''}} </td>
+                    <td> {{ $instance->total_applications ?? ''}} </td>
+                    <td>
+                        <ul class="mb-0 pl-1">
+                            @foreach($instance->applicationsRel as $application)
+                                <li>
+                                    <a href="{{ route('system.admin.users.preview', ['username' => $application->userRel->username ?? '#']) }}" target="_blank" class="hover-yellow-text">
+                                        {{ $application->userRel->name ?? '' }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="mb-0 pl-1">
+                            @foreach($instance->trainersRel as $trainer)
+                                <li>
+                                    <a href="{{ route('system.admin.trainings.submodules.trainers.preview', ['username' => $trainer->trainerRel->username ?? '#']) }}" target="_blank" class="hover-yellow-text">
+                                        {{ $trainer->trainerRel->name ?? '' }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td>
                         {{ $instance->reportRel->name ?? '' }}
                         @if($instance->report)
                             (<a class="hover-yellow-text" title="{{ __('Preuzmite izvještaj') }}" href="{{ route('system.admin.trainings.instances.submodules.reports.download-report', ['instance_id' => $instance->id ]) }}">{{ $instance->reportFileRel->file ?? '' }}</a>)
                         @endif
                     </td>
+                    <td> {{ $instance->createdBy->name ?? ''}} </td>
 
                     <td class="text-center">
                         <a class="table-btn-link" href="{{route('system.admin.trainings.instances.preview', ['id' => $instance->id] )}}" title="{{ __('Pregled obuke') }}">

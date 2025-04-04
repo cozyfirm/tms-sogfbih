@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @method static where(string $string, string $string1, mixed $instanceID)
+ * @method static create(array $array)
  */
 class InstanceApp extends Model{
     use HasFactory;

@@ -39,8 +39,16 @@ class InstancesController extends Controller{
         $filters = [
             'trainingRel.title' => 'Naziv',
             'application_date' => __('Datum za prijave'),
-            'contract' => __('Vrijednost ugovora'),
-            'reportRel.name' => __('Izvještaj o provedenoj obuci')
+            'start_date' => __('Početak'),
+            'end_date' => __('Završetak'),
+            'duration' => __('Trajanje'),
+            'total_males' => __('Muškaraca'),
+            'total_females' => __('Žena'),
+            'total_applications' => __('Ukupno prijava'),
+            'applicationsRel.userRel.name' => __('Kandidati'),
+            'trainersRel.trainerRel.name' => __('Treneri'),
+            'reportRel.name' => __('Izvještaj o provedenoj obuci'),
+            'createdBy.name' => __('Obuku kreirao')
         ];
 
         return view($this->_path . 'index', [

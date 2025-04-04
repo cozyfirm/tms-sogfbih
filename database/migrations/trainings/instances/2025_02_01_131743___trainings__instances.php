@@ -30,6 +30,10 @@ return new class extends Migration
             $table->integer('total_females')->default(0);
             // $table->integer('lunch');                              // FK to Keywords: Yes | No
 
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->integer('duration')->default(0);
+
             $table->string('youtube', 200)->nullable();
             // $table->string('contract', 10)->default('0.00');
 

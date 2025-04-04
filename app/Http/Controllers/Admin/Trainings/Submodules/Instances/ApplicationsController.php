@@ -120,6 +120,11 @@ class ApplicationsController extends Controller{
                 $this->generateCertificate($application->id);
             }
 
+            /**
+             *  Update statistics about this instance
+             */
+            $this->updateStatistics($request->instance_id);
+
             if(isset($request->repeat)){
                 return $this->apiResponse('0000', __('Uspješno ažurirano'));
             }else{

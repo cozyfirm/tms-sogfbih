@@ -10,6 +10,7 @@ use App\Models\Trainings\Instances\Instance;
 use App\Models\Trainings\Instances\InstanceApp;
 use App\Models\User;
 use App\Traits\Http\ResponseTrait;
+use App\Traits\Trainings\InstanceTrait;
 use App\Traits\Users\UserBaseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ApplicationsController extends Controller{
-    use ResponseTrait, UserBaseTrait;
+    use ResponseTrait, UserBaseTrait, InstanceTrait;
 
     /**
      * Create notification when user sign-ups
@@ -44,10 +45,9 @@ class ApplicationsController extends Controller{
             }
 
             /**
-             *  Update number of applications
+             *  Update statistics about this instance
              */
-
-            $instance->update(['total_applications' => InstanceApp::where('instance_id', '=', $instance->id)->count()]);
+            $this->updateStatistics($instance->id);
 
             /**
              *  Send an email notification to user in charge about application status

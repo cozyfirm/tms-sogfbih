@@ -9,6 +9,7 @@ use App\Models\Trainings\Instances\InstanceEvent;
 use App\Models\Trainings\Instances\InstancePresence;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use JetBrains\PhpStorm\NoReturn;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 trait InstanceTrait{
@@ -117,5 +118,58 @@ trait InstanceTrait{
         }catch (\Exception $e){
             return false;
         }
+    }
+
+    /**
+     * Update instance statistics, such as:
+     *
+     *  1. total_applications
+     *  2. total_males
+     *  3. total_females
+     * @param $instance_id
+     * @return void
+     */
+    public function updateStatistics($instance_id): void{
+        try{
+            $applications = InstanceApp::where('instance_id', '=', $instance_id)->get();
+            $males = 0; $females = 0;
+
+            foreach ($applications as $application){
+                if(isset($application->userRel)){
+                    if($application->userRel->gender == 1) $males += 1;
+                    else $females += 1;
+                }
+            }
+
+            /** Update instance */
+            Instance::where('id', '=', $instance_id)->update([
+                'total_applications' => $applications->count(),
+                'total_males' => $males,
+                'total_females' => $females
+            ]);
+        }catch (\Exception $e){}
+    }
+
+    /**
+     * Update instance duration, including:
+     *  1. Start date
+     *  2. End date
+     *  3. Total duration
+     *
+     * @param $instance_id
+     * @return void
+     */
+    public function updateDuration($instance_id): void{
+        try{
+            $start = InstanceEvent::where('instance_id', '=', $instance_id)->orderBy('date')->first();
+            $end   = InstanceEvent::where('instance_id', '=', $instance_id)->orderBy('date', 'DESC')->first();
+
+            /** Update instance */
+            Instance::where('id', '=', $instance_id)->update([
+                'start_date' => $start->date,
+                'end_date' => $end->date,
+                'duration' => InstanceEvent::where('instance_id', '=', $instance_id)->get()->unique('date')->count()
+            ]);
+        }catch (\Exception $e){}
     }
 }
