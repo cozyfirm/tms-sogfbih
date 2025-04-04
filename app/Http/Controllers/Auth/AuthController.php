@@ -54,6 +54,7 @@ class AuthController extends Controller{
 
             $uri = route('system.home');
             if($user->role == 'user') $uri = route('system.user-data.dashboard');
+            if($user->role == 'trainer') $uri = route('system.trainer-data.dashboard');
 
             if(Session::get('getBackToUri')){
                 /** We should redirect to special uri */
