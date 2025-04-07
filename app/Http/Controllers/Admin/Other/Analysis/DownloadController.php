@@ -106,7 +106,7 @@ class DownloadController extends Controller{
                     $sheet->mergeCells("I".$row.":J".$row);
                     $sheet->getStyle("I".$row.":J".$row)->getAlignment()->setHorizontal('center')->setVertical('center')->setWrapText(true);
                     $sheet->getStyle("I".$row.":J".$row)->getFont()->setBold(true);
-                    $sheet->setCellValue('I' . $row,  $this->roundNumber($average / $counter, "2"));
+                    $sheet->setCellValue('I' . $row,  $this->roundNumber($average / ($counter - 1), "2"));
                     $row++;
                 }
 
