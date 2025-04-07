@@ -1,19 +1,19 @@
 <div class="three__elements">
     <div class="element" title="{{ __('Broj učesnika') }}">
-        <h5>{{ $analysis->evaluationRel->publicQuestionnairesRel->count() }}</h5>
+        <h5>@isset($analysis->evaluationRel) {{ $analysis->evaluationRel->publicQuestionnairesRel->count() }} @else 0 @endif</h5>
         <p>{{ __('Učesnika') }}</p>
     </div>
     <div class="element" title="{{ __('Broj unesenih zaključaka sa događaja') }}">
-        <h5>{{ $analysis->evaluationRel->publicQuestionnairesAllRel->count() }}</h5>
+        <h5>@isset($analysis->evaluationRel) {{ $analysis->evaluationRel->publicQuestionnairesAllRel->count() }} @else 0 @endif</h5>
         <p>{{ __('Posjeta') }}</p>
     </div>
     <div class="element" title="{{ __('Broj priloženih dokumenata') }}">
-        <h5> {{ $analysis->evaluationRel->optionsRel->count() }} </h5>
+        <h5>@isset($analysis->evaluationRel) {{ $analysis->evaluationRel->optionsRel->count() }} @else 0 @endif</h5>
         <p>{{ __('Pitanja') }}</p>
     </div>
 </div>
 
-@if($analysis->evaluationRel->publicQuestionnairesRel->count())
+@if(isset($analysis->evaluationRel) and $analysis->evaluationRel->publicQuestionnairesRel->count())
     <div class="rm-card">
         <div class="rm-card-header">
             <h5>{{ __('Posljednje ankete') }}</h5>

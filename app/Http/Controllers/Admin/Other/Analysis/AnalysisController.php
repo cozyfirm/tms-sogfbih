@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AnalysisController extends Controller{
@@ -49,6 +50,9 @@ class AnalysisController extends Controller{
             $request['date_from'] = Carbon::parse($request->date_from)->format('Y-m-d');
             $request['date_to'] = Carbon::parse($request->date_to)->format('Y-m-d');
             $request['hash'] = md5($request->date_from  . time());
+
+            /** Add info about created by */
+            $request['created_by'] = Auth::user()->id;
 
             // Create instance
             $analysis = Analysis::create($request->except(['_token']));
