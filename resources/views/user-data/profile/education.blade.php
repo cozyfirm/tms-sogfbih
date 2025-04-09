@@ -16,13 +16,25 @@
             <span>{{ __('Nazad') }}</span>
         </button>
     </a>
+    @if(isset($education))
+        <a href="{{ route('system.user-data.my-profile.education.delete-education', ['id' => $education->id]) }}" class="prevent-delete" text="{{ __('Jeste li sigurni da želite obrisati informacije o edukaciji?') }}" title="{{ __('Obrišite informacije o edukaciji') }}">
+            <button class="pm-btn btn pm-btn-trash">
+                <i class="fas fa-trash"></i>
+            </button>
+        </a>
+    @endif
 @endsection
 
 @section('content')
     <div class="content-wrapper preview-content-wrapper">
         <div class="form__info">
             <div class="form__info__inner">
-                <form action="{{ route('system.user-data.my-profile.education.update') }}" method="POST" id="js-form">
+                <form action="@if(isset($edit)) {{ route('system.user-data.my-profile.education.update-education') }} @else {{ route('system.user-data.my-profile.education.save-education') }} @endif" method="POST" id="js-form">
+
+                    @if(isset($edit))
+                        {{ html()->hidden('id')->class('form-control')->value($education->id) }}
+                    @endif
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

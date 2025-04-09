@@ -157,16 +157,47 @@ class UsersController extends Controller{
     /**
      * Education routes
      */
-
-
-    public function editEducation ($username): View{
+    public function createEducation ($username): View{
         $user = User::where('username', '=', $username)->first();
+
+        return view($this->_path . 'education', [
+            'create' => true,
+            'user' => $user,
+            'educationLevels' => Keyword::getIt('users__education_level'),
+            // 'education' => Education::where('user_id', '=', $user->id)->first()
+        ]);
+    }
+
+    public function saveEducation(Request $request): JsonResponse{
+        try{
+            $request['graduation_date'] = Carbon::parse($request->graduation_date)->format('Y-m-d');
+
+            $user = User::where('id', '=', $request->user_id)->first();
+
+            Education::create([
+                'user_id' => $user->id,
+                'level' => $request->level,
+                'school' => $request->school,
+                'university' => $request->university,
+                'title' => $request->title,
+                'graduation_date' => $request->graduation_date
+            ]);
+
+            return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.users.preview', ['username' => $user->username]));
+        }catch (\Exception $e){
+            return $this->jsonError('1500', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
+        }
+    }
+
+    public function editEducation ($id): View{
+        $education = Education::where('id', '=', $id)->first();
+        $user = User::where('id', '=', $education->user_id)->first();
 
         return view($this->_path . 'education', [
             'edit' => true,
             'user' => $user,
             'educationLevels' => Keyword::getIt('users__education_level'),
-            'education' => Education::where('user_id', '=', $user->id)->first()
+            'education' => $education
         ]);
     }
 
@@ -174,31 +205,32 @@ class UsersController extends Controller{
         try{
             $request['graduation_date'] = Carbon::parse($request->graduation_date)->format('Y-m-d');
 
-            $user = User::where('id', '=', $request->id)->first();
-            $education = Education::where('user_id', '=', $request->id)->first();
+            $user = User::where('id', '=', $request->user_id)->first();
 
-            if($education){
-                $education->update([
-                    'level' => $request->level,
-                    'school' => $request->school,
-                    'university' => $request->university,
-                    'title' => $request->title,
-                    'graduation_date' => $request->graduation_date
-                ]);
-            }else{
-                Education::create([
-                    'user_id' => $request->id,
-                    'level' => $request->level,
-                    'school' => $request->school,
-                    'university' => $request->university,
-                    'title' => $request->title,
-                    'graduation_date' => $request->graduation_date
-                ]);
-            }
+            Education::where('id', '=', $request->id)->update([
+                'level' => $request->level,
+                'school' => $request->school,
+                'university' => $request->university,
+                'title' => $request->title,
+                'graduation_date' => $request->graduation_date
+            ]);
 
             return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.users.preview', ['username' => $user->username]));
         }catch (\Exception $e){
             return $this->jsonError('1500', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
+        }
+    }
+
+    public function deleteEducation ($id): RedirectResponse{
+        try{
+            $education = Education::where('id', '=', $id)->first();
+            $user = User::where('id', '=', $education->user_id)->first();
+
+            $education->delete();
+
+            return redirect()->route('system.admin.users.preview', ['username' => $user->username]);
+        }catch (\Exception $e){
+            return back()->with('error', __('Desila se greška. Molimo pokušajte ponovo!'));
         }
     }
 }

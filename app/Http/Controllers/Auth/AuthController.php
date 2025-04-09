@@ -143,7 +143,7 @@ class AuthController extends Controller{
             /* Hash password and add token */
             $request['password'] = Hash::make($request->password);
             $request['api_token'] = hash('sha256', $request->email. '+'. time());
-            $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
+            if(isset($request->birth_date)) $request['birth_date'] = Carbon::parse($request->birth_date)->format('Y-m-d');
 
             /* When user is created, UserObserver is called and email was sent */
             /* Note: Data is logged into laravel.log */

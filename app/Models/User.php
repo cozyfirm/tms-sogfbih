@@ -163,6 +163,9 @@ class User extends Authenticatable
     public function educationRel(): HasOne{
         return $this->hasOne(Education::class, 'user_id', 'id');
     }
+    public function educationsRel(): HasMany{
+        return $this->hasMany(Education::class, 'user_id', 'id');
+    }
     public function cityRel(): HasOne{
         return $this->hasOne(City::class, 'id', 'city');
     }

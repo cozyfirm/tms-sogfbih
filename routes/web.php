@@ -96,8 +96,13 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             /**
              *  User education info
              */
-            Route::get ('/edit-education/{username}',             [UsersController::class, 'editEducation'])->name('system.admin.users.edit-education');
+            Route::get ('/create-education/{username}',           [UsersController::class, 'createEducation'])->name('system.admin.users.create-education');
+            Route::post('/save-education',                        [UsersController::class, 'saveEducation'])->name('system.admin.users.save-education');
+
+            Route::get ('/edit-education/{id}',                   [UsersController::class, 'editEducation'])->name('system.admin.users.edit-education');
             Route::post('/update-education',                      [UsersController::class, 'updateEducation'])->name('system.admin.users.update-education');
+
+            Route::get ('/delete-education/{id}',                 [UsersController::class, 'deleteEducation'])->name('system.admin.users.delete-education');
         });
 
         /**
@@ -277,6 +282,15 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                     Route::get ('/',                           [TrainersController::class, 'index'])->name('system.admin.trainings.submodules.trainers');
                     Route::get ('/preview/{username}',         [TrainersController::class, 'preview'])->name('system.admin.trainings.submodules.trainers.preview');
                     Route::post('/fetch',                      [TrainersController::class, 'fetch'])->name('system.admin.trainings.submodules.trainers.fetch');
+
+                    /**
+                     *  User education info
+                     */
+                    Route::get ('/create-education/{username}',           [TrainersController::class, 'createEducation'])->name('system.admin.trainings.submodules.trainers.create-education');
+                    Route::post('/save-education',                        [TrainersController::class, 'saveEducation'])->name('system.admin.trainings.submodules.trainers.save-education');
+                    Route::get ('/edit-education/{id}',                   [TrainersController::class, 'editEducation'])->name('system.admin.trainings.submodules.trainers.edit-education');
+                    Route::post('/update-education',                      [TrainersController::class, 'updateEducation'])->name('system.admin.trainings.submodules.trainers.update-education');
+                    Route::get ('/delete-education/{id}',                 [TrainersController::class, 'deleteEducation'])->name('system.admin.trainings.submodules.trainers.delete-education');
                 });
 
                 /**
@@ -472,8 +486,17 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             /**
              *  Education info
              */
-            Route::get ('/education',             [MyProfileController::class, 'education'])->name('system.user-data.my-profile.education');
-            Route::post('/education-update',      [MyProfileController::class, 'educationUpdate'])->name('system.user-data.my-profile.education.update');
+            // Route::get ('/education',             [MyProfileController::class, 'education'])->name('system.user-data.my-profile.education');
+            // Route::post('/education-update',      [MyProfileController::class, 'educationUpdate'])->name('system.user-data.my-profile.education.update');
+
+            /**
+             *  User education info
+             */
+            Route::get ('/create-education',                      [MyProfileController::class, 'createEducation'])->name('system.user-data.my-profile.education.create-education');
+            Route::post('/save-education',                        [MyProfileController::class, 'saveEducation'])->name('system.user-data.my-profile.education.save-education');
+            Route::get ('/edit-education/{id}',                   [MyProfileController::class, 'editEducation'])->name('system.user-data.my-profile.education.edit-education');
+            Route::post('/update-education',                      [MyProfileController::class, 'updateEducation'])->name('system.user-data.my-profile.education.update-education');
+            Route::get ('/delete-education/{id}',                 [MyProfileController::class, 'deleteEducation'])->name('system.user-data.my-profile.education.delete-education');
         });
 
         /**

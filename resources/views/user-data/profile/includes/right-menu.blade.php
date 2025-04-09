@@ -30,28 +30,30 @@
     </div>
 @endif
 
-@isset(Auth()->user()->educationRel)
-    <div class="rm-card" title="{{ __('Informacije o edukaciji') }}">
-        <div class="rm-card-header">
-            <div class="text__part" title="{{ __('Fakultet i univerzitet') }}">
-                <h5>{{ Auth()->user()->educationRel->school ?? '' }}</h5>
-                <p>{{ Auth()->user()->educationRel->university ?? '' }}</p>
+@if(Auth()->user()->educationsRel->count())
+    @foreach(Auth()->user()->educationsRel as $education)
+        <div class="rm-card" title="{{ __('Informacije o edukaciji') }}">
+            <div class="rm-card-header">
+                <div class="text__part" title="{{ __('Fakultet i univerzitet') }}">
+                    <h5><a href="{{ route('system.user-data.my-profile.education.edit-education', ['id' => $education->id ]) }}" class="hover-yellow-text" title="{{ __('Uredite informacije') }}">{{ $education->school ?? '' }}</a></h5>
+                    <p>{{ $education->university ?? '' }}</p>
+                </div>
+                <i class="fa-solid fa-building-columns"></i>
             </div>
-            <i class="fa-solid fa-building-columns"></i>
+            <hr>
+            <div class="location__wrapper">
+                <div class="lw__row" title="{{ __('Stečeno zvanje') }}">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <p>{{ $education->title ?? '' }}, {{ $education->levelRel->name ?? '' }}</p>
+                </div>
+                <div class="lw__row" title="{{ __('Datum diplomiranja') }}">
+                    <i class="fa-solid fa-calendar-day"></i>
+                    <p>{{ $education->date() ?? '' }}</p>
+                </div>
+            </div>
         </div>
-        <hr>
-        <div class="location__wrapper">
-            <div class="lw__row" title="{{ __('Stečeno zvanje') }}">
-                <i class="fa-solid fa-user-graduate"></i>
-                <p>{{ Auth()->user()->educationRel->title ?? '' }}, {{ Auth()->user()->educationRel->levelRel->name ?? '' }}</p>
-            </div>
-            <div class="lw__row" title="{{ __('Datum diplomiranja') }}">
-                <i class="fa-solid fa-calendar-day"></i>
-                <p>{{ Auth()->user()->educationRel->date() ?? '' }}</p>
-            </div>
-        </div>
-    </div>
-@endisset
+    @endforeach
+@endif
 
 @if(Auth()->user()->myLastTrainings->count())
     <div class="rm-card">
@@ -75,16 +77,16 @@
 @endif
 
 <div class="rm-card-icons">
-    <a href="{{ route('system.user-data.my-profile.education') }}" title="{{ __('Stručna sprema') }}" class="open-add-author">
+    <a href="{{ route('system.user-data.my-profile.education.create-education') }}" title="{{ __('Stručna sprema') }}" class="open-add-author">
         <div class="rm-ci-w">
             <img class="normal-icon" src="{{ asset('files/images/icons/building-columns-solid.svg') }}" alt="{{ __('University image') }}">
         </div>
     </a>
-    <a href="#" title="">
-        <div class="rm-ci-w">
-            <img src="{{ asset('files/images/icons/category.svg') }}" alt="{{ __('Category image') }}">
-        </div>
-    </a>
+{{--    <a href="{{ route('system.user-data.trainings') }}" title="{{ __('Sistem obuka') }}">--}}
+{{--        <div class="rm-ci-w">--}}
+{{--            <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">--}}
+{{--        </div>--}}
+{{--    </a>--}}
 </div>
 
 <!-- System access -->

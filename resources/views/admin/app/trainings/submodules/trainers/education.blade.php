@@ -4,20 +4,21 @@
 @section('c-title') {{ __('Stručna sprema') }} @endsection
 @section('c-breadcrumbs')
     <a href="{{ route('system.home') }}"> <i class="fas fa-home"></i> <p>{{ __('Dashboard') }}</p> </a> /
-    <a href="{{ route('system.admin.users') }}">{{ __('Pregled svih korisnika') }}</a> /
+    <a href="{{ route('system.admin.trainings.home') }}">{{ __('Sistem obuka') }}</a> /
+    <a href="{{ route('system.admin.trainings.submodules.trainers') }}">{{ __('Pregled svih trenera') }}</a> /
     <a href="{{ route('system.admin.users.preview', ['username' => $user->username ]) }}">{{ $user->name }}</a> /
     <a href="#">{{ __('Stručna sprema') }}</a>
 @endsection
 
 @section('c-buttons')
-    <a href="{{ route('system.admin.users.preview', ['username' => $user->username ]) }}">
+    <a href="{{ route('system.admin.trainings.submodules.trainers.preview', ['username' => $user->username ]) }}">
         <button class="pm-btn btn pm-btn-info">
             <i class="fas fa-chevron-left"></i>
             <span>{{ __('Nazad') }}</span>
         </button>
     </a>
     @if(isset($education))
-        <a href="{{ route('system.admin.users.delete-education', ['id' => $education->id]) }}" class="prevent-delete" text="{{ __('Jeste li sigurni da želite obrisati informacije o edukaciji?') }}" title="{{ __('Obrišite informacije o edukaciji') }}">
+        <a href="{{ route('system.admin.trainings.submodules.trainers.delete-education', ['id' => $education->id]) }}" class="prevent-delete" text="{{ __('Jeste li sigurni da želite obrisati informacije o edukaciji?') }}" title="{{ __('Obrišite informacije o edukaciji') }}">
             <button class="pm-btn btn pm-btn-trash">
                 <i class="fas fa-trash"></i>
             </button>
@@ -39,7 +40,7 @@
 
         <div class="form__info">
             <div class="form__info__inner">
-                <form action="@if(isset($edit)) {{ route('system.admin.users.update-education') }} @else {{ route('system.admin.users.save-education') }} @endif" method="POST" id="js-form">
+                <form action="@if(isset($edit)) {{ route('system.admin.trainings.submodules.trainers.update-education') }} @else {{ route('system.admin.trainings.submodules.trainers.save-education') }} @endif" method="POST" id="js-form">
 
                     {{ html()->hidden('user_id')->class('form-control')->value($user->id) }}
                     @if(isset($edit))

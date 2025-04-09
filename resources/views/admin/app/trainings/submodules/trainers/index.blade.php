@@ -74,6 +74,43 @@
                     <td> {{ $user->cityRel->title ?? ''}} </td>
                     <td> {{ $user->cityRel->countryRel->name_ba ?? ''}} </td>
 
+                    <td>
+                        <ul class="m-0 pl-2">
+                            @foreach($user->educationsRel as $education)
+                                <li> {{ $education->levelRel->name ?? '' }} </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="m-0 pl-2">
+                            @foreach($user->educationsRel as $education)
+                                <li> {{ $education->school ?? '' }} </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="m-0 pl-2">
+                            @foreach($user->educationsRel as $education)
+                                <li> {{ $education->university ?? '' }} </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="m-0 pl-2">
+                            @foreach($user->educationsRel as $education)
+                                <li> {{ $education->title ?? '' }} </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="m-0 pl-2">
+                            @foreach($user->educationsRel as $education)
+                                <li> {{ $education->date() ?? '' }} </li>
+                            @endforeach
+                        </ul>
+                    </td>
+
+
                     <td class="text-center">
                         <a class="table-btn-link" href="{{route('system.admin.trainings.submodules.trainers.preview', ['username' => $user->username] )}}" title="{{ __('Pregled trenera') }}">
                             <button class="table-btn">{{ __('Pregled') }}</button>
