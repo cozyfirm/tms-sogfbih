@@ -94,8 +94,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ html()->label(__('Broj telefona'))->for('phone')->class('bold') }}
-                                    {{ html()->text('phone')->class('form-control form-control-sm mt-2')->maxlength(13)->value('+387 ') }}
-                                    <small id="prefixHelp" class="form-text text-muted"> {{ __('Unesite Vaš broj telefona') }} </small>
+                                    {{ html()->text('phone')->class('form-control form-control-sm mt-2')->maxlength(13)->value('+387') }}
+                                    <small id="prefixHelp" class="form-text text-muted"> {{ __('Unesite Vaš broj telefona u formatu +387XX/XXX-XXX') }} </small>
                                 </div>
                             </div>
                             <div class="col-md-6">

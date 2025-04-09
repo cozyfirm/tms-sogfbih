@@ -124,10 +124,10 @@ $( document ).ready(function() {
                 Notify.Me(["Unesite Vaš broj telefona", "warn"]);
                 return;
             }
-            if(!Validator.date(birth_date)) {
-                Notify.Me(["Molimo da odaberete datum Vašeg rođenja. Ispravan format je dd.mm.YYYY ", "warn"]);
-                return;
-            }
+            // if(!Validator.date(birth_date)) {
+            //     Notify.Me(["Molimo da odaberete datum Vašeg rođenja. Ispravan format je dd.mm.YYYY ", "warn"]);
+            //     return;
+            // }
             if(address === ''){
                 Notify.Me(["Molimo da unesete Vašu adresu stanovanja", "warn"]);
                 return;

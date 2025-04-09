@@ -43,7 +43,7 @@ return new class extends Migration
 
             /* User attributes */
             $table->string('phone', 20);
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
             $table->foreignId('gender');
 
             /* Home address data */
