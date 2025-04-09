@@ -106,6 +106,21 @@
                     </div>
                 </form>
 
+                @if(isset($preview) and $user->areaRel->count())
+                    <div class="custom-hr"></div>
+
+                    <div class="mp__areas mb-32">
+                        <h4>{{ __('Oblasti ekspertize') }}</h4>
+                        <div class="mp__area__inner">
+                            @foreach($user->areaRel as $area)
+                                <div class="area__w">
+                                    <p>{{ $area->areaRel->name ?? '' }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
                 @if($user->trainersRel->count())
                     <div class="custom-hr"></div>
 
