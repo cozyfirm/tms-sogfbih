@@ -77,7 +77,7 @@
                     <td>
                         <ul class="m-0 pl-2">
                             @foreach($user->areaRel as $area)
-                                <li> {{ $area ?? '' }} </li>
+                                <li> {{ $area->areaRel->name ?? '' }} </li>
                             @endforeach
                         </ul>
                     </td>

@@ -40,7 +40,7 @@ class TrainersController extends Controller{
             'address' => __('Adresa'),
             'cityRel.title' => __('Grad'),
             'cityRel.countryRel.name_ba' => __('Država'),
-            'areaRel.name' => __('Oblasti'),
+            'areaRel.areaRel.name' => __('Oblasti'),
             'educationsRel.levelRel.name' => __('Stepen stručne spreme'),
             'educationsRel.school' => __('Škola / Fakultet'),
             'educationsRel.university' => __('Univerzitet'),
