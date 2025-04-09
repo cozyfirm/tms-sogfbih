@@ -143,6 +143,21 @@
                         </div>
                     </div>
                 @endif
+
+                @if(isset($preview) and Auth()->user()->role == 'trainer' and Auth()->user()->areaRel->count())
+                    <div class="custom-hr"></div>
+
+                    <div class="mp__areas mb-32">
+                        <h4>{{ __('Moje oblasti') }}</h4>
+                        <div class="mp__area__inner">
+                            @foreach(Auth()->user()->areaRel as $area)
+                                <div class="area__w">
+                                    <p>{{ $area->areaRel->name ?? '' }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
 

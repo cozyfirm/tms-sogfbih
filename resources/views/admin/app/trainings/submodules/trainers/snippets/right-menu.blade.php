@@ -65,9 +65,9 @@
             <img class="normal-icon" src="{{ asset('files/images/icons/building-columns-solid.svg') }}" alt="{{ __('University image') }}">
         </div>
     </a>
-    <a href="#" title="">
+    <a href="{{ route('system.admin.trainings.submodules.trainers.areas.edit', ['username' => $user->username ]) }}" title="">
         <div class="rm-ci-w">
-            <img src="{{ asset('files/images/icons/category.svg') }}" alt="{{ __('Category image') }}">
+            <img src="{{ asset('files/images/icons/category.svg') }}" alt="{{ __('Area image') }}">
         </div>
     </a>
 </div>

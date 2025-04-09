@@ -82,6 +82,14 @@
             <img class="normal-icon" src="{{ asset('files/images/icons/building-columns-solid.svg') }}" alt="{{ __('University image') }}">
         </div>
     </a>
+
+    @if(Auth()->user()->role == 'trainer')
+        <a href="{{ route('system.user-data.my-profile.areas.edit') }}" title="">
+            <div class="rm-ci-w">
+                <img src="{{ asset('files/images/icons/category.svg') }}" alt="{{ __('Area image') }}">
+            </div>
+        </a>
+    @endif
 {{--    <a href="{{ route('system.user-data.trainings') }}" title="{{ __('Sistem obuka') }}">--}}
 {{--        <div class="rm-ci-w">--}}
 {{--            <img class="normal-icon" src="{{ asset('files/images/icons/training.svg') }}" alt="{{ __('Training image') }}">--}}

@@ -76,6 +76,13 @@
 
                     <td>
                         <ul class="m-0 pl-2">
+                            @foreach($user->areaRel as $area)
+                                <li> {{ $area ?? '' }} </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="m-0 pl-2">
                             @foreach($user->educationsRel as $education)
                                 <li> {{ $education->levelRel->name ?? '' }} </li>
                             @endforeach

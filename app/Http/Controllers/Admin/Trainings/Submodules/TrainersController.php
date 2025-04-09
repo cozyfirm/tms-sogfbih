@@ -9,6 +9,7 @@ use App\Models\Core\Keyword;
 use App\Models\Trainings\Instances\InstanceTrainer;
 use App\Models\User;
 use App\Models\Users\Education;
+use App\Models\Users\TrainerArea;
 use App\Traits\Common\CommonTrait;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Trainings\TrainingTrait;
@@ -39,6 +40,7 @@ class TrainersController extends Controller{
             'address' => __('Adresa'),
             'cityRel.title' => __('Grad'),
             'cityRel.countryRel.name_ba' => __('Država'),
+            'areaRel.name' => __('Oblasti'),
             'educationsRel.levelRel.name' => __('Stepen stručne spreme'),
             'educationsRel.school' => __('Škola / Fakultet'),
             'educationsRel.university' => __('Univerzitet'),
@@ -165,6 +167,40 @@ class TrainersController extends Controller{
             return redirect()->route('system.admin.trainings.submodules.trainers.preview', ['username' => $user->username]);
         }catch (\Exception $e){
             return back()->with('error', __('Desila se greška. Molimo pokušajte ponovo!'));
+        }
+    }
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    /**
+     * Areas routes
+     */
+    public function editAreas ($username): View{
+        $user = User::where('username', '=', $username)->first();
+
+        return view($this->_path . 'areas', [
+            'user' => $user,
+            'areas' => Keyword::getIt('trainers__areas')
+        ]);
+    }
+
+    public function updateAreas(Request $request): JsonResponse{
+        try{
+            /* First, remove all of them */
+            TrainerArea::where('user_id', '=', $request->user_id)->delete();
+
+            /* Get user info */
+            $user = User::where('id', '=', $request->user_id)->first();
+
+            foreach ($request->areas as $area){
+                TrainerArea::create([
+                    'user_id' => $request->user_id,
+                    'area_id' => $area
+                ]);
+            }
+
+            return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.admin.trainings.submodules.trainers.preview', ['username' => $user->username]));
+        }catch (\Exception $e){
+            return $this->jsonError('1500', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
         }
     }
 }

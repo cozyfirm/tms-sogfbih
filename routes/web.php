@@ -291,6 +291,12 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
                     Route::get ('/edit-education/{id}',                   [TrainersController::class, 'editEducation'])->name('system.admin.trainings.submodules.trainers.edit-education');
                     Route::post('/update-education',                      [TrainersController::class, 'updateEducation'])->name('system.admin.trainings.submodules.trainers.update-education');
                     Route::get ('/delete-education/{id}',                 [TrainersController::class, 'deleteEducation'])->name('system.admin.trainings.submodules.trainers.delete-education');
+
+                    /**
+                     *  Trainer areas
+                     */
+                    Route::get ('/edit-areas/{username}',                 [TrainersController::class, 'editAreas'])->name('system.admin.trainings.submodules.trainers.areas.edit');
+                    Route::post('/update-areas',                          [TrainersController::class, 'updateAreas'])->name('system.admin.trainings.submodules.trainers.areas.update');
                 });
 
                 /**
@@ -497,6 +503,12 @@ Route::prefix('system')->middleware('isAuthenticated')->group(function () {
             Route::get ('/edit-education/{id}',                   [MyProfileController::class, 'editEducation'])->name('system.user-data.my-profile.education.edit-education');
             Route::post('/update-education',                      [MyProfileController::class, 'updateEducation'])->name('system.user-data.my-profile.education.update-education');
             Route::get ('/delete-education/{id}',                 [MyProfileController::class, 'deleteEducation'])->name('system.user-data.my-profile.education.delete-education');
+
+            /**
+             *  Trainer areas
+             */
+            Route::get ('/edit-areas',                            [MyProfileController::class, 'editAreas'])->name('system.user-data.my-profile.areas.edit');
+            Route::post('/update-areas',                          [MyProfileController::class, 'updateAreas'])->name('system.user-data.my-profile.areas.update');
         });
 
         /**

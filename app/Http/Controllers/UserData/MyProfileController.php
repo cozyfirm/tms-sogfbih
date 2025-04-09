@@ -7,6 +7,7 @@ use App\Models\Core\City;
 use App\Models\Core\Keyword;
 use App\Models\User;
 use App\Models\Users\Education;
+use App\Models\Users\TrainerArea;
 use App\Traits\Http\ResponseTrait;
 use App\Traits\Users\UserBaseTrait;
 use Carbon\Carbon;
@@ -148,6 +149,35 @@ class MyProfileController extends Controller{
             return redirect()->route('system.user-data.my-profile');
         }catch (\Exception $e){
             return back()->with('error', __('Desila se greška. Molimo pokušajte ponovo!'));
+        }
+    }
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+    /**
+     * Areas routes
+     */
+    public function editAreas (): View{
+        return view($this->_path . 'areas', [
+            'user' => Auth::user(),
+            'areas' => Keyword::getIt('trainers__areas')
+        ]);
+    }
+
+    public function updateAreas(Request $request): JsonResponse{
+        try{
+            /* First, remove all of them */
+            TrainerArea::where('user_id', '=', Auth::user()->id)->delete();
+
+            foreach ($request->areas as $area){
+                TrainerArea::create([
+                    'user_id' => Auth::user()->id,
+                    'area_id' => $area
+                ]);
+            }
+
+            return $this->jsonSuccess(__('Uspješno ste ažurirali podatke!'), route('system.user-data.my-profile'));
+        }catch (\Exception $e){
+            return $this->jsonError('1500', __('Greška prilikom procesiranja podataka. Molimo da nas kontaktirate!'));
         }
     }
 }

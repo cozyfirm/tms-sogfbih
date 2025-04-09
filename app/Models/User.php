@@ -11,6 +11,7 @@ use App\Models\Trainings\Instances\InstanceTrainer;
 use App\Models\Users\Education;
 use App\Models\Users\Notification;
 use App\Models\Users\SystemAccess;
+use App\Models\Users\TrainerArea;
 use App\Traits\Common\CommonTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -202,5 +203,8 @@ class User extends Authenticatable
     }
     public function contractValue(): string{
         return $this->roundNumber(InstanceTrainer::where('trainer_id', '=', $this->id)->where('grade', '!=', '0.0')->sum('contract'), 2);
+    }
+    public function areaRel(): HasMany{
+        return $this->hasMany(TrainerArea::class, 'user_id', 'id');
     }
 }

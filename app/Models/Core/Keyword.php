@@ -30,6 +30,7 @@ class Keyword extends Model{
         'user_type' => 'Fizička ili pravna lica',
         'event_type' => 'Vrsta događaja',
         'users__education_level' => 'Stepen stručne spreme',
+        'trainers__areas' => 'Oblasti iz koje treneri dolaze',
         // 'trainer__grade' => 'Ocjena trenera',
         'evaluation__question_type' => 'Evaluacije: Vrsta pitanja',
 //        'evaluation__type' => 'Evaluacije: Vrsta evaluacije',

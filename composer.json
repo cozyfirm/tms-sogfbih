@@ -33,7 +33,8 @@
             "app/Http/Helpers/FileHelper.php",
             "app/Http/Helpers/ApplicationHelper.php",
             "app/Http/Helpers/EvaluationsHelper.php",
-            "app/Http/Helpers/OtherHelper.php"
+            "app/Http/Helpers/OtherHelper.php",
+            "app/Http/Helpers/UserHelper.php"
         ]
     },
     "autoload-dev": {
